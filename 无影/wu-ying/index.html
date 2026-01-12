@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无影 - 集成赋能套件</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#0a1929',
+                        'tech-blue': '#1e3a8a',
+                        'neon-cyan': '#06b6d4',
+                        'electric-purple': '#a855f7',
+                        'dark-card': '#0f172a',
+                        'accent-green': '#10b981'
+                    },
+                    fontFamily: {
+                        'display': ['Orbitron', 'sans-serif'],
+                        'body': ['IBM Plex Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: #0a1929;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* 网络背景动画 */
+        #network-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .dashboard-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 导航栏样式 */
+        .sidebar {
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            border-right: 1px solid rgba(6, 182, 212, 0.2);
+            box-shadow: 4px 0 24px rgba(6, 182, 212, 0.1);
+        }
+
+        .logo-glow {
+            filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.6));
+        }
+
+        .nav-item {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.2), transparent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-item:hover::before {
+            width: 100%;
+        }
+
+        .nav-item:hover {
+            background: rgba(6, 182, 212, 0.05);
+            border-left-color: #06b6d4;
+            transform: translateX(4px);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.15), transparent);
+            border-left-color: #06b6d4;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            border-color: rgba(6, 182, 212, 0.5);
+            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.2);
+            transform: translateY(-4px);
+        }
+
+        /* 统计卡片 */
+        .stat-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        /* 连接器状态指示 */
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+        }
+
+        .status-dot.active {
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        .status-dot.inactive {
+            background: #6b7280;
+        }
+
+        .status-dot.error {
+            background: #ef4444;
+            box-shadow: 0 0 10px #ef4444;
+        }
+
+        @keyframes ping {
+            75%, 100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .status-dot.active::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: inherit;
+            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        /* 按钮样式 */
+        .btn-primary {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            border: none;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #06b6d4;
+            color: #06b6d4;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(6, 182, 212, 0.1);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+        }
+
+        /* 表格样式 */
+        .table-container {
+            background: #0f172a;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .table-header {
+            background: linear-gradient(90deg, #1e293b 0%, #0f172a 100%);
+            border-bottom: 2px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .table-row {
+            border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .table-row:hover {
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        /* 进度条 */
+        .progress-bar {
+            background: #1e293b;
+            border-radius: 9999px;
+            overflow: hidden;
+            height: 8px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #06b6d4 0%, #0891b2 100%);
+            height: 100%;
+            transition: width 1s ease;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        /* 徽章 */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid #10b981;
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            border: 1px solid #f59e0b;
+        }
+
+        .badge-error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+
+        .badge-info {
+            background: rgba(6, 182, 212, 0.2);
+            color: #06b6d4;
+            border: 1px solid #06b6d4;
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #06b6d4;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0891b2;
+        }
+
+        /* 加载动画 */
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(6, 182, 212, 0.2);
+            border-top-color: #06b6d4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 标题发光效果 */
+        .glow-text {
+            text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+        }
+
+        /* 连接线动画 */
+        .connection-line {
+            stroke: #06b6d4;
+            stroke-width: 2;
+            stroke-dasharray: 5, 5;
+            animation: dash 20s linear infinite;
+        }
+
+        @keyframes dash {
+            to { stroke-dashoffset: -1000; }
+        }
+
+        /* 淡入动画 */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 图表容器 */
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 网络背景 -->
+    <canvas id="network-bg"></canvas>
+
+    <div class="dashboard-wrapper flex h-screen overflow-hidden">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar w-64 flex-shrink-0 hidden md:block">
+            <div class="p-6 border-b border-cyan-500/20">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gradient-to-br from-neon-cyan to-tech-blue rounded-lg flex items-center justify-center logo-glow">
+                        <i class="fa fa-plug text-white text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold font-display text-neon-cyan">无影</h1>
+                        <p class="text-xs text-gray-400">集成赋能套件</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="p-4 space-y-2">
+                <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 font-display">
+                    核心模块
+                </div>
+
+                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-300 rounded-lg active" data-section="dashboard">
+                    <i class="fa fa-dashboard w-5 h-5 mr-3 text-neon-cyan"></i>
+                    <span>集成仪表盘</span>
+                </a>
+
+                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-300 rounded-lg" data-section="connectors">
+                    <i class="fa fa-cubes w-5 h-5 mr-3 text-gray-400"></i>
+                    <span>连接器工厂</span>
+                </a>
+
+                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-300 rounded-lg" data-section="api-gateway">
+                    <i class="fa fa-exchange w-5 h-5 mr-3 text-gray-400"></i>
+                    <span>API网关</span>
+                </a>
+
+                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-300 rounded-lg" data-section="security">
+                    <i class="fa fa-shield w-5 h-5 mr-3 text-gray-400"></i>
+                    <span>安全与审计</span>
+                </a>
+
+                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-300 rounded-lg" data-section="developer">
+                    <i class="fa fa-code w-5 h-5 mr-3 text-gray-400"></i>
+                    <span>开发者中心</span>
+                </a>
+
+                <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 mt-6 font-display">
+                    系统
+                </div>
+
+                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-300 rounded-lg" data-section="settings">
+                    <i class="fa fa-cog w-5 h-5 mr-3 text-gray-400"></i>
+                    <span>系统设置</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- 顶部导航栏 -->
+            <header class="bg-dark-card/50 backdrop-blur-md border-b border-cyan-500/20 sticky top-0 z-10">
+                <div class="px-6 py-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-2xl font-bold font-display glow-text">集成仪表盘</h2>
+                            <p class="text-sm text-gray-400 mt-1">企业智能能力的生态连接器</p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <button class="btn-secondary px-4 py-2 rounded-lg font-medium">
+                                <i class="fa fa-refresh mr-2"></i>刷新
+                            </button>
+                            <button class="btn-primary px-4 py-2 rounded-lg text-white font-medium">
+                                <i class="fa fa-plus mr-2"></i>新建连接
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 仪表盘内容 -->
+            <div id="dashboard-section" class="p-6 space-y-6">
+                <!-- 关键指标卡片 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 fade-in">
+                    <div class="stat-card rounded-xl p-6 relative">
+                        <div class="relative z-10">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 bg-neon-cyan/20 rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-plug text-neon-cyan text-xl"></i>
+                                </div>
+                                <span class="status-dot active"></span>
+                            </div>
+                            <h3 class="text-3xl font-bold font-display text-neon-cyan mb-2">48</h3>
+                            <p class="text-sm text-gray-400">活跃连接器</p>
+                            <div class="mt-3 flex items-center text-xs text-green-400">
+                                <i class="fa fa-arrow-up mr-1"></i>
+                                <span>+12% 本月</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card rounded-xl p-6 relative">
+                        <div class="relative z-10">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 bg-electric-purple/20 rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-exchange text-electric-purple text-xl"></i>
+                                </div>
+                                <span class="badge badge-success">正常</span>
+                            </div>
+                            <h3 class="text-3xl font-bold font-display text-electric-purple mb-2">2.4M</h3>
+                            <p class="text-sm text-gray-400">今日API调用</p>
+                            <div class="mt-3">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 68%"></div>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">配额使用: 68%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card rounded-xl p-6 relative">
+                        <div class="relative z-10">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 bg-accent-green/20 rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-check-circle text-accent-green text-xl"></i>
+                                </div>
+                                <span class="badge badge-success">99.8%</span>
+                            </div>
+                            <h3 class="text-3xl font-bold font-display text-accent-green mb-2">156</h3>
+                            <p class="text-sm text-gray-400">成功同步任务</p>
+                            <div class="mt-3 flex items-center text-xs text-gray-400">
+                                <i class="fa fa-clock-o mr-1"></i>
+                                <span>平均延迟: 45ms</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card rounded-xl p-6 relative">
+                        <div class="relative z-10">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-exclamation-triangle text-red-400 text-xl"></i>
+                                </div>
+                                <span class="status-dot error"></span>
+                            </div>
+                            <h3 class="text-3xl font-bold font-display text-red-400 mb-2">3</h3>
+                            <p class="text-sm text-gray-400">待处理告警</p>
+                            <div class="mt-3">
+                                <button class="text-xs text-red-400 hover:text-red-300 transition">
+                                    查看详情 <i class="fa fa-arrow-right ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API调用趋势 -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="card rounded-xl p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-bold font-display">API调用趋势</h3>
+                            <select class="bg-dark-card border border-cyan-500/30 rounded-lg px-3 py-1 text-sm text-gray-300 focus:outline-none focus:border-cyan-500">
+                                <option>过去7天</option>
+                                <option>过去30天</option>
+                                <option>过去90天</option>
+                            </select>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="apiTrendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card rounded-xl p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-bold font-display">连接器分布</h3>
+                            <button class="text-sm text-cyan-400 hover:text-cyan-300 transition">
+                                查看全部 <i class="fa fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="connectorDistChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 活跃连接器列表 -->
+                <div class="card rounded-xl p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-bold font-display">活跃连接器</h3>
+                        <div class="flex items-center space-x-3">
+                            <input type="text" placeholder="搜索连接器..." class="bg-dark-card border border-cyan-500/30 rounded-lg px-4 py-2 text-sm text-gray-300 focus:outline-none focus:border-cyan-500 w-64">
+                            <button class="btn-secondary px-4 py-2 rounded-lg text-sm">
+                                <i class="fa fa-filter mr-2"></i>筛选
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="w-full">
+                            <thead class="table-header">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">连接器名称</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">类型</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">状态</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">最后同步</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">数据量</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-row">
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                                                <i class="fa fa-windows text-blue-400"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-200">Microsoft 365</p>
+                                                <p class="text-xs text-gray-500">Office套件集成</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <span class="badge badge-info">办公协作</span>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center">
+                                            <span class="status-dot active mr-2"></span>
+                                            <span class="text-sm text-green-400">正常</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-sm text-gray-400">2分钟前</td>
+                                    <td class="px-4 py-4 text-sm text-gray-300">1.2K条/天</td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center space-x-2">
+                                            <button class="text-cyan-400 hover:text-cyan-300 transition">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                            <button class="text-cyan-400 hover:text-cyan-300 transition">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button class="text-red-400 hover:text-red-300 transition">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="table-row">
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center mr-3">
+                                                <i class="fa fa-database text-green-400"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-200">Salesforce CRM</p>
+                                                <p class="text-xs text-gray-500">客户关系管理</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <span class="badge badge-success">业务系统</span>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center">
+                                            <span class="status-dot active mr-2"></span>
+                                            <span class="text-sm text-green-400">正常</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-sm text-gray-400">5分钟前</td>
+                                    <td class="px-4 py-4 text-sm text-gray-300">3.5K条/天</td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center space-x-2">
+                                            <button class="text-cyan-400 hover:text-cyan-300 transition">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                            <button class="text-cyan-400 hover:text-cyan-300 transition">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button class="text-red-400 hover:text-red-300 transition">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="table-row">
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3">
+                                                <i class="fa fa-gitlab text-orange-400"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-200">GitLab</p>
+                                                <p class="text-xs text-gray-500">代码仓库管理</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <span class="badge badge-warning">研发工具</span>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center">
+                                            <span class="status-dot active mr-2"></span>
+                                            <span class="text-sm text-green-400">正常</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-sm text-gray-400">10分钟前</td>
+                                    <td class="px-4 py-4 text-sm text-gray-300">890条/天</td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center space-x-2">
+                                            <button class="text-cyan-400 hover:text-cyan-300 transition">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                            <button class="text-cyan-400 hover:text-cyan-300 transition">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button class="text-red-400 hover:text-red-300 transition">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="table-row">
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center mr-3">
+                                                <i class="fa fa-slack text-purple-400"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-200">Slack</p>
+                                                <p class="text-xs text-gray-500">团队协作平台</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <span class="badge badge-info">办公协作</span>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center">
+                                            <span class="status-dot error mr-2"></span>
+                                            <span class="text-sm text-red-400">连接失败</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-sm text-gray-400">2小时前</td>
+                                    <td class="px-4 py-4 text-sm text-gray-300">-</td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center space-x-2">
+                                            <button class="text-cyan-400 hover:text-cyan-300 transition">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                            <button class="text-yellow-400 hover:text-yellow-300 transition">
+                                                <i class="fa fa-wrench"></i>
+                                            </button>
+                                            <button class="text-red-400 hover:text-red-300 transition">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="table-row">
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center mr-3">
+                                                <i class="fa fa-database text-red-400"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-200">SAP ERP</p>
+                                                <p class="text-xs text-gray-500">企业资源规划</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <span class="badge badge-success">业务系统</span>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center">
+                                            <span class="status-dot active mr-2"></span>
+                                            <span class="text-sm text-green-400">正常</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-sm text-gray-400">30分钟前</td>
+                                    <td class="px-4 py-4 text-sm text-gray-300">2.8K条/天</td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center space-x-2">
+                                            <button class="text-cyan-400 hover:text-cyan-300 transition">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                            <button class="text-cyan-400 hover:text-cyan-300 transition">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button class="text-red-400 hover:text-red-300 transition">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 系统健康度 -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="card rounded-xl p-6">
+                        <h3 class="text-lg font-bold font-display mb-4">网关性能</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm text-gray-400">请求延迟 (P95)</span>
+                                    <span class="text-sm font-medium text-green-400">42ms</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 42%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm text-gray-400">错误率</span>
+                                    <span class="text-sm font-medium text-green-400">0.2%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 2%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm text-gray-400">吞吐量</span>
+                                    <span class="text-sm font-medium text-cyan-400">8.5K/s</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card rounded-xl p-6">
+                        <h3 class="text-lg font-bold font-display mb-4">安全事件</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-dark-card rounded-lg">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center mr-3">
+                                        <i class="fa fa-exclamation text-yellow-400 text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-200">异常访问</p>
+                                        <p class="text-xs text-gray-500">5次失败登录</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-gray-500">1小时前</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-dark-card rounded-lg">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center mr-3">
+                                        <i class="fa fa-check text-green-400 text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-200">合规扫描</p>
+                                        <p class="text-xs text-gray-500">无违规项</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-gray-500">2小时前</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-dark-card rounded-lg">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-cyan-500/20 rounded-full flex items-center justify-center mr-3">
+                                        <i class="fa fa-shield text-cyan-400 text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-200">防火墙更新</p>
+                                        <p class="text-xs text-gray-500">规则已更新</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-gray-500">3小时前</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card rounded-xl p-6">
+                        <h3 class="text-lg font-bold font-display mb-4">最近活动</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start">
+                                <div class="w-2 h-2 bg-cyan-400 rounded-full mt-2 mr-3"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-gray-300">新建Figma连接器</p>
+                                    <p class="text-xs text-gray-500">管理员 · 10分钟前</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 mr-3"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-gray-300">更新API密钥权限</p>
+                                    <p class="text-xs text-gray-500">张伟 · 25分钟前</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-gray-300">完成数据同步</p>
+                                    <p class="text-xs text-gray-500">系统 · 1小时前</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-2 h-2 bg-yellow-400 rounded-full mt-2 mr-3"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm text-gray-300">审计日志导出</p>
+                                    <p class="text-xs text-gray-500">李娜 · 2小时前</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 网络背景动画
+        const canvas = document.getElementById('network-bg');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const nodes = [];
+        const nodeCount = 50;
+        const maxDistance = 150;
+
+        class Node {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(6, 182, 212, 0.6)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push(new Node());
+        }
+
+        function drawConnections() {
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < maxDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.strokeStyle = `rgba(6, 182, 212, ${0.2 * (1 - distance / maxDistance)})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            drawConnections();
+
+            nodes.forEach(node => {
+                node.update();
+                node.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // 初始化图表
+        // API调用趋势图
+        const apiTrendCtx = document.getElementById('apiTrendChart').getContext('2d');
+        new Chart(apiTrendCtx, {
+            type: 'line',
+            data: {
+                labels: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+                datasets: [{
+                    label: 'API调用量',
+                    data: [1.8, 2.1, 2.4, 2.2, 2.6, 2.3, 2.4],
+                    borderColor: '#06b6d4',
+                    backgroundColor: 'rgba(6, 182, 212, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#06b6d4',
+                    pointBorderColor: '#0a1929',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        titleColor: '#06b6d4',
+                        bodyColor: '#e2e8f0',
+                        borderColor: '#06b6d4',
+                        borderWidth: 1,
+                        padding: 12,
+                        displayColors: false
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#6b7280'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: 'rgba(6, 182, 212, 0.1)'
+                        },
+                        ticks: {
+                            color: '#6b7280',
+                            callback: function(value) {
+                                return value + 'M';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 连接器分布图
+        const connectorDistCtx = document.getElementById('connectorDistChart').getContext('2d');
+        new Chart(connectorDistCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['办公协作', '业务系统', '研发工具', '数据存储', '其他'],
+                datasets: [{
+                    data: [30, 25, 20, 15, 10],
+                    backgroundColor: [
+                        '#06b6d4',
+                        '#a855f7',
+                        '#10b981',
+                        '#f59e0b',
+                        '#6b7280'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#0a1929'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            color: '#e2e8f0',
+                            padding: 15,
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        titleColor: '#06b6d4',
+                        bodyColor: '#e2e8f0',
+                        borderColor: '#06b6d4',
+                        borderWidth: 1,
+                        padding: 12
+                    }
+                }
+            }
+        });
+
+        // 导航切换
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                    nav.querySelector('i').classList.remove('text-neon-cyan');
+                    nav.querySelector('i').classList.add('text-gray-400');
+                });
+                this.classList.add('active');
+                this.querySelector('i').classList.remove('text-gray-400');
+                this.querySelector('i').classList.add('text-neon-cyan');
+            });
+        });
+    </script>
+</body>
+</html>
