@@ -3,1027 +3,1646 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智核平台 - 主工作台</title>
-    <!-- Tailwind CSS v3 -->
+    <title>智核平台 - 智能工作台</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
-    <!-- Tailwind 配置 -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#8b5cf6',
-                        secondary: '#3b82f6',
-                        accent: '#ec4899',
+                        ink: '#111827',
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                        accent: '#f59e0b',
                         success: '#10b981',
                         warning: '#f59e0b',
                         danger: '#ef4444',
-                        light: '#f8f7ff',
-                        card: 'rgba(255, 255, 255, 0.95)',
-                        'purple-light': '#f5f3ff',
-                        'blue-light': '#eff6ff',
-                        'pink-light': '#fdf2f8',
-                        dark: '#172b4d',
-                        'gray-50': '#fafbfc',
-                        'gray-100': '#f4f5f7',
-                        'gray-200': '#ebecf0',
-                        'gray-300': '#dfe1e6',
-                        'gray-400': '#c1c7d0',
-                        'gray-500': '#a3a8b8',
-                        'gray-600': '#6b778c',
-                        'gray-700': '#42526e',
-                        'gray-800': '#253858',
-                        'gray-900': '#172b4d'
+                        card: '#ffffff',
+                        'purple-light': '#ede9fe',
+                        'blue-light': '#dbeafe',
+                        'pink-light': '#fce7f3',
+                        dark: '#1f2937',
+                        paper: '#ffffff',
+                        surface: '#f8fafc',
+                        muted: '#6b7280',
+                        line: '#e5e7eb',
+                        mist: '#f3f4f6',
+                        ocean: '#dbeafe',
+                        coral: '#fde68a'
                     },
                     fontFamily: {
-                        sans: ['Noto Sans SC', 'system-ui', 'sans-serif'],
-                        display: ['Quicksand', 'system-ui', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Inter', 'system-ui', 'sans-serif'],
                     },
                     boxShadow: {
-                        'card': '0 2px 5px 0 rgba(0, 0, 0, 0.05)',
-                        'dropdown': '0 4px 12px rgba(0, 0, 0, 0.15)',
-                        'hover': '0 8px 16px rgba(0, 0, 0, 0.1)',
+                        card: '0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)',
+                        soft: '0 4px 8px rgba(0, 0, 0, 0.08)',
+                        float: '0 8px 20px rgba(0, 0, 0, 0.12)'
                     },
                     animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        float: 'float 5s ease-in-out infinite',
+                        fadeUp: 'fadeUp 0.6s ease forwards',
+                        pulseSoft: 'pulse 3s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-6px)' }
+                        },
+                        fadeUp: {
+                            '0%': { opacity: 0, transform: 'translateY(18px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' }
+                        }
                     }
                 }
             }
         }
     </script>
     <style type="text/tailwindcss">
+        :root {
+            color-scheme: light;
+        }
         @layer utilities {
-            .scrollbar-hide::-webkit-scrollbar {
-                display: none;
+            .scrollbar-hide::-webkit-scrollbar { display: none; }
+            .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+            .glass { background: rgba(255, 255, 255, 0.9); border: 1px solid #e5e7eb; }
+            .bg-horizon {
+                background-color: #f8fafc;
+                background-image:
+                    linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+                background-size: 20px 20px;
             }
-            .scrollbar-hide {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-            }
-            .text-shadow {
-                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            .bg-gradient-blue {
-                background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
-            }
-            .bg-gradient-light {
-                background: linear-gradient(135deg, #f8f7ff 0%, #e9e4ff 50%, #f0ebff 100%);
-            }
-            .bg-zhihe {
-                background: linear-gradient(135deg, #f8f7ff 0%, #e9e4ff 50%, #f0ebff 100%);
-            }
-            .transition-all-300 {
-                transition: all 0.3s ease;
-            }
+            .page { display: none; }
+            .page.active { display: flex; }
+            .tab-panel { display: none; }
+            .tab-panel.active { display: block; }
+            .view-panel { display: none; }
+            .view-panel.active { display: block; }
         }
     </style>
 </head>
-<body class="bg-zhihe font-sans text-gray-900 h-screen flex flex-col overflow-hidden">
-    <!-- 顶部导航栏 -->
-    <header class="bg-card border-b border-gray-200 h-16 flex items-center px-4 z-10">
-        <div class="flex items-center">
-            <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/ff86e750741a42a6b406ea45749a2bc9~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202601091136303CDA6E02C99E9AC21137&rrcfp=f06b921b&x-expires=1770521824&x-signature=n2Vv2YlHvjBQESUxANiD6OOMTEM%3D" alt="智核平台" class="h-8 w-auto mr-3">
-            <h1 class="text-xl font-bold text-primary hidden md:block font-display">智核平台</h1>
-        </div>
-        
-        <!-- 全局搜索框 -->
-        <div class="relative mx-4 flex-grow max-w-2xl">
-            <div class="relative">
-                <input type="text" placeholder="搜索知识、文档、任务..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-gray-50">
-                <span class="absolute left-3 top-2.5 text-gray-400">
-                    <i class="fa fa-search"></i>
-                </span>
-                <span class="absolute right-3 top-2.5 text-gray-400 text-xs">
-                    Ctrl/Cmd + K
-                </span>
+<body class="bg-horizon font-sans text-ink min-h-screen flex flex-col overflow-y-auto">
+    <div class="fixed inset-0 pointer-events-none">
+        <div class="absolute -top-24 -left-20 w-72 h-72 rounded-full bg-secondary/20 blur-3xl animate-float"></div>
+        <div class="absolute bottom-10 right-6 w-64 h-64 rounded-full bg-accent/20 blur-3xl animate-float"></div>
+    </div>
+
+    <header class="relative z-20 flex items-center justify-between px-5 py-3 border-b border-line glass">
+        <div class="flex items-center space-x-3">
+            <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/ff86e750741a42a6b406ea45749a2bc9~tplv-a9rns2rl98-image.image?lk3s=8e244e95&rcl=202601091136303CDA6E02C99E9AC21137&rrcfp=f06b921b&x-expires=1770521824&x-signature=n2Vv2YlHvjBQESUxANiD6OOMTEM%3D" alt="智核平台" class="h-9 w-auto">
+            <div>
+                <h1 class="text-lg font-display font-semibold tracking-wide">智核平台</h1>
+                <p class="text-xs text-muted">智能工作台 · 知识协作入口</p>
             </div>
-            <!-- 搜索建议下拉框 (默认隐藏) -->
-            <div id="search-suggestions" class="hidden absolute mt-1 w-full bg-card rounded-lg shadow-dropdown border border-gray-200 z-20 max-h-96 overflow-y-auto">
-                <div class="p-3 border-b border-gray-200">
-                    <h3 class="text-sm font-medium text-gray-500">最近搜索</h3>
-                    <ul class="mt-2">
-                        <li class="py-2 px-2 hover:bg-gray-50 rounded cursor-pointer">
-                            <div class="flex items-center">
-                                <i class="fa fa-history text-gray-400 mr-2"></i>
-                                <span>Q3销售报告</span>
-                            </div>
-                        </li>
-                        <li class="py-2 px-2 hover:bg-gray-50 rounded cursor-pointer">
-                            <div class="flex items-center">
-                                <i class="fa fa-history text-gray-400 mr-2"></i>
-                                <span>新员工入职流程</span>
-                            </div>
-                        </li>
+        </div>
+        <div class="flex-1 mx-6 max-w-3xl">
+            <div class="relative">
+                <input id="global-search" type="text" placeholder="搜索知识、任务、智能体…" class="w-full px-10 py-2.5 rounded-full border border-line bg-paper focus:outline-none focus:ring-2 focus:ring-secondary/40">
+                <span class="absolute left-4 top-2.5 text-muted"><i class="fa fa-search"></i></span>
+                <span class="absolute right-4 top-2.5 text-xs text-muted">Ctrl/Cmd + K</span>
+            </div>
+            <div id="search-suggestions" class="hidden absolute mt-2 w-full bg-white rounded-2xl shadow-card border border-line p-4 text-sm z-30">
+                <div class="mb-3">
+                    <p class="text-xs text-muted uppercase tracking-wide">最近搜索</p>
+                    <ul class="mt-2 space-y-2">
+                        <li class="flex items-center gap-2 cursor-pointer hover:text-secondary"><i class="fa fa-history text-muted"></i>Q3销售报告</li>
+                        <li class="flex items-center gap-2 cursor-pointer hover:text-secondary"><i class="fa fa-history text-muted"></i>新员工入职流程</li>
                     </ul>
                 </div>
-                <div class="p-3">
-                    <h3 class="text-sm font-medium text-gray-500">热门搜索</h3>
-                    <div class="flex flex-wrap gap-2 mt-2">
-                        <span class="px-3 py-1 bg-purple-light text-gray-700 rounded-full text-sm hover:bg-gray-200 cursor-pointer">年度预算</span>
-                        <span class="px-3 py-1 bg-blue-light text-gray-700 rounded-full text-sm hover:bg-gray-200 cursor-pointer">产品 roadmap</span>
-                        <span class="px-3 py-1 bg-pink-light text-gray-700 rounded-full text-sm hover:bg-gray-200 cursor-pointer">客户满意度</span>
+                <div>
+                    <p class="text-xs text-muted uppercase tracking-wide">热门搜索</p>
+                    <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                        <span class="px-3 py-1 rounded-full bg-mist cursor-pointer">年度预算</span>
+                        <span class="px-3 py-1 rounded-full bg-mist cursor-pointer">产品roadmap</span>
+                        <span class="px-3 py-1 rounded-full bg-mist cursor-pointer">客户满意度</span>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- 用户信息 -->
-        <div class="flex items-center">
-            <button class="p-2 rounded-full hover:bg-gray-100 mr-2 relative">
-                <i class="fa fa-bell-o text-gray-600"></i>
-                <span class="absolute top-1 right-1 w-2 h-2 bg-danger rounded-full"></span>
-            </button>
-            <button class="p-2 rounded-full hover:bg-gray-100 mr-2">
-                <i class="fa fa-cog text-gray-600"></i>
-            </button>
-            <div class="flex items-center ml-2 cursor-pointer">
-                <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" alt="用户头像" class="w-8 h-8 rounded-full object-cover border-2 border-white">
-                <div class="ml-2 hidden md:block">
+        <div class="flex items-center space-x-3">
+            <button id="open-capture" class="px-3 py-2 rounded-full bg-primary text-white text-sm shadow-soft hover:bg-secondary transition">快速捕获</button>
+            <button class="p-2 rounded-full hover:bg-white/60"><i class="fa fa-bell-o text-muted"></i></button>
+            <button class="p-2 rounded-full hover:bg-white/60"><i class="fa fa-cog text-muted"></i></button>
+            <div class="flex items-center space-x-2 cursor-pointer">
+                <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" alt="用户头像" class="w-9 h-9 rounded-full border border-white shadow">
+                <div class="hidden md:block">
                     <p class="text-sm font-medium">张明</p>
-                    <p class="text-xs text-gray-500">产品经理</p>
+                    <p class="text-xs text-muted">产品经理</p>
                 </div>
-                <i class="fa fa-chevron-down text-xs text-gray-500 ml-1"></i>
             </div>
         </div>
     </header>
 
-    <!-- 主要内容区域 -->
-    <main class="flex flex-1 overflow-hidden">
-        <!-- 左侧边栏 -->
-        <aside class="w-64 bg-card border-r border-gray-200 flex flex-col h-full">
-            <!-- 导航菜单 -->
-            <nav class="p-4 flex-1 overflow-y-auto">
-                <ul>
-                    <li class="mb-1">
-                        <a href="#" class="flex items-center p-3 rounded-lg bg-primary bg-opacity-10 text-primary font-medium font-display text-sm">
-                            <i class="fa fa-home w-5 text-center mr-3"></i>
-                            <span>主工作台</span>
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="#" class="flex items-center p-3 rounded-lg hover:bg-purple-light text-gray-700 text-sm">
-                            <i class="fa fa-file-text-o w-5 text-center mr-3"></i>
-                            <span>文档中心</span>
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="#" class="flex items-center p-3 rounded-lg hover:bg-purple-light text-gray-700 text-sm">
-                            <i class="fa fa-tasks w-5 text-center mr-3"></i>
-                            <span>任务管理</span>
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="#" class="flex items-center p-3 rounded-lg hover:bg-purple-light text-gray-700 text-sm">
-                            <i class="fa fa-bar-chart w-5 text-center mr-3"></i>
-                            <span>数据分析</span>
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="#" class="flex items-center p-3 rounded-lg hover:bg-purple-light text-gray-700 text-sm">
-                            <i class="fa fa-users w-5 text-center mr-3"></i>
-                            <span>团队协作</span>
-                        </a>
-                    </li>
-                    <li class="mb-1">
-                        <a href="#" class="flex items-center p-3 rounded-lg hover:bg-purple-light text-gray-700 text-sm">
-                            <i class="fa fa-calendar w-5 text-center mr-3"></i>
-                            <span>日程安排</span>
-                        </a>
-                    </li>
-                </ul>
-                
-                <div class="mt-8">
-                    <h3 class="text-xs uppercase text-gray-500 font-semibold mb-2 px-3 font-display">最近会话</h3>
-                    <ul>
-                        <li class="mb-1">
-                            <a href="#" class="flex items-center p-3 rounded-lg hover:bg-purple-light text-gray-700 text-sm">
-                                <div class="w-2 h-2 bg-success rounded-full mr-3"></div>
-                                <span class="truncate">Q3销售数据分析</span>
-                            </a>
-                        </li>
-                        <li class="mb-1">
-                            <a href="#" class="flex items-center p-3 rounded-lg hover:bg-purple-light text-gray-700 text-sm">
-                                <div class="w-2 h-2 bg-gray-400 rounded-full mr-3"></div>
-                                <span class="truncate">产品需求文档模板</span>
-                            </a>
-                        </li>
-                        <li class="mb-1">
-                            <a href="#" class="flex items-center p-3 rounded-lg hover:bg-purple-light text-gray-700 text-sm">
-                                <div class="w-2 h-2 bg-gray-400 rounded-full mr-3"></div>
-                                <span class="truncate">新员工入职流程</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+    <main class="relative flex-1 flex overflow-auto">
+        <aside class="w-64 border-r border-line glass px-3 py-4 flex flex-col gap-4">
+            <div class="px-3">
+                <p class="text-xs text-muted uppercase tracking-wider">导航</p>
+            </div>
+            <nav class="flex-1 space-y-2 overflow-y-auto scrollbar-hide">
+                <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium bg-primary/10 text-primary" data-page="workbench">
+                    <i class="fa fa-comments-o w-5 text-center mr-3"></i>智能工作台
+                </button>
+                <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm text-muted hover:bg-white/70" data-page="knowledge">
+                    <i class="fa fa-book w-5 text-center mr-3"></i>智能知识库
+                </button>
+                <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm text-muted hover:bg-white/70" data-page="capture">
+                    <i class="fa fa-bolt w-5 text-center mr-3"></i>轻量生产工具
+                </button>
+                <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm text-muted hover:bg-white/70" data-page="context">
+                    <i class="fa fa-object-group w-5 text-center mr-3"></i>情境知识面板
+                </button>
+                <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm text-muted hover:bg-white/70" data-page="team">
+                    <i class="fa fa-users w-5 text-center mr-3"></i>团队空间
+                </button>
+                <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm text-muted hover:bg-white/70" data-page="agent">
+                    <i class="fa fa-rocket w-5 text-center mr-3"></i>智能体市场
+                </button>
+                <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm text-muted hover:bg-white/70" data-page="collab">
+                    <i class="fa fa-check-square-o w-5 text-center mr-3"></i>协作与质量
+                </button>
+                <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm text-muted hover:bg-white/70" data-page="settings">
+                    <i class="fa fa-sliders w-5 text-center mr-3"></i>个人与设置
+                </button>
             </nav>
-            
-            <!-- 快捷访问 -->
-            <div class="p-4 border-t border-gray-200">
-                <h3 class="text-xs uppercase text-gray-500 font-semibold mb-2 font-display">快捷访问</h3>
-                <div class="grid grid-cols-4 gap-2">
-                    <button class="flex flex-col items-center justify-center p-2 rounded-lg hover:bg-purple-light text-gray-700 text-sm">
-                        <i class="fa fa-file-text-o text-lg mb-1"></i>
-                        <span class="text-xs">文档</span>
-                    </button>
-                    <button class="flex flex-col items-center justify-center p-2 rounded-lg hover:bg-purple-light text-gray-700 text-sm">
-                        <i class="fa fa-calendar-plus-o text-lg mb-1"></i>
-                        <span class="text-xs">日程</span>
-                    </button>
-                    <button class="flex flex-col items-center justify-center p-2 rounded-lg hover:bg-purple-light text-gray-700 text-sm">
-                        <i class="fa fa-comments-o text-lg mb-1"></i>
-                        <span class="text-xs">会议</span>
-                    </button>
-                    <button class="flex flex-col items-center justify-center p-2 rounded-lg hover:bg-purple-light text-gray-700 text-sm">
-                        <i class="fa fa-ellipsis-h text-lg mb-1"></i>
-                        <span class="text-xs">更多</span>
-                    </button>
-                </div>
+            <div class="px-4 py-3 rounded-xl bg-ocean text-sm">
+                <p class="font-medium">智核提示</p>
+                <p class="text-xs text-muted mt-1">所有智能能力均来自「灵枢」。服务异常时自动降级为关键词检索。</p>
             </div>
         </aside>
 
-        <!-- 中央内容区 -->
-        <section class="flex-1 flex flex-col bg-transparent overflow-hidden">
-            <!-- 智能摘要卡片 (可折叠) -->
-            <div id="summary-card" class="bg-card border-b border-gray-200 p-4 transition-all duration-300">
-                <div class="flex items-center justify-between mb-3">
-                    <h2 class="text-lg font-semibold flex items-center font-display">
-                        <i class="fa fa-lightbulb-o text-warning mr-2"></i>
-                        每日智能摘要
-                    </h2>
-                    <button id="toggle-summary" class="text-gray-500 hover:text-gray-700">
-                        <i class="fa fa-chevron-up"></i>
-                    </button>
-                </div>
-                
-                <div id="summary-content" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <!-- 今日待办 -->
-                    <div class="bg-purple-light rounded-lg p-3">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="font-medium text-sm font-display">今日待办</h3>
-                            <span class="bg-danger text-white text-xs px-2 py-0.5 rounded-full">3项</span>
-                        </div>
-                        <ul class="space-y-2">
-                            <li class="flex items-center text-sm">
-                                <input type="checkbox" class="mr-2">
-                                <span>审核产品需求文档</span>
-                            </li>
-                            <li class="flex items-center text-sm">
-                                <input type="checkbox" class="mr-2">
-                                <span>参加周例会</span>
-                            </li>
-                            <li class="flex items-center text-sm">
-                                <input type="checkbox" class="mr-2">
-                                <span>完成Q3销售数据分析</span>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <!-- 关注更新 -->
-                    <div class="bg-purple-light rounded-lg p-3">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="font-medium text-sm font-display">关注更新</h3>
-                            <span class="bg-primary text-white text-xs px-2 py-0.5 rounded-full">2项</span>
-                        </div>
-                        <ul class="space-y-2">
-                            <li class="text-sm hover:text-primary cursor-pointer">
-                                <div class="flex items-center">
-                                    <i class="fa fa-file-text-o text-gray-500 mr-2"></i>
-                                    <span>产品 roadmap 更新</span>
-                                </div>
-                                <p class="text-xs text-gray-500 mt-1">李明 · 10分钟前</p>
-                            </li>
-                            <li class="text-sm hover:text-primary cursor-pointer">
-                                <div class="flex items-center">
-                                    <i class="fa fa-file-text-o text-gray-500 mr-2"></i>
-                                    <span>市场调研报告完成</span>
-                                </div>
-                                <p class="text-xs text-gray-500 mt-1">张华 · 2小时前</p>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <!-- 知识推荐 -->
-                    <div class="bg-blue-light rounded-lg p-3">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="font-medium text-sm font-display">知识推荐</h3>
-                            <button class="text-xs text-primary">查看更多</button>
-                        </div>
-                        <ul class="space-y-2">
-                            <li class="text-sm hover:text-primary cursor-pointer">
-                                <div class="flex items-center">
-                                    <i class="fa fa-lightbulb-o text-warning mr-2"></i>
-                                    <span>产品经理工作指南</span>
-                                </div>
-                                <p class="text-xs text-gray-500 mt-1">基于您的角色推荐</p>
-                            </li>
-                            <li class="text-sm hover:text-primary cursor-pointer">
-                                <div class="flex items-center">
-                                    <i class="fa fa-lightbulb-o text-warning mr-2"></i>
-                                    <span>数据分析最佳实践</span>
-                                </div>
-                                <p class="text-xs text-gray-500 mt-1">基于您的近期活动推荐</p>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <!-- 异常预警 -->
-                    <div class="bg-pink-light rounded-lg p-3">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="font-medium text-sm font-display">异常预警</h3>
-                            <span class="bg-warning text-white text-xs px-2 py-0.5 rounded-full">1项</span>
-                        </div>
-                        <div class="bg-warning bg-opacity-10 border border-warning border-opacity-20 rounded p-2">
-                            <div class="flex items-center">
-                                <i class="fa fa-exclamation-triangle text-warning mr-2"></i>
-                                <span class="text-sm font-medium font-display">项目进度预警</span>
+        <section class="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+            <div id="page-workbench" class="page active flex flex-col gap-6 h-[calc(100vh-120px)] overflow-hidden">
+                <div class="flex flex-1 overflow-hidden min-h-0">
+                    <aside class="w-64 bg-card border border-line rounded-2xl shadow-card flex flex-col mr-4">
+                        <nav class="p-4 flex-1 overflow-y-auto scrollbar-hide flex flex-col">
+                            <div>
+                                <h3 class="text-xs uppercase text-muted font-semibold mb-2">最近会话</h3>
+                                <ul class="space-y-2 text-sm">
+                                    <li>
+                                        <button class="w-full text-left p-3 rounded-lg bg-purple-light">Q3销售数据分析</button>
+                                    </li>
+                                    <li>
+                                        <button class="w-full text-left p-3 rounded-lg bg-purple-light">产品需求文档模板</button>
+                                    </li>
+                                    <li>
+                                        <button class="w-full text-left p-3 rounded-lg bg-purple-light">新员工入职流程</button>
+                                    </li>
+                                </ul>
                             </div>
-                            <p class="text-xs text-gray-600 mt-1">A产品开发进度落后计划7天，请关注</p>
-                            <button class="text-xs text-primary mt-2">查看详情</button>
+                            <div class="mt-auto pt-6">
+                                <h3 class="text-xs uppercase text-muted font-semibold mb-2">快捷访问</h3>
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-center">
+                                    <button class="p-2 rounded-lg bg-purple-light">文档</button>
+                                    <button class="p-2 rounded-lg bg-purple-light">日程</button>
+                                    <button class="p-2 rounded-lg bg-purple-light">会议</button>
+                                    <button class="p-2 rounded-lg bg-purple-light">更多</button>
+                                </div>
+                            </div>
+                        </nav>
+                    </aside>
+
+                    <section class="flex-1 flex flex-col bg-transparent overflow-hidden min-h-0">
+                        <div id="summary-card" class="bg-card border border-line rounded-2xl p-4 mb-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <h2 class="text-lg font-semibold flex items-center">
+                                    <i class="fa fa-lightbulb-o text-warning mr-2"></i>
+                                    每日智能摘要
+                                </h2>
+                                <button id="toggle-summary" class="text-muted"><i class="fa fa-chevron-up"></i></button>
+                            </div>
+                            <div id="summary-content" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div class="bg-purple-light rounded-lg p-3">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h3 class="font-medium text-sm">今日待办</h3>
+                                        <button class="open-task-board text-xs px-2 py-0.5 rounded-full bg-danger text-white">3项</button>
+                                    </div>
+                                    <ul class="space-y-2 text-sm">
+                                        <li class="flex items-center"><input type="checkbox" class="mr-2">审核产品需求文档</li>
+                                        <li class="flex items-center"><input type="checkbox" class="mr-2">参加周例会</li>
+                                        <li class="flex items-center"><input type="checkbox" class="mr-2">完成Q3销售数据分析</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-purple-light rounded-lg p-3">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h3 class="font-medium text-sm">关注更新</h3>
+                                        <span class="text-xs px-2 py-0.5 rounded-full bg-primary text-white">2项</span>
+                                    </div>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>产品roadmap更新 · 李明 · 10分钟前</li>
+                                        <li>市场调研报告完成 · 张华 · 2小时前</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-blue-light rounded-lg p-3">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h3 class="font-medium text-sm">知识推荐</h3>
+                                        <button class="text-xs text-secondary">查看更多</button>
+                                    </div>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>产品经理工作指南 · 角色匹配</li>
+                                        <li>数据分析最佳实践 · 活动相关</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-pink-light rounded-lg p-3">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h3 class="font-medium text-sm">异常预警</h3>
+                                        <span class="text-xs px-2 py-0.5 rounded-full bg-warning text-white">1项</span>
+                                    </div>
+                                    <div class="bg-warning/10 border border-warning/20 rounded p-2 text-xs">
+                                        <div class="flex items-center">
+                                            <i class="fa fa-exclamation-triangle text-warning mr-2"></i>
+                                            <span class="font-medium">项目进度预警</span>
+                                        </div>
+                                        <p class="text-muted mt-1">A产品开发进度落后计划7天，请关注</p>
+                                        <button class="text-secondary mt-2">查看详情</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex-1 flex flex-col overflow-hidden min-h-0">
+                            <div id="chat-history" class="flex-1 overflow-y-auto p-4 space-y-6 bg-white rounded-2xl border border-line min-h-0">
+                                <div class="flex items-start">
+                                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white mr-3"><i class="fa fa-robot"></i></div>
+                                    <div class="max-w-3xl">
+                                        <div class="bg-card rounded-lg p-4 shadow-card">
+                                            <div class="flex items-center mb-2">
+                                                <span class="font-medium">智核助手</span>
+                                                <span class="ml-2 px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full">官方</span>
+                                            </div>
+                                            <p class="text-gray-700">您好，张明！欢迎回到智核平台。今天有什么我可以帮助您的吗？</p>
+                                            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+                                                <button class="fill-message px-3 py-1 bg-gray-100 rounded-full">查看今日待办</button>
+                                                <button class="fill-message px-3 py-1 bg-gray-100 rounded-full">Q3销售数据分析</button>
+                                                <button class="fill-message px-3 py-1 bg-gray-100 rounded-full">查找产品文档</button>
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-muted mt-1">09:30</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start justify-end">
+                                    <div class="max-w-3xl">
+                                        <div class="bg-primary/10 rounded-lg p-4">
+                                            <p class="text-gray-700">帮我为下周的华东区销售会议准备一份市场趋势分析</p>
+                                        </div>
+                                        <p class="text-xs text-muted mt-1 text-right">09:32</p>
+                                    </div>
+                                    <div class="w-8 h-8 rounded-full bg-gray-300 ml-3 overflow-hidden">
+                                        <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" alt="用户头像" class="w-full h-full object-cover">
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white mr-3"><i class="fa fa-robot"></i></div>
+                                    <div class="max-w-3xl">
+                                        <div class="bg-card rounded-lg p-4 shadow-card">
+                                            <div class="flex items-center mb-2">
+                                                <span class="font-medium">智核助手</span>
+                                                <span class="ml-2 px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full">官方</span>
+                                            </div>
+                                            <p class="text-gray-700">我正在为您准备华东区销售会议的市场趋势分析，请稍候...</p>
+                                            <div class="mt-3 space-y-2 text-xs">
+                                                <div>
+                                                    <div class="flex justify-between mb-1">
+                                                        <span>查询华东区近期销售数据</span>
+                                                        <span class="text-success">已完成</span>
+                                                    </div>
+                                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                                        <div class="bg-success h-1.5 rounded-full" style="width: 100%"></div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="flex justify-between mb-1">
+                                                        <span>检索市场行业报告与竞品动态</span>
+                                                        <span class="text-success">已完成</span>
+                                                    </div>
+                                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                                        <div class="bg-success h-1.5 rounded-full" style="width: 100%"></div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="flex justify-between mb-1">
+                                                        <span>分析趋势并生成结构化报告</span>
+                                                        <span class="text-primary">进行中</span>
+                                                    </div>
+                                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                                        <div class="bg-primary h-1.5 rounded-full" style="width: 75%"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-muted mt-1">09:33</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white mr-3"><i class="fa fa-robot"></i></div>
+                                    <div class="max-w-3xl">
+                                        <div class="bg-card rounded-lg p-4 shadow-card">
+                                            <div class="flex items-center mb-2">
+                                                <span class="font-medium">智核助手</span>
+                                                <span class="ml-2 px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full">官方</span>
+                                            </div>
+                                            <p class="text-gray-700">已为您准备好华东区销售会议的市场趋势分析报告。以下是核心发现：</p>
+                                            <div class="mt-3 bg-purple-light rounded-lg p-3 border border-line">
+                                                <h3 class="font-medium mb-2">核心发现</h3>
+                                                <ol class="list-decimal list-inside space-y-1 text-sm">
+                                                    <li>华东区Q2销售额同比增长15.3%，高于全国平均水平</li>
+                                                    <li>上海地区贡献了60%的区域销售额，增长率达18.7%</li>
+                                                    <li>竞品A在华东区市场份额下降3.2个百分点，我们的产品填补了空缺</li>
+                                                    <li>线上渠道销售同比增长32.5%，建议加大投入</li>
+                                                    <li>客户对新产品功能满意度达87%</li>
+                                                </ol>
+                                            </div>
+                                            <div class="mt-3 bg-card rounded-lg p-3 border border-line">
+                                                <h3 class="font-medium mb-2">销售趋势图表</h3>
+                                                <div class="h-48">
+                                                    <canvas id="salesChart" class="w-full h-full"></canvas>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+                                                <button class="px-3 py-1 bg-primary text-white rounded-full">下载完整报告</button>
+                                                <button class="px-3 py-1 bg-gray-100 rounded-full">分享</button>
+                                                <button class="px-3 py-1 bg-gray-100 rounded-full">收藏</button>
+                                            </div>
+                                            <div class="mt-3 text-xs text-muted">
+                                                <p>数据来源：华东区销售数据库、市场研究报告、客户满意度调查</p>
+                                                <p>最后更新：2023年7月20日</p>
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-muted mt-1">09:35</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-line p-4 bg-card rounded-2xl mt-4">
+                                <div class="flex items-end">
+                                    <div class="flex-1 bg-gray-50 rounded-lg border border-line focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all duration-300">
+                                        <div class="px-4 py-2 border-b border-line flex items-center justify-between">
+                                            <div class="flex space-x-2">
+                                                <button class="quick-command text-xs px-2 py-1 bg-gray-100 rounded-full" data-command="/搜索">/搜索</button>
+                                                <button class="quick-command text-xs px-2 py-1 bg-gray-100 rounded-full" data-command="/分析">/分析</button>
+                                                <button class="quick-command text-xs px-2 py-1 bg-gray-100 rounded-full" data-command="/总结">/总结</button>
+                                            </div>
+                                            <div class="text-xs text-muted">按 Enter 发送，Shift + Enter 换行</div>
+                                        </div>
+                                        <div class="p-3">
+                                            <textarea id="message-input" rows="1" placeholder="输入您的问题或指令..." class="w-full resize-none focus:outline-none bg-transparent"></textarea>
+                                        </div>
+                                        <div class="px-4 py-2 flex items-center justify-between border-t border-line">
+                                            <div class="flex space-x-2">
+                                                <button class="p-1.5 text-muted hover:text-primary"><i class="fa fa-paperclip"></i></button>
+                                                <button class="p-1.5 text-muted hover:text-primary"><i class="fa fa-picture-o"></i></button>
+                                                <button class="p-1.5 text-muted hover:text-primary"><i class="fa fa-microphone"></i></button>
+                                            </div>
+                                            <button id="send-message" class="px-4 py-1.5 bg-primary text-white rounded-lg">发送</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-2 text-xs text-muted flex items-center">
+                                    <i class="fa fa-lightbulb-o text-warning mr-1"></i>
+                                    <span>试试这些问题：</span>
+                                    <button class="fill-message ml-1 text-secondary hover:underline">我的团队KPI完成情况如何？</button>
+                                    <span class="mx-1">·</span>
+                                    <button class="fill-message text-secondary hover:underline">查找关于产品定价的文档</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <aside class="w-64 bg-card border border-line rounded-2xl shadow-card flex flex-col ml-4 overflow-y-auto">
+                        <div class="p-4 border-b border-line">
+                            <h2 class="text-lg font-semibold">工作情境</h2>
+                            <p class="text-sm text-muted">基于您当前的工作内容</p>
+                        </div>
+                        <div class="p-4 border-b border-line">
+                            <h3 class="font-medium text-sm mb-3">关联知识</h3>
+                            <ul class="space-y-3 text-sm">
+                                <li class="bg-purple-light rounded-lg p-3">华东区市场策略</li>
+                                <li class="bg-purple-light rounded-lg p-3">销售会议指南</li>
+                                <li class="bg-purple-light rounded-lg p-3">市场趋势分析方法</li>
+                            </ul>
+                            <button class="w-full text-center text-secondary text-sm mt-3 hover:underline">查看更多</button>
+                        </div>
+                        <div class="p-4 border-b border-line">
+                            <h3 class="font-medium text-sm mb-3">关联人员</h3>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-center justify-between bg-purple-light p-2 rounded-lg">
+                                    <div class="flex items-center gap-2">
+                                        <img src="https://p26-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/915302335932530804~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=JyYZRLlBDe3i3%2BTpop49sMGhR8g%3D" alt="李强" class="w-7 h-7 rounded-full object-cover">
+                                        <span>李强 · 华东区销售总监</span>
+                                    </div>
+                                    <button class="text-secondary text-xs">联系</button>
+                                </li>
+                                <li class="flex items-center justify-between bg-purple-light p-2 rounded-lg">
+                                    <div class="flex items-center gap-2">
+                                        <img src="https://p3-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/917290012437381132~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=eE%2BzXl7cx1IbWn6x2FmQTE6dhr8%3D" alt="王晓华" class="w-7 h-7 rounded-full object-cover">
+                                        <span>王晓华 · 市场分析师</span>
+                                    </div>
+                                    <button class="text-secondary text-xs">联系</button>
+                                </li>
+                            </ul>
+                            <button class="w-full text-center text-secondary text-sm mt-3 hover:underline">查看更多</button>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-medium text-sm mb-3">快捷操作</h3>
+                            <div class="grid grid-cols-2 gap-2 text-xs text-center">
+                                <button class="p-3 bg-purple-light rounded-lg">安排会议</button>
+                                <button class="p-3 bg-purple-light rounded-lg">发送邮件</button>
+                                <button class="p-3 bg-purple-light rounded-lg">创建文档</button>
+                                <button class="p-3 bg-purple-light rounded-lg">创建任务</button>
+                            </div>
+                            <div class="mt-4 space-y-3 text-xs">
+                                <div class="p-3 rounded-xl bg-white border border-line">
+                                    <p class="font-medium">建议参考</p>
+                                    <p class="text-muted mt-1">《华东区渠道策略》已更新，请纳入报告引用。</p>
+                                </div>
+                                <div class="p-3 rounded-xl bg-white border border-line">
+                                    <p class="font-medium">推荐专家</p>
+                                    <p class="text-muted mt-1">王晓华 · 市场分析师 · 可协助趋势判断</p>
+                                </div>
+                                <div class="p-3 rounded-xl bg-white border border-line">
+                                    <p class="font-medium">风险提示</p>
+                                    <p class="text-muted mt-1">竞品B即将发布新产品，建议补充对比分析。</p>
+                                </div>
+                                <div class="p-3 rounded-xl bg-mist">
+                                    <p class="font-medium">对话沉淀</p>
+                                    <div class="flex items-center justify-between mt-2">
+                                        <span class="text-sm">自动生成FAQ草稿</span>
+                                        <button class="text-xs text-secondary">查看</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-3 border-t border-line mt-4">
+                                <p class="text-xs text-muted">灵枢连接</p>
+                                <div class="flex items-center gap-2 text-xs">
+                                    <span class="w-2 h-2 bg-success rounded-full"></span>服务正常
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+
+            <div id="page-knowledge" class="page flex flex-col gap-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-display font-semibold">智能知识库</h2>
+                        <p class="text-sm text-muted">文档、图谱与主题视图并行</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button id="open-version-compare" class="px-3 py-2 rounded-full bg-white border border-line text-sm">版本对比</button>
+                        <button class="px-3 py-2 rounded-full bg-primary text-white text-sm">新建文档</button>
+                    </div>
+                </div>
+                <div class="bg-surface rounded-2xl border border-line shadow-card p-4">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <button class="view-btn px-3 py-2 rounded-full text-sm bg-primary text-white" data-view="tree">文档树视图</button>
+                        <button class="view-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-view="graph">知识图谱视图</button>
+                        <button class="view-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-view="topic">主题视图</button>
+                        <button class="view-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-view="timeline">时间轴视图</button>
+                    </div>
+                    <div id="knowledge-tree" class="view-panel active">
+                        <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                            <div class="bg-white rounded-xl border border-line p-3">
+                                <p class="text-sm font-medium">文档目录</p>
+                                <ul class="mt-2 space-y-2 text-xs">
+                                    <li class="flex items-center justify-between"><span>📁 市场分析</span><button class="text-muted">•••</button></li>
+                                    <li class="flex items-center justify-between"><span>📁 产品规划</span><button class="text-muted">•••</button></li>
+                                    <li class="flex items-center justify-between"><span>📁 团队协作</span><button class="text-muted">•••</button></li>
+                                    <li class="flex items-center justify-between"><span>📁 客户案例</span><button class="text-muted">•••</button></li>
+                                </ul>
+                            </div>
+                            <div class="xl:col-span-2 bg-white rounded-xl border border-line p-4">
+                                <div class="flex items-center justify-between">
+                                    <p class="font-medium">智能编辑器</p>
+                                    <div class="flex gap-2 text-xs">
+                                        <button class="px-2 py-1 rounded-full bg-mist">生成大纲</button>
+                                        <button class="px-2 py-1 rounded-full bg-mist">术语检查</button>
+                                        <button class="px-2 py-1 rounded-full bg-mist">生成摘要</button>
+                                    </div>
+                                </div>
+                                <div class="mt-3 p-3 border border-line rounded-lg text-sm text-muted">
+                                    <p class="font-medium text-ink">《华东区市场趋势分析》</p>
+                                    <p class="mt-2">本报告聚焦2024年华东区重点行业的增长趋势、渠道变化与竞品动向。</p>
+                                    <p class="mt-2">系统提示：建议补充“竞品价格变动”章节。</p>
+                                </div>
+                                <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                                    <div class="p-3 rounded-xl bg-ocean">
+                                        <p class="font-medium">相关案例</p>
+                                        <p class="mt-1 text-muted">2023华北区渠道调整复盘</p>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-coral">
+                                        <p class="font-medium">引用推荐</p>
+                                        <p class="mt-1 text-muted">竞品B季度发布会纪要</p>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-mist">
+                                        <p class="font-medium">专家建议</p>
+                                        <p class="mt-1 text-muted">@王晓华参与审阅</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="knowledge-graph" class="view-panel">
+                        <div class="bg-white rounded-xl border border-line p-4">
+                            <p class="text-sm font-medium">知识图谱预览</p>
+                            <svg class="w-full h-64 mt-3" viewBox="0 0 600 240">
+                                <line x1="120" y1="120" x2="260" y2="70" stroke="#1b2a4e" stroke-opacity="0.3" stroke-width="2" />
+                                <line x1="120" y1="120" x2="260" y2="170" stroke="#1b2a4e" stroke-opacity="0.3" stroke-width="2" />
+                                <line x1="260" y1="70" x2="420" y2="90" stroke="#00807f" stroke-opacity="0.3" stroke-width="2" />
+                                <line x1="260" y1="170" x2="420" y2="150" stroke="#00807f" stroke-opacity="0.3" stroke-width="2" />
+                                <circle cx="120" cy="120" r="30" fill="#1b2a4e" opacity="0.9" />
+                                <circle cx="260" cy="70" r="24" fill="#00807f" opacity="0.8" />
+                                <circle cx="260" cy="170" r="24" fill="#f97316" opacity="0.8" />
+                                <circle cx="420" cy="90" r="20" fill="#16a34a" opacity="0.8" />
+                                <circle cx="420" cy="150" r="20" fill="#dc2626" opacity="0.7" />
+                                <text x="105" y="125" fill="#fff" font-size="12">项目A</text>
+                                <text x="245" y="75" fill="#fff" font-size="10">市场报告</text>
+                                <text x="245" y="175" fill="#fff" font-size="10">竞品分析</text>
+                                <text x="405" y="95" fill="#fff" font-size="9">专家</text>
+                                <text x="405" y="155" fill="#fff" font-size="9">任务</text>
+                            </svg>
+                            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+                                <button class="px-3 py-1 rounded-full bg-white border border-line">关系筛选</button>
+                                <button class="px-3 py-1 rounded-full bg-white border border-line">2度关联</button>
+                                <button class="px-3 py-1 rounded-full bg-white border border-line">路径分析</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="knowledge-topic" class="view-panel">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">产品增长</p>
+                                <p class="text-xs text-muted mt-1">22篇文档 · 5位专家</p>
+                                <button class="mt-3 px-3 py-1 rounded-full bg-primary text-white text-xs">关注</button>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">客户运营</p>
+                                <p class="text-xs text-muted mt-1">18篇文档 · 4位专家</p>
+                                <button class="mt-3 px-3 py-1 rounded-full bg-white border border-line text-xs">已关注</button>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">智能体应用</p>
+                                <p class="text-xs text-muted mt-1">12篇文档 · 3位专家</p>
+                                <button class="mt-3 px-3 py-1 rounded-full bg-primary text-white text-xs">关注</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="knowledge-timeline" class="view-panel">
+                        <div class="bg-white rounded-xl border border-line p-4">
+                            <p class="font-medium">知识演进时间轴</p>
+                            <div class="mt-4 space-y-4 text-xs">
+                                <div class="flex gap-3">
+                                    <span class="text-muted">2024/07/12</span>
+                                    <div>
+                                        <p class="font-medium">发布《华东区市场趋势分析》</p>
+                                        <p class="text-muted">新增4个关联实体，版本V2.0</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="text-muted">2024/06/30</span>
+                                    <div>
+                                        <p class="font-medium">更新《竞品B策略》</p>
+                                        <p class="text-muted">补充价格变动、渠道变化</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="text-muted">2024/06/05</span>
+                                    <div>
+                                        <p class="font-medium">沉淀会议纪要</p>
+                                        <p class="text-muted">识别3项决策与5个任务</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- 对话区域 -->
-            <div class="flex-1 flex flex-col overflow-hidden">
-                <!-- 对话历史 -->
-                <div id="chat-history" class="flex-1 overflow-y-auto p-4 space-y-6 bg-white">
-                    <!-- 系统欢迎消息 -->
-                    <div class="flex items-start">
-                        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white mr-3 flex-shrink-0">
-                            <i class="fa fa-robot"></i>
-                        </div>
-                        <div class="max-w-3xl">
-                            <div class="bg-card rounded-lg p-4 shadow-card">
-                                <div class="flex items-center mb-2">
-                                    <span class="font-medium font-display">智核助手</span>
-                                    <span class="ml-2 px-2 py-0.5 bg-primary bg-opacity-10 text-primary text-xs rounded-full">官方</span>
+
+            <div id="page-capture" class="page flex flex-col gap-6">
+                <div>
+                    <h2 class="text-2xl font-display font-semibold">轻量生产工具</h2>
+                    <p class="text-sm text-muted">极速捕获灵感，自动进入知识熔炉队列</p>
+                </div>
+                <div class="bg-surface rounded-2xl border border-line shadow-card p-4">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-primary text-white" data-tab="quick-note">速记</button>
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-tab="record">录音</button>
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-tab="clip">剪藏</button>
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-tab="queue">待处理队列</button>
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-tab="desktop">桌面工具</button>
+                    </div>
+                    <div id="tab-quick-note" class="tab-panel active">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">极速速记</p>
+                                <textarea id="quick-note-input" class="mt-3 w-full border border-line rounded-lg p-3 text-sm" rows="5" placeholder="记录灵感、会议要点或待办…"></textarea>
+                                <div class="mt-3 flex flex-wrap gap-2 text-xs">
+                                    <button class="px-3 py-1 rounded-full bg-mist">语音输入</button>
+                                    <button class="px-3 py-1 rounded-full bg-mist">拍照OCR</button>
+                                    <button class="px-3 py-1 rounded-full bg-mist">扫描文档</button>
+                                    <button class="px-3 py-1 rounded-full bg-mist">设置提醒</button>
                                 </div>
-                                <p class="text-gray-700">您好，张明！欢迎回到智核平台。今天有什么我可以帮助您的吗？</p>
-                                <div class="mt-3 flex flex-wrap gap-2">
-                                    <button class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-sm transition-all-300">查看今日待办</button>
-                                    <button class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-sm transition-all-300">Q3销售数据分析</button>
-                                    <button class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-sm transition-all-300">查找产品文档</button>
+                                <div class="mt-4 flex justify-end">
+                                    <button id="save-quick-note" class="px-4 py-2 rounded-full bg-secondary text-white text-sm">保存至待处理</button>
                                 </div>
                             </div>
-                            <p class="text-xs text-gray-500 mt-1">09:30</p>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">最新速记</p>
+                                <ul id="quick-note-list" class="mt-3 space-y-3 text-sm">
+                                    <li class="p-3 rounded-lg bg-mist">跟进客户A合同审批，明早提醒我。</li>
+                                    <li class="p-3 rounded-lg bg-mist">会议要点：Q3渠道预算需要上调15%。</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    
-                    <!-- 用户消息 -->
-                    <div class="flex items-start justify-end">
-                        <div class="max-w-3xl">
-                            <div class="bg-primary bg-opacity-10 rounded-lg p-4">
-                                <p class="text-gray-700">帮我为下周的华东区销售会议准备一份市场趋势分析</p>
+                    <div id="tab-record" class="tab-panel">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">会议录音与转写</p>
+                                <p class="text-xs text-muted mt-2">最长2小时，自动分离说话人</p>
+                                <div class="mt-4 flex items-center gap-3">
+                                    <button id="record-toggle" class="px-4 py-2 rounded-full bg-danger text-white text-sm">开始录音</button>
+                                    <span id="record-timer" class="text-sm text-muted">00:00</span>
+                                </div>
+                                <div class="mt-4 p-3 rounded-lg bg-mist text-xs text-muted">实时转写将在这里显示</div>
                             </div>
-                            <p class="text-xs text-gray-500 mt-1 text-right">09:32</p>
-                        </div>
-                        <div class="w-8 h-8 rounded-full bg-gray-300 ml-3 flex-shrink-0 overflow-hidden">
-                            <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" alt="用户头像" class="w-full h-full object-cover">
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">快速语音备忘</p>
+                                <div class="mt-3 space-y-2 text-xs">
+                                    <div class="p-3 rounded-lg bg-coral">“下周一跟进供应商报价。”</div>
+                                    <div class="p-3 rounded-lg bg-coral">“提醒市场部整理竞品新闻。”</div>
+                                </div>
+                                <button class="mt-4 px-4 py-2 rounded-full bg-secondary text-white text-sm">生成待办提醒</button>
+                            </div>
                         </div>
                     </div>
-                    
-                    <!-- 系统处理消息 -->
-                    <div class="flex items-start">
-                        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white mr-3 flex-shrink-0">
-                            <i class="fa fa-robot"></i>
-                        </div>
-                        <div class="max-w-3xl">
-                            <div class="bg-card rounded-lg p-4 shadow-card">
-                                <div class="flex items-center mb-2">
-                                    <span class="font-medium font-display">智核助手</span>
-                                    <span class="ml-2 px-2 py-0.5 bg-primary bg-opacity-10 text-primary text-xs rounded-full">官方</span>
+                    <div id="tab-clip" class="tab-panel">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">网页剪藏</p>
+                                <input id="clip-url" type="text" placeholder="粘贴链接或选择区域" class="mt-3 w-full border border-line rounded-lg p-2 text-sm">
+                                <div class="mt-3 flex flex-wrap gap-2 text-xs">
+                                    <button class="px-3 py-1 rounded-full bg-mist">保存整页</button>
+                                    <button class="px-3 py-1 rounded-full bg-mist">选择区域</button>
+                                    <button class="px-3 py-1 rounded-full bg-mist">截图标注</button>
                                 </div>
-                                <p class="text-gray-700">我正在为您准备华东区销售会议的市场趋势分析，请稍候...</p>
-                                
-                                <!-- 任务进度指示器 -->
-                                <div class="mt-3 space-y-2">
-                                    <div>
-                                        <div class="flex justify-between text-xs mb-1">
-                                            <span>查询华东区近期销售数据</span>
-                                            <span class="text-success">已完成</span>
-                                        </div>
-                                        <div class="w-full bg-gray-200 rounded-full h-1.5">
-                                            <div class="bg-success h-1.5 rounded-full" style="width: 100%"></div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="flex justify-between text-xs mb-1">
-                                            <span>检索市场行业报告与竞品动态</span>
-                                            <span class="text-success">已完成</span>
-                                        </div>
-                                        <div class="w-full bg-gray-200 rounded-full h-1.5">
-                                            <div class="bg-success h-1.5 rounded-full" style="width: 100%"></div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="flex justify-between text-xs mb-1">
-                                            <span>分析趋势并生成结构化报告</span>
-                                            <span class="text-primary">进行中</span>
-                                        </div>
-                                        <div class="w-full bg-gray-200 rounded-full h-1.5">
-                                            <div class="bg-primary h-1.5 rounded-full" style="width: 75%"></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button id="save-clip" class="mt-4 px-4 py-2 rounded-full bg-secondary text-white text-sm">保存到队列</button>
                             </div>
-                            <p class="text-xs text-gray-500 mt-1">09:33</p>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">稍后阅读</p>
+                                <ul id="clip-list" class="mt-3 space-y-3 text-sm">
+                                    <li class="p-3 rounded-lg bg-mist">《竞品B发布会解读》 · 待处理</li>
+                                    <li class="p-3 rounded-lg bg-mist">《市场趋势简报》 · 待处理</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    
-                    <!-- 系统回复消息 -->
-                    <div class="flex items-start">
-                        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white mr-3 flex-shrink-0">
-                            <i class="fa fa-robot"></i>
-                        </div>
-                        <div class="max-w-3xl">
-                            <div class="bg-card rounded-lg p-4 shadow-card">
-                                <div class="flex items-center mb-2">
-                                    <span class="font-medium font-display">智核助手</span>
-                                    <span class="ml-2 px-2 py-0.5 bg-primary bg-opacity-10 text-primary text-xs rounded-full">官方</span>
+                    <div id="tab-queue" class="tab-panel">
+                        <div class="bg-white rounded-xl border border-line p-4">
+                            <div class="flex items-center justify-between">
+                                <p class="font-medium">待处理队列</p>
+                                <select class="border border-line rounded-lg px-2 py-1 text-xs">
+                                    <option>全部类型</option>
+                                    <option>速记</option>
+                                    <option>剪藏</option>
+                                    <option>录音</option>
+                                </select>
+                            </div>
+                            <div class="mt-3 space-y-3 text-sm">
+                                <div class="p-3 rounded-lg border border-line flex items-center justify-between">
+                                    <span>会议录音 · 进行中</span>
+                                    <span class="text-xs text-secondary">已提取2个任务</span>
                                 </div>
-                                <p class="text-gray-700">已为您准备好华东区销售会议的市场趋势分析报告。以下是核心发现：</p>
-                                
-                                <!-- 核心发现卡片 -->
-                                <div class="mt-3 bg-purple-light rounded-lg p-3 border border-gray-200">
-                                    <h3 class="font-medium mb-2 font-display">核心发现</h3>
-                                    <ol class="list-decimal list-inside space-y-1 text-sm">
-                                        <li>华东区Q2销售额同比增长15.3%，高于全国平均水平</li>
-                                        <li>上海地区贡献了60%的区域销售额，增长率达18.7%</li>
-                                        <li>竞品A在华东区市场份额下降3.2个百分点，我们的产品填补了这一空缺</li>
-                                        <li>线上渠道销售增长显著，同比增长32.5%，建议加大投入</li>
-                                        <li>客户对新产品功能满意度达87%，高于行业平均水平</li>
-                                    </ol>
+                                <div class="p-3 rounded-lg border border-line flex items-center justify-between">
+                                    <span>竞品新闻剪藏 · 已入库</span>
+                                    <span class="text-xs text-success">完成</span>
                                 </div>
-                                
-                                <!-- 图表卡片 -->
-                                <div class="mt-3 bg-card rounded-lg p-3 border border-gray-200">
-                                    <h3 class="font-medium mb-2 font-display">销售趋势图表</h3>
-                                    <div class="h-48">
-                                        <canvas id="salesChart"></canvas>
-                                    </div>
-                                </div>
-                                
-                                <!-- 操作按钮 -->
-                                <div class="mt-3 flex flex-wrap gap-2">
-                                    <button class="px-3 py-1 bg-primary text-white rounded-full text-sm hover:bg-secondary transition-all-300">
-                                        <i class="fa fa-download mr-1"></i> 下载完整报告
-                                    </button>
-                                    <button class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-sm transition-all-300">
-                                        <i class="fa fa-share-alt mr-1"></i> 分享
-                                    </button>
-                                    <button class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-sm transition-all-300">
-                                        <i class="fa fa-star-o mr-1"></i> 收藏
-                                    </button>
-                                </div>
-                                
-                                <!-- 来源引用 -->
-                                <div class="mt-3 text-xs text-gray-500">
-                                    <p>数据来源：华东区销售数据库、市场研究报告、客户满意度调查</p>
-                                    <p>最后更新：2023年7月20日</p>
+                                <div class="p-3 rounded-lg border border-line flex items-center justify-between">
+                                    <span>客户访谈笔记 · 草稿</span>
+                                    <span class="text-xs text-warning">待确认</span>
                                 </div>
                             </div>
-                            <p class="text-xs text-gray-500 mt-1">09:35</p>
+                        </div>
+                    </div>
+                    <div id="tab-desktop" class="tab-panel">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">智能截图</p>
+                                <p class="text-xs text-muted mt-2">区域/窗口/滚动截图</p>
+                                <button class="mt-3 px-3 py-2 rounded-full bg-secondary text-white text-xs">启动截图</button>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">录屏与标注</p>
+                                <p class="text-xs text-muted mt-2">支持实时标注与封面生成</p>
+                                <button class="mt-3 px-3 py-2 rounded-full bg-secondary text-white text-xs">开始录屏</button>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">剪贴板历史</p>
+                                <p class="text-xs text-muted mt-2">自动分类，支持一键入库</p>
+                                <button class="mt-3 px-3 py-2 rounded-full bg-secondary text-white text-xs">查看历史</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- 对话输入区域 -->
-                <div class="border-t border-gray-200 p-4 bg-card">
-                    <div class="flex items-end">
-                        <div class="flex-1 bg-gray-50 rounded-lg border border-gray-300 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all duration-300">
-                            <!-- 快捷指令提示 -->
-                            <div class="px-4 py-2 border-b border-gray-200 flex items-center justify-between">
-                                <div class="flex space-x-2">
-                                    <button class="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-all-300">/搜索</button>
-                                    <button class="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-all-300">/分析</button>
-                                    <button class="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-all-300">/总结</button>
-                                </div>
-                                <div class="text-xs text-gray-500">按 Enter 发送，Shift + Enter 换行</div>
+            </div>
+
+            <div id="page-context" class="page flex flex-col gap-6">
+                <div>
+                    <h2 class="text-2xl font-display font-semibold">情境知识面板</h2>
+                    <p class="text-sm text-muted">嵌入式智能伴读与划词取义</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    <div class="lg:col-span-2 bg-surface rounded-2xl border border-line shadow-card p-4">
+                        <p class="font-medium">浏览器插件模拟</p>
+                        <div class="mt-3 p-4 rounded-xl bg-white border border-line">
+                            <p class="text-xs text-muted">当前页面：CRM · 客户详情</p>
+                            <p class="mt-2 text-sm">客户：XX科技公司 · 合同金额 ¥3,200,000 · 近期投诉 2 次</p>
+                            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                                <button class="term-btn px-3 py-1 rounded-full bg-mist" data-term="客户续约率">客户续约率</button>
+                                <button class="term-btn px-3 py-1 rounded-full bg-mist" data-term="风险等级">风险等级</button>
+                                <button class="term-btn px-3 py-1 rounded-full bg-mist" data-term="项目里程碑">项目里程碑</button>
                             </div>
-                            
-                            <!-- 输入框 -->
-                            <div class="p-3">
-                                <textarea id="message-input" rows="1" placeholder="输入您的问题或指令..." class="w-full resize-none focus:outline-none bg-transparent"></textarea>
+                            <div class="mt-4 flex gap-2 text-xs">
+                                <button class="px-3 py-1 rounded-full bg-white border border-line">解释</button>
+                                <button class="px-3 py-1 rounded-full bg-white border border-line">搜索</button>
+                                <button class="px-3 py-1 rounded-full bg-white border border-line">保存</button>
                             </div>
-                            
-                            <!-- 输入工具栏 -->
-                            <div class="px-4 py-2 flex items-center justify-between border-t border-gray-200">
-                                <div class="flex space-x-2">
-                                    <button class="p-1.5 text-gray-500 hover:text-primary hover:bg-gray-100 rounded transition-all-300">
-                                        <i class="fa fa-paperclip"></i>
-                                    </button>
-                                    <button class="p-1.5 text-gray-500 hover:text-primary hover:bg-gray-100 rounded transition-all-300">
-                                        <i class="fa fa-picture-o"></i>
-                                    </button>
-                                    <button class="p-1.5 text-gray-500 hover:text-primary hover:bg-gray-100 rounded transition-all-300">
-                                        <i class="fa fa-microphone"></i>
-                                    </button>
-                                </div>
-                                <button id="send-message" class="px-4 py-1.5 bg-primary text-white rounded-lg hover:bg-secondary transition-all-300">
-                                    发送
-                                </button>
+                        </div>
+                        <div class="mt-4 flex items-center gap-3 text-xs">
+                            <span class="px-2 py-1 rounded-full bg-primary text-white">Alt + K</span>
+                            <span class="text-muted">全局快捷搜索</span>
+                            <span class="px-2 py-1 rounded-full bg-secondary text-white">Alt + S</span>
+                            <span class="text-muted">一键保存</span>
+                        </div>
+                    </div>
+                    <div class="bg-surface rounded-2xl border border-line shadow-card p-4 space-y-3">
+                        <div>
+                            <p class="font-medium">情境面板</p>
+                            <p class="text-xs text-muted">自动识别当前业务对象</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-white border border-line">
+                            <p class="text-sm font-medium">客户摘要</p>
+                            <p class="text-xs text-muted mt-1">行业：智能制造 · 合作年限：3年</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-white border border-line">
+                            <p class="text-sm font-medium">关联知识</p>
+                            <ul class="mt-2 text-xs text-muted space-y-1">
+                                <li>客户投诉处理方案 · 2024/06</li>
+                                <li>续约策略模板 · 2024/05</li>
+                                <li>竞争对手动态 · 2024/04</li>
+                            </ul>
+                        </div>
+                        <div class="p-3 rounded-xl bg-white border border-line">
+                            <p class="text-sm font-medium">关联人员</p>
+                            <p class="text-xs text-muted mt-1">李强 · 销售总监</p>
+                        </div>
+                        <button class="px-3 py-2 rounded-full bg-accent text-white text-sm">发起会议</button>
+                        <div id="term-definition" class="p-3 rounded-xl bg-mist text-xs text-muted">点击上方术语查看企业定义</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-team" class="page flex flex-col gap-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-display font-semibold">团队空间</h2>
+                        <p class="text-sm text-muted">项目协作与知识沉淀一体化</p>
+                    </div>
+                    <button id="open-discussion" class="px-4 py-2 rounded-full bg-primary text-white text-sm">发起讨论</button>
+                </div>
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                    <div class="xl:col-span-2 bg-surface rounded-2xl border border-line shadow-card p-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-medium">空间概览 · Q1新产品开发</p>
+                            <button class="text-xs text-secondary">切换空间</button>
+                        </div>
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                            <div class="p-3 rounded-xl bg-ocean">
+                                <p class="font-medium">OKR进度</p>
+                                <p class="text-muted mt-1">完成度 68%</p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-coral">
+                                <p class="font-medium">最新动态</p>
+                                <p class="text-muted mt-1">3条文档更新 · 2个决策</p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-mist">
+                                <p class="font-medium">待办事项</p>
+                                <p class="text-muted mt-1">4项分配给你</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-xl border border-line p-3">
+                                <p class="font-medium text-sm">讨论区</p>
+                                <ul class="mt-2 text-xs space-y-2">
+                                    <li class="p-2 rounded-lg bg-mist">需求优先级讨论 · 12条回复</li>
+                                    <li class="p-2 rounded-lg bg-mist">技术方案评审 · 8条回复</li>
+                                    <li class="p-2 rounded-lg bg-mist">上线风险与预案 · 4条回复</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-3">
+                                <p class="font-medium text-sm">会议纪要</p>
+                                <ul class="mt-2 text-xs space-y-2">
+                                    <li class="p-2 rounded-lg bg-mist">技术方案评审会 · 决策3项</li>
+                                    <li class="p-2 rounded-lg bg-mist">周例会 · 任务5项</li>
+                                    <li class="p-2 rounded-lg bg-mist">设计评审 · 风险2项</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- 智能提示 -->
-                    <div class="mt-2 text-xs text-gray-500 flex items-center">
-                        <i class="fa fa-lightbulb-o text-warning mr-1"></i>
-                        <span>试试这些问题：</span>
-                        <button class="ml-1 text-primary hover:underline">我的团队KPI完成情况如何？</button>
-                        <span class="mx-1">·</span>
-                        <button class="text-primary hover:underline">查找关于产品定价的文档</button>
+                    <div class="bg-surface rounded-2xl border border-line shadow-card p-4 space-y-3">
+                        <div>
+                            <p class="font-medium">团队成员</p>
+                            <p class="text-xs text-muted">自动识别隐性专家</p>
+                        </div>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-line">
+                                <span>张三 · 架构专家</span>
+                                <span class="text-secondary">贡献指数 92</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-line">
+                                <span>李四 · 需求分析</span>
+                                <span class="text-secondary">贡献指数 88</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-line">
+                                <span>王晓华 · 市场分析</span>
+                                <span class="text-secondary">贡献指数 85</span>
+                            </div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-mist text-xs">
+                            <p class="font-medium">空间健康度</p>
+                            <p class="mt-1 text-muted">评分 82 · 建议补充测试文档</p>
+                        </div>
+                        <button class="px-3 py-2 rounded-full bg-secondary text-white text-sm">查看任务看板</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-agent" class="page flex flex-col gap-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-display font-semibold">智能体市场</h2>
+                        <p class="text-sm text-muted">发现、订阅并配置你的AI助手团队</p>
+                    </div>
+                    <button class="px-4 py-2 rounded-full bg-primary text-white text-sm">我的智能体</button>
+                </div>
+                <div class="bg-surface rounded-2xl border border-line shadow-card p-4">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <input class="flex-1 border border-line rounded-full px-4 py-2 text-sm" placeholder="搜索智能体名称或场景">
+                        <select class="border border-line rounded-full px-3 py-2 text-sm">
+                            <option>全部场景</option>
+                            <option>销售</option>
+                            <option>研发</option>
+                            <option>法务</option>
+                        </select>
+                        <button class="px-4 py-2 rounded-full bg-secondary text-white text-sm">筛选</button>
+                    </div>
+                    <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="agent-card bg-white rounded-xl border border-line p-4" data-agent="合同审查官">
+                            <div class="flex items-center justify-between">
+                                <p class="font-medium">合同审查官</p>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-secondary text-white">官方</span>
+                            </div>
+                            <p class="text-xs text-muted mt-2">识别合同风险条款并生成摘要</p>
+                            <div class="mt-3 text-xs text-muted">订阅 1,280 · 评分 4.8</div>
+                        </div>
+                        <div class="agent-card bg-white rounded-xl border border-line p-4" data-agent="销售话术教练">
+                            <div class="flex items-center justify-between">
+                                <p class="font-medium">销售话术教练</p>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-accent text-white">热门</span>
+                            </div>
+                            <p class="text-xs text-muted mt-2">基于客户画像生成跟进话术</p>
+                            <div class="mt-3 text-xs text-muted">订阅 980 · 评分 4.6</div>
+                        </div>
+                        <div class="agent-card bg-white rounded-xl border border-line p-4" data-agent="数据分析师">
+                            <div class="flex items-center justify-between">
+                                <p class="font-medium">数据分析师</p>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-primary text-white">新上架</span>
+                            </div>
+                            <p class="text-xs text-muted mt-2">自动生成结构化数据报告</p>
+                            <div class="mt-3 text-xs text-muted">订阅 620 · 评分 4.7</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                    <div class="xl:col-span-2 bg-surface rounded-2xl border border-line shadow-card p-4">
+                        <p class="font-medium">我的智能体</p>
+                        <div id="my-agent-list" class="mt-3 space-y-3 text-sm">
+                            <div class="p-3 rounded-xl bg-white border border-line flex items-center justify-between">
+                                <span>智能邮件助手</span>
+                                <button class="config-agent text-xs text-secondary">配置</button>
+                            </div>
+                            <div class="p-3 rounded-xl bg-white border border-line flex items-center justify-between">
+                                <span>代码评审助手</span>
+                                <button class="config-agent text-xs text-secondary">配置</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-surface rounded-2xl border border-line shadow-card p-4">
+                        <p class="font-medium">协同工作流</p>
+                        <ol id="agent-flow" class="mt-3 text-xs space-y-2">
+                            <li class="p-2 rounded-lg bg-mist">数据提取助手</li>
+                            <li class="p-2 rounded-lg bg-mist">分析师助手</li>
+                            <li class="p-2 rounded-lg bg-mist">报告生成助手</li>
+                        </ol>
+                        <button id="add-flow-step" class="mt-3 px-3 py-2 rounded-full bg-secondary text-white text-xs">添加步骤</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-collab" class="page flex flex-col gap-6">
+                <div>
+                    <h2 class="text-2xl font-display font-semibold">协作与质量保障</h2>
+                    <p class="text-sm text-muted">协作演进 + AI质量助手 + 分层发布</p>
+                </div>
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                    <div class="xl:col-span-2 bg-surface rounded-2xl border border-line shadow-card p-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-medium">文档协作区</p>
+                            <button id="run-quality-check" class="px-3 py-2 rounded-full bg-secondary text-white text-xs">运行AI预检</button>
+                        </div>
+                        <div class="mt-4 p-4 rounded-xl border border-line bg-white text-sm">
+                            <p class="font-medium">《产品需求文档 V1.2》</p>
+                            <p class="mt-2">本次更新重点完善了用户旅程与风险评估章节，并补充了竞品对比数据。</p>
+                            <p class="mt-2 text-muted">批注：<span class="text-danger">2条未解决</span> · 建议：<span class="text-warning">3条待确认</span></p>
+                        </div>
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                            <div class="p-3 rounded-xl bg-mist">
+                                <p class="font-medium">成熟度</p>
+                                <p id="maturity-level" class="mt-1 text-muted">协作中</p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-coral">
+                                <p class="font-medium">AI质量得分</p>
+                                <p id="quality-score" class="mt-1 text-muted">78 / 100</p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-ocean">
+                                <p class="font-medium">可见范围</p>
+                                <p class="mt-1 text-muted">团队空间</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex gap-2 text-xs">
+                            <button id="open-publish" class="px-3 py-2 rounded-full bg-primary text-white">发布设置</button>
+                            <button class="px-3 py-2 rounded-full bg-white border border-line">查看版本历史</button>
+                        </div>
+                    </div>
+                    <div class="bg-surface rounded-2xl border border-line shadow-card p-4 space-y-3">
+                        <p class="font-medium">批注列表</p>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-3 rounded-xl bg-white border border-line">
+                                <p class="font-medium">疑问 · 数据来源</p>
+                                <p class="text-muted mt-1">Q2数据未标注出处</p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-white border border-line">
+                                <p class="font-medium">建议 · 结构优化</p>
+                                <p class="text-muted mt-1">建议新增“用户反馈”章节</p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-white border border-line">
+                                <p class="font-medium">错误 · 术语不一致</p>
+                                <p class="text-muted mt-1">建议统一为“购买方”</p>
+                            </div>
+                        </div>
+                        <button class="px-3 py-2 rounded-full bg-secondary text-white text-xs">添加批注</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-settings" class="page flex flex-col gap-6">
+                <div>
+                    <h2 class="text-2xl font-display font-semibold">个人与系统设置</h2>
+                    <p class="text-sm text-muted">个性化体验与管理控制中心</p>
+                </div>
+                <div class="bg-surface rounded-2xl border border-line shadow-card p-4">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-primary text-white" data-tab="profile">个人设置</button>
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-tab="team-admin">团队管理</button>
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-tab="system-admin">系统管理</button>
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-tab="security">安全与合规</button>
+                    </div>
+                    <div id="tab-profile" class="tab-panel active">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">账户与资料</p>
+                                <label class="block mt-3 text-xs text-muted">昵称</label>
+                                <input class="w-full border border-line rounded-lg px-3 py-2 text-sm" value="张明">
+                                <label class="block mt-3 text-xs text-muted">职位</label>
+                                <input class="w-full border border-line rounded-lg px-3 py-2 text-sm" value="产品经理">
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">界面偏好</p>
+                                <div class="mt-3 text-xs text-muted">主题</div>
+                                <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                    <option>浅色</option>
+                                    <option>深色</option>
+                                    <option>跟随系统</option>
+                                </select>
+                                <div class="mt-3 text-xs text-muted">默认布局</div>
+                                <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                    <option>对话优先</option>
+                                    <option>任务面板优先</option>
+                                    <option>自定义</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-team-admin" class="tab-panel">
+                        <div class="bg-white rounded-xl border border-line p-4">
+                            <p class="font-medium">成员管理</p>
+                            <div class="mt-3 space-y-2 text-sm">
+                                <div class="flex items-center justify-between p-2 rounded-lg bg-mist">
+                                    <span>李强 · Admin</span>
+                                    <button class="text-xs text-secondary">调整权限</button>
+                                </div>
+                                <div class="flex items-center justify-between p-2 rounded-lg bg-mist">
+                                    <span>王晓华 · Editor</span>
+                                    <button class="text-xs text-secondary">调整权限</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-system-admin" class="tab-panel">
+                        <div class="bg-white rounded-xl border border-line p-4">
+                            <p class="font-medium">系统监控</p>
+                            <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                                <div class="p-3 rounded-xl bg-mist">CPU 45%</div>
+                                <div class="p-3 rounded-xl bg-mist">API P95 320ms</div>
+                                <div class="p-3 rounded-xl bg-mist">并发用户 820</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-security" class="tab-panel">
+                        <div class="bg-white rounded-xl border border-line p-4">
+                            <p class="font-medium">安全策略</p>
+                            <label class="flex items-center gap-2 mt-3 text-sm">
+                                <input type="checkbox" checked> 强制2FA
+                            </label>
+                            <label class="flex items-center gap-2 mt-2 text-sm">
+                                <input type="checkbox"> 开启IP白名单
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-end">
+                        <button id="save-settings" class="px-4 py-2 rounded-full bg-secondary text-white text-sm">保存设置</button>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- 右侧情境面板 -->
-        <aside id="context-panel" class="w-64 bg-card border-l border-gray-200 flex flex-col h-full hidden lg:flex">
-            <div class="p-4 border-b border-gray-200">
-                <h2 class="text-lg font-semibold font-display">工作情境</h2>
-                <p class="text-sm text-gray-500">基于您当前的工作内容</p>
-            </div>
-            
-            <!-- 关联知识 -->
-            <div class="p-4 border-b border-gray-200">
-                <h3 class="font-medium text-sm mb-3 font-display">关联知识</h3>
-                <ul class="space-y-3">
-                    <li class="bg-purple-light rounded-lg p-3 hover:bg-blue-light cursor-pointer transition-all-300">
-                        <div class="flex items-center">
-                            <i class="fa fa-file-text-o text-primary mr-2"></i>
-                            <span class="text-sm font-medium font-display">华东区市场策略</span>
-                        </div>
-                        <p class="text-xs text-gray-500 mt-1">详细的区域市场策略文档</p>
-                    </li>
-                    <li class="bg-purple-light rounded-lg p-3 hover:bg-blue-light cursor-pointer transition-all-300">
-                        <div class="flex items-center">
-                            <i class="fa fa-file-text-o text-primary mr-2"></i>
-                            <span class="text-sm font-medium font-display">销售会议指南</span>
-                        </div>
-                        <p class="text-xs text-gray-500 mt-1">如何高效准备和主持销售会议</p>
-                    </li>
-                    <li class="bg-purple-light rounded-lg p-3 hover:bg-blue-light cursor-pointer transition-all-300">
-                        <div class="flex items-center">
-                            <i class="fa fa-file-text-o text-primary mr-2"></i>
-                            <span class="text-sm font-medium font-display">市场趋势分析方法</span>
-                        </div>
-                        <p class="text-xs text-gray-500 mt-1">数据分析和趋势预测指南</p>
-                    </li>
-                </ul>
-                <button class="w-full text-center text-primary text-sm mt-3 hover:underline">查看更多</button>
-            </div>
-            
-            <!-- 关联人员 -->
-            <div class="p-4 border-b border-gray-200">
-                <h3 class="font-medium text-sm mb-3 font-display">关联人员</h3>
-                <ul class="space-y-3">
-                    <li class="flex items-center hover:bg-purple-light p-1 rounded-lg cursor-pointer transition-all-300">
-                        <img src="https://p26-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/915302335932530804~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=JyYZRLlBDe3i3%2BTpop49sMGhR8g%3D" alt="用户头像" class="w-8 h-8 rounded-full object-cover mr-2">
-                        <div>
-                            <p class="text-sm font-medium font-display">李强</p>
-                            <p class="text-xs text-gray-500">华东区销售总监</p>
-                        </div>
-                        <div class="ml-auto flex space-x-1">
-                            <button class="p-1 text-gray-500 hover:text-primary rounded-full hover:bg-gray-100 transition-all-300">
-                                <i class="fa fa-envelope-o"></i>
-                            </button>
-                            <button class="p-1 text-gray-500 hover:text-primary rounded-full hover:bg-gray-100 transition-all-300">
-                                <i class="fa fa-phone"></i>
-                            </button>
-                        </div>
-                    </li>
-                    <li class="flex items-center hover:bg-purple-light p-1 rounded-lg cursor-pointer transition-all-300">
-                        <img src="https://p3-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/917290012437381132~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=eE%2BzXl7cx1IbWn6x2FmQTE6dhr8%3D" alt="用户头像" class="w-8 h-8 rounded-full object-cover mr-2">
-                        <div>
-                            <p class="text-sm font-medium font-display">王晓华</p>
-                            <p class="text-xs text-gray-500">市场分析师</p>
-                        </div>
-                        <div class="ml-auto flex space-x-1">
-                            <button class="p-1 text-gray-500 hover:text-primary rounded-full hover:bg-gray-100 transition-all-300">
-                                <i class="fa fa-envelope-o"></i>
-                            </button>
-                            <button class="p-1 text-gray-500 hover:text-primary rounded-full hover:bg-gray-100 transition-all-300">
-                                <i class="fa fa-phone"></i>
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-                <button class="w-full text-center text-primary text-sm mt-3 hover:underline">查看更多</button>
-            </div>
-            
-            <!-- 快捷操作 -->
-            <div class="p-4">
-                <h3 class="font-medium text-sm mb-3 font-display">快捷操作</h3>
-                <div class="grid grid-cols-2 gap-2">
-                    <button class="flex flex-col items-center justify-center p-3 bg-purple-light rounded-lg hover:bg-blue-light transition-all-300">
-                        <i class="fa fa-calendar-plus-o text-primary text-lg mb-1"></i>
-                        <span class="text-xs">安排会议</span>
-                    </button>
-                    <button class="flex flex-col items-center justify-center p-3 bg-purple-light rounded-lg hover:bg-blue-light transition-all-300">
-                        <i class="fa fa-envelope-o text-primary text-lg mb-1"></i>
-                        <span class="text-xs">发送邮件</span>
-                    </button>
-                    <button class="flex flex-col items-center justify-center p-3 bg-purple-light rounded-lg hover:bg-blue-light transition-all-300">
-                        <i class="fa fa-file-text-o text-primary text-lg mb-1"></i>
-                        <span class="text-xs">创建文档</span>
-                    </button>
-                    <button class="flex flex-col items-center justify-center p-3 bg-purple-light rounded-lg hover:bg-blue-light transition-all-300">
-                        <i class="fa fa-tasks text-primary text-lg mb-1"></i>
-                        <span class="text-xs">创建任务</span>
-                    </button>
-                </div>
-            </div>
-        </aside>
     </main>
 
-    <!-- 任务看板模态框 (默认隐藏) -->
-    <div id="task-board-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
-        <div class="bg-card rounded-lg w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col">
-            <!-- 模态框头部 -->
-            <div class="p-4 border-b border-gray-200 flex items-center justify-between">
-                <h2 class="text-xl font-semibold font-display">任务看板</h2>
-                <button id="close-task-board" class="text-gray-500 hover:text-gray-700">
-                    <i class="fa fa-times"></i>
-                </button>
+    <div id="search-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-40">
+        <div class="bg-white rounded-2xl w-full max-w-4xl p-5 shadow-float">
+            <div class="flex items-center justify-between">
+                <h3 class="font-display font-semibold">全局智能搜索</h3>
+                <button id="close-search" class="text-muted"><i class="fa fa-times"></i></button>
             </div>
-            
-            <!-- 视图切换 -->
-            <div class="p-4 border-b border-gray-200 flex items-center justify-between">
-                <div class="flex space-x-2">
-                    <button class="px-3 py-1.5 bg-primary text-white rounded-lg">列表视图</button>
-                    <button class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-lg">看板视图</button>
-                    <button class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-lg">日历视图</button>
+            <div class="mt-3">
+                <input type="text" class="w-full border border-line rounded-full px-4 py-2" placeholder="输入关键词或问题">
+            </div>
+            <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                <div class="md:col-span-2 bg-mist rounded-xl p-3">
+                    <p class="font-medium">最佳答案</p>
+                    <p class="text-xs text-muted mt-2">华东区Q2销售额同比增长15.3%，主要来自渠道优化与重点客户扩展。</p>
                 </div>
-                <div class="flex items-center space-x-2">
-                    <select class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-                        <option>所有任务</option>
-                        <option>我的任务</option>
-                        <option>已分配的任务</option>
-                    </select>
-                    <button class="px-3 py-1.5 bg-primary text-white rounded-lg">
-                        <i class="fa fa-plus mr-1"></i> 新建任务
-                    </button>
+                <div class="bg-mist rounded-xl p-3">
+                    <p class="font-medium">相关专家</p>
+                    <p class="text-xs text-muted mt-2">王晓华 · 市场分析师</p>
                 </div>
-            </div>
-            
-            <!-- 任务列表 -->
-            <div class="flex-1 overflow-y-auto p-4">
-                <table class="w-full">
-                    <thead>
-                        <tr class="border-b border-gray-200">
-                            <th class="text-left py-3 px-4 font-medium text-gray-500 font-display">任务名称</th>
-                            <th class="text-left py-3 px-4 font-medium text-gray-500 font-display">负责人</th>
-                            <th class="text-left py-3 px-4 font-medium text-gray-500 font-display">截止日期</th>
-                            <th class="text-left py-3 px-4 font-medium text-gray-500 font-display">优先级</th>
-                            <th class="text-left py-3 px-4 font-medium text-gray-500 font-display">状态</th>
-                            <th class="text-left py-3 px-4 font-medium text-gray-500 font-display">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b border-gray-100 hover:bg-gray-50">
-                            <td class="py-3 px-4">
-                                <div class="flex items-center">
-                                    <input type="checkbox" class="mr-2">
-                                    <span>审核产品需求文档</span>
-                                </div>
-                            </td>
-                            <td class="py-3 px-4">
-                                <div class="flex items-center">
-                                    <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" alt="用户头像" class="w-6 h-6 rounded-full object-cover mr-2">
-                                    <span>张明</span>
-                                </div>
-                            </td>
-                            <td class="py-3 px-4 text-danger">今天</td>
-                            <td class="py-3 px-4">
-                                <span class="px-2 py-0.5 bg-danger bg-opacity-10 text-danger text-xs rounded-full">高</span>
-                            </td>
-                            <td class="py-3 px-4">
-                                <span class="px-2 py-0.5 bg-warning bg-opacity-10 text-warning text-xs rounded-full">进行中</span>
-                            </td>
-                            <td class="py-3 px-4">
-                                <button class="text-gray-500 hover:text-primary mr-2">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                                <button class="text-gray-500 hover:text-danger">
-                                    <i class="fa fa-trash-o"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="border-b border-gray-100 hover:bg-gray-50">
-                            <td class="py-3 px-4">
-                                <div class="flex items-center">
-                                    <input type="checkbox" class="mr-2">
-                                    <span>参加周例会</span>
-                                </div>
-                            </td>
-                            <td class="py-3 px-4">
-                                <div class="flex items-center">
-                                    <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" alt="用户头像" class="w-6 h-6 rounded-full object-cover mr-2">
-                                    <span>张明</span>
-                                </div>
-                            </td>
-                            <td class="py-3 px-4 text-danger">今天 14:00</td>
-                            <td class="py-3 px-4">
-                                <span class="px-2 py-0.5 bg-warning bg-opacity-10 text-warning text-xs rounded-full">中</span>
-                            </td>
-                            <td class="py-3 px-4">
-                                <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded-full">待开始</span>
-                            </td>
-                            <td class="py-3 px-4">
-                                <button class="text-gray-500 hover:text-primary mr-2">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                                <button class="text-gray-500 hover:text-danger">
-                                    <i class="fa fa-trash-o"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="border-b border-gray-100 hover:bg-gray-50">
-                            <td class="py-3 px-4">
-                                <div class="flex items-center">
-                                    <input type="checkbox" class="mr-2">
-                                    <span>完成Q3销售数据分析</span>
-                                </div>
-                            </td>
-                            <td class="py-3 px-4">
-                                <div class="flex items-center">
-                                    <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" alt="用户头像" class="w-6 h-6 rounded-full object-cover mr-2">
-                                    <span>张明</span>
-                                </div>
-                            </td>
-                            <td class="py-3 px-4 text-warning">明天</td>
-                            <td class="py-3 px-4">
-                                <span class="px-2 py-0.5 bg-warning bg-opacity-10 text-warning text-xs rounded-full">中</span>
-                            </td>
-                            <td class="py-3 px-4">
-                                <span class="px-2 py-0.5 bg-success bg-opacity-10 text-success text-xs rounded-full">已完成</span>
-                            </td>
-                            <td class="py-3 px-4">
-                                <button class="text-gray-500 hover:text-primary mr-2">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                                <button class="text-gray-500 hover:text-danger">
-                                    <i class="fa fa-trash-o"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="border-b border-gray-100 hover:bg-gray-50">
-                            <td class="py-3 px-4">
-                                <div class="flex items-center">
-                                    <input type="checkbox" class="mr-2">
-                                    <span>准备产品演示文稿</span>
-                                </div>
-                            </td>
-                            <td class="py-3 px-4">
-                                <div class="flex items-center">
-                                    <img src="https://p3-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/917290012437381132~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=eE%2BzXl7cx1IbWn6x2FmQTE6dhr8%3D" alt="用户头像" class="w-6 h-6 rounded-full object-cover mr-2">
-                                    <span>王晓华</span>
-                                </div>
-                            </td>
-                            <td class="py-3 px-4">7月25日</td>
-                            <td class="py-3 px-4">
-                                <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded-full">低</span>
-                            </td>
-                            <td class="py-3 px-4">
-                                <span class="px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded-full">待开始</span>
-                            </td>
-                            <td class="py-3 px-4">
-                                <button class="text-gray-500 hover:text-primary mr-2">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                                <button class="text-gray-500 hover:text-danger">
-                                    <i class="fa fa-trash-o"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- 分页 -->
-            <div class="p-4 border-t border-gray-200 flex items-center justify-between">
-                <div class="text-sm text-gray-500">显示 1-4 条，共 4 条</div>
-                <div class="flex space-x-1">
-                    <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-300 text-gray-500 hover:bg-gray-50 disabled:opacity-50" disabled>
-                        <i class="fa fa-chevron-left"></i>
-                    </button>
-                    <button class="w-8 h-8 flex items-center justify-center rounded border border-primary bg-primary text-white">1</button>
-                    <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-300 text-gray-500 hover:bg-gray-50 disabled:opacity-50" disabled>
-                        <i class="fa fa-chevron-right"></i>
-                    </button>
+                <div class="bg-white rounded-xl border border-line p-3">
+                    <p class="font-medium">相关文档</p>
+                    <ul class="mt-2 text-xs text-muted space-y-1">
+                        <li>《华东区市场趋势分析》</li>
+                        <li>《渠道策略调整复盘》</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-line p-3">
+                    <p class="font-medium">关联实体</p>
+                    <ul class="mt-2 text-xs text-muted space-y-1">
+                        <li>项目：A产品</li>
+                        <li>客户：XX科技</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-line p-3">
+                    <p class="font-medium">历史讨论</p>
+                    <ul class="mt-2 text-xs text-muted space-y-1">
+                        <li>销售会议纪要 · 2024/07</li>
+                        <li>市场策略讨论 · 2024/06</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript -->
+    <div id="task-board-modal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-40">
+        <div class="bg-white rounded-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col">
+            <div class="p-4 border-b border-line flex items-center justify-between">
+                <h3 class="font-display font-semibold">任务看板</h3>
+                <button id="close-task-board" class="text-muted"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="p-4 border-b border-line flex items-center justify-between text-sm">
+                <div class="flex gap-2">
+                    <button class="px-3 py-1 rounded-full bg-primary text-white">列表视图</button>
+                    <button class="px-3 py-1 rounded-full bg-white border border-line">看板视图</button>
+                    <button class="px-3 py-1 rounded-full bg-white border border-line">日历视图</button>
+                </div>
+                <button class="px-3 py-1 rounded-full bg-secondary text-white">新建任务</button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="text-left text-xs text-muted">
+                            <th class="py-2">任务</th>
+                            <th>负责人</th>
+                            <th>截止日期</th>
+                            <th>优先级</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-t border-line">
+                            <td class="py-3">审核产品需求文档</td>
+                            <td>张明</td>
+                            <td class="text-danger">今天</td>
+                            <td>高</td>
+                            <td>进行中</td>
+                        </tr>
+                        <tr class="border-t border-line">
+                            <td class="py-3">参加周例会</td>
+                            <td>张明</td>
+                            <td class="text-warning">今天 14:00</td>
+                            <td>中</td>
+                            <td>待开始</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="version-modal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-40">
+        <div class="bg-white rounded-2xl w-full max-w-3xl p-5 shadow-float">
+            <div class="flex items-center justify-between">
+                <h3 class="font-display font-semibold">版本对比</h3>
+                <button id="close-version" class="text-muted"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                <div class="p-3 rounded-xl bg-mist">V1.1 · 2024/06/20</div>
+                <div class="p-3 rounded-xl bg-mist">V1.2 · 2024/07/12</div>
+            </div>
+            <div class="mt-4 p-3 rounded-xl border border-line text-xs text-muted">
+                差异摘要：新增“竞品对比”章节，更新12处数据，修复术语不一致问题。
+            </div>
+        </div>
+    </div>
+
+    <div id="agent-modal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-40">
+        <div class="bg-white rounded-2xl w-full max-w-2xl p-5 shadow-float">
+            <div class="flex items-center justify-between">
+                <h3 id="agent-title" class="font-display font-semibold">智能体详情</h3>
+                <button id="close-agent" class="text-muted"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="mt-4 text-sm">
+                <p id="agent-desc" class="text-muted">智能体描述</p>
+                <ul class="mt-3 text-xs text-muted space-y-1">
+                    <li>能力：生成摘要、风险识别、结果交付</li>
+                    <li>依赖：知识图谱 · 智能体工厂</li>
+                    <li>评分：4.7 · 订阅 980</li>
+                </ul>
+            </div>
+            <div class="mt-4 flex justify-end">
+                <button id="subscribe-agent" class="px-4 py-2 rounded-full bg-secondary text-white text-sm">立即订阅</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="discussion-modal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-40">
+        <div class="bg-white rounded-2xl w-full max-w-xl p-5 shadow-float">
+            <div class="flex items-center justify-between">
+                <h3 class="font-display font-semibold">发起讨论</h3>
+                <button id="close-discussion" class="text-muted"><i class="fa fa-times"></i></button>
+            </div>
+            <input class="mt-4 w-full border border-line rounded-lg px-3 py-2 text-sm" placeholder="讨论主题">
+            <textarea class="mt-3 w-full border border-line rounded-lg px-3 py-2 text-sm" rows="4" placeholder="描述问题或背景"></textarea>
+            <div class="mt-4 flex justify-end">
+                <button class="px-4 py-2 rounded-full bg-primary text-white text-sm">发布</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="publish-modal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-40">
+        <div class="bg-white rounded-2xl w-full max-w-xl p-5 shadow-float">
+            <div class="flex items-center justify-between">
+                <h3 class="font-display font-semibold">发布设置</h3>
+                <button id="close-publish" class="text-muted"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="mt-4 space-y-3 text-sm">
+                <label class="flex items-center gap-2"><input type="checkbox" checked> 发布到团队空间</label>
+                <label class="flex items-center gap-2"><input type="checkbox"> 推送到部门空间</label>
+                <label class="flex items-center gap-2"><input type="checkbox"> 全员可见（需成熟度达标）</label>
+            </div>
+            <div class="mt-4 flex justify-end">
+                <button class="px-4 py-2 rounded-full bg-secondary text-white text-sm">确认发布</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="capture-drawer" class="fixed bottom-6 right-6 bg-white rounded-2xl shadow-float p-4 w-72 hidden z-30">
+        <div class="flex items-center justify-between">
+            <p class="font-medium text-sm">快速捕获</p>
+            <button id="close-capture" class="text-muted text-xs"><i class="fa fa-times"></i></button>
+        </div>
+        <textarea class="mt-3 w-full border border-line rounded-lg p-2 text-xs" rows="3" placeholder="写下灵感"></textarea>
+        <button class="mt-3 w-full px-3 py-2 rounded-full bg-secondary text-white text-xs">保存</button>
+    </div>
+
+    <div id="toast" class="fixed top-6 right-6 bg-primary text-white text-sm px-4 py-2 rounded-full shadow-float hidden z-50">设置已保存</div>
+
     <script>
-        // 初始化销售趋势图表
-        document.addEventListener('DOMContentLoaded', function() {
-            // 销售趋势图表
-            const ctx = document.getElementById('salesChart').getContext('2d');
-            const salesChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
-                    datasets: [
-                        {
-                            label: '华东区销售额',
-                            data: [120, 150, 180, 170, 210, 240],
-                            borderColor: '#8b5cf6',
-                            backgroundColor: 'rgba(139, 92, 246, 0.1)',
-                            tension: 0.4,
-                            fill: true
-                        },
-                        {
-                            label: '全国平均销售额',
-                            data: [100, 120, 140, 160, 180, 200],
-                            borderColor: '#3b82f6',
-                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                            tension: 0.4,
-                            fill: true
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const pages = document.querySelectorAll('.page');
+        const summaryToggle = document.getElementById('toggle-summary');
+        const summaryContent = document.getElementById('summary-content');
+        const sendMessageBtn = document.getElementById('send-message');
+        const messageInput = document.getElementById('message-input');
+        const chatHistory = document.getElementById('chat-history');
+        const searchInput = document.getElementById('global-search');
+        const searchModal = document.getElementById('search-modal');
+        const searchSuggestions = document.getElementById('search-suggestions');
+        const closeSearch = document.getElementById('close-search');
+        const taskBoardModal = document.getElementById('task-board-modal');
+        const openTaskBoard = document.getElementById('open-task-board');
+        const closeTaskBoard = document.getElementById('close-task-board');
+        const summaryTaskButtons = document.querySelectorAll('.open-task-board');
+        const versionModal = document.getElementById('version-modal');
+        const openVersion = document.getElementById('open-version-compare');
+        const closeVersion = document.getElementById('close-version');
+        const agentModal = document.getElementById('agent-modal');
+        const closeAgent = document.getElementById('close-agent');
+        const subscribeAgent = document.getElementById('subscribe-agent');
+        const discussionModal = document.getElementById('discussion-modal');
+        const openDiscussion = document.getElementById('open-discussion');
+        const closeDiscussion = document.getElementById('close-discussion');
+        const publishModal = document.getElementById('publish-modal');
+        const openPublish = document.getElementById('open-publish');
+        const closePublish = document.getElementById('close-publish');
+        const captureDrawer = document.getElementById('capture-drawer');
+        const openCapture = document.getElementById('open-capture');
+        const closeCapture = document.getElementById('close-capture');
+        const toast = document.getElementById('toast');
+        const viewButtons = document.querySelectorAll('.view-btn');
+        const viewPanels = document.querySelectorAll('.view-panel');
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+        const quickCommands = document.querySelectorAll('.quick-command');
+        const fillMessages = document.querySelectorAll('.fill-message');
+        const quickNoteInput = document.getElementById('quick-note-input');
+        const quickNoteList = document.getElementById('quick-note-list');
+        const saveQuickNote = document.getElementById('save-quick-note');
+        const saveClip = document.getElementById('save-clip');
+        const clipUrl = document.getElementById('clip-url');
+        const clipList = document.getElementById('clip-list');
+        const recordToggle = document.getElementById('record-toggle');
+        const recordTimer = document.getElementById('record-timer');
+        const termButtons = document.querySelectorAll('.term-btn');
+        const termDefinition = document.getElementById('term-definition');
+        const runQualityCheck = document.getElementById('run-quality-check');
+        const maturityLevel = document.getElementById('maturity-level');
+        const qualityScore = document.getElementById('quality-score');
+        const saveSettings = document.getElementById('save-settings');
+        const agentCards = document.querySelectorAll('.agent-card');
+        const agentTitle = document.getElementById('agent-title');
+        const agentDesc = document.getElementById('agent-desc');
+        const addFlowStep = document.getElementById('add-flow-step');
+        const agentFlow = document.getElementById('agent-flow');
+        const salesChartCanvas = document.getElementById('salesChart');
+
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                navButtons.forEach(item => item.classList.remove('bg-primary/10', 'text-primary'));
+                navButtons.forEach(item => item.classList.add('text-muted'));
+                btn.classList.add('bg-primary/10', 'text-primary');
+                btn.classList.remove('text-muted');
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById(`page-${btn.dataset.page}`).classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
-            
-            // 智能摘要折叠/展开功能
-            const toggleSummaryBtn = document.getElementById('toggle-summary');
-            const summaryContent = document.getElementById('summary-content');
-            
-            toggleSummaryBtn.addEventListener('click', function() {
-                const icon = toggleSummaryBtn.querySelector('i');
-                
-                if (summaryContent.classList.contains('hidden')) {
-                    summaryContent.classList.remove('hidden');
-                    icon.classList.remove('fa-chevron-down');
-                    icon.classList.add('fa-chevron-up');
-                } else {
-                    summaryContent.classList.add('hidden');
-                    icon.classList.remove('fa-chevron-up');
-                    icon.classList.add('fa-chevron-down');
-                }
-            });
-            
-            // 消息输入框自动调整高度
-            const messageInput = document.getElementById('message-input');
-            
-            messageInput.addEventListener('input', function() {
-                this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px';
-                
-                // 限制最大高度
-                if (this.scrollHeight > 150) {
-                    this.style.height = '150px';
-                    this.style.overflowY = 'auto';
-                } else {
-                    this.style.overflowY = 'hidden';
-                }
-            });
-            
-            // 发送消息功能
-            const sendMessageBtn = document.getElementById('send-message');
-            const chatHistory = document.getElementById('chat-history');
-            
-            function sendMessage() {
-                const message = messageInput.value.trim();
-                
-                if (message) {
-                    // 添加用户消息到聊天历史
-                    const userMessageHTML = `
-                        <div class="flex items-start justify-end">
-                            <div class="max-w-3xl">
-                                <div class="bg-primary bg-opacity-10 rounded-lg p-4">
-                                    <p class="text-gray-700">${message}</p>
-                                </div>
-                                <p class="text-xs text-gray-500 mt-1 text-right">${getCurrentTime()}</p>
-                            </div>
-                            <div class="w-8 h-8 rounded-full bg-gray-300 ml-3 flex-shrink-0 overflow-hidden">
-                                <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" alt="用户头像" class="w-full h-full object-cover">
-                            </div>
+        });
+
+        summaryToggle.addEventListener('click', () => {
+            summaryContent.classList.toggle('hidden');
+            summaryToggle.querySelector('i').classList.toggle('fa-chevron-up');
+            summaryToggle.querySelector('i').classList.toggle('fa-chevron-down');
+        });
+
+        function getCurrentTime() {
+            const now = new Date();
+            return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        }
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+            const userMessage = `
+                <div class="flex items-start justify-end gap-3">
+                    <div class="bg-primary/10 rounded-xl p-4 shadow-soft max-w-2xl">
+                        <p class="text-sm">${message}</p>
+                    </div>
+                    <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" class="w-9 h-9 rounded-full" alt="用户">
+                </div>
+            `;
+            chatHistory.insertAdjacentHTML('beforeend', userMessage);
+            messageInput.value = '';
+            messageInput.style.height = 'auto';
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+            setTimeout(() => {
+                const systemMessage = `
+                    <div class="flex items-start gap-3">
+                        <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center"><i class="fa fa-robot"></i></div>
+                        <div class="bg-white rounded-xl p-4 shadow-soft max-w-2xl">
+                            <p class="text-sm">已接收“${message}”，正在调用智能体处理并生成初稿。</p>
+                            <p class="text-xs text-muted mt-2">${getCurrentTime()}</p>
                         </div>
-                    `;
-                    
-                    chatHistory.insertAdjacentHTML('beforeend', userMessageHTML);
-                    
-                    // 清空输入框
-                    messageInput.value = '';
-                    messageInput.style.height = 'auto';
-                    
-                    // 滚动到底部
-                    chatHistory.scrollTop = chatHistory.scrollHeight;
-                    
-                    // 模拟系统回复
-                    setTimeout(() => {
-                        const systemMessageHTML = `
-                            <div class="flex items-start">
-                                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white mr-3 flex-shrink-0">
-                                    <i class="fa fa-robot"></i>
-                                </div>
-                                <div class="max-w-3xl">
-                                    <div class="bg-white rounded-lg p-4 shadow-card">
-                                        <div class="flex items-center mb-2">
-                                            <span class="font-medium">智核助手</span>
-                                            <span class="ml-2 px-2 py-0.5 bg-primary bg-opacity-10 text-primary text-xs rounded-full">官方</span>
-                                        </div>
-                                        <p class="text-gray-700">感谢您的提问。我正在处理您的请求，请稍候...</p>
-                                    </div>
-                                    <p class="text-xs text-gray-500 mt-1">${getCurrentTime()}</p>
-                                </div>
-                            </div>
-                        `;
-                        
-                        chatHistory.insertAdjacentHTML('beforeend', systemMessageHTML);
-                        chatHistory.scrollTop = chatHistory.scrollHeight;
-                    }, 1000);
-                }
+                    </div>
+                `;
+                chatHistory.insertAdjacentHTML('beforeend', systemMessage);
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            }, 600);
+        }
+
+        sendMessageBtn.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
             }
-            
-            sendMessageBtn.addEventListener('click', sendMessage);
-            
-            messageInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    sendMessage();
-                }
+        });
+
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = `${this.scrollHeight}px`;
+        });
+
+        quickCommands.forEach(btn => {
+            btn.addEventListener('click', () => {
+                messageInput.value = `${btn.dataset.command} `;
+                messageInput.focus();
             });
-            
-            // 获取当前时间
-            function getCurrentTime() {
-                const now = new Date();
-                const hours = now.getHours().toString().padStart(2, '0');
-                const minutes = now.getMinutes().toString().padStart(2, '0');
-                return `${hours}:${minutes}`;
-            }
-            
-            // 搜索框交互
-            const searchInput = document.querySelector('input[placeholder="搜索知识、文档、任务..."]');
-            const searchSuggestions = document.getElementById('search-suggestions');
-            
-            searchInput.addEventListener('focus', function() {
+        });
+
+        fillMessages.forEach(btn => {
+            btn.addEventListener('click', () => {
+                messageInput.value = btn.textContent.trim();
+                messageInput.focus();
+            });
+        });
+
+        searchInput.addEventListener('focus', () => {
+            if (searchSuggestions) {
                 searchSuggestions.classList.remove('hidden');
-            });
-            
-            searchInput.addEventListener('blur', function() {
-                // 延迟隐藏，以便可以点击建议项
-                setTimeout(() => {
+            }
+        });
+        searchInput.addEventListener('blur', () => {
+            if (searchSuggestions) {
+                setTimeout(() => searchSuggestions.classList.add('hidden'), 200);
+            }
+        });
+        closeSearch.addEventListener('click', () => searchModal.classList.add('hidden'));
+        if (searchSuggestions) {
+            searchSuggestions.querySelectorAll('li, span').forEach(item => {
+                item.addEventListener('click', () => {
+                    searchInput.value = item.textContent.trim();
                     searchSuggestions.classList.add('hidden');
-                }, 200);
-            });
-            
-            // 任务看板模态框
-            const taskBoardModal = document.getElementById('task-board-modal');
-            const closeTaskBoardBtn = document.getElementById('close-task-board');
-            
-            // 打开任务看板
-            document.querySelectorAll('.bg-danger.text-white.text-xs.px-2.py-0.5.rounded-full').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    taskBoardModal.classList.remove('hidden');
                 });
             });
-            
-            // 关闭任务看板
-            closeTaskBoardBtn.addEventListener('click', function() {
+        }
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                searchModal.classList.remove('hidden');
+            }
+            if (e.key === 'Escape') {
+                searchModal.classList.add('hidden');
                 taskBoardModal.classList.add('hidden');
+                versionModal.classList.add('hidden');
+                agentModal.classList.add('hidden');
+                discussionModal.classList.add('hidden');
+                publishModal.classList.add('hidden');
+                captureDrawer.classList.add('hidden');
+            }
+        });
+
+        openTaskBoard.addEventListener('click', () => taskBoardModal.classList.remove('hidden'));
+        closeTaskBoard.addEventListener('click', () => taskBoardModal.classList.add('hidden'));
+        taskBoardModal.addEventListener('click', (e) => {
+            if (e.target === taskBoardModal) taskBoardModal.classList.add('hidden');
+        });
+        summaryTaskButtons.forEach(btn => {
+            btn.addEventListener('click', () => taskBoardModal.classList.remove('hidden'));
+        });
+
+        openVersion.addEventListener('click', () => versionModal.classList.remove('hidden'));
+        closeVersion.addEventListener('click', () => versionModal.classList.add('hidden'));
+
+        agentCards.forEach(card => {
+            card.addEventListener('click', () => {
+                agentTitle.textContent = card.dataset.agent;
+                agentDesc.textContent = `${card.dataset.agent} 将根据企业知识图谱与智能体工厂能力提供专项服务。`;
+                agentModal.classList.remove('hidden');
             });
-            
-            // 点击模态框外部关闭
-            taskBoardModal.addEventListener('click', function(e) {
-                if (e.target === taskBoardModal) {
-                    taskBoardModal.classList.add('hidden');
-                }
+        });
+        closeAgent.addEventListener('click', () => agentModal.classList.add('hidden'));
+        subscribeAgent.addEventListener('click', () => {
+            subscribeAgent.textContent = '已订阅';
+            subscribeAgent.classList.add('bg-success');
+        });
+
+        openDiscussion.addEventListener('click', () => discussionModal.classList.remove('hidden'));
+        closeDiscussion.addEventListener('click', () => discussionModal.classList.add('hidden'));
+
+        openPublish.addEventListener('click', () => publishModal.classList.remove('hidden'));
+        closePublish.addEventListener('click', () => publishModal.classList.add('hidden'));
+
+        openCapture.addEventListener('click', () => captureDrawer.classList.remove('hidden'));
+        closeCapture.addEventListener('click', () => captureDrawer.classList.add('hidden'));
+
+        viewButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                viewButtons.forEach(b => b.classList.remove('bg-primary', 'text-white'));
+                viewButtons.forEach(b => b.classList.add('bg-white', 'border', 'border-line'));
+                btn.classList.add('bg-primary', 'text-white');
+                btn.classList.remove('bg-white', 'border', 'border-line');
+                viewPanels.forEach(panel => panel.classList.remove('active'));
+                document.getElementById(`knowledge-${btn.dataset.view}`).classList.add('active');
             });
-            
-            // 快捷指令按钮
-            document.querySelectorAll('.text-xs.px-2.py-1.bg-gray-100.hover\\:bg-gray-200.rounded-full').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const command = this.textContent;
-                    messageInput.value = command + ' ';
-                    messageInput.focus();
+        });
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const group = btn.closest('div').parentElement;
+                const panels = group.querySelectorAll('.tab-panel');
+                const buttons = group.querySelectorAll('.tab-btn');
+                buttons.forEach(b => b.classList.remove('bg-primary', 'text-white'));
+                buttons.forEach(b => b.classList.add('bg-white', 'border', 'border-line'));
+                btn.classList.add('bg-primary', 'text-white');
+                btn.classList.remove('bg-white', 'border', 'border-line');
+                panels.forEach(panel => panel.classList.remove('active'));
+                document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+            });
+        });
+
+        saveQuickNote.addEventListener('click', () => {
+            const value = quickNoteInput.value.trim();
+            if (!value) return;
+            const item = document.createElement('li');
+            item.className = 'p-3 rounded-lg bg-mist';
+            item.textContent = value;
+            quickNoteList.prepend(item);
+            quickNoteInput.value = '';
+        });
+
+        saveClip.addEventListener('click', () => {
+            const value = clipUrl.value.trim();
+            if (!value) return;
+            const item = document.createElement('li');
+            item.className = 'p-3 rounded-lg bg-mist';
+            item.textContent = value;
+            clipList.prepend(item);
+            clipUrl.value = '';
+        });
+
+        let recording = false;
+        let recordInterval = null;
+        let recordSeconds = 0;
+        recordToggle.addEventListener('click', () => {
+            recording = !recording;
+            if (recording) {
+                recordToggle.textContent = '暂停录音';
+                recordToggle.classList.remove('bg-danger');
+                recordToggle.classList.add('bg-secondary');
+                recordInterval = setInterval(() => {
+                    recordSeconds += 1;
+                    const mins = String(Math.floor(recordSeconds / 60)).padStart(2, '0');
+                    const secs = String(recordSeconds % 60).padStart(2, '0');
+                    recordTimer.textContent = `${mins}:${secs}`;
+                }, 1000);
+            } else {
+                recordToggle.textContent = '开始录音';
+                recordToggle.classList.remove('bg-secondary');
+                recordToggle.classList.add('bg-danger');
+                clearInterval(recordInterval);
+            }
+        });
+
+        termButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const term = btn.dataset.term;
+                termDefinition.textContent = `${term}：企业本体中定义的关键指标，关联客户画像、风险与续约策略。`;
+            });
+        });
+
+        runQualityCheck.addEventListener('click', () => {
+            maturityLevel.textContent = '成熟';
+            qualityScore.textContent = '86 / 100';
+        });
+
+        saveSettings.addEventListener('click', () => {
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 2000);
+        });
+
+        addFlowStep.addEventListener('click', () => {
+            const step = document.createElement('li');
+            step.className = 'p-2 rounded-lg bg-mist';
+            step.textContent = '新智能体步骤';
+            agentFlow.appendChild(step);
+        });
+
+        function initSalesChart() {
+            if (!salesChartCanvas) return;
+            const parent = salesChartCanvas.parentElement;
+            const fallbackWidth = 520;
+            const fallbackHeight = 180;
+            if (parent) {
+                const width = parent.clientWidth || parent.offsetWidth || fallbackWidth;
+                const height = parent.clientHeight || parent.offsetHeight || fallbackHeight;
+                salesChartCanvas.width = width;
+                salesChartCanvas.height = height;
+            } else {
+                salesChartCanvas.width = fallbackWidth;
+                salesChartCanvas.height = fallbackHeight;
+            }
+            const data = {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                valuesA: [120, 150, 180, 170, 210, 240],
+                valuesB: [100, 120, 140, 160, 180, 200]
+            };
+            const ctx = salesChartCanvas.getContext('2d');
+            const padding = 24;
+            const maxVal = Math.max(...data.valuesA, ...data.valuesB);
+            const minVal = 0;
+            const chartW = salesChartCanvas.width - padding * 2;
+            const chartH = salesChartCanvas.height - padding * 2;
+            ctx.clearRect(0, 0, salesChartCanvas.width, salesChartCanvas.height);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, salesChartCanvas.width, salesChartCanvas.height);
+            ctx.strokeStyle = 'rgba(15, 23, 42, 0.08)';
+            for (let i = 0; i <= 4; i += 1) {
+                const y = padding + (chartH / 4) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(padding + chartW, y);
+                ctx.stroke();
+            }
+            ctx.strokeStyle = 'rgba(15, 23, 42, 0.15)';
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, padding + chartH);
+            ctx.lineTo(padding + chartW, padding + chartH);
+            ctx.stroke();
+            function drawSeries(values, color, fillColor) {
+                ctx.fillStyle = fillColor;
+                ctx.beginPath();
+                values.forEach((val, idx) => {
+                    const x = padding + (chartW / (values.length - 1)) * idx;
+                    const y = padding + chartH - ((val - minVal) / (maxVal - minVal)) * chartH;
+                    if (idx === 0) {
+                        ctx.moveTo(x, padding + chartH);
+                        ctx.lineTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
                 });
-            });
+                ctx.lineTo(padding + chartW, padding + chartH);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                values.forEach((val, idx) => {
+                    const x = padding + (chartW / (values.length - 1)) * idx;
+                    const y = padding + chartH - ((val - minVal) / (maxVal - minVal)) * chartH;
+                    if (idx === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                });
+                ctx.stroke();
+                ctx.fillStyle = color;
+                values.forEach((val, idx) => {
+                    const x = padding + (chartW / (values.length - 1)) * idx;
+                    const y = padding + chartH - ((val - minVal) / (maxVal - minVal)) * chartH;
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            }
+            drawSeries(data.valuesA, '#1b2a4e', 'rgba(27, 42, 78, 0.12)');
+            drawSeries(data.valuesB, '#00807f', 'rgba(0, 128, 127, 0.12)');
+        }
+
+        window.addEventListener('load', () => {
+            initSalesChart();
         });
     </script>
 </body>

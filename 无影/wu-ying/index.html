@@ -10,26 +10,33 @@
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'deep-blue': '#0a1929',
-                        'tech-blue': '#1e3a8a',
-                        'neon-cyan': '#06b6d4',
-                        'electric-purple': '#a855f7',
-                        'dark-card': '#0f172a',
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                        neutral: '#6b7280',
+                        'primary-light': '#dbeafe',
+                        'secondary-light': '#ede9fe',
+                        'success-light': '#d1fae5',
+                        'warning-light': '#fef3c7',
+                        'danger-light': '#fee2e2',
+                        'neutral-light': '#f3f4f6',
+                        'deep-blue': '#f8fafc',
+                        'tech-blue': '#8b5cf6',
+                        'neon-cyan': '#3b82f6',
+                        'electric-purple': '#8b5cf6',
+                        'dark-card': '#ffffff',
                         'accent-green': '#10b981'
                     },
                     fontFamily: {
-                        'display': ['Orbitron', 'sans-serif'],
-                        'body': ['IBM Plex Sans', 'sans-serif']
+                        'display': ['Inter', 'system-ui', 'sans-serif'],
+                        'body': ['Inter', 'system-ui', 'sans-serif']
                     }
                 }
             }
@@ -44,9 +51,13 @@
         }
 
         body {
-            font-family: 'IBM Plex Sans', sans-serif;
-            background: #0a1929;
-            color: #e2e8f0;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #f8fafc;
+            background-image:
+                linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: #111827;
             overflow-x: hidden;
         }
 
@@ -58,7 +69,7 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.3;
+            opacity: 0.2;
         }
 
         .dashboard-wrapper {
@@ -68,13 +79,13 @@
 
         /* 导航栏样式 */
         .sidebar {
-            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-            border-right: 1px solid rgba(6, 182, 212, 0.2);
-            box-shadow: 4px 0 24px rgba(6, 182, 212, 0.1);
+            background: #ffffff;
+            border-right: 1px solid #e2e8f0;
+            box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
         }
 
         .logo-glow {
-            filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.6));
+            filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.3));
         }
 
         .nav-item {
@@ -91,7 +102,7 @@
             top: 0;
             height: 100%;
             width: 0;
-            background: linear-gradient(90deg, rgba(6, 182, 212, 0.2), transparent);
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.15), transparent);
             transition: width 0.3s ease;
         }
 
@@ -100,22 +111,22 @@
         }
 
         .nav-item:hover {
-            background: rgba(6, 182, 212, 0.05);
-            border-left-color: #06b6d4;
-            transform: translateX(4px);
+            background: #f8fafc;
+            border-left-color: #3b82f6;
+            transform: translateX(2px);
         }
 
         .nav-item.active {
-            background: linear-gradient(90deg, rgba(6, 182, 212, 0.15), transparent);
-            border-left-color: #06b6d4;
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+            background: #dbeafe;
+            border-left-color: #3b82f6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
         }
 
         /* 卡片样式 */
         .card {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            border: 1px solid rgba(6, 182, 212, 0.2);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
@@ -127,7 +138,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.08), transparent);
             transition: left 0.6s ease;
         }
 
@@ -136,15 +147,15 @@
         }
 
         .card:hover {
-            border-color: rgba(6, 182, 212, 0.5);
-            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.2);
-            transform: translateY(-4px);
+            border-color: #cbd5f5;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
         }
 
         /* 统计卡片 */
         .stat-card {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 1px solid rgba(6, 182, 212, 0.3);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             position: relative;
             overflow: hidden;
         }
@@ -156,7 +167,7 @@
             right: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
             animation: pulse 3s ease-in-out infinite;
         }
 
@@ -176,7 +187,7 @@
 
         .status-dot.active {
             background: #10b981;
-            box-shadow: 0 0 10px #10b981;
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
             animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
         }
 
@@ -186,7 +197,7 @@
 
         .status-dot.error {
             background: #ef4444;
-            box-shadow: 0 0 10px #ef4444;
+            box-shadow: 0 0 6px rgba(239, 68, 68, 0.4);
         }
 
         @keyframes ping {
@@ -208,64 +219,64 @@
 
         /* 按钮样式 */
         .btn-primary {
-            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            background: #3b82f6;
             border: none;
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
             transition: all 0.3s ease;
         }
 
         .btn-primary:hover {
-            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
             transform: translateY(-2px);
         }
 
         .btn-secondary {
             background: transparent;
-            border: 1px solid #06b6d4;
-            color: #06b6d4;
+            border: 1px solid #3b82f6;
+            color: #3b82f6;
             transition: all 0.3s ease;
         }
 
         .btn-secondary:hover {
-            background: rgba(6, 182, 212, 0.1);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+            background: #dbeafe;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
         }
 
         /* 表格样式 */
         .table-container {
-            background: #0f172a;
-            border: 1px solid rgba(6, 182, 212, 0.2);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 0.5rem;
             overflow: hidden;
         }
 
         .table-header {
-            background: linear-gradient(90deg, #1e293b 0%, #0f172a 100%);
-            border-bottom: 2px solid rgba(6, 182, 212, 0.3);
+            background: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
         }
 
         .table-row {
-            border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+            border-bottom: 1px solid #e5e7eb;
             transition: all 0.3s ease;
         }
 
         .table-row:hover {
-            background: rgba(6, 182, 212, 0.05);
+            background: #f8fafc;
         }
 
         /* 进度条 */
         .progress-bar {
-            background: #1e293b;
+            background: #e5e7eb;
             border-radius: 9999px;
             overflow: hidden;
             height: 8px;
         }
 
         .progress-fill {
-            background: linear-gradient(90deg, #06b6d4 0%, #0891b2 100%);
+            background: #3b82f6;
             height: 100%;
             transition: width 1s ease;
-            box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
         }
 
         /* 徽章 */
@@ -278,27 +289,27 @@
         }
 
         .badge-success {
-            background: rgba(16, 185, 129, 0.2);
+            background: #d1fae5;
             color: #10b981;
-            border: 1px solid #10b981;
+            border: 1px solid #a7f3d0;
         }
 
         .badge-warning {
-            background: rgba(245, 158, 11, 0.2);
+            background: #fef3c7;
             color: #f59e0b;
-            border: 1px solid #f59e0b;
+            border: 1px solid #fde68a;
         }
 
         .badge-error {
-            background: rgba(239, 68, 68, 0.2);
+            background: #fee2e2;
             color: #ef4444;
-            border: 1px solid #ef4444;
+            border: 1px solid #fecaca;
         }
 
         .badge-info {
-            background: rgba(6, 182, 212, 0.2);
-            color: #06b6d4;
-            border: 1px solid #06b6d4;
+            background: #dbeafe;
+            color: #3b82f6;
+            border: 1px solid #bfdbfe;
         }
 
         /* 滚动条样式 */
@@ -308,24 +319,24 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #0f172a;
+            background: #f8fafc;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #06b6d4;
+            background: #cbd5e1;
             border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #0891b2;
+            background: #94a3b8;
         }
 
         /* 加载动画 */
         .loading-spinner {
             width: 40px;
             height: 40px;
-            border: 3px solid rgba(6, 182, 212, 0.2);
-            border-top-color: #06b6d4;
+            border: 3px solid rgba(59, 130, 246, 0.2);
+            border-top-color: #3b82f6;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -336,12 +347,12 @@
 
         /* 标题发光效果 */
         .glow-text {
-            text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+            text-shadow: 0 1px 2px rgba(59, 130, 246, 0.2);
         }
 
         /* 连接线动画 */
         .connection-line {
-            stroke: #06b6d4;
+            stroke: #3b82f6;
             stroke-width: 2;
             stroke-dasharray: 5, 5;
             animation: dash 20s linear infinite;
@@ -381,14 +392,14 @@
     <div class="dashboard-wrapper flex h-screen overflow-hidden">
         <!-- 左侧导航栏 -->
         <aside class="sidebar w-64 flex-shrink-0 hidden md:block">
-            <div class="p-6 border-b border-cyan-500/20">
+            <div class="p-6 border-b border-gray-200">
                 <div class="flex items-center space-x-3">
                     <div class="w-12 h-12 bg-gradient-to-br from-neon-cyan to-tech-blue rounded-lg flex items-center justify-center logo-glow">
                         <i class="fa fa-plug text-white text-2xl"></i>
                     </div>
                     <div>
                         <h1 class="text-xl font-bold font-display text-neon-cyan">无影</h1>
-                        <p class="text-xs text-gray-400">集成赋能套件</p>
+                        <p class="text-xs text-gray-500">集成赋能套件</p>
                     </div>
                 </div>
             </div>
@@ -398,28 +409,28 @@
                     核心模块
                 </div>
 
-                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-300 rounded-lg active" data-section="dashboard">
+                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-700 rounded-lg active" data-section="dashboard">
                     <i class="fa fa-dashboard w-5 h-5 mr-3 text-neon-cyan"></i>
                     <span>集成仪表盘</span>
                 </a>
 
-                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-300 rounded-lg" data-section="connectors">
-                    <i class="fa fa-cubes w-5 h-5 mr-3 text-gray-400"></i>
+                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-700 rounded-lg" data-section="connectors">
+                    <i class="fa fa-cubes w-5 h-5 mr-3 text-gray-500"></i>
                     <span>连接器工厂</span>
                 </a>
 
-                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-300 rounded-lg" data-section="api-gateway">
-                    <i class="fa fa-exchange w-5 h-5 mr-3 text-gray-400"></i>
+                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-700 rounded-lg" data-section="api-gateway">
+                    <i class="fa fa-exchange w-5 h-5 mr-3 text-gray-500"></i>
                     <span>API网关</span>
                 </a>
 
-                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-300 rounded-lg" data-section="security">
-                    <i class="fa fa-shield w-5 h-5 mr-3 text-gray-400"></i>
+                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-700 rounded-lg" data-section="security">
+                    <i class="fa fa-shield w-5 h-5 mr-3 text-gray-500"></i>
                     <span>安全与审计</span>
                 </a>
 
-                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-300 rounded-lg" data-section="developer">
-                    <i class="fa fa-code w-5 h-5 mr-3 text-gray-400"></i>
+                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-700 rounded-lg" data-section="developer">
+                    <i class="fa fa-code w-5 h-5 mr-3 text-gray-500"></i>
                     <span>开发者中心</span>
                 </a>
 
@@ -427,8 +438,8 @@
                     系统
                 </div>
 
-                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-300 rounded-lg" data-section="settings">
-                    <i class="fa fa-cog w-5 h-5 mr-3 text-gray-400"></i>
+                <a href="#" class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-700 rounded-lg" data-section="settings">
+                    <i class="fa fa-cog w-5 h-5 mr-3 text-gray-500"></i>
                     <span>系统设置</span>
                 </a>
             </nav>
@@ -437,12 +448,12 @@
         <!-- 主内容区 -->
         <main class="flex-1 overflow-y-auto">
             <!-- 顶部导航栏 -->
-            <header class="bg-dark-card/50 backdrop-blur-md border-b border-cyan-500/20 sticky top-0 z-10">
+            <header class="bg-white backdrop-blur-md border-b border-gray-200 sticky top-0 z-10">
                 <div class="px-6 py-4">
                     <div class="flex items-center justify-between">
                         <div>
                             <h2 class="text-2xl font-bold font-display glow-text">集成仪表盘</h2>
-                            <p class="text-sm text-gray-400 mt-1">企业智能能力的生态连接器</p>
+                            <p class="text-sm text-gray-500 mt-1">企业智能能力的生态连接器</p>
                         </div>
                         <div class="flex items-center space-x-4">
                             <button class="btn-secondary px-4 py-2 rounded-lg font-medium">
@@ -469,7 +480,7 @@
                                 <span class="status-dot active"></span>
                             </div>
                             <h3 class="text-3xl font-bold font-display text-neon-cyan mb-2">48</h3>
-                            <p class="text-sm text-gray-400">活跃连接器</p>
+                            <p class="text-sm text-gray-500">活跃连接器</p>
                             <div class="mt-3 flex items-center text-xs text-green-400">
                                 <i class="fa fa-arrow-up mr-1"></i>
                                 <span>+12% 本月</span>
@@ -486,7 +497,7 @@
                                 <span class="badge badge-success">正常</span>
                             </div>
                             <h3 class="text-3xl font-bold font-display text-electric-purple mb-2">2.4M</h3>
-                            <p class="text-sm text-gray-400">今日API调用</p>
+                            <p class="text-sm text-gray-500">今日API调用</p>
                             <div class="mt-3">
                                 <div class="progress-bar">
                                     <div class="progress-fill" style="width: 68%"></div>
@@ -505,8 +516,8 @@
                                 <span class="badge badge-success">99.8%</span>
                             </div>
                             <h3 class="text-3xl font-bold font-display text-accent-green mb-2">156</h3>
-                            <p class="text-sm text-gray-400">成功同步任务</p>
-                            <div class="mt-3 flex items-center text-xs text-gray-400">
+                            <p class="text-sm text-gray-500">成功同步任务</p>
+                            <div class="mt-3 flex items-center text-xs text-gray-500">
                                 <i class="fa fa-clock-o mr-1"></i>
                                 <span>平均延迟: 45ms</span>
                             </div>
@@ -522,7 +533,7 @@
                                 <span class="status-dot error"></span>
                             </div>
                             <h3 class="text-3xl font-bold font-display text-red-400 mb-2">3</h3>
-                            <p class="text-sm text-gray-400">待处理告警</p>
+                            <p class="text-sm text-gray-500">待处理告警</p>
                             <div class="mt-3">
                                 <button class="text-xs text-red-400 hover:text-red-300 transition">
                                     查看详情 <i class="fa fa-arrow-right ml-1"></i>
@@ -537,7 +548,7 @@
                     <div class="card rounded-xl p-6">
                         <div class="flex items-center justify-between mb-6">
                             <h3 class="text-lg font-bold font-display">API调用趋势</h3>
-                            <select class="bg-dark-card border border-cyan-500/30 rounded-lg px-3 py-1 text-sm text-gray-300 focus:outline-none focus:border-cyan-500">
+                            <select class="bg-white border border-gray-300 rounded-lg px-3 py-1 text-sm text-gray-700 focus:outline-none focus:border-primary">
                                 <option>过去7天</option>
                                 <option>过去30天</option>
                                 <option>过去90天</option>
@@ -566,7 +577,7 @@
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-lg font-bold font-display">活跃连接器</h3>
                         <div class="flex items-center space-x-3">
-                            <input type="text" placeholder="搜索连接器..." class="bg-dark-card border border-cyan-500/30 rounded-lg px-4 py-2 text-sm text-gray-300 focus:outline-none focus:border-cyan-500 w-64">
+                            <input type="text" placeholder="搜索连接器..." class="bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-700 focus:outline-none focus:border-primary w-64">
                             <button class="btn-secondary px-4 py-2 rounded-lg text-sm">
                                 <i class="fa fa-filter mr-2"></i>筛选
                             </button>
@@ -577,12 +588,12 @@
                         <table class="w-full">
                             <thead class="table-header">
                                 <tr>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">连接器名称</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">类型</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">状态</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">最后同步</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">数据量</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">操作</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">连接器名称</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">类型</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">状态</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">最后同步</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">数据量</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -607,8 +618,8 @@
                                             <span class="text-sm text-green-400">正常</span>
                                         </div>
                                     </td>
-                                    <td class="px-4 py-4 text-sm text-gray-400">2分钟前</td>
-                                    <td class="px-4 py-4 text-sm text-gray-300">1.2K条/天</td>
+                                    <td class="px-4 py-4 text-sm text-gray-500">2分钟前</td>
+                                    <td class="px-4 py-4 text-sm text-gray-700">1.2K条/天</td>
                                     <td class="px-4 py-4">
                                         <div class="flex items-center space-x-2">
                                             <button class="text-cyan-400 hover:text-cyan-300 transition">
@@ -645,8 +656,8 @@
                                             <span class="text-sm text-green-400">正常</span>
                                         </div>
                                     </td>
-                                    <td class="px-4 py-4 text-sm text-gray-400">5分钟前</td>
-                                    <td class="px-4 py-4 text-sm text-gray-300">3.5K条/天</td>
+                                    <td class="px-4 py-4 text-sm text-gray-500">5分钟前</td>
+                                    <td class="px-4 py-4 text-sm text-gray-700">3.5K条/天</td>
                                     <td class="px-4 py-4">
                                         <div class="flex items-center space-x-2">
                                             <button class="text-cyan-400 hover:text-cyan-300 transition">
@@ -683,8 +694,8 @@
                                             <span class="text-sm text-green-400">正常</span>
                                         </div>
                                     </td>
-                                    <td class="px-4 py-4 text-sm text-gray-400">10分钟前</td>
-                                    <td class="px-4 py-4 text-sm text-gray-300">890条/天</td>
+                                    <td class="px-4 py-4 text-sm text-gray-500">10分钟前</td>
+                                    <td class="px-4 py-4 text-sm text-gray-700">890条/天</td>
                                     <td class="px-4 py-4">
                                         <div class="flex items-center space-x-2">
                                             <button class="text-cyan-400 hover:text-cyan-300 transition">
@@ -721,8 +732,8 @@
                                             <span class="text-sm text-red-400">连接失败</span>
                                         </div>
                                     </td>
-                                    <td class="px-4 py-4 text-sm text-gray-400">2小时前</td>
-                                    <td class="px-4 py-4 text-sm text-gray-300">-</td>
+                                    <td class="px-4 py-4 text-sm text-gray-500">2小时前</td>
+                                    <td class="px-4 py-4 text-sm text-gray-700">-</td>
                                     <td class="px-4 py-4">
                                         <div class="flex items-center space-x-2">
                                             <button class="text-cyan-400 hover:text-cyan-300 transition">
@@ -759,8 +770,8 @@
                                             <span class="text-sm text-green-400">正常</span>
                                         </div>
                                     </td>
-                                    <td class="px-4 py-4 text-sm text-gray-400">30分钟前</td>
-                                    <td class="px-4 py-4 text-sm text-gray-300">2.8K条/天</td>
+                                    <td class="px-4 py-4 text-sm text-gray-500">30分钟前</td>
+                                    <td class="px-4 py-4 text-sm text-gray-700">2.8K条/天</td>
                                     <td class="px-4 py-4">
                                         <div class="flex items-center space-x-2">
                                             <button class="text-cyan-400 hover:text-cyan-300 transition">
@@ -787,7 +798,7 @@
                         <div class="space-y-4">
                             <div>
                                 <div class="flex items-center justify-between mb-2">
-                                    <span class="text-sm text-gray-400">请求延迟 (P95)</span>
+                                    <span class="text-sm text-gray-500">请求延迟 (P95)</span>
                                     <span class="text-sm font-medium text-green-400">42ms</span>
                                 </div>
                                 <div class="progress-bar">
@@ -796,7 +807,7 @@
                             </div>
                             <div>
                                 <div class="flex items-center justify-between mb-2">
-                                    <span class="text-sm text-gray-400">错误率</span>
+                                    <span class="text-sm text-gray-500">错误率</span>
                                     <span class="text-sm font-medium text-green-400">0.2%</span>
                                 </div>
                                 <div class="progress-bar">
@@ -805,7 +816,7 @@
                             </div>
                             <div>
                                 <div class="flex items-center justify-between mb-2">
-                                    <span class="text-sm text-gray-400">吞吐量</span>
+                                    <span class="text-sm text-gray-500">吞吐量</span>
                                     <span class="text-sm font-medium text-cyan-400">8.5K/s</span>
                                 </div>
                                 <div class="progress-bar">
@@ -818,7 +829,7 @@
                     <div class="card rounded-xl p-6">
                         <h3 class="text-lg font-bold font-display mb-4">安全事件</h3>
                         <div class="space-y-3">
-                            <div class="flex items-center justify-between p-3 bg-dark-card rounded-lg">
+                            <div class="flex items-center justify-between p-3 bg-white rounded-lg">
                                 <div class="flex items-center">
                                     <div class="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center mr-3">
                                         <i class="fa fa-exclamation text-yellow-400 text-sm"></i>
@@ -830,7 +841,7 @@
                                 </div>
                                 <span class="text-xs text-gray-500">1小时前</span>
                             </div>
-                            <div class="flex items-center justify-between p-3 bg-dark-card rounded-lg">
+                            <div class="flex items-center justify-between p-3 bg-white rounded-lg">
                                 <div class="flex items-center">
                                     <div class="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center mr-3">
                                         <i class="fa fa-check text-green-400 text-sm"></i>
@@ -842,7 +853,7 @@
                                 </div>
                                 <span class="text-xs text-gray-500">2小时前</span>
                             </div>
-                            <div class="flex items-center justify-between p-3 bg-dark-card rounded-lg">
+                            <div class="flex items-center justify-between p-3 bg-white rounded-lg">
                                 <div class="flex items-center">
                                     <div class="w-8 h-8 bg-cyan-500/20 rounded-full flex items-center justify-center mr-3">
                                         <i class="fa fa-shield text-cyan-400 text-sm"></i>
@@ -863,28 +874,28 @@
                             <div class="flex items-start">
                                 <div class="w-2 h-2 bg-cyan-400 rounded-full mt-2 mr-3"></div>
                                 <div class="flex-1">
-                                    <p class="text-sm text-gray-300">新建Figma连接器</p>
+                                    <p class="text-sm text-gray-700">新建Figma连接器</p>
                                     <p class="text-xs text-gray-500">管理员 · 10分钟前</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
                                 <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 mr-3"></div>
                                 <div class="flex-1">
-                                    <p class="text-sm text-gray-300">更新API密钥权限</p>
+                                    <p class="text-sm text-gray-700">更新API密钥权限</p>
                                     <p class="text-xs text-gray-500">张伟 · 25分钟前</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
                                 <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3"></div>
                                 <div class="flex-1">
-                                    <p class="text-sm text-gray-300">完成数据同步</p>
+                                    <p class="text-sm text-gray-700">完成数据同步</p>
                                     <p class="text-xs text-gray-500">系统 · 1小时前</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
                                 <div class="w-2 h-2 bg-yellow-400 rounded-full mt-2 mr-3"></div>
                                 <div class="flex-1">
-                                    <p class="text-sm text-gray-300">审计日志导出</p>
+                                    <p class="text-sm text-gray-700">审计日志导出</p>
                                     <p class="text-xs text-gray-500">李娜 · 2小时前</p>
                                 </div>
                             </div>
@@ -927,7 +938,7 @@
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(6, 182, 212, 0.6)';
+                ctx.fillStyle = 'rgba(59, 130, 246, 0.35)';
                 ctx.fill();
             }
         }
@@ -947,7 +958,7 @@
                         ctx.beginPath();
                         ctx.moveTo(nodes[i].x, nodes[i].y);
                         ctx.lineTo(nodes[j].x, nodes[j].y);
-                        ctx.strokeStyle = `rgba(6, 182, 212, ${0.2 * (1 - distance / maxDistance)})`;
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${0.15 * (1 - distance / maxDistance)})`;
                         ctx.lineWidth = 1;
                         ctx.stroke();
                     }
@@ -985,14 +996,14 @@
                 datasets: [{
                     label: 'API调用量',
                     data: [1.8, 2.1, 2.4, 2.2, 2.6, 2.3, 2.4],
-                    borderColor: '#06b6d4',
-                    backgroundColor: 'rgba(6, 182, 212, 0.1)',
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.12)',
                     borderWidth: 2,
                     fill: true,
                     tension: 0.4,
                     pointRadius: 4,
-                    pointBackgroundColor: '#06b6d4',
-                    pointBorderColor: '#0a1929',
+                    pointBackgroundColor: '#3b82f6',
+                    pointBorderColor: '#ffffff',
                     pointBorderWidth: 2
                 }]
             },
@@ -1004,10 +1015,10 @@
                         display: false
                     },
                     tooltip: {
-                        backgroundColor: '#0f172a',
-                        titleColor: '#06b6d4',
-                        bodyColor: '#e2e8f0',
-                        borderColor: '#06b6d4',
+                        backgroundColor: '#ffffff',
+                        titleColor: '#111827',
+                        bodyColor: '#4b5563',
+                        borderColor: '#e5e7eb',
                         borderWidth: 1,
                         padding: 12,
                         displayColors: false
@@ -1024,7 +1035,7 @@
                     },
                     y: {
                         grid: {
-                            color: 'rgba(6, 182, 212, 0.1)'
+                            color: 'rgba(59, 130, 246, 0.08)'
                         },
                         ticks: {
                             color: '#6b7280',
@@ -1046,14 +1057,14 @@
                 datasets: [{
                     data: [30, 25, 20, 15, 10],
                     backgroundColor: [
-                        '#06b6d4',
-                        '#a855f7',
+                        '#3b82f6',
+                        '#8b5cf6',
                         '#10b981',
                         '#f59e0b',
                         '#6b7280'
                     ],
                     borderWidth: 2,
-                    borderColor: '#0a1929'
+                    borderColor: '#ffffff'
                 }]
             },
             options: {
@@ -1063,17 +1074,17 @@
                     legend: {
                         position: 'right',
                         labels: {
-                            color: '#e2e8f0',
+                            color: '#6b7280',
                             padding: 15,
                             usePointStyle: true,
                             pointStyle: 'circle'
                         }
                     },
                     tooltip: {
-                        backgroundColor: '#0f172a',
-                        titleColor: '#06b6d4',
-                        bodyColor: '#e2e8f0',
-                        borderColor: '#06b6d4',
+                        backgroundColor: '#ffffff',
+                        titleColor: '#111827',
+                        bodyColor: '#4b5563',
+                        borderColor: '#e5e7eb',
                         borderWidth: 1,
                         padding: 12
                     }
@@ -1088,10 +1099,10 @@
                 document.querySelectorAll('.nav-item').forEach(nav => {
                     nav.classList.remove('active');
                     nav.querySelector('i').classList.remove('text-neon-cyan');
-                    nav.querySelector('i').classList.add('text-gray-400');
+                    nav.querySelector('i').classList.add('text-gray-500');
                 });
                 this.classList.add('active');
-                this.querySelector('i').classList.remove('text-gray-400');
+                this.querySelector('i').classList.remove('text-gray-500');
                 this.querySelector('i').classList.add('text-neon-cyan');
             });
         });
