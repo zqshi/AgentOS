@@ -8,7 +8,7 @@
 }
 
 body {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
     background-color: #f8fafc;
 }
 
@@ -25,6 +25,33 @@ body {
 
 .nav-item {
     transition: all 0.2s ease;
+}
+
+.nav-group .nav-submenu {
+    display: none;
+}
+
+.nav-group.open .nav-submenu {
+    display: block;
+}
+
+.nav-subitem {
+    transition: all 0.2s ease;
+}
+
+.nav-subitem:hover {
+    background-color: #f8fafc;
+    color: #111827;
+}
+
+.nav-subitem.active {
+    background-color: #ede9fe;
+    color: #6d28d9;
+}
+
+.nav-group.open .nav-caret {
+    transform: rotate(180deg);
+    transition: transform 0.2s ease;
 }
 
 .nav-item:hover {
@@ -55,6 +82,132 @@ body {
 .chart-container {
     position: relative;
     height: 300px;
+}
+
+.knowledge-hero {
+    background: radial-gradient(circle at top right, rgba(251, 191, 36, 0.2), transparent 50%),
+        radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.12), transparent 55%),
+        linear-gradient(135deg, #fff7ed 0%, #f0f9ff 100%);
+}
+
+.processor-item.is-active {
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.15);
+    background-color: #eff6ff;
+}
+
+.knowledge-step.is-active {
+    border-color: #f59e0b;
+    background-color: #fffbeb;
+}
+
+.dimension-chip {
+    padding: 0.25rem 0.6rem;
+    border-radius: 9999px;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    font-size: 0.75rem;
+}
+
+.dimension-chip.is-active {
+    background-color: #fef3c7;
+    color: #b45309;
+}
+
+.output-tab.active {
+    background-color: #8b5cf6;
+    color: #ffffff;
+}
+
+.knowledge-dimension.is-active {
+    background-color: #fef3c7;
+    color: #b45309;
+}
+
+.knowledge-subtab.active {
+    background-color: #6d28d9;
+    color: #ffffff;
+}
+
+.graph-menu-item {
+    transition: all 0.2s ease;
+}
+
+.graph-menu-item.active {
+    box-shadow: 0 10px 18px rgba(16, 185, 129, 0.18);
+}
+
+.graph-context-date {
+    height: 2.25rem;
+    line-height: 2.25rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    min-width: 0;
+}
+
+.graph-context-panel {
+    backdrop-filter: blur(6px);
+}
+
+.graph-hero {
+    background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.18), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 50%),
+        linear-gradient(120deg, #f0fdfa 0%, #ecfeff 100%);
+}
+
+.graph-surface {
+    background-image: radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.12), transparent 45%),
+        radial-gradient(circle at 80% 10%, rgba(59, 130, 246, 0.12), transparent 40%),
+        linear-gradient(180deg, rgba(248, 250, 252, 0.8), rgba(255, 255, 255, 0.9));
+}
+
+.graph-node {
+    fill: #10b981;
+    stroke: #047857;
+    stroke-width: 1.5;
+    transition: transform 0.2s ease, opacity 0.2s ease, stroke 0.2s ease;
+    cursor: pointer;
+}
+
+.graph-node[data-type="流程"] {
+    fill: #38bdf8;
+    stroke: #0284c7;
+}
+
+.graph-node[data-type="合同"] {
+    fill: #f59e0b;
+    stroke: #b45309;
+}
+
+.graph-node[data-type="风险"] {
+    fill: #f97316;
+    stroke: #c2410c;
+}
+
+.graph-node[data-type="培训"] {
+    fill: #a3e635;
+    stroke: #65a30d;
+}
+
+.graph-node.is-active {
+    stroke: #111827;
+    stroke-width: 2.5;
+    transform: scale(1.05);
+}
+
+.graph-node.is-dim {
+    opacity: 0.25;
+}
+
+.graph-edge {
+    stroke: rgba(15, 23, 42, 0.35);
+    stroke-width: 1.5;
+}
+
+.graph-label {
+    font-size: 12px;
+    fill: #475569;
+    font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
 }
 
 .loading {
@@ -125,4 +278,111 @@ body {
     position: absolute;
     right: 0.5rem;
     color: var(--color-neutral);
+}
+
+.ontology-menu-item {
+    transition: all 0.2s ease;
+}
+
+.ontology-menu-item.active {
+    background-color: #3b82f6;
+    color: #ffffff;
+}
+
+/* 智能体工厂样式 */
+#agent-list {
+    height: calc(100vh - 64px);
+}
+
+/* 右侧面板样式 */
+#create-agent-panel {
+    width: 100%;
+    max-width: 90vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+@media (min-width: 1280px) {
+    #create-agent-panel {
+        width: 90vw;
+    }
+}
+
+@media (min-width: 1536px) {
+    #create-agent-panel {
+        width: 80vw;
+    }
+}
+
+#create-agent-panel.open {
+    transform: translateX(0);
+}
+
+/* 左侧菜单树样式 */
+#create-agent-panel .w-64 {
+    width: 200px;
+}
+
+@media (min-width: 1280px) {
+    #create-agent-panel .w-64 {
+        width: 256px;
+    }
+}
+
+/* 中间内容区样式 */
+#create-agent-panel .flex-1 {
+    overflow-y: auto;
+}
+
+/* 右侧预览区样式 */
+#create-agent-panel .w-80 {
+    width: 280px;
+}
+
+@media (min-width: 1280px) {
+    #create-agent-panel .w-80 {
+        width: 320px;
+    }
+}
+
+/* 底部操作按钮样式 */
+#create-agent-panel .h-14 {
+    height: 56px;
+}
+
+/* 智能体卡片样式 */
+.agent-card {
+    transition: all 0.3s ease;
+}
+
+.agent-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* 测试对话样式 */
+.test-message {
+    max-width: 85%;
+}
+
+.test-message.user {
+    align-self: flex-end;
+}
+
+/* 滚动条样式 */
+#create-agent-panel ::-webkit-scrollbar {
+    width: 6px;
+}
+
+#create-agent-panel ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+#create-agent-panel ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+#create-agent-panel ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
 }
