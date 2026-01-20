@@ -17,6 +17,8 @@
             allPages.forEach(page => {
                 page.classList.remove('active');
                 page.style.display = 'none';
+                page.style.opacity = '0';
+                page.style.transform = 'translateY(20px)';
                 console.log('隐藏页面:', page.id);
             });
             
@@ -31,6 +33,8 @@
                 targetPage.style.minHeight = 'calc(100vh - 120px)';
                 targetPage.style.height = 'auto';
                 targetPage.style.overflow = 'auto';
+                targetPage.style.opacity = '1';
+                targetPage.style.transform = 'translateY(0)';
                 
                 console.log('目标页面样式:', window.getComputedStyle(targetPage).display);
             } else {
@@ -8237,6 +8241,10 @@
             
             console.log('用户反馈功能初始化完成');
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initUserFeedback();
+        });
         
         // 初始化五星评分功能
         function initStarRating() {
