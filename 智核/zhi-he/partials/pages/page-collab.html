@@ -1,0 +1,893 @@
+            <div id="page-collab" class="page flex flex-col gap-6 h-[calc(100vh-120px)] overflow-auto">
+                <div>
+                    <h2 class="text-2xl font-display font-semibold">协作与质量保障</h2>
+                    <p class="text-sm text-muted">协作演进 + AI质量助手 + 分层发布</p>
+                </div>
+                <div class="grid grid-cols-1 xl:grid-cols-4 gap-4">
+                    <div class="xl:col-span-3 bg-surface rounded-2xl border border-line shadow-card p-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-medium">文档协作区</p>
+                            <div class="flex gap-2">
+                                <button id="run-quality-check" class="px-3 py-2 rounded-full bg-secondary text-white text-xs">运行AI预检</button>
+                                <button id="show-all-comments" class="px-3 py-2 rounded-full bg-white border border-line text-xs">显示所有批注</button>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-4 rounded-xl border border-line bg-white text-sm">
+                            <div class="flex items-center justify-between">
+                                <p class="font-medium">《产品需求文档 V1.2》</p>
+                                <div class="flex gap-2 text-xs">
+                                    <span class="px-2 py-1 rounded-full bg-mist">V1.2</span>
+                                    <span class="px-2 py-1 rounded-full bg-ocean">2024-07-20</span>
+                                    <span class="px-2 py-1 rounded-full bg-success/20 text-success">编辑中</span>
+                                </div>
+                            </div>
+                            <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                                <p class="text-muted">批注：<span class="text-danger">2条未解决</span> · <span class="text-warning">3条待确认</span></p>
+                                <p class="text-muted">作者：张明 · 产品经理</p>
+                                <p class="text-muted">上次更新：2分钟前</p>
+                            </div>
+                            
+                            <!-- 在线用户列表 -->
+                            <div class="mt-3 flex items-center gap-1 text-xs">
+                                <span class="text-muted">当前在线：</span>
+                                <div class="flex items-center gap-1">
+                                    <div class="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-white text-[10px] relative">
+                                        <span>张</span>
+                                        <span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-success border-2 border-white"></span>
+                                    </div>
+                                    <div class="w-5 h-5 rounded-full bg-secondary flex items-center justify-center text-white text-[10px] relative">
+                                        <span>李</span>
+                                        <span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-success border-2 border-white"></span>
+                                    </div>
+                                    <div class="w-5 h-5 rounded-full bg-accent flex items-center justify-center text-white text-[10px] relative">
+                                        <span>王</span>
+                                        <span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-success border-2 border-white"></span>
+                                    </div>
+                                    <span class="text-primary font-medium">+2</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 可批注的文档内容区域 -->
+                        <div class="mt-4 p-4 rounded-xl border border-line bg-white text-sm" id="annotatable-document">
+                            <div class="document-paragraph relative p-3 hover:bg-mist cursor-pointer" data-paragraph-id="1" data-editing="false">
+                                <h3 class="text-lg font-medium mb-2">1. 项目概述</h3>
+                                <p contenteditable="true" class="editable-content" oninput="handleContentChange(this, 1)">
+                                    本项目旨在构建一个智能协作平台，通过AI辅助提升团队知识生产和共享效率。平台将整合文档协作、知识管理和AI智能助手功能，满足企业级用户的需求。
+                                </p>
+                                <div class="paragraph-actions absolute top-2 right-2 flex gap-1 opacity-0 hover:opacity-100 transition-opacity">
+                                    <button class="p-1 bg-primary text-white rounded text-xs" title="添加批注" onclick="openCommentForm(1)"><i class="fa fa-comment"></i></button>
+                                    <button class="p-1 bg-secondary text-white rounded text-xs" title="@提及" onclick="mentionUser(1)"><i class="fa fa-at"></i></button>
+                                </div>
+                                <!-- 批注标记 -->
+                                <div class="comment-markers absolute left-0 top-0 flex flex-col gap-1 mt-3">
+                                    <span class="w-2 h-2 rounded-full bg-danger" title="未解决的错误批注"></span>
+                                </div>
+                                <!-- 编辑状态指示 -->
+                                <div class="edit-indicator absolute top-2 left-2 flex items-center gap-1 bg-primary/10 text-primary text-xs px-2 py-1 rounded-full opacity-0 hover:opacity-100 transition-opacity">
+                                    <i class="fa fa-pencil"></i>
+                                    <span>可编辑</span>
+                                </div>
+                            </div>
+                            
+                            <div class="document-paragraph relative p-3 hover:bg-mist cursor-pointer" data-paragraph-id="2" data-editing="false">
+                                <h3 class="text-lg font-medium mb-2">2. 核心功能</h3>
+                                <p contenteditable="true" class="editable-content" oninput="handleContentChange(this, 2)">
+                                    平台的核心功能包括：智能协作批注系统、知识成熟度管理、AI质量助手、版本控制与历史追踪、社区驱动的质量监督以及必要的合规审核流程。
+                                </p>
+                                <div class="paragraph-actions absolute top-2 right-2 flex gap-1 opacity-0 hover:opacity-100 transition-opacity">
+                                    <button class="p-1 bg-primary text-white rounded text-xs" title="添加批注" onclick="openCommentForm(2)"><i class="fa fa-comment"></i></button>
+                                    <button class="p-1 bg-secondary text-white rounded text-xs" title="@提及" onclick="mentionUser(2)"><i class="fa fa-at"></i></button>
+                                </div>
+                                <div class="comment-markers absolute left-0 top-0 flex flex-col gap-1 mt-3">
+                                    <span class="w-2 h-2 rounded-full bg-warning" title="待确认的建议批注"></span>
+                                    <span class="w-2 h-2 rounded-full bg-success" title="已采纳的建议批注"></span>
+                                </div>
+                                <!-- 其他用户编辑状态 -->
+                                <div class="other-user-edit absolute bottom-2 right-2 flex items-center gap-1 bg-secondary/10 text-secondary text-xs px-2 py-1 rounded-full">
+                                    <div class="w-4 h-4 rounded-full bg-secondary flex items-center justify-center text-white text-[8px]">李</div>
+                                    <span>正在编辑</span>
+                                </div>
+                            </div>
+                            
+                            <div class="document-paragraph relative p-3 hover:bg-mist cursor-pointer" data-paragraph-id="3" data-editing="false">
+                                <h3 class="text-lg font-medium mb-2">3. 用户旅程</h3>
+                                <p contenteditable="true" class="editable-content" oninput="handleContentChange(this, 3)">
+                                    用户旅程包括知识创建、协作编辑、AI质量检查、发布与共享、社区反馈与持续改进等阶段。平台通过简化流程和智能辅助，降低用户使用门槛，提高知识生产效率。
+                                </p>
+                                <div class="paragraph-actions absolute top-2 right-2 flex gap-1 opacity-0 hover:opacity-100 transition-opacity">
+                                    <button class="p-1 bg-primary text-white rounded text-xs" title="添加批注" onclick="openCommentForm(3)"><i class="fa fa-comment"></i></button>
+                                    <button class="p-1 bg-secondary text-white rounded text-xs" title="@提及" onclick="mentionUser(3)"><i class="fa fa-at"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- AI预检结果面板 -->
+                        <div class="mt-4 p-4 rounded-xl border border-line bg-white text-sm" id="ai-check-results" style="display: none;">
+                            <div class="flex items-center justify-between mb-3">
+                                <p class="font-medium flex items-center">
+                                    <i class="fa fa-robot text-secondary mr-2"></i>
+                                    AI智能预检结果
+                                </p>
+                                <span id="check-time" class="text-xs text-muted">刚刚检查</span>
+                            </div>
+                            
+                            <!-- 质量得分 -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between">
+                                    <p class="font-medium">综合质量得分</p>
+                                    <p id="ai-quality-score" class="text-xl font-bold text-primary">85 / 100</p>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                    <div id="quality-progress" class="bg-primary h-2 rounded-full" style="width: 85%"></div>
+                                </div>
+                                <div class="flex justify-between mt-1 text-xs text-muted">
+                                    <span>需改进</span>
+                                    <span>良好</span>
+                                    <span>优秀</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 检查结果分类 -->
+                            <div class="space-y-3">
+                                <!-- 术语规范问题 -->
+                                <div class="p-3 rounded-lg bg-mist">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <p class="font-medium text-primary">术语规范问题</p>
+                                        <span class="px-2 py-1 rounded-full bg-primary/20 text-primary text-xs">3个问题</span>
+                                    </div>
+                                    <div class="space-y-2 text-xs">
+                                        <div class="p-2 bg-white rounded border-l-4 border-primary">
+                                            <p><strong>问题：</strong>使用了非标准术语"K8S"</p>
+                                            <p><strong>建议：</strong>替换为标准术语"Kubernetes"</p>
+                                            <p class="text-muted mt-1">位置：段落 2，第 1 行</p>
+                                        </div>
+                                        <div class="p-2 bg-white rounded border-l-4 border-primary">
+                                            <p><strong>问题：</strong>使用了非标准术语"客户"</p>
+                                            <p><strong>建议：</strong>替换为标准术语"购买方"</p>
+                                            <p class="text-muted mt-1">位置：段落 1，第 2 行</p>
+                                        </div>
+                                        <div class="p-2 bg-white rounded border-l-4 border-primary">
+                                            <p><strong>问题：</strong>使用了非标准术语"用户"</p>
+                                            <p><strong>建议：</strong>替换为标准术语"最终用户"</p>
+                                            <p class="text-muted mt-1">位置：段落 3，第 1 行</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 格式一致性问题 -->
+                                <div class="p-3 rounded-lg bg-mist">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <p class="font-medium text-warning">格式一致性问题</p>
+                                        <span class="px-2 py-1 rounded-full bg-warning/20 text-warning text-xs">2个问题</span>
+                                    </div>
+                                    <div class="space-y-2 text-xs">
+                                        <div class="p-2 bg-white rounded border-l-4 border-warning">
+                                            <p><strong>问题：</strong>标题层级不一致</p>
+                                            <p><strong>建议：</strong>确保所有标题使用统一的层级结构</p>
+                                            <p class="text-muted mt-1">位置：整个文档</p>
+                                        </div>
+                                        <div class="p-2 bg-white rounded border-l-4 border-warning">
+                                            <p><strong>问题：</strong>段落过长</p>
+                                            <p><strong>建议：</strong>将超过500字的段落拆分为多个小段落</p>
+                                            <p class="text-muted mt-1">位置：段落 1</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 完整性检查 -->
+                                <div class="p-3 rounded-lg bg-mist">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <p class="font-medium text-success">完整性检查</p>
+                                        <span class="px-2 py-1 rounded-full bg-success/20 text-success text-xs">通过</span>
+                                    </div>
+                                    <p class="text-xs text-muted">文档结构完整，包含所有必要章节</p>
+                                </div>
+                            </div>
+                            
+                            <!-- 操作按钮 -->
+                            <div class="mt-3 flex gap-2">
+                                <button id="apply-all-suggestions" class="px-3 py-2 rounded-full bg-primary text-white text-xs">一键应用所有建议</button>
+                                <button id="dismiss-results" class="px-3 py-2 rounded-full bg-white border border-line text-xs">关闭结果</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 合规审核结果 -->
+                        <div class="mt-4 p-4 rounded-xl border border-line bg-white text-sm" id="compliance-check-results" style="display: none;">
+                            <div class="flex items-center justify-between mb-3">
+                                <p class="font-medium flex items-center">
+                                    <i class="fa fa-shield text-danger mr-2"></i>
+                                    合规审核结果
+                                </p>
+                                <span id="compliance-check-time" class="text-xs text-muted">刚刚检查</span>
+                            </div>
+                            
+                            <!-- 合规风险等级 -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between">
+                                    <p class="font-medium">综合风险等级</p>
+                                    <span id="compliance-risk-level" class="px-3 py-1 rounded-full bg-warning/20 text-warning text-xs">低风险</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 风险识别结果 -->
+                            <div class="space-y-3">
+                                <!-- 合规风险 -->
+                                <div class="p-3 rounded-lg bg-mist">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <p class="font-medium text-danger">合规风险识别</p>
+                                        <span class="px-2 py-1 rounded-full bg-danger/20 text-danger text-xs">1个风险</span>
+                                    </div>
+                                    <div class="space-y-2 text-xs">
+                                        <div class="p-2 bg-white rounded border-l-4 border-danger">
+                                            <p><strong>风险：</strong>包含敏感术语</p>
+                                            <p><strong>建议：</strong>替换为合规术语或添加免责声明</p>
+                                            <p class="text-muted mt-1">位置：段落 2，第 1 行</p>
+                                            <div class="mt-2 flex gap-2">
+                                                <button class="px-2 py-1 bg-danger text-white rounded text-xs">立即修改</button>
+                                                <button class="px-2 py-1 bg-white border border-line rounded text-xs">标记为已处理</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 高风险内容 -->
+                                <div class="p-3 rounded-lg bg-mist">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <p class="font-medium text-warning">高风险内容审核</p>
+                                        <span class="px-2 py-1 rounded-full bg-warning/20 text-warning text-xs">通过</span>
+                                    </div>
+                                    <div class="space-y-2 text-xs">
+                                        <div class="p-2 bg-white rounded border-l-4 border-success">
+                                            <p><strong>结果：</strong>未检测到高风险内容</p>
+                                            <p><strong>说明：</strong>文档内容符合公司合规政策要求</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 合规建议 -->
+                                <div class="p-3 rounded-lg bg-mist">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <p class="font-medium text-success">合规建议</p>
+                                    </div>
+                                    <div class="space-y-2 text-xs">
+                                        <div class="p-2 bg-white rounded border-l-4 border-success">
+                                            <p><strong>建议：</strong>定期进行合规审核</p>
+                                            <p><strong>说明：</strong>建议每季度对文档进行一次全面合规检查</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 操作按钮 -->
+                            <div class="mt-3 flex gap-2">
+                                <button id="view-compliance-report" class="px-3 py-2 rounded-full bg-primary text-white text-xs">查看详细报告</button>
+                                <button id="dismiss-compliance-results" class="px-3 py-2 rounded-full bg-white border border-line text-xs">关闭结果</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 成熟度和质量指标 -->
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                            <div class="p-3 rounded-xl bg-mist">
+                                <p class="font-medium">成熟度</p>
+                                <p id="maturity-level" class="mt-1 text-primary font-medium">协作中</p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-coral">
+                                <p class="font-medium">AI质量得分</p>
+                                <p id="quality-score" class="mt-1 text-muted">85 / 100</p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-ocean">
+                                <p class="font-medium">可见范围</p>
+                                <p id="visibility-scope" class="mt-1 text-muted">团队空间</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 知识成熟度评分面板 -->
+                        <div class="mt-4 p-4 rounded-xl border border-line bg-white text-sm">
+                            <div class="flex items-center justify-between mb-3">
+                                <p class="font-medium">知识成熟度评分</p>
+                                <span class="text-xs text-muted">自动计算</span>
+                            </div>
+                            
+                            <!-- 成熟度等级 -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between">
+                                    <p class="font-medium">当前成熟度</p>
+                                    <div class="flex items-center gap-1">
+                                        <span id="maturity-badge" class="px-3 py-1 rounded-full bg-warning/20 text-warning text-xs">协作中</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- 成熟度进度条 -->
+                                <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                    <div id="maturity-progress" class="bg-primary h-2 rounded-full" style="width: 60%"></div>
+                                </div>
+                                
+                                <!-- 成熟度等级标记 -->
+                                <div class="flex justify-between mt-1 text-xs text-muted">
+                                    <span>草稿</span>
+                                    <span>初稿</span>
+                                    <span>协作中</span>
+                                    <span>成熟</span>
+                                    <span>精品</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 评分因子 -->
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <p class="text-xs">AI质量检查得分</p>
+                                        <p class="text-xs font-medium">85分 (30%)</p>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <p class="text-xs">批注解决率</p>
+                                        <p class="text-xs font-medium">70% (25%)</p>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div class="bg-secondary h-1.5 rounded-full" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <p class="text-xs">参与评审人数</p>
+                                        <p class="text-xs font-medium">3人 (20%)</p>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div class="bg-accent h-1.5 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <p class="text-xs">更新频率</p>
+                                        <p class="text-xs font-medium">活跃 (15%)</p>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div class="bg-success h-1.5 rounded-full" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <p class="text-xs">使用量和评分</p>
+                                        <p class="text-xs font-medium">中等 (10%)</p>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div class="bg-warning h-1.5 rounded-full" style="width: 50%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 自动质量治理功能 -->
+                        <div class="mt-4 p-4 rounded-xl border border-line bg-white text-sm">
+                            <div class="flex items-center justify-between mb-3">
+                                <p class="font-medium">自动质量治理</p>
+                                <span class="text-xs text-muted">智能监控与管理</span>
+                            </div>
+                            
+                            <!-- 过期提醒 -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="font-medium text-sm">过期提醒</p>
+                                    <span class="px-2 py-1 rounded-full bg-warning/20 text-warning text-xs">30天后过期</span>
+                                </div>
+                                <div class="bg-mist p-3 rounded-lg text-xs">
+                                    <p>当前知识文档将于<span class="font-medium">2024-08-20</span>过期，建议提前更新内容以保持时效性。</p>
+                                    <div class="mt-2 flex gap-2">
+                                        <button id="update-knowledge" class="px-3 py-1 rounded-full bg-primary text-white text-xs">立即更新</button>
+                                        <button id="extend-expiry" class="px-3 py-1 rounded-full bg-white border border-line text-xs">延长有效期</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 质量监控 -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="font-medium text-sm">质量监控</p>
+                                    <span class="px-2 py-1 rounded-full bg-success/20 text-success text-xs">正常</span>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between text-xs">
+                                        <span>AI质量得分阈值</span>
+                                        <span class="font-medium">70分</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-xs">
+                                        <span>低质量自动下架</span>
+                                        <label class="flex items-center gap-1">
+                                            <input type="checkbox" id="auto-remove" checked>
+                                            <span>已启用</span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between text-xs">
+                                        <span>质量检查频率</span>
+                                        <span>每周自动检查</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 精品认证 -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="font-medium text-sm">精品认证</p>
+                                    <span class="px-2 py-1 rounded-full bg-gray-200 text-muted text-xs">未认证</span>
+                                </div>
+                                <div class="bg-mist p-3 rounded-lg text-xs">
+                                    <p>当前文档满足以下条件即可申请精品认证：</p>
+                                    <ul class="list-disc list-inside mt-1 space-y-1">
+                                        <li>AI质量得分≥90分</li>
+                                        <li>批注解决率100%</li>
+                                        <li>使用量≥50次</li>
+                                        <li>用户评分≥4.5星</li>
+                                    </ul>
+                                    <button id="apply-certification" class="mt-2 px-3 py-1 rounded-full bg-primary text-white text-xs">申请精品认证</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 发布设置按钮 -->
+                        <div class="mt-4 flex gap-2 text-xs">
+                            <button id="open-publish" class="px-3 py-2 rounded-full bg-primary text-white">发布设置</button>
+                            <button class="px-3 py-2 rounded-full bg-white border border-line">查看版本历史</button>
+                        </div>
+                        
+                        <!-- 发布设置面板 -->
+                        <div class="mt-4 p-4 rounded-xl border border-line bg-white text-sm" id="publish-settings" style="display: none;">
+                            <div class="flex items-center justify-between mb-3">
+                                <p class="font-medium">发布设置</p>
+                                <button id="close-publish" class="text-muted"><i class="fa fa-times"></i></button>
+                            </div>
+                            
+                            <!-- 可见范围设置 -->
+                            <div class="mb-4">
+                                <p class="font-medium mb-2">可见范围</p>
+                                <div class="space-y-2">
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" name="visibility" value="personal" class="visibility-option" disabled>
+                                        <div class="flex-1">
+                                            <p class="text-sm">仅我可见</p>
+                                            <p class="text-xs text-muted">仅创作者本人可见</p>
+                                        </div>
+                                    </label>
+                                    
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" name="visibility" value="team" class="visibility-option" checked>
+                                        <div class="flex-1">
+                                            <p class="text-sm">团队空间</p>
+                                            <p class="text-xs text-muted">团队成员可见可编辑</p>
+                                        </div>
+                                    </label>
+                                    
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" name="visibility" value="department" class="visibility-option">
+                                        <div class="flex-1">
+                                            <p class="text-sm">部门空间</p>
+                                            <p class="text-xs text-muted">部门内所有成员可见</p>
+                                        </div>
+                                    </label>
+                                    
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" name="visibility" value="company" class="visibility-option">
+                                        <div class="flex-1">
+                                            <p class="text-sm">全员空间</p>
+                                            <p class="text-xs text-muted">全公司可见（需AI质量得分≥80）</p>
+                                        </div>
+                                    </label>
+                                    
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" name="visibility" value="external" class="visibility-option">
+                                        <div class="flex-1">
+                                            <p class="text-sm">对外发布</p>
+                                            <p class="text-xs text-muted">面向客户/公众（需合规审核）</p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- 发布说明 -->
+                            <div class="mb-4 p-3 rounded-lg bg-mist">
+                                <p class="font-medium text-sm">发布说明</p>
+                                <div class="mt-2 text-xs space-y-1">
+                                    <p><i class="fa fa-info-circle text-primary mr-1"></i> 当前文档成熟度为"协作中"，建议先解决所有批注后再发布到更大范围</p>
+                                    <p><i class="fa fa-info-circle text-primary mr-1"></i> 发布到全员空间需要AI质量得分≥80分</p>
+                                    <p><i class="fa fa-info-circle text-primary mr-1"></i> 对外发布需要通过合规审核</p>
+                                </div>
+                            </div>
+                            
+                            <!-- 操作按钮 -->
+                            <div class="flex gap-2">
+                                <button id="save-publish-settings" class="px-3 py-2 rounded-full bg-primary text-white text-xs">保存发布设置</button>
+                                <button id="cancel-publish" class="px-3 py-2 rounded-full bg-white border border-line text-xs">取消</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 版本历史面板 -->
+                        <div class="mt-4 p-4 rounded-xl border border-line bg-white text-sm" id="version-history" style="display: none;">
+                            <div class="flex items-center justify-between mb-3">
+                                <p class="font-medium">版本历史</p>
+                                <button id="close-version" class="text-muted"><i class="fa fa-times"></i></button>
+                            </div>
+                            
+                            <!-- 版本筛选 -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="font-medium">版本筛选</p>
+                                    <div class="flex gap-2">
+                                        <button class="version-filter-btn px-3 py-1 rounded-full bg-primary text-white text-xs">全部</button>
+                                        <button class="version-filter-btn px-3 py-1 rounded-full bg-white border border-line text-xs" data-type="publish">发布版本</button>
+                                        <button class="version-filter-btn px-3 py-1 rounded-full bg-white border border-line text-xs" data-type="save">自动保存</button>
+                                        <button class="version-filter-btn px-3 py-1 rounded-full bg-white border border-line text-xs" data-type="major">重大修订</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 版本列表 -->
+                            <div class="space-y-3 max-h-[500px] overflow-y-auto scrollbar-hide">
+                                <!-- 当前版本 -->
+                                <div class="version-item p-3 rounded-lg bg-primary/10 border border-primary flex items-start gap-3" data-version="1.2">
+                                    <input type="checkbox" class="version-checkbox mt-1">
+                                    <div class="flex-1">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2">
+                                                <p class="font-medium">V1.2</p>
+                                                <span class="px-2 py-1 rounded-full bg-primary text-white text-xs">当前版本</span>
+                                                <span class="px-2 py-1 rounded-full bg-ocean text-primary text-xs">发布版本</span>
+                                            </div>
+                                            <p class="text-xs text-muted">2024-07-20 14:30</p>
+                                        </div>
+                                        <div class="mt-2">
+                                            <p class="font-medium">更新内容</p>
+                                            <ul class="list-disc list-inside mt-1 text-xs space-y-1">
+                                                <li>完善用户旅程与风险评估章节</li>
+                                                <li>补充竞品对比数据</li>
+                                                <li>修复术语规范问题</li>
+                                            </ul>
+                                        </div>
+                                        <div class="mt-2 flex items-center gap-2">
+                                            <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" alt="用户头像" class="w-5 h-5 rounded-full">
+                                            <p class="text-xs">张明 · 产品经理</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 版本 1.1 -->
+                                <div class="version-item p-3 rounded-lg bg-white border border-line flex items-start gap-3" data-version="1.1">
+                                    <input type="checkbox" class="version-checkbox mt-1">
+                                    <div class="flex-1">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2">
+                                                <p class="font-medium">V1.1</p>
+                                                <span class="px-2 py-1 rounded-full bg-ocean text-primary text-xs">发布版本</span>
+                                            </div>
+                                            <p class="text-xs text-muted">2024-07-19 16:45</p>
+                                        </div>
+                                        <div class="mt-2">
+                                            <p class="font-medium">更新内容</p>
+                                            <ul class="list-disc list-inside mt-1 text-xs space-y-1">
+                                                <li>新增核心功能章节</li>
+                                                <li>添加项目背景与目标</li>
+                                                <li>优化文档结构</li>
+                                            </ul>
+                                        </div>
+                                        <div class="mt-2 flex items-center gap-2">
+                                            <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" alt="用户头像" class="w-5 h-5 rounded-full">
+                                            <p class="text-xs">张明 · 产品经理</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 自动保存版本 -->
+                                <div class="version-item p-3 rounded-lg bg-white border border-line flex items-start gap-3" data-version="1.1.1">
+                                    <input type="checkbox" class="version-checkbox mt-1">
+                                    <div class="flex-1">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2">
+                                                <p class="font-medium">V1.1.1</p>
+                                                <span class="px-2 py-1 rounded-full bg-mist text-muted text-xs">自动保存</span>
+                                            </div>
+                                            <p class="text-xs text-muted">2024-07-19 16:30</p>
+                                        </div>
+                                        <div class="mt-2">
+                                            <p class="font-medium">更新内容</p>
+                                            <p class="text-xs text-muted">自动保存：修改了核心功能描述</p>
+                                        </div>
+                                        <div class="mt-2 flex items-center gap-2">
+                                            <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" alt="用户头像" class="w-5 h-5 rounded-full">
+                                            <p class="text-xs">张明 · 产品经理</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 版本 1.0 -->
+                                <div class="version-item p-3 rounded-lg bg-white border border-line flex items-start gap-3" data-version="1.0">
+                                    <input type="checkbox" class="version-checkbox mt-1">
+                                    <div class="flex-1">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2">
+                                                <p class="font-medium">V1.0</p>
+                                                <span class="px-2 py-1 rounded-full bg-ocean text-primary text-xs">发布版本</span>
+                                                <span class="px-2 py-1 rounded-full bg-success text-white text-xs">重大修订</span>
+                                            </div>
+                                            <p class="text-xs text-muted">2024-07-18 10:00</p>
+                                        </div>
+                                        <div class="mt-2">
+                                            <p class="font-medium">更新内容</p>
+                                            <ul class="list-disc list-inside mt-1 text-xs space-y-1">
+                                                <li>初始版本</li>
+                                                <li>创建产品需求文档</li>
+                                                <li>完成基本框架</li>
+                                            </ul>
+                                        </div>
+                                        <div class="mt-2 flex items-center gap-2">
+                                            <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" alt="用户头像" class="w-5 h-5 rounded-full">
+                                            <p class="text-xs">张明 · 产品经理</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 版本操作按钮 -->
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <button id="compare-versions" class="px-3 py-2 rounded-full bg-primary text-white text-xs" disabled>对比选中版本</button>
+                                <button id="rollback-version" class="px-3 py-2 rounded-full bg-white border border-line text-xs" disabled>回滚到选中版本</button>
+                                <button id="export-version" class="px-3 py-2 rounded-full bg-white border border-line text-xs">导出版本历史</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 版本对比面板 -->
+                        <div class="mt-4 p-4 rounded-xl border border-line bg-white text-sm" id="version-compare" style="display: none;">
+                            <div class="flex items-center justify-between mb-3">
+                                <p class="font-medium">版本对比</p>
+                                <button id="close-compare" class="text-muted"><i class="fa fa-times"></i></button>
+                            </div>
+                            
+                            <!-- 版本选择 -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="font-medium">选择对比版本</p>
+                                    <div class="flex gap-2">
+                                        <select id="version-from" class="border border-line rounded-lg px-3 py-2 text-xs">
+                                            <option value="1.1">V1.1</option>
+                                            <option value="1.0">V1.0</option>
+                                        </select>
+                                        <span class="text-muted">→</span>
+                                        <select id="version-to" class="border border-line rounded-lg px-3 py-2 text-xs">
+                                            <option value="1.2" selected>V1.2</option>
+                                            <option value="1.1">V1.1</option>
+                                        </select>
+                                        <button id="start-compare" class="px-3 py-2 rounded-full bg-primary text-white text-xs">开始对比</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- AI变更摘要 -->
+                            <div class="mb-4 p-3 rounded-lg bg-primary/10">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <i class="fa fa-robot text-primary"></i>
+                                    <p class="font-medium">AI变更摘要</p>
+                                </div>
+                                <p class="text-xs" id="ai-change-summary">V1.2相比V1.1：新增了用户旅程与风险评估章节，补充了竞品对比数据，修复了3处术语规范问题，整体结构更清晰。</p>
+                            </div>
+                            
+                            <!-- 版本对比内容 -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- 旧版本 -->
+                                <div class="version-content p-3 rounded-lg border border-line">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <p class="font-medium">V1.1</p>
+                                        <p class="text-xs text-muted">2024-07-19</p>
+                                    </div>
+                                    <div class="text-xs space-y-2">
+                                        <div class="p-2 bg-white rounded">
+                                            <p class="font-medium">一、项目概述</p>
+                                            <p>本项目旨在构建一个智能协作平台，通过AI辅助提升团队知识生产和共享效率。</p>
+                                        </div>
+                                        <div class="p-2 bg-white rounded">
+                                            <p class="font-medium">二、核心功能</p>
+                                            <p>平台的核心功能包括：文档协作、知识管理和AI智能助手功能。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 新版本 -->
+                                <div class="version-content p-3 rounded-lg border border-line">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <p class="font-medium">V1.2</p>
+                                        <p class="text-xs text-muted">2024-07-20</p>
+                                    </div>
+                                    <div class="text-xs space-y-2">
+                                        <div class="p-2 bg-white rounded">
+                                            <p class="font-medium">一、项目概述</p>
+                                            <p>本项目旨在构建一个智能协作平台，通过AI辅助提升团队知识生产和共享效率。平台将整合文档协作、知识管理和AI智能助手功能，满足企业级用户的需求。</p>
+                                        </div>
+                                        <div class="p-2 bg-white rounded">
+                                            <p class="font-medium">二、核心功能</p>
+                                            <p>平台的核心功能包括：智能协作批注系统、知识成熟度管理、AI质量助手、版本控制与历史追踪、社区驱动的质量监督以及必要的合规审核流程。</p>
+                                        </div>
+                                        <div class="p-2 bg-white rounded border-l-4 border-primary">
+                                            <p class="font-medium">三、用户旅程</p>
+                                            <p>用户旅程包括知识创建、协作编辑、AI质量检查、发布与共享、社区反馈与持续改进等阶段。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 对比操作按钮 -->
+                            <div class="mt-4 flex gap-2">
+                                <button id="export-compare" class="px-3 py-2 rounded-full bg-primary text-white text-xs">导出对比报告</button>
+                                <button id="accept-changes" class="px-3 py-2 rounded-full bg-white border border-line text-xs">接受所有变更</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 批注面板 -->
+                    <div class="bg-surface rounded-2xl border border-line shadow-card p-4 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <p class="font-medium">批注列表</p>
+                            <span class="text-xs text-muted">共5条批注</span>
+                        </div>
+                        
+                        <!-- 批注类型筛选 -->
+                        <div class="p-2 rounded-lg bg-mist text-xs">
+                            <p class="font-medium mb-2">筛选批注</p>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="filter-btn px-2 py-1 rounded-full bg-white border border-line active">全部</button>
+                                <button class="filter-btn px-2 py-1 rounded-full bg-white border border-line" data-type="question">疑问</button>
+                                <button class="filter-btn px-2 py-1 rounded-full bg-white border border-line" data-type="suggestion">建议</button>
+                                <button class="filter-btn px-2 py-1 rounded-full bg-white border border-line" data-type="error">错误</button>
+                                <button class="filter-btn px-2 py-1 rounded-full bg-white border border-line" data-type="praise">赞赏</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 批注状态筛选 -->
+                        <div class="p-2 rounded-lg bg-mist text-xs">
+                            <p class="font-medium mb-2">状态筛选</p>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="status-btn px-2 py-1 rounded-full bg-white border border-line active">全部</button>
+                                <button class="status-btn px-2 py-1 rounded-full bg-white border border-line" data-status="pending">待处理</button>
+                                <button class="status-btn px-2 py-1 rounded-full bg-white border border-line" data-status="processing">处理中</button>
+                                <button class="status-btn px-2 py-1 rounded-full bg-white border border-line" data-status="accepted">已采纳</button>
+                                <button class="status-btn px-2 py-1 rounded-full bg-white border border-line" data-status="rejected">不采纳</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 批注列表 -->
+                        <div class="space-y-3 text-xs max-h-[500px] overflow-y-auto scrollbar-hide">
+                            <!-- 错误批注 -->
+                            <div class="comment-item p-3 rounded-xl bg-white border border-line" data-type="error" data-status="pending">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" alt="用户头像" class="w-6 h-6 rounded-full">
+                                        <div>
+                                            <p class="font-medium">李强 · 技术总监</p>
+                                            <p class="text-muted">3小时前</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <span class="px-2 py-1 rounded-full bg-danger/20 text-danger text-[10px]">错误</span>
+                                        <span class="px-2 py-1 rounded-full bg-danger/20 text-danger text-[10px]">待处理</span>
+                                    </div>
+                                </div>
+                                <p class="mt-2">Q2数据未标注出处，请补充。</p>
+                                <div class="mt-2">
+                                    <p class="text-muted">段落 1：项目概述</p>
+                                </div>
+                                <div class="mt-2 flex gap-2">
+                                    <button class="p-1 bg-primary text-white rounded text-xs" title="采纳" onclick="updateCommentStatus(this, 'accepted')"><i class="fa fa-check"></i></button>
+                                    <button class="p-1 bg-danger text-white rounded text-xs" title="不采纳" onclick="updateCommentStatus(this, 'rejected')"><i class="fa fa-times"></i></button>
+                                    <button class="p-1 bg-ocean text-primary rounded text-xs" title="回复" onclick="replyToComment(this)"><i class="fa fa-reply"></i></button>
+                                </div>
+                            </div>
+                            
+                            <!-- 建议批注 -->
+                            <div class="comment-item p-3 rounded-xl bg-white border border-line" data-type="suggestion" data-status="pending">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <img src="https://p26-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/915302335932530804~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=JyYZRLlBDe3i3%2BTpop49sMGhR8g%3D" alt="用户头像" class="w-6 h-6 rounded-full">
+                                        <div>
+                                            <p class="font-medium">王晓华 · 市场分析师</p>
+                                            <p class="text-muted">5小时前</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <span class="px-2 py-1 rounded-full bg-warning/20 text-warning text-[10px]">建议</span>
+                                        <span class="px-2 py-1 rounded-full bg-warning/20 text-warning text-[10px]">待确认</span>
+                                    </div>
+                                </div>
+                                <p class="mt-2">建议新增“用户反馈”章节，收集用户使用体验数据。</p>
+                                <div class="mt-2">
+                                    <p class="text-muted">段落 2：核心功能</p>
+                                </div>
+                                <div class="mt-2 flex gap-2">
+                                    <button class="p-1 bg-primary text-white rounded text-xs" title="采纳" onclick="updateCommentStatus(this, 'accepted')"><i class="fa fa-check"></i></button>
+                                    <button class="p-1 bg-danger text-white rounded text-xs" title="不采纳" onclick="updateCommentStatus(this, 'rejected')"><i class="fa fa-times"></i></button>
+                                    <button class="p-1 bg-ocean text-primary rounded text-xs" title="回复" onclick="replyToComment(this)"><i class="fa fa-reply"></i></button>
+                                </div>
+                            </div>
+                            
+                            <!-- 已采纳的建议 -->
+                            <div class="comment-item p-3 rounded-xl bg-white border border-line" data-type="suggestion" data-status="accepted">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <img src="https://p3-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/917290012437381132~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=eE%2BzXl7cx1IbWn6x2FmQTE6dhr8%3D" alt="用户头像" class="w-6 h-6 rounded-full">
+                                        <div>
+                                            <p class="font-medium">赵静 · 设计师</p>
+                                            <p class="text-muted">1天前</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <span class="px-2 py-1 rounded-full bg-warning/20 text-warning text-[10px]">建议</span>
+                                        <span class="px-2 py-1 rounded-full bg-success/20 text-success text-[10px]">已采纳</span>
+                                    </div>
+                                </div>
+                                <p class="mt-2">建议优化文档结构，将“核心功能”章节移到前面。</p>
+                                <div class="mt-2">
+                                    <p class="text-muted">段落 2：核心功能</p>
+                                </div>
+                                <div class="mt-2 flex gap-2">
+                                    <button class="p-1 bg-ocean text-primary rounded text-xs" title="回复" onclick="replyToComment(this)"><i class="fa fa-reply"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 添加批注按钮 -->
+                        <button class="w-full px-3 py-2 rounded-full bg-secondary text-white text-xs" onclick="openNewCommentForm()">添加新批注</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 用户反馈与评分功能 -->
+            <div id="user-feedback" class="fixed bottom-6 right-6 bg-white rounded-2xl border border-line shadow-lg p-4 w-80">
+                <div class="flex items-center justify-between mb-3">
+                    <p class="font-medium">知识质量反馈</p>
+                    <button id="close-feedback" class="text-muted"><i class="fa fa-times"></i></button>
+                </div>
+                
+                <!-- 五星评分 -->
+                <div class="mb-4">
+                    <p class="text-sm mb-2">请为当前知识质量评分</p>
+                    <div class="flex items-center gap-1" id="star-rating">
+                        <span class="star" data-rating="1"><i class="fa fa-star-o text-muted text-lg cursor-pointer"></i></span>
+                        <span class="star" data-rating="2"><i class="fa fa-star-o text-muted text-lg cursor-pointer"></i></span>
+                        <span class="star" data-rating="3"><i class="fa fa-star-o text-muted text-lg cursor-pointer"></i></span>
+                        <span class="star" data-rating="4"><i class="fa fa-star-o text-muted text-lg cursor-pointer"></i></span>
+                        <span class="star" data-rating="5"><i class="fa fa-star-o text-muted text-lg cursor-pointer"></i></span>
+                    </div>
+                    <p id="rating-text" class="text-xs text-muted mt-1">请选择评分</p>
+                </div>
+                
+                <!-- 快速反馈按钮 -->
+                <div class="mb-4">
+                    <p class="text-sm mb-2">快速反馈</p>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="quick-feedback-btn px-3 py-1 rounded-full bg-success/20 text-success text-xs">内容很有帮助</button>
+                        <button class="quick-feedback-btn px-3 py-1 rounded-full bg-danger/20 text-danger text-xs">内容有误</button>
+                        <button class="quick-feedback-btn px-3 py-1 rounded-full bg-warning/20 text-warning text-xs">需要更新</button>
+                        <button class="quick-feedback-btn px-3 py-1 rounded-full bg-primary/20 text-primary text-xs">格式混乱</button>
+                        <button class="quick-feedback-btn px-3 py-1 rounded-full bg-secondary/20 text-secondary text-xs">术语不规范</button>
+                    </div>
+                </div>
+                
+                <!-- 详细反馈表单 -->
+                <div class="mb-4">
+                    <p class="text-sm mb-2">详细反馈</p>
+                    <textarea id="feedback-content" class="w-full border border-line rounded-lg px-3 py-2 text-sm" rows="3" placeholder="请输入您的详细反馈和建议..."></textarea>
+                </div>
+                
+                <!-- 提交按钮 -->
+                <button id="submit-feedback" class="w-full px-3 py-2 rounded-full bg-primary text-white text-xs">提交反馈</button>
+            </div>
+
+            <!-- 快速反馈悬浮按钮 -->
+            <button id="quick-feedback-btn" class="fixed bottom-6 right-6 bg-secondary text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center">
+                <i class="fa fa-comment"></i>
+            </button>
+

@@ -1,0 +1,224 @@
+            <div id="page-context" class="page flex flex-col gap-6 h-[calc(100vh-120px)] overflow-auto">
+                <div>
+                    <h2 class="text-2xl font-display font-semibold">情境知识面板</h2>
+                    <p class="text-sm text-muted">无处不在的智能认知助手，将企业知识能力嵌入用户工作的每一个场景</p>
+                </div>
+
+                <!-- 浏览器扩展插件 -->
+                <div class="bg-surface rounded-2xl border border-line shadow-card p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="text-lg font-semibold flex items-center"><i class="fa fa-globe text-primary mr-2"></i>浏览器扩展插件</h3>
+                            <p class="text-xs text-muted">将智能知识能力注入用户的Web工作场景</p>
+                        </div>
+                        <button class="px-3 py-1.5 rounded-full bg-primary text-white text-sm">安装插件</button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                        <!-- 划词取义与知识查询 -->
+                        <div class="col-span-1 lg:col-span-2">
+                            <h4 class="font-medium mb-3 text-sm">划词取义与知识查询</h4>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <div class="flex items-center gap-2 text-xs text-muted mb-3">
+                                    <span><i class="fa fa-search"></i> 当前页面：CRM · 客户详情</span>
+                                    <span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary">情境识别中</span>
+                                </div>
+                                <div class="text-sm mb-4">
+                                    客户：<strong>XX科技公司</strong> · 合同金额 <strong>¥3,200,000</strong> · 行业：智能制造
+                                </div>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="term-highlight px-2 py-1 rounded bg-primary/10 cursor-pointer">客户续约率</span>
+                                    <span class="term-highlight px-2 py-1 rounded bg-primary/10 cursor-pointer">风险等级</span>
+                                    <span class="term-highlight px-2 py-1 rounded bg-primary/10 cursor-pointer">项目里程碑</span>
+                                    <span class="term-highlight px-2 py-1 rounded bg-primary/10 cursor-pointer">投诉处理</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button class="explain-btn px-3 py-1.5 rounded-lg bg-primary text-white text-sm flex items-center gap-1"><i class="fa fa-book"></i> 解释</button>
+                                    <button class="search-btn px-3 py-1.5 rounded-lg bg-white border border-line text-sm flex items-center gap-1"><i class="fa fa-search"></i> 搜索</button>
+                                    <button class="save-btn px-3 py-1.5 rounded-lg bg-white border border-line text-sm flex items-center gap-1"><i class="fa fa-save"></i> 保存</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 情境智能伴读面板 -->
+                        <div>
+                            <h4 class="font-medium mb-3 text-sm">情境智能伴读面板</h4>
+                            <div class="bg-white rounded-xl border border-line p-4 space-y-3">
+                                <div class="text-xs text-muted flex items-center justify-between">
+                                    <span>智能情境面板</span>
+                                    <button class="text-primary"><i class="fa fa-cog"></i></button>
+                                </div>
+                                
+                                <!-- 客户摘要 -->
+                                <div class="p-3 rounded-lg bg-purple-light">
+                                    <h5 class="font-medium text-sm mb-1">客户摘要</h5>
+                                    <p class="text-xs text-muted">行业：智能制造 · 合作年限：3年</p>
+                                    <p class="text-xs text-muted">负责人：李强 · 销售总监</p>
+                                </div>
+                                
+                                <!-- 关联知识 -->
+                                <div>
+                                    <h5 class="font-medium text-sm mb-2">关联知识</h5>
+                                    <ul class="space-y-2 text-xs">
+                                        <li class="flex items-center gap-2 text-muted hover:text-primary cursor-pointer"><i class="fa fa-file-text-o"></i> 客户投诉处理方案</li>
+                                        <li class="flex items-center gap-2 text-muted hover:text-primary cursor-pointer"><i class="fa fa-file-text-o"></i> 续约策略模板</li>
+                                        <li class="flex items-center gap-2 text-muted hover:text-primary cursor-pointer"><i class="fa fa-file-text-o"></i> 竞争对手动态</li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- 快速操作 -->
+                                <div class="pt-2 border-t border-line">
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <button class="px-3 py-2 rounded-lg bg-primary text-white text-xs flex items-center justify-center gap-1"><i class="fa fa-calendar"></i> 发起会议</button>
+                                        <button class="px-3 py-2 rounded-lg bg-secondary text-white text-xs flex items-center justify-center gap-1"><i class="fa fa-envelope"></i> 发送邮件</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 桌面悬浮窗与快速入口 -->
+                <div class="bg-surface rounded-2xl border border-line shadow-card p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="text-lg font-semibold flex items-center"><i class="fa fa-desktop text-secondary mr-2"></i>桌面悬浮窗与快速入口</h3>
+                            <p class="text-xs text-muted">在用户使用本地应用(IDE、Office等)时，提供轻量级的知识接入能力</p>
+                        </div>
+                        <button class="px-3 py-1.5 rounded-full bg-secondary text-white text-sm">下载桌面客户端</button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                        <!-- 桌面悬浮球 -->
+                        <div>
+                            <h4 class="font-medium mb-3 text-sm">桌面悬浮球</h4>
+                            <div class="bg-white rounded-xl border border-line p-4 text-center">
+                                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white mx-auto mb-3 animate-float">
+                                    <i class="fa fa-search text-lg"></i>
+                                </div>
+                                <p class="text-xs text-muted mb-3">全局快速搜索入口</p>
+                                <div class="flex flex-wrap justify-center gap-2 text-xs">
+                                    <span class="px-2 py-1 rounded bg-secondary/10">快速搜索</span>
+                                    <span class="px-2 py-1 rounded bg-secondary/10">新建笔记</span>
+                                    <span class="px-2 py-1 rounded bg-secondary/10">查看摘要</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- IDE集成插件 -->
+                        <div>
+                            <h4 class="font-medium mb-3 text-sm">IDE集成插件</h4>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <div class="flex items-center justify-between text-xs text-muted mb-3">
+                                    <span><i class="fa fa-code"></i> VS Code 集成</span>
+                                    <span class="px-2 py-0.5 rounded-full bg-success/10 text-success">已安装</span>
+                                </div>
+                                <div class="text-xs mb-3">
+                                    当前文件：<strong>user_service.py</strong>
+                                </div>
+                                <div class="bg-mist rounded p-2 text-xs mb-3">
+                                    <p class="font-medium mb-1">代码情境感知</p>
+                                    <p class="text-muted">关联技术文档：<a href="#" class="text-primary hover:underline">用户认证API文档</a></p>
+                                </div>
+                                <button class="w-full px-3 py-1.5 rounded-lg bg-secondary text-white text-xs">配置IDE插件</button>
+                            </div>
+                        </div>
+
+                        <!-- Office套件插件 -->
+                        <div>
+                            <h4 class="font-medium mb-3 text-sm">Office套件插件</h4>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <div class="flex items-center justify-between text-xs text-muted mb-3">
+                                    <span><i class="fa fa-file-word-o"></i> Word 集成</span>
+                                    <span class="px-2 py-0.5 rounded-full bg-success/10 text-success">已安装</span>
+                                </div>
+                                <div class="text-xs mb-3">
+                                    当前文档：<strong>Q3销售报告.docx</strong>
+                                </div>
+                                <div class="bg-mist rounded p-2 text-xs mb-3">
+                                    <p class="font-medium mb-1">智能引用</p>
+                                    <p class="text-muted">自动插入知识卡片引用</p>
+                                </div>
+                                <button class="w-full px-3 py-1.5 rounded-lg bg-secondary text-white text-xs">配置Office插件</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 智能提醒与主动推送 -->
+                <div class="bg-surface rounded-2xl border border-line shadow-card p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="text-lg font-semibold flex items-center"><i class="fa fa-bell-o text-accent mr-2"></i>智能提醒与主动推送</h3>
+                            <p class="text-xs text-muted">将被动的知识查询，转变为主动的情境感知推送</p>
+                        </div>
+                        <button class="px-3 py-1.5 rounded-full bg-accent text-white text-sm">设置提醒</button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <!-- 情境触发推送 -->
+                        <div>
+                            <h4 class="font-medium mb-3 text-sm">情境触发推送</h4>
+                            <div class="bg-white rounded-xl border border-line p-4 space-y-3">
+                                <div class="flex items-start gap-3 p-3 rounded-lg bg-accent/10">
+                                    <div class="w-6 h-6 rounded-full bg-accent flex items-center justify-center text-white text-xs"><i class="fa fa-exclamation-circle"></i></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium">客户风险提示</p>
+                                        <p class="text-xs text-muted mt-1">该客户近期有投诉记录，建议查看处理方案</p>
+                                        <div class="mt-2 flex gap-2">
+                                            <button class="px-2 py-1 rounded bg-accent text-white text-xs">查看详情</button>
+                                            <button class="px-2 py-1 rounded bg-white border border-line text-xs">稍后提醒</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 p-3 rounded-lg bg-primary/10">
+                                    <div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white text-xs"><i class="fa fa-calendar"></i></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium">会议资料提醒</p>
+                                        <p class="text-xs text-muted mt-1">XX科技公司会议前15分钟，推送相关背景资料</p>
+                                        <div class="mt-2 flex gap-2">
+                                            <button class="px-2 py-1 rounded bg-primary text-white text-xs">查看资料</button>
+                                            <button class="px-2 py-1 rounded bg-white border border-line text-xs">忽略</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 智能提醒气泡 -->
+                        <div>
+                            <h4 class="font-medium mb-3 text-sm">提醒管理</h4>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <div class="flex items-center justify-between text-sm mb-3">
+                                    <span class="font-medium">提醒设置</span>
+                                    <button class="text-xs text-primary">管理规则</button>
+                                </div>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" id="toggle-context-reminder" class="rounded border-line">
+                                            <label for="toggle-context-reminder" class="text-sm">情境触发提醒</label>
+                                        </div>
+                                        <span class="text-xs text-muted">已启用</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" id="toggle-time-reminder" class="rounded border-line">
+                                            <label for="toggle-time-reminder" class="text-sm">时间触发提醒</label>
+                                        </div>
+                                        <span class="text-xs text-muted">已启用</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" id="toggle-mute" class="rounded border-line">
+                                            <label for="toggle-mute" class="text-sm">勿扰模式(18:00-08:00)</label>
+                                        </div>
+                                        <span class="text-xs text-muted">已启用</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+

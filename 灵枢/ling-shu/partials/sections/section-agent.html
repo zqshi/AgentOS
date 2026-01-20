@@ -1,0 +1,2009 @@
+                <section id="agent" class="section-content hidden">
+                    <!-- 智能体列表页面 -->
+                    <div id="agent-list" class="flex flex-col h-[calc(100vh-64px)]">
+                        <!-- 列表头部 -->
+                        <div class="p-4 border-b flex items-center justify-between">
+                            <div>
+                                <h2 class="text-xl font-semibold text-gray-900">智能体工厂</h2>
+                                <p class="text-sm text-gray-500 mt-1">管理和配置智能体</p>
+                            </div>
+                            <button id="new-agent-btn" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium">
+                                <i class="fa fa-plus mr-2"></i>新建智能体
+                            </button>
+                        </div>
+                        
+                        <!-- 智能体列表 -->
+                        <div class="flex-1 overflow-y-auto p-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <!-- 智能体卡片示例 -->
+                                <div class="bg-white rounded-lg border border-gray-200 p-4 cursor-pointer hover:shadow-lg transition-shadow">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                                            <i class="fa fa-android text-primary text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-sm font-medium text-gray-900">数据分析智能体</h3>
+                                            <p class="text-xs text-gray-500 mt-1">基于GPT-4 Pro</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 flex items-center justify-between text-xs">
+                                        <span class="text-green-600">已发布</span>
+                                        <button class="text-blue-600 hover:text-blue-800">编辑</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 新建智能体右侧面板 -->
+                    <div id="create-agent-panel" class="fixed inset-y-0 right-0 w-full max-w-[90vw] bg-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+                        <!-- 顶部导航栏 -->
+                        <div class="bg-white border-b h-14 flex items-center px-4">
+                            <div class="flex items-center gap-2">
+                                <button id="back-to-list-btn" class="text-gray-500 hover:text-gray-700">
+                                    <i class="fa fa-arrow-left"></i>
+                                </button>
+                                <h3 class="text-lg font-semibold text-gray-900">新建智能体</h3>
+                            </div>
+                            <div class="flex items-center gap-3 ml-auto">
+                                <span id="panel-progress-percentage" class="text-sm font-medium text-primary">10%</span>
+                                <button id="panel-close-btn" class="text-gray-500 hover:text-gray-700">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- 主体内容 -->
+                        <div class="flex flex-1 overflow-hidden">
+                            <!-- 左侧菜单树 -->
+                            <div class="w-64 border-r bg-gray-50 overflow-y-auto">
+                                <div class="p-4">
+                                    <div class="space-y-1">
+                                        <!-- 模型设置 -->
+                                        <div class="space-y-1">
+                                            <div class="flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-900 cursor-pointer hover:bg-gray-200 rounded-md">
+                                                <span>模型设置</span>
+                                                <i class="fa fa-chevron-down text-xs"></i>
+                                            </div>
+                                            <div class="space-y-1 pl-6">
+                                                <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-200 rounded-md config-tab active-config-tab" data-tab="model">
+                                                    模型选择
+                                                </button>
+                                                <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-200 rounded-md config-tab" data-tab="model-params">
+                                                    模型参数
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 技能 -->
+                                        <div class="space-y-1">
+                                            <div class="flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-900 cursor-pointer hover:bg-gray-200 rounded-md">
+                                                <span>技能</span>
+                                                <i class="fa fa-chevron-down text-xs"></i>
+                                            </div>
+                                            <div class="space-y-1 pl-6">
+                                                <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-200 rounded-md config-tab" data-tab="skills">
+                                                    已选技能
+                                                </button>
+                                                <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-200 rounded-md config-tab" data-tab="skill-market">
+                                                    技能市场
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 工作流 -->
+                                        <div class="space-y-1">
+                                            <div class="flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-900 cursor-pointer hover:bg-gray-200 rounded-md">
+                                                <span>工作流</span>
+                                                <i class="fa fa-chevron-down text-xs"></i>
+                                            </div>
+                                            <div class="space-y-1 pl-6">
+                                                <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-200 rounded-md config-tab" data-tab="workflow">
+                                                    工作流设计
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 知识库 -->
+                                        <div class="space-y-1">
+                                            <div class="flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-900 cursor-pointer hover:bg-gray-200 rounded-md">
+                                                <span>知识库</span>
+                                                <i class="fa fa-chevron-down text-xs"></i>
+                                            </div>
+                                            <div class="space-y-1 pl-6">
+                                                <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-200 rounded-md config-tab" data-tab="knowledge">
+                                                    知识配置
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 记忆 -->
+                                        <div class="space-y-1">
+                                            <div class="flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-900 cursor-pointer hover:bg-gray-200 rounded-md">
+                                                <span>记忆</span>
+                                                <i class="fa fa-chevron-down text-xs"></i>
+                                            </div>
+                                            <div class="space-y-1 pl-6">
+                                                <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-200 rounded-md config-tab" data-tab="memory">
+                                                    记忆配置
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 对话模板 -->
+                                        <div class="space-y-1">
+                                            <div class="flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-900 cursor-pointer hover:bg-gray-200 rounded-md">
+                                                <span>对话模板</span>
+                                                <i class="fa fa-chevron-down text-xs"></i>
+                                            </div>
+                                            <div class="space-y-1 pl-6">
+                                                <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-200 rounded-md config-tab" data-tab="prompt">
+                                                    开场白
+                                                </button>
+                                                <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-200 rounded-md config-tab" data-tab="suggestions">
+                                                    用户问题建议
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 中间内容区 -->
+                            <div class="flex-1 overflow-y-auto p-6">
+                                <form id="create-agent-form">
+                                        <!-- 基本信息配置 -->
+                                        <div id="basic-tab" class="config-content space-y-6">
+                                            <div>
+                                                <label for="agent-name" class="block text-sm font-medium text-gray-700 mb-1">智能体名称</label>
+                                                <input type="text" id="agent-name" name="agentName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent" placeholder="输入智能体名称" required>
+                                            </div>
+                                            <div>
+                                                <label for="agent-description" class="block text-sm font-medium text-gray-700 mb-1">智能体描述</label>
+                                                <textarea id="agent-description" name="agentDescription" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent" rows="3" placeholder="输入智能体描述"></textarea>
+                                            </div>
+                                            <div>
+                                                <label for="agent-type" class="block text-sm font-medium text-gray-700 mb-1">智能体类型</label>
+                                                <select id="agent-type" name="agentType" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent" required>
+                                                    <option value="">请选择智能体类型</option>
+                                                    <option value="数据分析">数据分析</option>
+                                                    <option value="客户服务">客户服务</option>
+                                                    <option value="供应链管理">供应链管理</option>
+                                                    <option value="安全合规">安全合规</option>
+                                                    <option value="内容创作">内容创作</option>
+                                                    <option value="其他">其他</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 模型配置 -->
+                                        <div id="model-tab" class="config-content space-y-6 hidden">
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <div class="flex items-center justify-between mb-4">
+                                                    <h4 class="text-sm font-semibold text-gray-900">模型选择</h4>
+                                                    <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">推荐</span>
+                                                </div>
+                                                <select id="agent-model" name="agentModel" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                    <option value="gpt-4-pro" selected>GPT-4 Pro</option>
+                                                    <option value="gpt-16k-pro">GPT-16k Pro</option>
+                                                    <option value="claude-3-opus">Claude 3 Opus</option>
+                                                    <option value="claude-3-sonnet">Claude 3 Sonnet</option>
+                                                    <option value="gemini-pro">Gemini Pro</option>
+                                                </select>
+                                                <div class="mt-3 grid grid-cols-3 gap-3 text-xs text-gray-500">
+                                                    <div>上下文窗口: 128k</div>
+                                                    <div>响应速度: 快速</div>
+                                                    <div>适用场景: 通用</div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">模型参数</h4>
+                                                <div class="space-y-4">
+                                                    <div>
+                                                        <label for="temperature" class="block text-xs font-medium text-gray-700 mb-1">温度</label>
+                                                        <input type="range" id="temperature" name="temperature" min="0" max="1" step="0.1" value="0.7" class="w-full">
+                                                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                                            <span>0.0 (精确)</span>
+                                                            <span>0.7 (平衡)</span>
+                                                            <span>1.0 (随机)</span>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <label for="max-tokens" class="block text-xs font-medium text-gray-700 mb-1">最大输出 tokens</label>
+                                                        <input type="number" id="max-tokens" name="maxTokens" value="2000" min="100" max="32000" class="w-full px-3 py-1 text-sm border border-gray-300 rounded-md">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 技能配置 -->
+                                        <div id="skills-tab" class="config-content space-y-6 hidden">
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <div class="flex items-center justify-between mb-4">
+                                                    <h4 class="text-sm font-semibold text-gray-900">已选技能</h4>
+                                                    <div class="flex items-center gap-2">
+                                                        <button type="button" id="add-skill-btn" class="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-md flex items-center gap-1">
+                                                            <i class="fa fa-plus text-xs"></i>
+                                                            <span>添加技能</span>
+                                                        </button>
+                                                        <button type="button" id="create-custom-skill-btn" class="text-xs font-medium text-green-600 bg-green-50 px-3 py-1 rounded-md flex items-center gap-1">
+                                                            <i class="fa fa-code text-xs"></i>
+                                                            <span>创建自定义技能</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div id="selected-skills-list" class="space-y-3">
+                                                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-md border border-gray-200">
+                                                        <div class="flex items-center gap-2">
+                                                            <i class="fa fa-file-text-o text-blue-500"></i>
+                                                            <div>
+                                                                <div class="text-sm font-medium text-gray-900">文档分析</div>
+                                                                <div class="text-xs text-gray-500">解析和分析各种格式文档</div>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" class="text-red-500 hover:text-red-700 transition-colors delete-skill-btn">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-md border border-gray-200">
+                                                        <div class="flex items-center gap-2">
+                                                            <i class="fa fa-chart-bar text-green-500"></i>
+                                                            <div>
+                                                                <div class="text-sm font-medium text-gray-900">数据分析</div>
+                                                                <div class="text-xs text-gray-500">处理和可视化数据</div>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" class="text-red-500 hover:text-red-700 transition-colors delete-skill-btn">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- 技能市场 -->
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">技能市场</h4>
+                                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                                                    <div class="skill-item p-3 bg-gray-50 rounded-md border border-gray-200 cursor-pointer hover:border-blue-400 transition-colors">
+                                                        <div class="flex items-center gap-2 mb-2">
+                                                            <i class="fa fa-search text-purple-500"></i>
+                                                            <div class="text-sm font-medium text-gray-900">知识检索</div>
+                                                        </div>
+                                                        <p class="text-xs text-gray-600 mb-2">从知识库中检索相关信息</p>
+                                                        <div class="flex items-center justify-between text-xs">
+                                                            <span class="text-blue-600">官方</span>
+                                                            <button type="button" class="text-blue-600 add-skill-btn">
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="skill-item p-3 bg-gray-50 rounded-md border border-gray-200 cursor-pointer hover:border-blue-400 transition-colors">
+                                                        <div class="flex items-center gap-2 mb-2">
+                                                            <i class="fa fa-paint-brush text-pink-500"></i>
+                                                            <div class="text-sm font-medium text-gray-900">内容生成</div>
+                                                        </div>
+                                                        <p class="text-xs text-gray-600 mb-2">生成各种类型的文本内容</p>
+                                                        <div class="flex items-center justify-between text-xs">
+                                                            <span class="text-blue-600">官方</span>
+                                                            <button type="button" class="text-blue-600 add-skill-btn">
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="skill-item p-3 bg-gray-50 rounded-md border border-gray-200 cursor-pointer hover:border-blue-400 transition-colors">
+                                                        <div class="flex items-center gap-2 mb-2">
+                                                            <i class="fa fa-file-excel-o text-green-500"></i>
+                                                            <div class="text-sm font-medium text-gray-900">表格处理</div>
+                                                        </div>
+                                                        <p class="text-xs text-gray-600 mb-2">处理和分析表格数据</p>
+                                                        <div class="flex items-center justify-between text-xs">
+                                                            <span class="text-blue-600">官方</span>
+                                                            <button type="button" class="text-blue-600 add-skill-btn">
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 创建自定义技能模态框 -->
+                                        <div id="create-custom-skill-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden overflow-y-auto">
+                                            <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+                                                <!-- 模态框头部 -->
+                                                <div class="flex items-center justify-between p-6 border-b">
+                                                    <div>
+                                                        <h3 class="text-xl font-semibold text-gray-900">创建自定义技能</h3>
+                                                        <p class="text-sm text-gray-500 mt-1">定义技能的名称、描述和实现逻辑</p>
+                                                    </div>
+                                                    <button id="close-custom-skill-modal-btn" class="text-gray-500 hover:text-gray-700 transition-colors">
+                                                        <i class="fa fa-times text-xl"></i>
+                                                    </button>
+                                                </div>
+                                                
+                                                <!-- 模态框主体 -->
+                                                <div class="flex-1 overflow-y-auto p-6">
+                                                    <form id="create-custom-skill-form">
+                                                        <div class="space-y-4">
+                                                            <div>
+                                                                <label for="custom-skill-name" class="block text-sm font-medium text-gray-700 mb-1">技能名称</label>
+                                                                <input type="text" id="custom-skill-name" name="skillName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent" placeholder="输入技能名称" required>
+                                                            </div>
+                                                            <div>
+                                                                <label for="custom-skill-description" class="block text-sm font-medium text-gray-700 mb-1">技能描述</label>
+                                                                <textarea id="custom-skill-description" name="skillDescription" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent" rows="3" placeholder="输入技能描述"></textarea>
+                                                            </div>
+                                                            <div>
+                                                                <label for="custom-skill-type" class="block text-sm font-medium text-gray-700 mb-1">技能类型</label>
+                                                                <select id="custom-skill-type" name="skillType" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                                    <option value="api">API调用</option>
+                                                                    <option value="function">JavaScript函数</option>
+                                                                    <option value="workflow">工作流</option>
+                                                                </select>
+                                                            </div>
+                                                            
+                                                            <!-- API配置 -->
+                                                            <div id="api-config" class="space-y-3">
+                                                                <div>
+                                                                    <label for="api-url" class="block text-sm font-medium text-gray-700 mb-1">API URL</label>
+                                                                    <input type="text" id="api-url" name="apiUrl" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent" placeholder="https://api.example.com/skill">
+                                                                </div>
+                                                                <div>
+                                                                    <label for="api-method" class="block text-sm font-medium text-gray-700 mb-1">请求方法</label>
+                                                                    <select id="api-method" name="apiMethod" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                                        <option value="GET">GET</option>
+                                                                        <option value="POST">POST</option>
+                                                                        <option value="PUT">PUT</option>
+                                                                        <option value="DELETE">DELETE</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div>
+                                                                    <label for="api-headers" class="block text-sm font-medium text-gray-700 mb-1">请求头 (JSON)</label>
+                                                                    <textarea id="api-headers" name="apiHeaders" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent" rows="3" placeholder='{"Authorization": "Bearer token"}'></textarea>
+                                                                </div>
+                                                                <div>
+                                                                    <label for="api-body" class="block text-sm font-medium text-gray-700 mb-1">请求体 (JSON)</label>
+                                                                    <textarea id="api-body" name="apiBody" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent" rows="3" placeholder='{"param": "value"}'></textarea>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <!-- JavaScript函数配置 -->
+                                                            <div id="function-config" class="hidden">
+                                                                <div>
+                                                                    <label for="function-code" class="block text-sm font-medium text-gray-700 mb-1">函数代码</label>
+                                                                    <textarea id="function-code" name="functionCode" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent font-mono text-xs" rows="10" placeholder='async function execute(params) {
+    // 技能实现逻辑
+    return { result: "success" };
+}'></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                
+                                                <!-- 模态框底部 -->
+                                                <div class="flex items-center justify-end gap-3 p-6 border-t bg-gray-50">
+                                                    <button type="button" id="cancel-create-custom-skill-btn" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">取消</button>
+                                                    <button type="submit" form="create-custom-skill-form" class="px-6 py-2 text-sm font-medium text-white bg-warning rounded-lg hover:bg-warning/90 transition-colors">创建技能</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 工作流配置 -->
+                                        <div id="workflow-tab" class="config-content space-y-6 hidden">
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <div class="flex items-center justify-between mb-3">
+                                                    <h4 class="text-sm font-semibold text-gray-900">工作流设计</h4>
+                                                    <div class="flex items-center gap-2">
+                                                        <button type="button" id="save-workflow-btn" class="text-xs font-medium text-gray-600 bg-gray-100 px-3 py-1 rounded-md flex items-center gap-1">
+                                                            <i class="fa fa-save text-xs"></i>
+                                                            <span>保存工作流</span>
+                                                        </button>
+                                                        <button type="button" id="clear-workflow-btn" class="text-xs font-medium text-gray-600 bg-gray-100 px-3 py-1 rounded-md flex items-center gap-1">
+                                                            <i class="fa fa-trash text-xs"></i>
+                                                            <span>清空</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                                                    <!-- 节点库 -->
+                                                    <div class="lg:col-span-1 bg-gray-50 rounded-lg p-3">
+                                                        <h5 class="text-xs font-semibold text-gray-700 mb-2">节点库</h5>
+                                                        <div class="space-y-2">
+                                                            <div class="node-item p-2 bg-white rounded-md border border-gray-200 cursor-move text-xs text-gray-700 flex items-center gap-2" draggable="true" data-node-type="start">
+                                                                <i class="fa fa-play-circle text-green-500"></i>
+                                                                <span>开始节点</span>
+                                                            </div>
+                                                            <div class="node-item p-2 bg-white rounded-md border border-gray-200 cursor-move text-xs text-gray-700 flex items-center gap-2" draggable="true" data-node-type="end">
+                                                                <i class="fa fa-stop-circle text-red-500"></i>
+                                                                <span>结束节点</span>
+                                                            </div>
+                                                            <div class="node-item p-2 bg-white rounded-md border border-gray-200 cursor-move text-xs text-gray-700 flex items-center gap-2" draggable="true" data-node-type="condition">
+                                                                <i class="fa fa-code-fork text-yellow-500"></i>
+                                                                <span>条件判断</span>
+                                                            </div>
+                                                            <div class="node-item p-2 bg-white rounded-md border border-gray-200 cursor-move text-xs text-gray-700 flex items-center gap-2" draggable="true" data-node-type="skill">
+                                                                <i class="fa fa-cogs text-blue-500"></i>
+                                                                <span>技能调用</span>
+                                                            </div>
+                                                            <div class="node-item p-2 bg-white rounded-md border border-gray-200 cursor-move text-xs text-gray-700 flex items-center gap-2" draggable="true" data-node-type="api">
+                                                                <i class="fa fa-plug text-purple-500"></i>
+                                                                <span>API调用</span>
+                                                            </div>
+                                                            <div class="node-item p-2 bg-white rounded-md border border-gray-200 cursor-move text-xs text-gray-700 flex items-center gap-2" draggable="true" data-node-type="delay">
+                                                                <i class="fa fa-clock-o text-orange-500"></i>
+                                                                <span>延迟等待</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!-- 工作流画布 -->
+                                                    <div class="lg:col-span-3 bg-white rounded-lg border border-gray-200 relative overflow-hidden">
+                                                        <div id="workflow-canvas" class="min-h-[400px] bg-gray-50 p-4 relative" style="background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px); background-size: 20px 20px;">
+                                                            <p class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs text-gray-400">
+                                                                从左侧拖拽节点到此处开始设计工作流
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- 节点属性编辑 -->
+                                                <div id="node-properties" class="bg-gray-50 rounded-lg p-3 hidden">
+                                                    <h5 class="text-xs font-semibold text-gray-700 mb-2">节点属性</h5>
+                                                    <div id="node-property-form" class="space-y-3">
+                                                        <!-- 动态生成的属性表单 -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 知识库配置 -->
+                                        <div id="knowledge-tab" class="config-content space-y-6 hidden">
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <div class="flex items-center justify-between mb-4">
+                                                    <h4 class="text-sm font-semibold text-gray-900">知识库</h4>
+                                                    <div class="flex items-center gap-2">
+                                                        <button type="button" class="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-md flex items-center gap-1">
+                                                            <i class="fa fa-plus text-xs"></i>
+                                                            <span>添加知识库</span>
+                                                        </button>
+                                                        <button type="button" class="text-xs font-medium text-gray-600 bg-gray-100 px-3 py-1 rounded-md flex items-center gap-1">
+                                                            <i class="fa fa-refresh text-xs"></i>
+                                                            <span>自动调用</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="space-y-3">
+                                                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-md border border-gray-200">
+                                                        <div class="flex items-center gap-2">
+                                                            <i class="fa fa-book text-purple-500"></i>
+                                                            <div class="text-sm font-medium text-gray-900">产品知识库</div>
+                                                        </div>
+                                                        <span class="text-xs font-medium text-gray-500">已启用</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 记忆配置 -->
+                                        <div id="memory-tab" class="config-content space-y-6 hidden">
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">记忆配置</h4>
+                                                <div class="space-y-4">
+                                                    <div>
+                                                        <label for="memory-type" class="block text-sm font-medium text-gray-700 mb-1">记忆类型</label>
+                                                        <select id="memory-type" name="memoryType" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                            <option value="context" selected>上下文记忆</option>
+                                                            <option value="short-term">短期记忆</option>
+                                                            <option value="long-term">长期记忆</option>
+                                                            <option value="hybrid">混合记忆</option>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <!-- 上下文记忆配置 -->
+                                                    <div id="context-memory-config" class="space-y-3 pl-4 border-l-2 border-gray-200">
+                                                        <div>
+                                                            <label for="context-window-size" class="block text-sm font-medium text-gray-700 mb-1">上下文窗口大小</label>
+                                                            <select id="context-window-size" name="contextWindowSize" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                                <option value="2k">2K tokens</option>
+                                                                <option value="4k">4K tokens</option>
+                                                                <option value="8k" selected>8K tokens</option>
+                                                                <option value="16k">16K tokens</option>
+                                                                <option value="32k">32K tokens</option>
+                                                                <option value="64k">64K tokens</option>
+                                                                <option value="128k">128K tokens</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label for="context-compression" class="block text-sm font-medium text-gray-700 mb-1">上下文压缩策略</label>
+                                                            <select id="context-compression" name="contextCompression" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                                <option value="none" selected>不压缩</option>
+                                                                <option value="summarize">总结压缩</option>
+                                                                <option value="truncate">截断</option>
+                                                                <option value="smart">智能压缩</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!-- 短期记忆配置 -->
+                                                    <div id="short-term-memory-config" class="space-y-3 pl-4 border-l-2 border-gray-200 hidden">
+                                                        <div>
+                                                            <label for="short-term-duration" class="block text-sm font-medium text-gray-700 mb-1">记忆时长</label>
+                                                            <select id="short-term-duration" name="shortTermDuration" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                                <option value="1h">1小时</option>
+                                                                <option value="2h">2小时</option>
+                                                                <option value="4h">4小时</option>
+                                                                <option value="6h">6小时</option>
+                                                                <option value="8h" selected>8小时</option>
+                                                                <option value="12h">12小时</option>
+                                                                <option value="24h">24小时</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label for="short-term-capacity" class="block text-sm font-medium text-gray-700 mb-1">记忆容量</label>
+                                                            <input type="number" id="short-term-capacity" name="shortTermCapacity" value="100" min="1" max="1000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                            <p class="text-xs text-gray-500 mt-1">最大记忆条目数</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!-- 长期记忆配置 -->
+                                                    <div id="long-term-memory-config" class="space-y-3 pl-4 border-l-2 border-gray-200 hidden">
+                                                        <div class="flex items-center gap-3">
+                                                            <input type="checkbox" id="enable-long-term-memory" name="enableLongTermMemory" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                            <label for="enable-long-term-memory" class="text-sm font-medium text-gray-700">启用长期记忆</label>
+                                                        </div>
+                                                        <div>
+                                                            <label for="long-term-storage" class="block text-sm font-medium text-gray-700 mb-1">存储策略</label>
+                                                            <select id="long-term-storage" name="longTermStorage" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                                <option value="vector-db" selected>向量数据库</option>
+                                                                <option value="document-db">文档数据库</option>
+                                                                <option value="graph-db">图数据库</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label for="long-term-retrieval" class="block text-sm font-medium text-gray-700 mb-1">检索策略</label>
+                                                            <select id="long-term-retrieval" name="longTermRetrieval" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                                <option value="semantic" selected>语义检索</option>
+                                                                <option value="keyword">关键词检索</option>
+                                                                <option value="hybrid">混合检索</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!-- 记忆优先级配置 -->
+                                                    <div>
+                                                        <h5 class="text-sm font-medium text-gray-700 mb-2">记忆优先级</h5>
+                                                        <div class="space-y-2">
+                                                            <div class="flex items-center gap-2">
+                                                                <input type="range" id="conversation-priority" name="conversationPriority" min="1" max="10" value="8" class="w-full">
+                                                                <span class="text-xs text-gray-500 min-w-[40px]">对话</span>
+                                                            </div>
+                                                            <div class="flex items-center gap-2">
+                                                                <input type="range" id="task-priority" name="taskPriority" min="1" max="10" value="9" class="w-full">
+                                                                <span class="text-xs text-gray-500 min-w-[40px]">任务</span>
+                                                            </div>
+                                                            <div class="flex items-center gap-2">
+                                                                <input type="range" id="knowledge-priority" name="knowledgePriority" min="1" max="10" value="7" class="w-full">
+                                                                <span class="text-xs text-gray-500 min-w-[40px]">知识</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 对话模板配置 -->
+                                        <div id="prompt-tab" class="config-content space-y-6 hidden">
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">开场白</h4>
+                                                <textarea id="opening-prompt" name="openingPrompt" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent" rows="3" placeholder="输入智能体的开场白"></textarea>
+                                            </div>
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">用户问题建议</h4>
+                                                <div class="space-y-2">
+                                                    <div class="flex items-center gap-2">
+                                                        <input type="text" name="suggestion1" class="flex-1 px-3 py-1 text-sm border border-gray-300 rounded-md" placeholder="输入建议问题">
+                                                        <button type="button" class="text-red-500 hover:text-red-700 transition-colors">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="flex items-center gap-2">
+                                                        <input type="text" name="suggestion2" class="flex-1 px-3 py-1 text-sm border border-gray-300 rounded-md" placeholder="输入建议问题">
+                                                        <button type="button" class="text-red-500 hover:text-red-700 transition-colors">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                    <button type="button" class="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-md flex items-center gap-1">
+                                                        <i class="fa fa-plus text-xs"></i>
+                                                        <span>添加建议</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 权限配置 -->
+                                        <div id="permission-tab" class="config-content space-y-6 hidden">
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">权限配置</h4>
+                                                <div class="space-y-4">
+                                                    <div>
+                                                        <label for="permission-mode" class="block text-sm font-medium text-gray-700 mb-1">权限模式</label>
+                                                        <select id="permission-mode" name="permissionMode" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                            <option value="public" selected>公开（所有人可访问）</option>
+                                                            <option value="private">私有（仅创建者可访问）</option>
+                                                            <option value="role-based">基于角色（指定角色可访问）</option>
+                                                            <option value="user-based">基于用户（指定用户可访问）</option>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <!-- 角色权限配置 -->
+                                                    <div id="role-permissions" class="space-y-3 pl-4 border-l-2 border-gray-200 hidden">
+                                                        <div>
+                                                            <h5 class="text-xs font-medium text-gray-700 mb-2">角色权限</h5>
+                                                            <div class="space-y-2">
+                                                                <div class="flex items-center gap-3">
+                                                                    <input type="checkbox" id="role-admin" name="roleAdmin" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                                    <label for="role-admin" class="text-sm font-medium text-gray-700">管理员（完全控制）</label>
+                                                                </div>
+                                                                <div class="flex items-center gap-3">
+                                                                    <input type="checkbox" id="role-editor" name="roleEditor" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                                    <label for="role-editor" class="text-sm font-medium text-gray-700">编辑者（可编辑和使用）</label>
+                                                                </div>
+                                                                <div class="flex items-center gap-3">
+                                                                    <input type="checkbox" id="role-viewer" name="roleViewer" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                                    <label for="role-viewer" class="text-sm font-medium text-gray-700">查看者（仅可使用）</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!-- 用户权限配置 -->
+                                                    <div id="user-permissions" class="space-y-3 pl-4 border-l-2 border-gray-200 hidden">
+                                                        <div>
+                                                            <h5 class="text-xs font-medium text-gray-700 mb-2">用户权限</h5>
+                                                            <div class="space-y-2">
+                                                                <div class="flex items-center gap-2">
+                                                                    <input type="text" id="user-search" class="flex-1 px-3 py-1.5 text-sm border border-gray-300 rounded-md" placeholder="搜索用户">
+                                                                    <button type="button" class="text-blue-600 bg-blue-50 px-3 py-1.5 rounded-md text-sm">
+                                                                        <i class="fa fa-search"></i>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="border border-gray-200 rounded-md overflow-hidden">
+                                                                    <div class="p-2 bg-gray-50 text-xs font-medium text-gray-700">已选择用户</div>
+                                                                    <div class="max-h-24 overflow-y-auto">
+                                                                        <div class="flex items-center justify-between p-2 border-b border-gray-100">
+                                                                            <div class="flex items-center gap-2">
+                                                                                <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-xs">张</div>
+                                                                                <span class="text-xs">张经理</span>
+                                                                            </div>
+                                                                            <button type="button" class="text-red-500 hover:text-red-700">
+                                                                                <i class="fa fa-times"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="flex items-center justify-between p-2">
+                                                                            <div class="flex items-center gap-2">
+                                                                                <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-xs">李</div>
+                                                                                <span class="text-xs">李工程师</span>
+                                                                            </div>
+                                                                            <button type="button" class="text-red-500 hover:text-red-700">
+                                                                                <i class="fa fa-times"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!-- 操作权限配置 -->
+                                                    <div id="action-permissions" class="space-y-3">
+                                                        <h5 class="text-xs font-medium text-gray-700 mb-2">操作权限</h5>
+                                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                            <div class="flex items-center gap-3">
+                                                                <input type="checkbox" id="action-create" name="actionCreate" class="rounded border-gray-300 text-warning focus:ring-warning" checked disabled>
+                                                                <label for="action-create" class="text-sm font-medium text-gray-700">创建</label>
+                                                            </div>
+                                                            <div class="flex items-center gap-3">
+                                                                <input type="checkbox" id="action-read" name="actionRead" class="rounded border-gray-300 text-warning focus:ring-warning" checked>
+                                                                <label for="action-read" class="text-sm font-medium text-gray-700">读取</label>
+                                                            </div>
+                                                            <div class="flex items-center gap-3">
+                                                                <input type="checkbox" id="action-update" name="actionUpdate" class="rounded border-gray-300 text-warning focus:ring-warning" checked>
+                                                                <label for="action-update" class="text-sm font-medium text-gray-700">更新</label>
+                                                            </div>
+                                                            <div class="flex items-center gap-3">
+                                                                <input type="checkbox" id="action-delete" name="actionDelete" class="rounded border-gray-300 text-warning focus:ring-warning" checked disabled>
+                                                                <label for="action-delete" class="text-sm font-medium text-gray-700">删除</label>
+                                                            </div>
+                                                        </div>
+                                                        <p class="text-xs text-gray-500 mt-1">注：创建和删除权限仅创建者和管理员可用</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 版本控制 -->
+                                        <div id="version-tab" class="config-content space-y-6 hidden">
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">版本控制</h4>
+                                                <div class="space-y-4">
+                                                    <div>
+                                                        <label for="version-name" class="block text-sm font-medium text-gray-700 mb-1">版本名称</label>
+                                                        <input type="text" id="version-name" name="versionName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent" placeholder="输入版本名称（如：v1.0.0）">
+                                                    </div>
+                                                    <div>
+                                                        <label for="version-description" class="block text-sm font-medium text-gray-700 mb-1">版本描述</label>
+                                                        <textarea id="version-description" name="versionDescription" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent" rows="3" placeholder="描述本次版本的主要变更"></textarea>
+                                                    </div>
+                                                    <div>
+                                                        <label for="version-type" class="block text-sm font-medium text-gray-700 mb-1">版本类型</label>
+                                                        <select id="version-type" name="versionType" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                            <option value="major" selected>主要版本（breaking changes）</option>
+                                                            <option value="minor">次要版本（新增功能）</option>
+                                                            <option value="patch">补丁版本（修复bug）</option>
+                                                            <option value="alpha">Alpha版本（内部测试）</option>
+                                                            <option value="beta">Beta版本（公开测试）</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">版本历史</h4>
+                                                <div class="border border-gray-200 rounded-md overflow-hidden">
+                                                    <table class="w-full text-sm">
+                                                        <thead class="bg-gray-50">
+                                                            <tr>
+                                                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">版本号</th>
+                                                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">类型</th>
+                                                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">创建时间</th>
+                                                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="version-history" class="bg-white divide-y divide-gray-200">
+                                                            <tr class="hover:bg-gray-50">
+                                                                <td class="px-3 py-2 text-sm font-medium text-gray-900">v0.9.0</td>
+                                                                <td class="px-3 py-2 text-sm text-gray-600">Beta</td>
+                                                                <td class="px-3 py-2 text-sm text-gray-600">2024-01-16 14:30</td>
+                                                                <td class="px-3 py-2">
+                                                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                                        测试中
+                                                                    </span>
+                                                                </td>
+                                                                <td class="px-3 py-2 space-x-2">
+                                                                    <button type="button" class="text-xs font-medium text-blue-600 hover:text-blue-800">查看</button>
+                                                                    <button type="button" class="text-xs font-medium text-green-600 hover:text-green-800">部署</button>
+                                                                    <button type="button" class="text-xs font-medium text-red-600 hover:text-red-800">删除</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="hover:bg-gray-50">
+                                                                <td class="px-3 py-2 text-sm font-medium text-gray-900">v0.8.0</td>
+                                                                <td class="px-3 py-2 text-sm text-gray-600">Alpha</td>
+                                                                <td class="px-3 py-2 text-sm text-gray-600">2024-01-15 11:20</td>
+                                                                <td class="px-3 py-2">
+                                                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                                                        已归档
+                                                                    </span>
+                                                                </td>
+                                                                <td class="px-3 py-2 space-x-2">
+                                                                    <button type="button" class="text-xs font-medium text-blue-600 hover:text-blue-800">查看</button>
+                                                                    <button type="button" class="text-xs font-medium text-gray-400 cursor-not-allowed">部署</button>
+                                                                    <button type="button" class="text-xs font-medium text-red-600 hover:text-red-800">删除</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">发布管理</h4>
+                                                <div class="space-y-4">
+                                                    <div>
+                                                        <label for="publish-environment" class="block text-sm font-medium text-gray-700 mb-1">发布环境</label>
+                                                        <select id="publish-environment" name="publishEnvironment" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                            <option value="sandbox">沙箱环境</option>
+                                                            <option value="staging">预发布环境</option>
+                                                            <option value="production">生产环境</option>
+                                                        </select>
+                                                    </div>
+                                                    <div>
+                                                        <label for="publish-message" class="block text-sm font-medium text-gray-700 mb-1">发布说明</label>
+                                                        <textarea id="publish-message" name="publishMessage" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent" rows="2" placeholder="输入发布说明（可选）"></textarea>
+                                                    </div>
+                                                    <div class="flex items-center gap-2">
+                                                        <input type="checkbox" id="is-major-publish" name="isMajorPublish" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                        <label for="is-major-publish" class="text-sm font-medium text-gray-700">这是一个重要发布</label>
+                                                    </div>
+                                                    <div class="flex items-center gap-2">
+                                                        <input type="checkbox" id="notify-users" name="notifyUsers" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                        <label for="notify-users" class="text-sm font-medium text-gray-700">通知用户</label>
+                                                    </div>
+                                                    <button type="button" id="publish-btn" class="w-full bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
+                                                        <i class="fa fa-rocket mr-1"></i>
+                                                        发布新版本
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 监控与分析 -->
+                                        <div id="monitoring-tab" class="config-content space-y-6 hidden">
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">性能监控</h4>
+                                                <div class="space-y-4">
+                                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="text-xs font-medium text-gray-500">平均响应时间</div>
+                                                            <div class="text-lg font-semibold text-gray-900 mt-1">234ms</div>
+                                                            <div class="text-xs text-green-600 mt-1">-5% 较昨日</div>
+                                                        </div>
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="text-xs font-medium text-gray-500">请求成功率</div>
+                                                            <div class="text-lg font-semibold text-gray-900 mt-1">99.8%</div>
+                                                            <div class="text-xs text-green-600 mt-1">+0.2% 较昨日</div>
+                                                        </div>
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="text-xs font-medium text-gray-500">并发请求数</div>
+                                                            <div class="text-lg font-semibold text-gray-900 mt-1">128</div>
+                                                            <div class="text-xs text-red-600 mt-1">+15% 较昨日</div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <label for="monitoring-enabled" class="block text-sm font-medium text-gray-700 mb-2">启用监控</label>
+                                                        <div class="flex items-center gap-3">
+                                                            <input type="radio" id="monitoring-enabled" name="monitoringEnabled" value="enabled" class="border-gray-300 text-primary focus:ring-primary" checked>
+                                                            <label for="monitoring-enabled" class="text-sm font-medium text-gray-700">启用</label>
+                                                            <input type="radio" id="monitoring-disabled" name="monitoringEnabled" value="disabled" class="border-gray-300 text-primary focus:ring-primary">
+                                                            <label for="monitoring-disabled" class="text-sm font-medium text-gray-700">禁用</label>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <label for="monitoring-frequency" class="block text-sm font-medium text-gray-700 mb-1">监控频率</label>
+                                                        <select id="monitoring-frequency" name="monitoringFrequency" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                            <option value="1m" selected>1分钟</option>
+                                                            <option value="5m">5分钟</option>
+                                                            <option value="15m">15分钟</option>
+                                                            <option value="30m">30分钟</option>
+                                                            <option value="1h">1小时</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">使用统计</h4>
+                                                <div class="space-y-4">
+                                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="text-xs font-medium text-gray-500">今日活跃用户</div>
+                                                            <div class="text-lg font-semibold text-gray-900 mt-1">256</div>
+                                                            <div class="text-xs text-green-600 mt-1">+8% 较昨日</div>
+                                                        </div>
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="text-xs font-medium text-gray-500">今日会话数</div>
+                                                            <div class="text-lg font-semibold text-gray-900 mt-1">1,234</div>
+                                                            <div class="text-xs text-green-600 mt-1">+12% 较昨日</div>
+                                                        </div>
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="text-xs font-medium text-gray-500">平均会话时长</div>
+                                                            <div class="text-lg font-semibold text-gray-900 mt-1">4分32秒</div>
+                                                            <div class="text-xs text-red-600 mt-1">-2% 较昨日</div>
+                                                        </div>
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="text-xs font-medium text-gray-500">用户满意度</div>
+                                                            <div class="text-lg font-semibold text-gray-900 mt-1">4.8/5</div>
+                                                            <div class="text-xs text-green-600 mt-1">+0.1 较昨日</div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <label class="block text-sm font-medium text-gray-700 mb-2">统计周期</label>
+                                                        <div class="flex space-x-2">
+                                                            <button type="button" class="px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-md">今日</button>
+                                                            <button type="button" class="px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200">昨日</button>
+                                                            <button type="button" class="px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200">近7天</button>
+                                                            <button type="button" class="px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200">近30天</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">告警配置</h4>
+                                                <div class="space-y-4">
+                                                    <div class="flex items-center gap-2">
+                                                        <input type="checkbox" id="alert-response-time" name="alertResponseTime" class="rounded border-gray-300 text-warning focus:ring-warning" checked>
+                                                        <label for="alert-response-time" class="text-sm font-medium text-gray-700">响应时间告警</label>
+                                                    </div>
+                                                    <div class="pl-6 space-y-2">
+                                                        <div>
+                                                            <label for="response-time-threshold" class="block text-xs font-medium text-gray-700 mb-1">阈值设置</label>
+                                                            <input type="number" id="response-time-threshold" name="responseTimeThreshold" value="500" min="100" max="5000" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md">
+                                                            <div class="text-xs text-gray-500 mt-1">单位：毫秒 (ms)</div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center gap-2">
+                                                        <input type="checkbox" id="alert-error-rate" name="alertErrorRate" class="rounded border-gray-300 text-warning focus:ring-warning" checked>
+                                                        <label for="alert-error-rate" class="text-sm font-medium text-gray-700">错误率告警</label>
+                                                    </div>
+                                                    <div class="pl-6 space-y-2">
+                                                        <div>
+                                                            <label for="error-rate-threshold" class="block text-xs font-medium text-gray-700 mb-1">阈值设置</label>
+                                                            <input type="number" id="error-rate-threshold" name="errorRateThreshold" value="1" min="0.1" max="100" step="0.1" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md">
+                                                            <div class="text-xs text-gray-500 mt-1">单位：百分比 (%)</div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center gap-2">
+                                                        <input type="checkbox" id="alert-concurrency" name="alertConcurrency" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                        <label for="alert-concurrency" class="text-sm font-medium text-gray-700">并发请求告警</label>
+                                                    </div>
+                                                    <div class="pl-6 space-y-2">
+                                                        <div>
+                                                            <label for="concurrency-threshold" class="block text-xs font-medium text-gray-700 mb-1">阈值设置</label>
+                                                            <input type="number" id="concurrency-threshold" name="concurrencyThreshold" value="500" min="100" max="5000" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md">
+                                                            <div class="text-xs text-gray-500 mt-1">单位：请求数</div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <button type="button" id="save-alert-config" class="w-full bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
+                                                        <i class="fa fa-save mr-1"></i>
+                                                        保存告警配置
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 多模态配置 -->
+                                        <div id="multimodal-tab" class="config-content space-y-6 hidden">
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">输入模态配置</h4>
+                                                <div class="space-y-4">
+                                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="flex items-center justify-between">
+                                                                <div class="text-xs font-medium text-gray-500">文本输入</div>
+                                                                <input type="checkbox" id="input-text" name="inputText" class="rounded border-gray-300 text-warning focus:ring-warning" checked>
+                                                            </div>
+                                                        </div>
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="flex items-center justify-between">
+                                                                <div class="text-xs font-medium text-gray-500">语音输入</div>
+                                                                <input type="checkbox" id="input-voice" name="inputVoice" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                            </div>
+                                                        </div>
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="flex items-center justify-between">
+                                                                <div class="text-xs font-medium text-gray-500">图像输入</div>
+                                                                <input type="checkbox" id="input-image" name="inputImage" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                            </div>
+                                                        </div>
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="flex items-center justify-between">
+                                                                <div class="text-xs font-medium text-gray-500">视频输入</div>
+                                                                <input type="checkbox" id="input-video" name="inputVideo" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                            </div>
+                                                        </div>
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="flex items-center justify-between">
+                                                                <div class="text-xs font-medium text-gray-500">文件上传</div>
+                                                                <input type="checkbox" id="input-file" name="inputFile" class="rounded border-gray-300 text-warning focus:ring-warning" checked>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div id="image-input-config" class="pl-6 space-y-3 hidden">
+                                                        <h5 class="text-xs font-medium text-gray-700">图像输入配置</h5>
+                                                        <div>
+                                                            <label for="image-resolutions" class="block text-xs font-medium text-gray-700 mb-1">支持的分辨率</label>
+                                                            <div class="grid grid-cols-2 gap-2">
+                                                                <div class="flex items-center gap-2">
+                                                                    <input type="checkbox" id="resolution-720p" name="resolution720p" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                                    <label for="resolution-720p" class="text-xs">720p</label>
+                                                                </div>
+                                                                <div class="flex items-center gap-2">
+                                                                    <input type="checkbox" id="resolution-1080p" name="resolution1080p" class="rounded border-gray-300 text-warning focus:ring-warning" checked>
+                                                                    <label for="resolution-1080p" class="text-xs">1080p</label>
+                                                                </div>
+                                                                <div class="flex items-center gap-2">
+                                                                    <input type="checkbox" id="resolution-4k" name="resolution4k" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                                    <label for="resolution-4k" class="text-xs">4K</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <label for="image-formats" class="block text-xs font-medium text-gray-700 mb-1">支持的格式</label>
+                                                            <div class="grid grid-cols-2 gap-2">
+                                                                <div class="flex items-center gap-2">
+                                                                    <input type="checkbox" id="format-jpg" name="formatJpg" class="rounded border-gray-300 text-warning focus:ring-warning" checked>
+                                                                    <label for="format-jpg" class="text-xs">JPG</label>
+                                                                </div>
+                                                                <div class="flex items-center gap-2">
+                                                                    <input type="checkbox" id="format-png" name="formatPng" class="rounded border-gray-300 text-warning focus:ring-warning" checked>
+                                                                    <label for="format-png" class="text-xs">PNG</label>
+                                                                </div>
+                                                                <div class="flex items-center gap-2">
+                                                                    <input type="checkbox" id="format-webp" name="formatWebp" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                                    <label for="format-webp" class="text-xs">WebP</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div id="file-input-config" class="pl-6 space-y-3">
+                                                        <h5 class="text-xs font-medium text-gray-700">文件输入配置</h5>
+                                                        <div>
+                                                            <label for="max-file-size" class="block text-xs font-medium text-gray-700 mb-1">最大文件大小</label>
+                                                            <select id="max-file-size" name="maxFileSize" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md">
+                                                                <option value="10mb">10MB</option>
+                                                                <option value="50mb" selected>50MB</option>
+                                                                <option value="100mb">100MB</option>
+                                                                <option value="500mb">500MB</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label for="supported-formats" class="block text-xs font-medium text-gray-700 mb-1">支持的文件格式</label>
+                                                            <div class="grid grid-cols-2 gap-2">
+                                                                <div class="flex items-center gap-2">
+                                                                    <input type="checkbox" id="file-pdf" name="filePdf" class="rounded border-gray-300 text-warning focus:ring-warning" checked>
+                                                                    <label for="file-pdf" class="text-xs">PDF</label>
+                                                                </div>
+                                                                <div class="flex items-center gap-2">
+                                                                    <input type="checkbox" id="file-docx" name="fileDocx" class="rounded border-gray-300 text-warning focus:ring-warning" checked>
+                                                                    <label for="file-docx" class="text-xs">DOCX</label>
+                                                                </div>
+                                                                <div class="flex items-center gap-2">
+                                                                    <input type="checkbox" id="file-excel" name="fileExcel" class="rounded border-gray-300 text-warning focus:ring-warning" checked>
+                                                                    <label for="file-excel" class="text-xs">Excel</label>
+                                                                </div>
+                                                                <div class="flex items-center gap-2">
+                                                                    <input type="checkbox" id="file-ppt" name="filePpt" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                                    <label for="file-ppt" class="text-xs">PPT</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">输出模态配置</h4>
+                                                <div class="space-y-4">
+                                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="flex items-center justify-between">
+                                                                <div class="text-xs font-medium text-gray-500">文本输出</div>
+                                                                <input type="checkbox" id="output-text" name="outputText" class="rounded border-gray-300 text-warning focus:ring-warning" checked>
+                                                            </div>
+                                                        </div>
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="flex items-center justify-between">
+                                                                <div class="text-xs font-medium text-gray-500">语音输出</div>
+                                                                <input type="checkbox" id="output-voice" name="outputVoice" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                            </div>
+                                                        </div>
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="flex items-center justify-between">
+                                                                <div class="text-xs font-medium text-gray-500">图像输出</div>
+                                                                <input type="checkbox" id="output-image" name="outputImage" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                            </div>
+                                                        </div>
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="flex items-center justify-between">
+                                                                <div class="text-xs font-medium text-gray-500">代码输出</div>
+                                                                <input type="checkbox" id="output-code" name="outputCode" class="rounded border-gray-300 text-warning focus:ring-warning" checked>
+                                                            </div>
+                                                        </div>
+                                                        <div class="bg-gray-50 rounded-lg p-3">
+                                                            <div class="flex items-center justify-between">
+                                                                <div class="text-xs font-medium text-gray-500">文件生成</div>
+                                                                <input type="checkbox" id="output-file" name="outputFile" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div id="voice-output-config" class="pl-6 space-y-3 hidden">
+                                                        <h5 class="text-xs font-medium text-gray-700">语音输出配置</h5>
+                                                        <div>
+                                                            <label for="voice-voice" class="block text-xs font-medium text-gray-700 mb-1">语音类型</label>
+                                                            <select id="voice-voice" name="voiceVoice" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md">
+                                                                <option value="male" selected>男声</option>
+                                                                <option value="female">女声</option>
+                                                                <option value="child">童声</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label for="voice-speed" class="block text-xs font-medium text-gray-700 mb-1">语速</label>
+                                                            <input type="range" id="voice-speed" name="voiceSpeed" min="0.5" max="2" step="0.1" value="1" class="w-full">
+                                                            <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                                                <span>慢速</span>
+                                                                <span>正常</span>
+                                                                <span>快速</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div id="image-output-config" class="pl-6 space-y-3 hidden">
+                                                        <h5 class="text-xs font-medium text-gray-700">图像输出配置</h5>
+                                                        <div>
+                                                            <label for="output-image-resolution" class="block text-xs font-medium text-gray-700 mb-1">输出分辨率</label>
+                                                            <select id="output-image-resolution" name="outputImageResolution" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md">
+                                                                <option value="512x512" selected>512x512</option>
+                                                                <option value="768x768">768x768</option>
+                                                                <option value="1024x1024">1024x1024</option>
+                                                                <option value="1536x1536">1536x1536</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label for="output-image-format" class="block text-xs font-medium text-gray-700 mb-1">输出格式</label>
+                                                            <select id="output-image-format" name="outputImageFormat" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md">
+                                                                <option value="png" selected>PNG</option>
+                                                                <option value="jpg">JPG</option>
+                                                                <option value="webp">WebP</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                                <h4 class="text-sm font-semibold text-gray-900 mb-3">多模态处理配置</h4>
+                                                <div class="space-y-4">
+                                                    <div>
+                                                        <label for="multimodal-process-mode" class="block text-sm font-medium text-gray-700 mb-1">多模态处理模式</label>
+                                                        <select id="multimodal-process-mode" name="multimodalProcessMode" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                                            <option value="single-modal" selected>单模态处理</option>
+                                                            <option value="cross-modal">跨模态处理</option>
+                                                            <option value="multi-modal">多模态融合</option>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div id="cross-modal-config" class="pl-6 space-y-3 hidden">
+                                                        <h5 class="text-xs font-medium text-gray-700">跨模态处理配置</h5>
+                                                        <div class="flex items-center gap-2">
+                                                            <input type="checkbox" id="text-to-image" name="textToImage" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                            <label for="text-to-image" class="text-sm font-medium text-gray-700">文本转图像</label>
+                                                        </div>
+                                                        <div class="flex items-center gap-2">
+                                                            <input type="checkbox" id="image-to-text" name="imageToText" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                            <label for="image-to-text" class="text-sm font-medium text-gray-700">图像转文本</label>
+                                                        </div>
+                                                        <div class="flex items-center gap-2">
+                                                            <input type="checkbox" id="audio-to-text" name="audioToText" class="rounded border-gray-300 text-warning focus:ring-warning">
+                                                            <label for="audio-to-text" class="text-sm font-medium text-gray-700">音频转文本</label>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div id="multi-modal-config" class="pl-6 space-y-3 hidden">
+                                                        <h5 class="text-xs font-medium text-gray-700">多模态融合配置</h5>
+                                                        <div>
+                                                            <label for="fusion-strategy" class="block text-xs font-medium text-gray-700 mb-1">融合策略</label>
+                                                            <select id="fusion-strategy" name="fusionStrategy" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md">
+                                                                <option value="early" selected>早期融合</option>
+                                                                <option value="late">晚期融合</option>
+                                                                <option value="hybrid">混合融合</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label for="fusion-weight-text" class="block text-xs font-medium text-gray-700 mb-1">文本权重</label>
+                                                            <input type="range" id="fusion-weight-text" name="fusionWeightText" min="0" max="1" step="0.1" value="0.5" class="w-full">
+                                                        </div>
+                                                        <div>
+                                                            <label for="fusion-weight-image" class="block text-xs font-medium text-gray-700 mb-1">图像权重</label>
+                                                            <input type="range" id="fusion-weight-image" name="fusionWeightImage" min="0" max="1" step="0.1" value="0.5" class="w-full">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <!-- 右侧预览区 -->
+                                <div class="w-80 border-l bg-gray-50 overflow-y-auto">
+                                    <!-- 预览标题 -->
+                                    <div class="p-4 border-b">
+                                        <h4 class="text-sm font-semibold text-gray-900">预览与测试</h4>
+                                    </div>
+                                    
+                                    <!-- 智能体预览 -->
+                                    <div class="p-4">
+                                        <div class="bg-white rounded-lg border border-gray-200 p-4">
+                                            <div class="flex flex-col items-center justify-center mb-4">
+                                                <div class="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center mb-3">
+                                                    <i class="fa fa-android text-gray-600 text-3xl"></i>
+                                                </div>
+                                                <h3 id="preview-agent-name" class="text-lg font-semibold text-gray-900">新智能体</h3>
+                                                <p id="preview-agent-type" class="text-xs text-gray-500 mt-1">未选择类型</p>
+                                            </div>
+                                            
+                                            <!-- 配置摘要 -->
+                                            <div class="space-y-3 mt-4">
+                                                <div>
+                                                    <div class="text-xs font-medium text-gray-700">模型</div>
+                                                    <div id="preview-agent-model" class="text-xs text-gray-500 mt-1">GPT-4 Pro</div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-xs font-medium text-gray-700">技能</div>
+                                                    <div id="preview-agent-skills" class="text-xs text-gray-500 mt-1">文档分析、数据分析</div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-xs font-medium text-gray-700">知识库</div>
+                                                    <div id="preview-agent-knowledge" class="text-xs text-gray-500 mt-1">默认知识库</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 测试对话 -->
+                                        <div class="mt-4 bg-white rounded-lg border border-gray-200 p-4">
+                                            <div class="text-xs font-medium text-gray-700 mb-3">对话测试</div>
+                                            <div class="space-y-3">
+                                                <div class="flex gap-2">
+                                                    <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-xs font-medium">U</div>
+                                                    <div class="flex-1 bg-gray-50 rounded-lg p-2 text-xs text-gray-700">
+                                                        你能帮我分析这份文档吗？
+                                                    </div>
+                                                </div>
+                                                <div class="flex gap-2">
+                                                    <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-xs font-medium">A</div>
+                                                    <div class="flex-1 bg-gray-50 rounded-lg p-2 text-xs text-gray-700">
+                                                        当然可以，我会仔细分析文档内容并为你提供详细的分析结果。
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- 测试输入框 -->
+                                            <div class="mt-4 flex gap-2">
+                                                <input type="text" class="flex-1 px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="输入测试问题...">
+                                                <button class="text-primary hover:text-primary/80">
+                                                    <i class="fa fa-paper-plane"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 底部操作按钮 -->
+                            <div class="h-14 border-t bg-gray-50 flex items-center px-6 justify-between">
+                                <div class="flex items-center gap-3">
+                                    <button type="button" id="save-draft-btn" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors text-sm">
+                                        <i class="fa fa-save mr-2"></i>保存草稿
+                                    </button>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <button type="button" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors text-sm">
+                                        取消
+                                    </button>
+                                    <button type="submit" form="create-agent-form" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium">
+                                        <i class="fa fa-rocket mr-2"></i>创建智能体
+                                    </button>
+                                </div>
+                        </div>
+                    </div>
+
+                    <!-- 智能体统计 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-4 mb-6">
+                        <div class="card p-4 rounded-lg border-l-4 border-warning bg-white">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-medium text-gray-500">活跃智能体</p>
+                                    <span class="text-2xl font-bold text-gray-900 metric-value">8</span>
+                                </div>
+                                <div class="w-10 h-10 bg-warning-light rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-android text-warning text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 rounded-lg border-l-4 border-primary bg-white">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-medium text-gray-500">今日运行任务</p>
+                                    <span class="text-2xl font-bold text-gray-900 metric-value">1,238</span>
+                                </div>
+                                <div class="w-10 h-10 bg-primary-light rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-bolt text-primary text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 rounded-lg border-l-4 border-success bg-white">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-medium text-gray-500">任务成功率</p>
+                                    <span class="text-2xl font-bold text-gray-900 metric-value">94%</span>
+                                </div>
+                                <div class="w-10 h-10 bg-success-light rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-check-circle text-success text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 rounded-lg border-l-4 border-secondary bg-white">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-medium text-gray-500">平均响应时间</p>
+                                    <span class="text-2xl font-bold text-gray-900 metric-value">2.4s</span>
+                                </div>
+                                <div class="w-10 h-10 bg-secondary-light rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-clock-o text-secondary text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 rounded-lg border-l-4 border-danger bg-white">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-medium text-gray-500">异常告警</p>
+                                    <span class="text-2xl font-bold text-gray-900 metric-value">6</span>
+                                </div>
+                                <div class="w-10 h-10 bg-danger-light rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-exclamation-triangle text-danger text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-4 rounded-lg border-l-4 border-neutral bg-white">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-medium text-gray-500">运行舱利用率</p>
+                                    <span class="text-2xl font-bold text-gray-900 metric-value">72%</span>
+                                </div>
+                                <div class="w-10 h-10 bg-neutral-light rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-server text-neutral text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 智能体工厂流程 -->
+                    <div class="card p-5 rounded-lg bg-white mb-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">工厂流程闭环</h3>
+                                <p class="text-sm text-gray-500 mt-1">从蓝图到运行、审计与技能市场的完整闭环</p>
+                            </div>
+                            <button class="text-sm text-warning hover:text-warning/80 font-medium">流程总览</button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm text-gray-600">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-semibold text-gray-800">蓝图设计</span>
+                                    <span class="text-xs px-2 py-0.5 bg-warning-light text-warning rounded-full">12 进行中</span>
+                                </div>
+                                <p class="text-xs text-gray-500">低代码拖拽节点，配置上下文、记忆与权限。</p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-semibold text-gray-800">运行舱部署</span>
+                                    <span class="text-xs px-2 py-0.5 bg-success-light text-success rounded-full">8 正常</span>
+                                </div>
+                                <p class="text-xs text-gray-500">容器化隔离运行，支持弹性伸缩与灰度。</p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-semibold text-gray-800">思维链审计</span>
+                                    <span class="text-xs px-2 py-0.5 bg-primary-light text-primary rounded-full">126 记录</span>
+                                </div>
+                                <p class="text-xs text-gray-500">追踪推理步骤、调用链路、临时结论。</p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-semibold text-gray-800">技能市场</span>
+                                    <span class="text-xs px-2 py-0.5 bg-secondary-light text-secondary rounded-full">48 上架</span>
+                                </div>
+                                <p class="text-xs text-gray-500">统一技能仓库与发布包管理，支持授权接入。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 智能体工作台 -->
+                    <div class="card p-5 rounded-lg bg-white mb-6">
+                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-4">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">智能体工作台</h3>
+                                <p class="text-sm text-gray-500 mt-1">蓝图、运行舱、技能、审计四大域一站式管理</p>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <button class="agent-tab px-3 py-1.5 text-xs font-medium rounded-lg bg-warning text-white" data-agent-tab="agentBlueprintPanel">
+                                    <i class="fa fa-pencil-square-o mr-1.5"></i>蓝图工作台
+                                </button>
+                                <button class="agent-tab px-3 py-1.5 text-xs font-medium rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200" data-agent-tab="agentRuntimePanel">
+                                    <i class="fa fa-server mr-1.5"></i>运行舱
+                                </button>
+                                <button class="agent-tab px-3 py-1.5 text-xs font-medium rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200" data-agent-tab="agentSkillPanel">
+                                    <i class="fa fa-shopping-bag mr-1.5"></i>技能市场
+                                </button>
+                                <button class="agent-tab px-3 py-1.5 text-xs font-medium rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200" data-agent-tab="agentAuditPanel">
+                                    <i class="fa fa-search mr-1.5"></i>思维链审计
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="agentBlueprintPanel" class="agent-panel">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="lg:col-span-2 space-y-4">
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <h4 class="text-sm font-semibold text-gray-900">蓝图列表</h4>
+                                            <button class="text-xs text-warning font-medium">查看全部</button>
+                                        </div>
+                                        <div class="space-y-3 text-sm">
+                                            <div class="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                                                <div>
+                                                    <p class="font-medium text-gray-900">销售洞察智能体 V3.2</p>
+                                                    <p class="text-xs text-gray-500">关联知识域：销售、客户、预测模型</p>
+                                                </div>
+                                                <div class="text-right">
+                                                    <span class="text-xs px-2 py-0.5 bg-success-light text-success rounded-full">可发布</span>
+                                                    <p class="text-xs text-gray-500 mt-1">更新：2 小时前</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                                                <div>
+                                                    <p class="font-medium text-gray-900">风险研判智能体 V1.7</p>
+                                                    <p class="text-xs text-gray-500">关联知识域：供应链、财务、舆情</p>
+                                                </div>
+                                                <div class="text-right">
+                                                    <span class="text-xs px-2 py-0.5 bg-warning-light text-warning rounded-full">沙盒验证</span>
+                                                    <p class="text-xs text-gray-500 mt-1">更新：昨天</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                                                <div>
+                                                    <p class="font-medium text-gray-900">会议纪要助手 V2.0</p>
+                                                    <p class="text-xs text-gray-500">关联知识域：项目、协同、知识生产</p>
+                                                </div>
+                                                <div class="text-right">
+                                                    <span class="text-xs px-2 py-0.5 bg-primary-light text-primary rounded-full">待审核</span>
+                                                    <p class="text-xs text-gray-500 mt-1">更新：3 天前</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <h4 class="text-sm font-semibold text-gray-900">蓝图节点配置</h4>
+                                            <button class="text-xs text-warning font-medium">编辑画布</button>
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs text-gray-600">
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-800">知识检索节点</p>
+                                                <p>关联图谱：知识图谱 v5.2</p>
+                                            </div>
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-800">规则判断节点</p>
+                                                <p>风险阈值、预算策略、合规规则</p>
+                                            </div>
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-800">外部 API 调用</p>
+                                                <p>CRM、审批、邮件、工单系统</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-4">
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <h4 class="text-sm font-semibold text-gray-900 mb-3">上下文与记忆配置</h4>
+                                        <div class="space-y-3 text-xs text-gray-600">
+                                            <div class="flex items-center justify-between">
+                                                <span>工作记忆时长</span>
+                                                <span class="font-medium text-gray-900">12 小时</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>可访问知识范围</span>
+                                                <span class="font-medium text-gray-900">销售 + 供应链域</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>隐私脱敏规则</span>
+                                                <span class="font-medium text-gray-900">P2 级脱敏</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <h4 class="text-sm font-semibold text-gray-900 mb-3">发布包准备度</h4>
+                                        <div class="space-y-2 text-xs text-gray-600">
+                                            <div class="flex items-center justify-between">
+                                                <span>接口描述</span>
+                                                <span class="text-success font-medium">已完成</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>权限需求</span>
+                                                <span class="text-warning font-medium">待确认</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>资源规格</span>
+                                                <span class="text-success font-medium">2C / 4G</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>合规模板</span>
+                                                <span class="text-success font-medium">已绑定</span>
+                                            </div>
+                                        </div>
+                                        <button class="mt-4 w-full text-xs bg-warning text-white rounded-lg py-2 font-medium">提交审核</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="agentRuntimePanel" class="agent-panel hidden">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="lg:col-span-2 space-y-4">
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <h4 class="text-sm font-semibold text-gray-900">运行舱实例</h4>
+                                            <button class="text-xs text-warning font-medium">弹性伸缩策略</button>
+                                        </div>
+                                        <div class="space-y-3 text-xs text-gray-600">
+                                            <div class="flex items-center justify-between bg-gray-50 rounded-lg p-3">
+                                                <div>
+                                                    <p class="font-medium text-gray-900">runtime-east-01</p>
+                                                    <p>容器数：12 | GPU：2 | 区域：华东</p>
+                                                </div>
+                                                <span class="px-2 py-0.5 bg-success-light text-success rounded-full">健康</span>
+                                            </div>
+                                            <div class="flex items-center justify-between bg-gray-50 rounded-lg p-3">
+                                                <div>
+                                                    <p class="font-medium text-gray-900">runtime-north-03</p>
+                                                    <p>容器数：8 | GPU：0 | 区域：华北</p>
+                                                </div>
+                                                <span class="px-2 py-0.5 bg-warning-light text-warning rounded-full">压测中</span>
+                                            </div>
+                                            <div class="flex items-center justify-between bg-gray-50 rounded-lg p-3">
+                                                <div>
+                                                    <p class="font-medium text-gray-900">runtime-core-02</p>
+                                                    <p>容器数：6 | GPU：1 | 区域：主数据中心</p>
+                                                </div>
+                                                <span class="px-2 py-0.5 bg-primary-light text-primary rounded-full">灰度发布</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <h4 class="text-sm font-semibold text-gray-900">任务队列与限流</h4>
+                                            <button class="text-xs text-warning font-medium">查看队列详情</button>
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-gray-600">
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-800">高优先级</p>
+                                                <p>进行中：32 | SLA：< 3s</p>
+                                            </div>
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-800">批量任务</p>
+                                                <p>等待：19 | 预计完成：45 分钟</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-4">
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <h4 class="text-sm font-semibold text-gray-900 mb-3">资源负载趋势</h4>
+                                        <div class="chart-container h-40">
+                                            <canvas id="agentLoadChart"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <h4 class="text-sm font-semibold text-gray-900 mb-3">配额与成本</h4>
+                                        <div class="space-y-3 text-xs text-gray-600">
+                                            <div>
+                                                <div class="flex items-center justify-between mb-1">
+                                                    <span>CPU 配额</span>
+                                                    <span class="font-medium text-gray-900">68%</span>
+                                                </div>
+                                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                                    <div class="bg-primary h-2 rounded-full" style="width: 68%"></div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="flex items-center justify-between mb-1">
+                                                    <span>GPU 配额</span>
+                                                    <span class="font-medium text-gray-900">41%</span>
+                                                </div>
+                                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                                    <div class="bg-warning h-2 rounded-full" style="width: 41%"></div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="flex items-center justify-between mb-1">
+                                                    <span>本月预算消耗</span>
+                                                    <span class="font-medium text-gray-900">62%</span>
+                                                </div>
+                                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                                    <div class="bg-success h-2 rounded-full" style="width: 62%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="mt-4 w-full text-xs bg-gray-100 text-gray-700 rounded-lg py-2 font-medium">成本分析报告</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="agentSkillPanel" class="agent-panel hidden">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="lg:col-span-2 space-y-4">
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <h4 class="text-sm font-semibold text-gray-900">官方技能库</h4>
+                                            <button class="text-xs text-warning font-medium">进入技能市场</button>
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-gray-600">
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">知识检索增强</p>
+                                                <p>支持混合检索、上下文重排、语义召回。</p>
+                                            </div>
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">多轮对话编排</p>
+                                                <p>内置对话状态机、引导策略与退出策略。</p>
+                                            </div>
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">任务规划器</p>
+                                                <p>自动拆解任务、调度工具链与回退策略。</p>
+                                            </div>
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">合规审查器</p>
+                                                <p>敏感词、权限、数据访问的实时拦截。</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <h4 class="text-sm font-semibold text-gray-900">自定义技能开发</h4>
+                                            <button class="text-xs text-warning font-medium">获取 SDK</button>
+                                        </div>
+                                        <div class="space-y-3 text-xs text-gray-600">
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">API 能力打包</p>
+                                                <p>将内部系统 API 打包为可复用技能模块。</p>
+                                            </div>
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">技能灰度发布</p>
+                                                <p>支持测试租户、灰度策略与版本回滚。</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-4">
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <h4 class="text-sm font-semibold text-gray-900 mb-3">技能装配情况</h4>
+                                        <div class="space-y-3 text-xs text-gray-600">
+                                            <div class="flex items-center justify-between">
+                                                <span>已装配技能</span>
+                                                <span class="font-medium text-gray-900">32</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>自研技能</span>
+                                                <span class="font-medium text-gray-900">11</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>待更新技能</span>
+                                                <span class="font-medium text-gray-900">4</span>
+                                            </div>
+                                        </div>
+                                        <button class="mt-4 w-full text-xs bg-warning text-white rounded-lg py-2 font-medium">批量更新</button>
+                                    </div>
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <h4 class="text-sm font-semibold text-gray-900 mb-3">技能授权清单</h4>
+                                        <div class="space-y-2 text-xs text-gray-600">
+                                            <div class="flex items-center justify-between">
+                                                <span>CRM 接入</span>
+                                                <span class="text-success font-medium">已授权</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>合同审批</span>
+                                                <span class="text-warning font-medium">待审核</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>财务报表</span>
+                                                <span class="text-success font-medium">已授权</span>
+                                            </div>
+                                        </div>
+                                        <button class="mt-4 w-full text-xs bg-gray-100 text-gray-700 rounded-lg py-2 font-medium">授权管理</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="agentAuditPanel" class="agent-panel hidden">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="lg:col-span-2 space-y-4">
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <h4 class="text-sm font-semibold text-gray-900">思维链追踪器</h4>
+                                            <button class="text-xs text-warning font-medium">导出记录</button>
+                                        </div>
+                                        <div class="space-y-3 text-xs text-gray-600">
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">风险研判智能体 · 任务 #2308</p>
+                                                <p>检索图谱 → 触发规则 → 调用舆情 API → 生成策略摘要</p>
+                                                <p class="text-gray-400 mt-1">耗时 4.2s · 命中证据 12 条</p>
+                                            </div>
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">销售洞察智能体 · 任务 #2294</p>
+                                                <p>聚合 CRM → 预测模型 → 风险提示 → 生成复盘建议</p>
+                                                <p class="text-gray-400 mt-1">耗时 3.1s · 异常提示 2 条</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <h4 class="text-sm font-semibold text-gray-900">合规审计快照</h4>
+                                            <button class="text-xs text-warning font-medium">查看详情</button>
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-gray-600">
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">访问权限审计</p>
+                                                <p>命中策略：5 | 拦截：1</p>
+                                            </div>
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">输出合规审查</p>
+                                                <p>风险提示：3 | 已复核：2</p>
+                                            </div>
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">数据留痕</p>
+                                                <p>全链路审计记录：1,204 条</p>
+                                            </div>
+                                            <div class="bg-gray-50 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">模型安全评估</p>
+                                                <p>提示注入拦截率：98%</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-4">
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <h4 class="text-sm font-semibold text-gray-900 mb-3">发布包与权限</h4>
+                                        <div class="space-y-2 text-xs text-gray-600">
+                                            <div class="flex items-center justify-between">
+                                                <span>发布包版本</span>
+                                                <span class="font-medium text-gray-900">v3.2.4</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>权限等级</span>
+                                                <span class="font-medium text-gray-900">L2 受控</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>资源声明</span>
+                                                <span class="font-medium text-gray-900">2C/4G + GPU 1</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>审核状态</span>
+                                                <span class="text-warning font-medium">待复核</span>
+                                            </div>
+                                        </div>
+                                        <button class="mt-4 w-full text-xs bg-warning text-white rounded-lg py-2 font-medium">提交治理中心</button>
+                                    </div>
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <h4 class="text-sm font-semibold text-gray-900 mb-3">授权智能体清单</h4>
+                                        <div class="space-y-2 text-xs text-gray-600">
+                                            <div class="flex items-center justify-between">
+                                                <span>客户服务助手</span>
+                                                <span class="text-success font-medium">已授权</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>安全审计员</span>
+                                                <span class="text-warning font-medium">待审批</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span>供应链优化师</span>
+                                                <span class="text-success font-medium">已授权</span>
+                                            </div>
+                                        </div>
+                                        <button class="mt-4 w-full text-xs bg-gray-100 text-gray-700 rounded-lg py-2 font-medium">授权策略</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 智能体列表 -->
+                    <div class="card p-5 rounded-lg bg-white mb-6">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">智能体列表</h3>
+                                <p class="text-sm text-gray-500 mt-1">覆盖运行、沙盒、待授权的完整生命周期</p>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <div class="relative">
+                                    <input type="text" placeholder="搜索智能体..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-warning focus:border-transparent">
+                                    <i class="fa fa-search absolute left-3 top-3 text-gray-400"></i>
+                                </div>
+                                <button class="px-3 py-2 text-xs font-medium bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">运行中</button>
+                                <button class="px-3 py-2 text-xs font-medium bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">沙盒</button>
+                                <button class="px-3 py-2 text-xs font-medium bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">待授权</button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white mr-3">
+                                            <i class="fa fa-line-chart"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900">销售分析师</h4>
+                                            <p class="text-xs text-gray-500">数据分析 · v3.2</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium bg-success-light text-success rounded-full">
+                                        活跃
+                                    </span>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-3">专注于销售数据洞察，支持预测、复盘与异常提醒。</p>
+                                <div class="flex flex-wrap gap-2 text-xs mb-3">
+                                    <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">技能 12</span>
+                                    <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">权限 L2</span>
+                                    <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">记忆 12h</span>
+                                </div>
+                                <div class="flex items-center justify-between text-xs text-gray-500">
+                                    <span>今日任务: 64</span>
+                                    <button class="text-warning hover:text-warning/80 font-medium">进入运行</button>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center text-white mr-3">
+                                            <i class="fa fa-headphones"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900">客户服务助手</h4>
+                                            <p class="text-xs text-gray-500">客户服务 · v2.4</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium bg-success-light text-success rounded-full">
+                                        活跃
+                                    </span>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-3">多渠道客户咨询处理，支持FAQ与工单联动。</p>
+                                <div class="flex flex-wrap gap-2 text-xs mb-3">
+                                    <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">技能 8</span>
+                                    <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">权限 L1</span>
+                                    <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">记忆 6h</span>
+                                </div>
+                                <div class="flex items-center justify-between text-xs text-gray-500">
+                                    <span>今日任务: 142</span>
+                                    <button class="text-warning hover:text-warning/80 font-medium">进入运行</button>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 bg-success rounded-lg flex items-center justify-center text-white mr-3">
+                                            <i class="fa fa-truck"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900">供应链优化师</h4>
+                                            <p class="text-xs text-gray-500">供应链管理 · v1.7</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium bg-neutral-light text-neutral rounded-full">
+                                        沙盒
+                                    </span>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-3">分析供应链数据，提供优化建议与风险评估。</p>
+                                <div class="flex flex-wrap gap-2 text-xs mb-3">
+                                    <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">技能 10</span>
+                                    <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">权限 L2</span>
+                                    <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">记忆 8h</span>
+                                </div>
+                                <div class="flex items-center justify-between text-xs text-gray-500">
+                                    <span>今日任务: 12</span>
+                                    <button class="text-warning hover:text-warning/80 font-medium">进入沙盒</button>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 bg-danger rounded-lg flex items-center justify-center text-white mr-3">
+                                            <i class="fa fa-shield"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900">安全审计员</h4>
+                                            <p class="text-xs text-gray-500">安全合规 · v1.3</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium bg-warning-light text-warning rounded-full">
+                                        待授权
+                                    </span>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-3">监控系统安全，识别潜在风险和合规问题。</p>
+                                <div class="flex flex-wrap gap-2 text-xs mb-3">
+                                    <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">技能 6</span>
+                                    <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">权限 L3</span>
+                                    <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">记忆 4h</span>
+                                </div>
+                                <div class="flex items-center justify-between text-xs text-gray-500">
+                                    <span>今日任务: 0</span>
+                                    <button class="text-warning hover:text-warning/80 font-medium">发起授权</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 智能体活动 -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="card p-5 rounded-lg bg-white">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-900">运行趋势</h3>
+                                <div class="flex space-x-2">
+                                    <button class="px-3 py-1 text-xs font-medium bg-warning text-white rounded-lg">日</button>
+                                    <button class="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">周</button>
+                                    <button class="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">月</button>
+                                </div>
+                            </div>
+                            <div class="chart-container h-64">
+                                <canvas id="agentActivityChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="card p-5 rounded-lg bg-white">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-900">智能体性能概览</h3>
+                                <button class="text-sm text-warning hover:text-warning/80 font-medium">
+                                    详情
+                                </button>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-sm text-gray-600">销售分析师</span>
+                                        <span class="text-sm font-medium text-gray-900">96%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-primary h-2 rounded-full" style="width: 96%"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-sm text-gray-600">客户服务助手</span>
+                                        <span class="text-sm font-medium text-gray-900">92%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-secondary h-2 rounded-full" style="width: 92%"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-sm text-gray-600">供应链优化师</span>
+                                        <span class="text-sm font-medium text-gray-900">88%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-success h-2 rounded-full" style="width: 88%"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-sm text-gray-600">安全审计员</span>
+                                        <span class="text-sm font-medium text-gray-900">75%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-danger h-2 rounded-full" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 进化与治理中心 -->

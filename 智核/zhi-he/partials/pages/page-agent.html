@@ -1,0 +1,72 @@
+            <div id="page-agent" class="page flex flex-col gap-6 h-[calc(100vh-120px)] overflow-auto">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-display font-semibold">智能体市场</h2>
+                        <p class="text-sm text-muted">发现、订阅并配置你的AI助手团队</p>
+                    </div>
+                    <button class="px-4 py-2 rounded-full bg-primary text-white text-sm">我的智能体</button>
+                </div>
+                <div class="bg-surface rounded-2xl border border-line shadow-card p-4">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <input class="flex-1 border border-line rounded-full px-4 py-2 text-sm" placeholder="搜索智能体名称或场景">
+                        <select class="border border-line rounded-full px-3 py-2 text-sm">
+                            <option>全部场景</option>
+                            <option>销售</option>
+                            <option>研发</option>
+                            <option>法务</option>
+                        </select>
+                        <button class="px-4 py-2 rounded-full bg-secondary text-white text-sm">筛选</button>
+                    </div>
+                    <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="agent-card bg-white rounded-xl border border-line p-4" data-agent="合同审查官">
+                            <div class="flex items-center justify-between">
+                                <p class="font-medium">合同审查官</p>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-secondary text-white">官方</span>
+                            </div>
+                            <p class="text-xs text-muted mt-2">识别合同风险条款并生成摘要</p>
+                            <div class="mt-3 text-xs text-muted">订阅 1,280 · 评分 4.8</div>
+                        </div>
+                        <div class="agent-card bg-white rounded-xl border border-line p-4" data-agent="销售话术教练">
+                            <div class="flex items-center justify-between">
+                                <p class="font-medium">销售话术教练</p>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-accent text-white">热门</span>
+                            </div>
+                            <p class="text-xs text-muted mt-2">基于客户画像生成跟进话术</p>
+                            <div class="mt-3 text-xs text-muted">订阅 980 · 评分 4.6</div>
+                        </div>
+                        <div class="agent-card bg-white rounded-xl border border-line p-4" data-agent="数据分析师">
+                            <div class="flex items-center justify-between">
+                                <p class="font-medium">数据分析师</p>
+                                <span class="text-xs px-2 py-0.5 rounded-full bg-primary text-white">新上架</span>
+                            </div>
+                            <p class="text-xs text-muted mt-2">自动生成结构化数据报告</p>
+                            <div class="mt-3 text-xs text-muted">订阅 620 · 评分 4.7</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                    <div class="xl:col-span-2 bg-surface rounded-2xl border border-line shadow-card p-4">
+                        <p class="font-medium">我的智能体</p>
+                        <div id="my-agent-list" class="mt-3 space-y-3 text-sm">
+                            <div class="p-3 rounded-xl bg-white border border-line flex items-center justify-between">
+                                <span>智能邮件助手</span>
+                                <button class="config-agent text-xs text-secondary">配置</button>
+                            </div>
+                            <div class="p-3 rounded-xl bg-white border border-line flex items-center justify-between">
+                                <span>代码评审助手</span>
+                                <button class="config-agent text-xs text-secondary">配置</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-surface rounded-2xl border border-line shadow-card p-4">
+                        <p class="font-medium">协同工作流</p>
+                        <ol id="agent-flow" class="mt-3 text-xs space-y-2">
+                            <li class="p-2 rounded-lg bg-mist">数据提取助手</li>
+                            <li class="p-2 rounded-lg bg-mist">分析师助手</li>
+                            <li class="p-2 rounded-lg bg-mist">报告生成助手</li>
+                        </ol>
+                        <button id="add-flow-step" class="mt-3 px-3 py-2 rounded-full bg-secondary text-white text-xs">添加步骤</button>
+                    </div>
+                </div>
+            </div>
+

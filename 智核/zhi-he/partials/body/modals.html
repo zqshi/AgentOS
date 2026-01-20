@@ -1,0 +1,296 @@
+    <div id="search-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-40">
+        <div class="bg-white rounded-2xl w-full max-w-4xl p-5 shadow-float">
+            <div class="flex items-center justify-between">
+                <h3 class="font-display font-semibold">全局智能搜索</h3>
+                <button id="close-search" class="text-muted"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="mt-3">
+                <input type="text" class="w-full border border-line rounded-full px-4 py-2" placeholder="输入关键词或问题">
+            </div>
+            <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                <div class="md:col-span-2 bg-mist rounded-xl p-3">
+                    <p class="font-medium">最佳答案</p>
+                    <p class="text-xs text-muted mt-2">华东区Q2销售额同比增长15.3%，主要来自渠道优化与重点客户扩展。</p>
+                </div>
+                <div class="bg-mist rounded-xl p-3">
+                    <p class="font-medium">相关专家</p>
+                    <p class="text-xs text-muted mt-2">王晓华 · 市场分析师</p>
+                </div>
+                <div class="bg-white rounded-xl border border-line p-3">
+                    <p class="font-medium">相关文档</p>
+                    <ul class="mt-2 text-xs text-muted space-y-1">
+                        <li>《华东区市场趋势分析》</li>
+                        <li>《渠道策略调整复盘》</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-line p-3">
+                    <p class="font-medium">关联实体</p>
+                    <ul class="mt-2 text-xs text-muted space-y-1">
+                        <li>项目：A产品</li>
+                        <li>客户：XX科技</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-line p-3">
+                    <p class="font-medium">历史讨论</p>
+                    <ul class="mt-2 text-xs text-muted space-y-1">
+                        <li>销售会议纪要 · 2024/07</li>
+                        <li>市场策略讨论 · 2024/06</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="task-board-modal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-40">
+        <div class="bg-white rounded-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col">
+            <div class="p-4 border-b border-line flex items-center justify-between">
+                <h3 class="font-display font-semibold">项目任务看板</h3>
+                <div class="flex items-center gap-3">
+                    <button class="text-sm px-3 py-1 rounded-full bg-white border border-line flex items-center gap-2">
+                        <i class="fa fa-filter"></i>筛选
+                    </button>
+                    <button class="text-sm px-3 py-1 rounded-full bg-white border border-line flex items-center gap-2">
+                        <i class="fa fa-sort"></i>排序
+                    </button>
+                    <button id="close-task-board" class="text-muted"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="p-4 border-b border-line flex items-center gap-2 text-sm">
+                <button id="list-view-btn" class="px-3 py-1 rounded-full bg-primary text-white">列表视图</button>
+                <button id="board-view-btn" class="px-3 py-1 rounded-full bg-white border border-line">看板视图</button>
+                <button id="calendar-view-btn" class="px-3 py-1 rounded-full bg-white border border-line">日历视图</button>
+                <div class="flex-1"></div>
+                <button id="create-task-btn" class="px-4 py-2 rounded-full bg-secondary text-white text-sm">
+                    <i class="fa fa-plus mr-1"></i>新建任务
+                </button>
+            </div>
+            
+            <!-- 列表视图 -->
+            <div id="list-view" class="flex-1 overflow-y-auto p-4">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="text-left text-xs text-muted">
+                            <th class="py-2">任务</th>
+                            <th>负责人</th>
+                            <th>截止日期</th>
+                            <th>优先级</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="task-list">
+                        <!-- 任务列表将通过JavaScript动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 看板视图 -->
+            <div id="board-view" class="flex-1 overflow-y-auto p-4 hidden">
+                <div class="flex gap-4 overflow-x-auto h-full pb-4">
+                    <!-- 待办事项列 -->
+                    <div class="bg-surface rounded-xl border border-line p-3 min-w-[280px] max-w-[280px] flex flex-col h-full">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="font-medium text-sm">待办事项</h4>
+                            <span class="text-xs text-muted bg-ocean-light px-2 py-1 rounded-full">3项</span>
+                        </div>
+                        <div id="todo-column" class="space-y-3 flex-1 overflow-y-auto">
+                            <!-- 任务卡片将通过JavaScript动态生成 -->
+                        </div>
+                    </div>
+                    
+                    <!-- 进行中列 -->
+                    <div class="bg-surface rounded-xl border border-line p-3 min-w-[280px] max-w-[280px] flex flex-col h-full">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="font-medium text-sm">进行中</h4>
+                            <span class="text-xs text-muted bg-coral-light px-2 py-1 rounded-full">2项</span>
+                        </div>
+                        <div id="in-progress-column" class="space-y-3 flex-1 overflow-y-auto">
+                            <!-- 任务卡片将通过JavaScript动态生成 -->
+                        </div>
+                    </div>
+                    
+                    <!-- 已完成列 -->
+                    <div class="bg-surface rounded-xl border border-line p-3 min-w-[280px] max-w-[280px] flex flex-col h-full">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="font-medium text-sm">已完成</h4>
+                            <span class="text-xs text-muted bg-accent-light px-2 py-1 rounded-full">5项</span>
+                        </div>
+                        <div id="done-column" class="space-y-3 flex-1 overflow-y-auto">
+                            <!-- 任务卡片将通过JavaScript动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 日历视图 -->
+            <div id="calendar-view" class="flex-1 overflow-y-auto p-4 hidden">
+                <div class="text-center py-10 text-muted">
+                    <i class="fa fa-calendar-o text-4xl mb-2"></i>
+                    <p>日历视图功能开发中...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 新建任务模态框 -->
+    <div id="create-task-modal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl w-full max-w-lg p-5">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-display font-semibold">新建任务</h3>
+                <button id="close-create-task" class="text-muted"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="space-y-4 text-sm">
+                <div>
+                    <label class="block text-xs text-muted mb-1">任务标题</label>
+                    <input type="text" id="task-title" placeholder="请输入任务标题" class="w-full px-3 py-2 border border-line rounded-lg">
+                </div>
+                <div>
+                    <label class="block text-xs text-muted mb-1">负责人</label>
+                    <select id="task-assignee" class="w-full px-3 py-2 border border-line rounded-lg">
+                        <option value="">请选择负责人</option>
+                        <option value="张明">张明</option>
+                        <option value="李华">李华</option>
+                        <option value="王五">王五</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs text-muted mb-1">截止日期</label>
+                    <input type="date" id="task-deadline" class="w-full px-3 py-2 border border-line rounded-lg">
+                </div>
+                <div>
+                    <label class="block text-xs text-muted mb-1">优先级</label>
+                    <select id="task-priority" class="w-full px-3 py-2 border border-line rounded-lg">
+                        <option value="低">低</option>
+                        <option value="中">中</option>
+                        <option value="高" selected>高</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs text-muted mb-1">任务描述</label>
+                    <textarea id="task-description" rows="3" placeholder="请输入任务描述" class="w-full px-3 py-2 border border-line rounded-lg"></textarea>
+                </div>
+            </div>
+            <div class="mt-5 flex justify-end gap-3">
+                <button id="cancel-task" class="px-4 py-2 rounded-full bg-white border border-line text-sm">取消</button>
+                <button id="save-task" class="px-4 py-2 rounded-full bg-primary text-white text-sm">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="version-modal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-40">
+        <div class="bg-white rounded-2xl w-full max-w-3xl p-5 shadow-float">
+            <div class="flex items-center justify-between">
+                <h3 class="font-display font-semibold">版本对比</h3>
+                <button id="close-version" class="text-muted"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                <div class="p-3 rounded-xl bg-mist">V1.1 · 2024/06/20</div>
+                <div class="p-3 rounded-xl bg-mist">V1.2 · 2024/07/12</div>
+            </div>
+            <div class="mt-4 p-3 rounded-xl border border-line text-xs text-muted">
+                差异摘要：新增“竞品对比”章节，更新12处数据，修复术语不一致问题。
+            </div>
+        </div>
+    </div>
+
+    <div id="agent-modal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-40">
+        <div class="bg-white rounded-2xl w-full max-w-2xl p-5 shadow-float">
+            <div class="flex items-center justify-between">
+                <h3 id="agent-title" class="font-display font-semibold">智能体详情</h3>
+                <button id="close-agent" class="text-muted"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="mt-4 text-sm">
+                <p id="agent-desc" class="text-muted">智能体描述</p>
+                <ul class="mt-3 text-xs text-muted space-y-1">
+                    <li>能力：生成摘要、风险识别、结果交付</li>
+                    <li>依赖：知识图谱 · 智能体工厂</li>
+                    <li>评分：4.7 · 订阅 980</li>
+                </ul>
+            </div>
+            <div class="mt-4 flex justify-end">
+                <button id="subscribe-agent" class="px-4 py-2 rounded-full bg-secondary text-white text-sm">立即订阅</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="discussion-modal" class="fixed inset-0 bg-black/40 hidden flex items-center justify-center z-40">
+        <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col shadow-float">
+            <div class="flex items-center justify-between p-5 border-b border-line">
+                <h3 class="font-display font-semibold">团队讨论区</h3>
+                <div class="flex items-center gap-3">
+                    <button id="create-discussion-btn" class="px-4 py-2 rounded-full bg-primary text-white text-sm">发起讨论</button>
+                    <button id="close-discussion" class="text-muted"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            
+            <!-- 讨论列表 -->
+            <div id="discussion-list" class="flex-1 overflow-y-auto p-5 space-y-5">
+                <!-- 讨论项将通过JavaScript动态生成 -->
+            </div>
+            
+            <!-- 发起讨论表单 -->
+            <div id="discussion-form" class="border-t border-line p-5 hidden">
+                <div class="flex items-center justify-between mb-3">
+                    <h4 class="font-medium">发起新讨论</h4>
+                    <button id="cancel-discussion" class="text-muted hover:text-ink">取消</button>
+                </div>
+                <input id="discussion-title" class="w-full border border-line rounded-lg px-3 py-2 text-sm mb-3" placeholder="讨论主题">
+                <textarea id="discussion-content" class="w-full border border-line rounded-lg px-3 py-2 text-sm" rows="3" placeholder="描述问题或背景"></textarea>
+                <div class="mt-3 flex justify-end">
+                    <button id="publish-discussion" class="px-4 py-2 rounded-full bg-primary text-white text-sm">发布</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="publish-modal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-40">
+        <div class="bg-white rounded-2xl w-full max-w-xl p-5 shadow-float">
+            <div class="flex items-center justify-between">
+                <h3 class="font-display font-semibold">发布设置</h3>
+                <button id="close-publish" class="text-muted"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="mt-4 space-y-3 text-sm">
+                <label class="flex items-center gap-2"><input type="checkbox" checked> 发布到团队空间</label>
+                <label class="flex items-center gap-2"><input type="checkbox"> 推送到部门空间</label>
+                <label class="flex items-center gap-2"><input type="checkbox"> 全员可见（需成熟度达标）</label>
+            </div>
+            <div class="mt-4 flex justify-end">
+                <button class="px-4 py-2 rounded-full bg-secondary text-white text-sm">确认发布</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 创建空间模态框 -->
+    <div id="create-space-modal" class="fixed inset-0 bg-black/40 hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl w-full max-w-2xl p-5 shadow-float">
+            <div class="flex items-center justify-between">
+                <h3 class="font-display font-semibold">创建新空间</h3>
+                <button id="close-create-space" class="text-muted"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="mt-4">
+                <form id="create-space-form">
+                    <div class="mb-4">
+                        <label for="new-space-name" class="block text-sm font-medium mb-2">空间名称</label>
+                        <input type="text" id="new-space-name" class="w-full px-3 py-2 rounded-lg border border-line text-sm" placeholder="请输入空间名称" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="new-space-type" class="block text-sm font-medium mb-2">空间类型</label>
+                        <select id="new-space-type" class="w-full px-3 py-2 rounded-lg border border-line text-sm" required>
+                            <option value="项目空间">项目空间</option>
+                            <option value="团队空间">团队空间</option>
+                            <option value="主题空间">主题空间</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="new-space-description" class="block text-sm font-medium mb-2">空间描述</label>
+                        <textarea id="new-space-description" class="w-full px-3 py-2 rounded-lg border border-line text-sm" rows="3" placeholder="请输入空间描述"></textarea>
+                    </div>
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" id="cancel-create-space" class="px-4 py-2 rounded-full border border-line text-sm">取消</button>
+                        <button type="submit" class="px-4 py-2 rounded-full bg-primary text-white text-sm">确认创建</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+

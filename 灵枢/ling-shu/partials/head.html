@@ -1,0 +1,102 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>灵枢 - 企业智能中枢平台</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <!-- 统一的 Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                        neutral: '#6b7280',
+                        'primary-light': '#dbeafe',
+                        'secondary-light': '#ede9fe',
+                        'success-light': '#d1fae5',
+                        'warning-light': '#fef3c7',
+                        'danger-light': '#fee2e2',
+                        'neutral-light': '#f3f4f6'
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', '"PingFang SC"', 'sans-serif'],
+                        display: ['"Space Grotesk"', '"Noto Sans SC"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .clip-path-polygon {
+                clip-path: polygon(
+                    0% 0%, 
+                    95% 0%, 
+                    100% 5%, 
+                    100% 100%, 
+                    5% 100%, 
+                    0% 95%
+                );
+            }
+            .card-shadow {
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            }
+            .border-l-highlight {
+                border-left: 4px solid var(--tw-border-opacity);
+            }
+            .bg-grid {
+                background-image: 
+                    linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+                background-size: 20px 20px;
+            }
+            .diff-active[data-diff="added"] {
+                border-color: #10b981;
+                box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+            }
+            .diff-active[data-diff="updated"] {
+                border-color: #f59e0b;
+                box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+            }
+            .diff-active.diff-removed {
+                opacity: 0.45;
+            }
+            .annotation-selected {
+                box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.35);
+                border-color: #8b5cf6;
+            }
+            .relation-handle {
+                width: 12px;
+                height: 12px;
+                border-radius: 9999px;
+                background: #ffffff;
+                border: 2px solid #3b82f6;
+                position: absolute;
+                right: -6px;
+                top: 50%;
+                transform: translateY(-50%);
+                opacity: 0;
+                pointer-events: none;
+            }
+            .annotation-active .relation-handle {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="css/style.css">
+</head>

@@ -1,0 +1,1054 @@
+            <div id="page-settings" class="page flex flex-col gap-6 h-[calc(100vh-120px)] overflow-auto">
+                <div>
+                    <h2 class="text-2xl font-display font-semibold">系统设置与管理</h2>
+                    <p class="text-sm text-muted">个性化体验与管理控制中心</p>
+                </div>
+                <div class="bg-surface rounded-2xl border border-line shadow-card p-4">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-primary text-white" data-tab="profile">个人设置中心</button>
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-tab="team-admin">团队管理中心</button>
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-tab="system-admin">系统管理后台</button>
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-tab="security">安全与合规中心</button>
+                    </div>
+                    <div id="tab-profile" class="tab-panel active">
+                        <!-- 账户与个人资料管理 -->
+                        <div class="bg-white rounded-xl border border-line p-4 mb-4">
+                            <h3 class="font-medium text-lg mb-3">账户与个人资料管理</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block mt-3 text-xs text-muted">姓名</label>
+                                    <input class="w-full border border-line rounded-lg px-3 py-2 text-sm" value="张明">
+                                </div>
+                                <div>
+                                    <label class="block mt-3 text-xs text-muted">昵称</label>
+                                    <input class="w-full border border-line rounded-lg px-3 py-2 text-sm" value="小明">
+                                </div>
+                                <div>
+                                    <label class="block mt-3 text-xs text-muted">电子邮箱</label>
+                                    <input class="w-full border border-line rounded-lg px-3 py-2 text-sm" value="zhangming@company.com" readonly>
+                                </div>
+                                <div>
+                                    <label class="block mt-3 text-xs text-muted">职位</label>
+                                    <input class="w-full border border-line rounded-lg px-3 py-2 text-sm" value="产品经理">
+                                </div>
+                                <div>
+                                    <label class="block mt-3 text-xs text-muted">所属部门</label>
+                                    <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                        <option>产品部</option>
+                                        <option>研发部</option>
+                                        <option>市场部</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block mt-3 text-xs text-muted">联系电话</label>
+                                    <input class="w-full border border-line rounded-lg px-3 py-2 text-sm" value="13800138000">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block mt-3 text-xs text-muted">个人简介</label>
+                                    <textarea class="w-full border border-line rounded-lg px-3 py-2 text-sm" rows="3">专注于用户体验设计与产品创新，拥有5年互联网产品经验。</textarea>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block mt-3 text-xs text-muted">头像</label>
+                                    <div class="flex items-center gap-3 mt-2">
+                                        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                            <span class="text-primary">张</span>
+                                        </div>
+                                        <button class="px-3 py-1 rounded-lg bg-white border border-line text-sm">上传头像</button>
+                                    </div>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block mt-3 text-xs text-muted">密码管理</label>
+                                    <button class="mt-2 px-3 py-1 rounded-lg bg-white border border-line text-sm">修改密码</button>
+                                    <button class="ml-2 px-3 py-1 rounded-lg bg-white border border-line text-sm">配置两步验证</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 界面与交互偏好 -->
+                        <div class="bg-white rounded-xl border border-line p-4 mb-4">
+                            <h3 class="font-medium text-lg mb-3">界面与交互偏好</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block mt-3 text-xs text-muted">主题模式</label>
+                                    <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                        <option>浅色</option>
+                                        <option>深色</option>
+                                        <option>跟随系统</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block mt-3 text-xs text-muted">默认布局</label>
+                                    <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                        <option>对话优先</option>
+                                        <option>任务面板优先</option>
+                                        <option>工作台视图</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block mt-3 text-xs text-muted">语言设置</label>
+                                    <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                        <option>简体中文</option>
+                                        <option>English</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block mt-3 text-xs text-muted">日期格式</label>
+                                    <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                        <option>YYYY-MM-DD</option>
+                                        <option>DD/MM/YYYY</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block mt-3 text-xs text-muted">快捷操作面板</label>
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
+                                        <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox" checked> 新建文档
+                                        </label>
+                                        <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox" checked> 新建会议
+                                        </label>
+                                        <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox"> 发起讨论
+                                        </label>
+                                        <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox"> 智能搜索
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block mt-3 text-xs text-muted">界面元素大小</label>
+                                    <div class="flex items-center gap-4 mt-2">
+                                        <label class="flex items-center gap-1 text-sm cursor-pointer">
+                                            <input type="radio" name="ui-size" checked> 标准
+                                        </label>
+                                        <label class="flex items-center gap-1 text-sm cursor-pointer">
+                                            <input type="radio" name="ui-size"> 紧凑
+                                        </label>
+                                        <label class="flex items-center gap-1 text-sm cursor-pointer">
+                                            <input type="radio" name="ui-size"> 宽松
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 通知与提醒配置 -->
+                        <div class="bg-white rounded-xl border border-line p-4 mb-4">
+                            <h3 class="font-medium text-lg mb-3">通知与提醒配置</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">通知渠道</label>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                        <label class="flex items-center gap-2 p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox" checked> 站内消息
+                                        </label>
+                                        <label class="flex items-center gap-2 p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox" checked> 电子邮件
+                                        </label>
+                                        <label class="flex items-center gap-2 p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox"> 短信提醒
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">通知类型</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>任务分配与提醒</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>文档更新与共享</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>会议与日历提醒</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>系统公告与更新</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>智能助手建议</span>
+                                            <input type="checkbox">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">提醒时间设置</label>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs text-muted mt-2">会议提醒</label>
+                                            <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                                <option>会议开始前15分钟</option>
+                                                <option>会议开始前30分钟</option>
+                                                <option>会议开始前1小时</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-muted mt-2">任务截止提醒</label>
+                                            <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                                <option>截止前24小时</option>
+                                                <option>截止前48小时</option>
+                                                <option>截止前72小时</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">勿扰模式</label>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                                <input type="checkbox" checked> 启用勿扰模式
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-muted mt-2">勿扰时段</label>
+                                            <div class="flex items-center gap-2">
+                                                <input type="time" value="18:00" class="border border-line rounded-lg px-2 py-1 text-sm">
+                                                <span>至</span>
+                                                <input type="time" value="08:00" class="border border-line rounded-lg px-2 py-1 text-sm">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- AI助手个性化 -->
+                        <div class="bg-white rounded-xl border border-line p-4 mb-4">
+                            <h3 class="font-medium text-lg mb-3">AI助手个性化</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">智能助手响应风格</label>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                        <label class="flex items-center gap-2 p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="radio" name="ai-style" checked> 专业严谨
+                                        </label>
+                                        <label class="flex items-center gap-2 p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="radio" name="ai-style"> 简明扼要
+                                        </label>
+                                        <label class="flex items-center gap-2 p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="radio" name="ai-style"> 详细全面
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">智能助手知识范围</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>产品管理知识库</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>行业动态与趋势</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>公司内部文档</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>竞品分析资料</span>
+                                            <input type="checkbox">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">智能助手权限</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center gap-2 p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox" checked> 访问我的文档
+                                        </label>
+                                        <label class="flex items-center gap-2 p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox"> 访问我的日历
+                                        </label>
+                                        <label class="flex items-center gap-2 p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox"> 访问我的联系人
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">智能助手快捷指令</label>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <div>
+                                            <label class="block text-xs text-muted mt-2">指令1</label>
+                                            <input class="w-full border border-line rounded-lg px-3 py-2 text-sm" placeholder="输入快捷指令...">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-muted mt-2">指令2</label>
+                                            <input class="w-full border border-line rounded-lg px-3 py-2 text-sm" placeholder="输入快捷指令...">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 数据与隐私 -->
+                        <div class="bg-white rounded-xl border border-line p-4">
+                            <h3 class="font-medium text-lg mb-3">数据与隐私</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">个人数据管理</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>允许系统分析我的使用习惯</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>允许AI助手学习我的偏好</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>分享使用数据用于产品改进</span>
+                                            <input type="checkbox">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">隐私设置</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>允许他人查看我的在线状态</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>允许他人查看我的个人资料</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>允许他人邀请我加入团队</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">数据导出与删除</label>
+                                    <div class="flex items-center gap-3 mt-2">
+                                        <button class="px-3 py-1 rounded-lg bg-white border border-line text-sm">导出个人数据</button>
+                                        <button class="px-3 py-1 rounded-lg bg-white border border-line text-sm">申请账户删除</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-team-admin" class="tab-panel">
+                        <!-- 团队成员管理 -->
+                        <div class="bg-white rounded-xl border border-line p-4 mb-4">
+                            <h3 class="font-medium text-lg mb-3">团队成员管理</h3>
+                            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                                <div class="flex-1 max-w-md">
+                                    <input class="w-full border border-line rounded-lg px-3 py-2 text-sm" placeholder="搜索团队成员">
+                                </div>
+                                <button class="px-3 py-1 rounded-lg bg-primary text-white text-sm">邀请成员</button>
+                                <button class="px-3 py-1 rounded-lg bg-white border border-line text-sm">批量导入</button>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm">
+                                    <thead>
+                                        <tr class="border-b border-line">
+                                            <th class="text-left py-2 px-3 font-medium">姓名</th>
+                                            <th class="text-left py-2 px-3 font-medium">职位</th>
+                                            <th class="text-left py-2 px-3 font-medium">部门</th>
+                                            <th class="text-left py-2 px-3 font-medium">角色</th>
+                                            <th class="text-left py-2 px-3 font-medium">状态</th>
+                                            <th class="text-left py-2 px-3 font-medium">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b border-line">
+                                            <td class="py-2 px-3">李强</td>
+                                            <td class="py-2 px-3">团队主管</td>
+                                            <td class="py-2 px-3">产品部</td>
+                                            <td class="py-2 px-3">Admin</td>
+                                            <td class="py-2 px-3">
+                                                <span class="inline-block w-2 h-2 rounded-full bg-success mr-1"></span>
+                                                在线
+                                            </td>
+                                            <td class="py-2 px-3">
+                                                <button class="text-xs text-secondary mr-2">调整权限</button>
+                                                <button class="text-xs text-danger">移除</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="border-b border-line">
+                                            <td class="py-2 px-3">王晓华</td>
+                                            <td class="py-2 px-3">市场分析师</td>
+                                            <td class="py-2 px-3">市场部</td>
+                                            <td class="py-2 px-3">Editor</td>
+                                            <td class="py-2 px-3">
+                                                <span class="inline-block w-2 h-2 rounded-full bg-success mr-1"></span>
+                                                在线
+                                            </td>
+                                            <td class="py-2 px-3">
+                                                <button class="text-xs text-secondary mr-2">调整权限</button>
+                                                <button class="text-xs text-danger">移除</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="border-b border-line">
+                                            <td class="py-2 px-3">张明</td>
+                                            <td class="py-2 px-3">产品经理</td>
+                                            <td class="py-2 px-3">产品部</td>
+                                            <td class="py-2 px-3">Editor</td>
+                                            <td class="py-2 px-3">
+                                                <span class="inline-block w-2 h-2 rounded-full bg-success mr-1"></span>
+                                                在线
+                                            </td>
+                                            <td class="py-2 px-3">
+                                                <button class="text-xs text-secondary mr-2">调整权限</button>
+                                                <button class="text-xs text-danger">移除</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-4 text-xs text-muted text-center">共 3 名团队成员</div>
+                        </div>
+                        
+                        <!-- 团队空间权限管理 -->
+                        <div class="bg-white rounded-xl border border-line p-4 mb-4">
+                            <h3 class="font-medium text-lg mb-3">团队空间权限管理</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">团队空间</label>
+                                    <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                        <option>产品部团队空间</option>
+                                        <option>研发部团队空间</option>
+                                        <option>市场部团队空间</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">权限模板</label>
+                                    <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                        <option>完全访问</option>
+                                        <option>编辑权限</option>
+                                        <option>只读权限</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <label class="block text-xs text-muted mb-2">细粒度权限控制</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                        <span>创建文档</span>
+                                        <input type="checkbox" checked>
+                                    </label>
+                                    <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                        <span>编辑文档</span>
+                                        <input type="checkbox" checked>
+                                    </label>
+                                    <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                        <span>删除文档</span>
+                                        <input type="checkbox" checked>
+                                    </label>
+                                    <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                        <span>分享文档</span>
+                                        <input type="checkbox">
+                                    </label>
+                                    <label class="flex items-center justify-between p-3 rounded-lg border border-line text-sm cursor-pointer">
+                                        <span>管理团队成员</span>
+                                        <input type="checkbox">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 团队工具与资源配置 -->
+                        <div class="bg-white rounded-xl border border-line p-4 mb-4">
+                            <h3 class="font-medium text-lg mb-3">团队工具与资源配置</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">集成工具管理</label>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                        <div class="p-3 rounded-lg border border-line">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <span class="text-sm">文档管理</span>
+                                                <span class="text-xs px-1 py-0.5 rounded-full bg-success/20 text-success">已启用</span>
+                                            </div>
+                                            <button class="w-full px-2 py-1 rounded-lg bg-white border border-line text-xs">配置</button>
+                                        </div>
+                                        <div class="p-3 rounded-lg border border-line">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <span class="text-sm">会议系统</span>
+                                                <span class="text-xs px-1 py-0.5 rounded-full bg-success/20 text-success">已启用</span>
+                                            </div>
+                                            <button class="w-full px-2 py-1 rounded-lg bg-white border border-line text-xs">配置</button>
+                                        </div>
+                                        <div class="p-3 rounded-lg border border-line">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <span class="text-sm">代码仓库</span>
+                                                <span class="text-xs px-1 py-0.5 rounded-full bg-danger/20 text-danger">未启用</span>
+                                            </div>
+                                            <button class="w-full px-2 py-1 rounded-lg bg-white border border-line text-xs">启用</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">资源分配</label>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center justify-between p-3 rounded-lg border border-line">
+                                            <span class="text-sm">存储空间</span>
+                                            <div class="text-sm">
+                                                <span class="text-primary">12.5GB</span> / 20GB
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between p-3 rounded-lg border border-line">
+                                            <span class="text-sm">AI计算资源</span>
+                                            <div class="text-sm">
+                                                <span class="text-primary">3.2万次</span> / 5万次
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between p-3 rounded-lg border border-line">
+                                            <span class="text-sm">团队智能体数量</span>
+                                            <div class="text-sm">
+                                                <span class="text-primary">8个</span> / 10个
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 团队数据看板 -->
+                        <div class="bg-white rounded-xl border border-line p-4">
+                            <h3 class="font-medium text-lg mb-3">团队数据看板</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                                <div class="p-3 rounded-lg bg-mist text-center">
+                                    <p class="text-2xl font-medium text-primary">15</p>
+                                    <p class="text-xs text-muted mt-1">团队成员数</p>
+                                </div>
+                                <div class="p-3 rounded-lg bg-mist text-center">
+                                    <p class="text-2xl font-medium text-primary">42</p>
+                                    <p class="text-xs text-muted mt-1">本月创建文档</p>
+                                </div>
+                                <div class="p-3 rounded-lg bg-mist text-center">
+                                    <p class="text-2xl font-medium text-primary">89%</p>
+                                    <p class="text-xs text-muted mt-1">任务完成率</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">团队活跃度趋势</label>
+                                    <div class="h-24 bg-mist rounded-lg flex items-end justify-around px-2">
+                                        <div class="w-8 bg-primary rounded-t-md" style="height: 60%"></div>
+                                        <div class="w-8 bg-primary rounded-t-md" style="height: 85%"></div>
+                                        <div class="w-8 bg-primary rounded-t-md" style="height: 75%"></div>
+                                        <div class="w-8 bg-primary rounded-t-md" style="height: 90%"></div>
+                                        <div class="w-8 bg-primary rounded-t-md" style="height: 80%"></div>
+                                        <div class="w-8 bg-primary rounded-t-md" style="height: 95%"></div>
+                                        <div class="w-8 bg-primary rounded-t-md" style="height: 100%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">成员贡献排行</label>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center justify-between p-2 rounded-lg bg-mist text-sm">
+                                            <span>李强</span>
+                                            <span class="text-primary">28次贡献</span>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 rounded-lg bg-mist text-sm">
+                                            <span>王晓华</span>
+                                            <span class="text-primary">22次贡献</span>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 rounded-lg bg-mist text-sm">
+                                            <span>张明</span>
+                                            <span class="text-primary">18次贡献</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-system-admin" class="tab-panel">
+                        <!-- 系统监控与运维 -->
+                        <div class="bg-white rounded-xl border border-line p-4 mb-4">
+                            <h3 class="font-medium text-lg mb-3">系统监控与运维</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
+                                <div class="p-3 rounded-lg bg-mist">
+                                    <p class="text-xs text-muted">CPU使用率</p>
+                                    <p class="text-xl font-medium text-primary">45%</p>
+                                </div>
+                                <div class="p-3 rounded-lg bg-mist">
+                                    <p class="text-xs text-muted">内存使用率</p>
+                                    <p class="text-xl font-medium text-primary">62%</p>
+                                </div>
+                                <div class="p-3 rounded-lg bg-mist">
+                                    <p class="text-xs text-muted">API P95延迟</p>
+                                    <p class="text-xl font-medium text-primary">320ms</p>
+                                </div>
+                                <div class="p-3 rounded-lg bg-mist">
+                                    <p class="text-xs text-muted">并发用户数</p>
+                                    <p class="text-xl font-medium text-primary">820</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">系统状态</label>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-line text-sm">
+                                            <span>API服务</span>
+                                            <span class="text-xs px-1 py-0.5 rounded-full bg-success/20 text-success">正常</span>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-line text-sm">
+                                            <span>数据库</span>
+                                            <span class="text-xs px-1 py-0.5 rounded-full bg-success/20 text-success">正常</span>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-line text-sm">
+                                            <span>AI计算引擎</span>
+                                            <span class="text-xs px-1 py-0.5 rounded-full bg-warning/20 text-warning">负载高</span>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-line text-sm">
+                                            <span>存储服务</span>
+                                            <span class="text-xs px-1 py-0.5 rounded-full bg-success/20 text-success">正常</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">系统日志</label>
+                                    <div class="h-32 bg-mist rounded-lg p-3 overflow-y-auto text-xs">
+                                        <div class="mb-1">[2024-01-17 10:30:21] INFO: 用户登录 - 张明</div>
+                                        <div class="mb-1">[2024-01-17 10:29:45] ERROR: API请求失败 - /api/docs/12345</div>
+                                        <div class="mb-1">[2024-01-17 10:28:12] INFO: 系统备份完成</div>
+                                        <div class="mb-1">[2024-01-17 10:27:33] WARNING: 存储空间使用率超过80%</div>
+                                        <div class="mb-1">[2024-01-17 10:26:15] INFO: 智能体部署 - 合同审查官</div>
+                                    </div>
+                                    <button class="w-full mt-2 px-2 py-1 rounded-lg bg-white border border-line text-xs">查看完整日志</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 用户与组织管理 -->
+                        <div class="bg-white rounded-xl border border-line p-4 mb-4">
+                            <h3 class="font-medium text-lg mb-3">用户与组织管理</h3>
+                            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                                <div class="flex-1 max-w-md">
+                                    <input class="w-full border border-line rounded-lg px-3 py-2 text-sm" placeholder="搜索用户或组织">
+                                </div>
+                                <button class="px-3 py-1 rounded-lg bg-primary text-white text-sm">创建用户</button>
+                                <button class="px-3 py-1 rounded-lg bg-white border border-line text-sm">创建组织</button>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">用户管理</label>
+                                    <div class="h-32 bg-mist rounded-lg p-3 overflow-y-auto text-xs">
+                                        <div class="flex items-center justify-between mb-2 p-1 rounded bg-white">
+                                            <span>张明</span>
+                                            <span class="text-xs text-secondary">产品部</span>
+                                        </div>
+                                        <div class="flex items-center justify-between mb-2 p-1 rounded bg-white">
+                                            <span>李强</span>
+                                            <span class="text-xs text-secondary">研发部</span>
+                                        </div>
+                                        <div class="flex items-center justify-between mb-2 p-1 rounded bg-white">
+                                            <span>王晓华</span>
+                                            <span class="text-xs text-secondary">市场部</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">组织管理</label>
+                                    <div class="h-32 bg-mist rounded-lg p-3 overflow-y-auto text-xs">
+                                        <div class="flex items-center justify-between mb-2 p-1 rounded bg-white">
+                                            <span>产品部</span>
+                                            <span class="text-xs text-secondary">12人</span>
+                                        </div>
+                                        <div class="flex items-center justify-between mb-2 p-1 rounded bg-white">
+                                            <span>研发部</span>
+                                            <span class="text-xs text-secondary">25人</span>
+                                        </div>
+                                        <div class="flex items-center justify-between mb-2 p-1 rounded bg-white">
+                                            <span>市场部</span>
+                                            <span class="text-xs text-secondary">8人</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 全局权限与角色管理 -->
+                        <div class="bg-white rounded-xl border border-line p-4 mb-4">
+                            <h3 class="font-medium text-lg mb-3">全局权限与角色管理</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">角色管理</label>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center justify-between p-2 rounded-lg bg-mist text-sm">
+                                            <span>系统管理员</span>
+                                            <button class="text-xs text-secondary">编辑</button>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 rounded-lg bg-mist text-sm">
+                                            <span>知识管理员</span>
+                                            <button class="text-xs text-secondary">编辑</button>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 rounded-lg bg-mist text-sm">
+                                            <span>团队Leader</span>
+                                            <button class="text-xs text-secondary">编辑</button>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 rounded-lg bg-mist text-sm">
+                                            <span>普通员工</span>
+                                            <button class="text-xs text-secondary">编辑</button>
+                                        </div>
+                                    </div>
+                                    <button class="w-full mt-2 px-2 py-1 rounded-lg bg-white border border-line text-xs">创建新角色</button>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">权限管理</label>
+                                    <div class="space-y-2">
+                                        <div class="p-2 rounded-lg bg-mist text-sm">
+                                            <div class="font-medium mb-1">系统管理权限</div>
+                                            <div class="text-xs text-muted">用户管理、系统配置、数据备份</div>
+                                        </div>
+                                        <div class="p-2 rounded-lg bg-mist text-sm">
+                                            <div class="font-medium mb-1">知识库权限</div>
+                                            <div class="text-xs text-muted">文档创建、编辑、删除、分享</div>
+                                        </div>
+                                        <div class="p-2 rounded-lg bg-mist text-sm">
+                                            <div class="font-medium mb-1">智能体权限</div>
+                                            <div class="text-xs text-muted">智能体创建、配置、调用</div>
+                                        </div>
+                                    </div>
+                                    <button class="w-full mt-2 px-2 py-1 rounded-lg bg-white border border-line text-xs">管理权限</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 系统配置中心 -->
+                        <div class="bg-white rounded-xl border border-line p-4 mb-4">
+                            <h3 class="font-medium text-lg mb-3">系统配置中心</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">基础配置</label>
+                                    <div class="space-y-3">
+                                        <div>
+                                            <label class="block text-xs text-muted mb-1">系统名称</label>
+                                            <input class="w-full border border-line rounded-lg px-3 py-2 text-sm" value="智核平台">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-muted mb-1">系统版本</label>
+                                            <input class="w-full border border-line rounded-lg px-3 py-2 text-sm" value="v1.2.0" readonly>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-muted mb-1">默认语言</label>
+                                            <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                                <option>简体中文</option>
+                                                <option>English</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">功能开关</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center justify-between p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>智能助手功能</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>团队协作功能</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>数据分析功能</span>
+                                            <input type="checkbox">
+                                        </label>
+                                        <label class="flex items-center justify-between p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>API开放功能</span>
+                                            <input type="checkbox">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 数据管理与备份 -->
+                        <div class="bg-white rounded-xl border border-line p-4">
+                            <h3 class="font-medium text-lg mb-3">数据管理与备份</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">数据备份</label>
+                                    <div class="space-y-3">
+                                        <div>
+                                            <label class="block text-xs text-muted mb-1">备份计划</label>
+                                            <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                                <option>每天凌晨2点</option>
+                                                <option>每周日凌晨2点</option>
+                                                <option>手动备份</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-muted mb-1">备份保留策略</label>
+                                            <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                                <option>保留最近30天</option>
+                                                <option>保留最近90天</option>
+                                                <option>永久保留</option>
+                                            </select>
+                                        </div>
+                                        <button class="w-full px-3 py-1 rounded-lg bg-primary text-white text-sm">立即备份</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">备份历史</label>
+                                    <div class="h-32 bg-mist rounded-lg p-3 overflow-y-auto text-xs">
+                                        <div class="flex items-center justify-between mb-2 p-1 rounded bg-white">
+                                            <span>2024-01-17 02:00</span>
+                                            <span class="text-xs text-success">成功</span>
+                                        </div>
+                                        <div class="flex items-center justify-between mb-2 p-1 rounded bg-white">
+                                            <span>2024-01-16 02:00</span>
+                                            <span class="text-xs text-success">成功</span>
+                                        </div>
+                                        <div class="flex items-center justify-between mb-2 p-1 rounded bg-white">
+                                            <span>2024-01-15 02:00</span>
+                                            <span class="text-xs text-danger">失败</span>
+                                        </div>
+                                    </div>
+                                    <button class="w-full mt-2 px-2 py-1 rounded-lg bg-white border border-line text-xs">恢复数据</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-security" class="tab-panel">
+                        <!-- 安全策略配置 -->
+                        <div class="bg-white rounded-xl border border-line p-4 mb-4">
+                            <h3 class="font-medium text-lg mb-3">安全策略配置</h3>
+                            <div class="space-y-3">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs text-muted mb-2">身份认证策略</label>
+                                        <div class="space-y-2">
+                                            <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                                <input type="checkbox" checked> 强制两步验证
+                                            </label>
+                                            <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                                <input type="checkbox"> 密码复杂度要求
+                                            </label>
+                                            <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                                <input type="checkbox"> 定期密码重置
+                                            </label>
+                                            <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                                <input type="checkbox"> 单点登录(SSO)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs text-muted mb-2">访问控制策略</label>
+                                        <div class="space-y-2">
+                                            <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                                <input type="checkbox"> 开启IP白名单
+                                            </label>
+                                            <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                                <input type="checkbox" checked> 设备指纹识别
+                                            </label>
+                                            <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                                <input type="checkbox"> 会话超时设置
+                                            </label>
+                                            <div>
+                                                <label class="block text-xs text-muted mb-1">会话超时时间</label>
+                                                <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                                    <option>30分钟</option>
+                                                    <option selected>60分钟</option>
+                                                    <option>120分钟</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">数据安全策略</label>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                        <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox" checked> 数据传输加密
+                                        </label>
+                                        <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox" checked> 数据存储加密
+                                        </label>
+                                        <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox"> 敏感数据脱敏
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 安全审计与监控 -->
+                        <div class="bg-white rounded-xl border border-line p-4 mb-4">
+                            <h3 class="font-medium text-lg mb-3">安全审计与监控</h3>
+                            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                                <div class="flex-1 max-w-md">
+                                    <input class="w-full border border-line rounded-lg px-3 py-2 text-sm" placeholder="搜索审计日志">
+                                </div>
+                                <div class="flex gap-2">
+                                    <select class="border border-line rounded-lg px-3 py-2 text-sm">
+                                        <option>全部操作类型</option>
+                                        <option>登录</option>
+                                        <option>权限变更</option>
+                                        <option>数据访问</option>
+                                    </select>
+                                    <button class="px-3 py-1 rounded-lg bg-primary text-white text-sm">查询</button>
+                                </div>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm">
+                                    <thead>
+                                        <tr class="border-b border-line">
+                                            <th class="text-left py-2 px-3 font-medium">时间</th>
+                                            <th class="text-left py-2 px-3 font-medium">用户</th>
+                                            <th class="text-left py-2 px-3 font-medium">操作类型</th>
+                                            <th class="text-left py-2 px-3 font-medium">IP地址</th>
+                                            <th class="text-left py-2 px-3 font-medium">结果</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b border-line">
+                                            <td class="py-2 px-3 text-xs text-muted">2024-01-17 10:30:21</td>
+                                            <td class="py-2 px-3">张明</td>
+                                            <td class="py-2 px-3">登录</td>
+                                            <td class="py-2 px-3">192.168.1.100</td>
+                                            <td class="py-2 px-3">
+                                                <span class="text-xs px-1 py-0.5 rounded-full bg-success/20 text-success">成功</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="border-b border-line">
+                                            <td class="py-2 px-3 text-xs text-muted">2024-01-17 10:29:15</td>
+                                            <td class="py-2 px-3">李强</td>
+                                            <td class="py-2 px-3">权限变更</td>
+                                            <td class="py-2 px-3">192.168.1.101</td>
+                                            <td class="py-2 px-3">
+                                                <span class="text-xs px-1 py-0.5 rounded-full bg-success/20 text-success">成功</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="border-b border-line">
+                                            <td class="py-2 px-3 text-xs text-muted">2024-01-17 10:28:45</td>
+                                            <td class="py-2 px-3">未知用户</td>
+                                            <td class="py-2 px-3">登录</td>
+                                            <td class="py-2 px-3">10.0.0.1</td>
+                                            <td class="py-2 px-3">
+                                                <span class="text-xs px-1 py-0.5 rounded-full bg-danger/20 text-danger">失败</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-4 text-xs text-muted text-center">共 125 条审计日志</div>
+                        </div>
+                        
+                        <!-- 数据隐私管理 -->
+                        <div class="bg-white rounded-xl border border-line p-4 mb-4">
+                            <h3 class="font-medium text-lg mb-3">数据隐私管理</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">数据分类与标记</label>
+                                    <div class="space-y-2">
+                                        <div class="p-2 rounded-lg bg-mist text-sm">
+                                            <div class="font-medium">公开数据</div>
+                                            <div class="text-xs text-muted">可自由访问的数据</div>
+                                        </div>
+                                        <div class="p-2 rounded-lg bg-mist text-sm">
+                                            <div class="font-medium">内部数据</div>
+                                            <div class="text-xs text-muted">仅限内部员工访问</div>
+                                        </div>
+                                        <div class="p-2 rounded-lg bg-mist text-sm">
+                                            <div class="font-medium">敏感数据</div>
+                                            <div class="text-xs text-muted">需要特殊权限访问</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">隐私保护设置</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center justify-between p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>数据匿名化处理</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>用户数据访问审计</span>
+                                            <input type="checkbox" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <span>数据最小化原则</span>
+                                            <input type="checkbox">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <label class="block text-xs text-muted mb-2">数据主体权利管理</label>
+                                <div class="flex flex-wrap gap-2">
+                                    <button class="px-3 py-1 rounded-lg bg-white border border-line text-sm">数据访问请求</button>
+                                    <button class="px-3 py-1 rounded-lg bg-white border border-line text-sm">数据更正请求</button>
+                                    <button class="px-3 py-1 rounded-lg bg-white border border-line text-sm">数据删除请求</button>
+                                    <button class="px-3 py-1 rounded-lg bg-white border border-line text-sm">数据导出请求</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 合规报告生成 -->
+                        <div class="bg-white rounded-xl border border-line p-4">
+                            <h3 class="font-medium text-lg mb-3">合规报告生成</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">报告类型</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox"> 安全审计报告
+                                        </label>
+                                        <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox"> 数据隐私合规报告
+                                        </label>
+                                        <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox"> 访问控制报告
+                                        </label>
+                                        <label class="flex items-center gap-2 p-2 rounded-lg border border-line text-sm cursor-pointer">
+                                            <input type="checkbox"> 漏洞扫描报告
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-muted mb-2">报告配置</label>
+                                    <div class="space-y-3">
+                                        <div>
+                                            <label class="block text-xs text-muted mb-1">报告周期</label>
+                                            <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                                <option>每日</option>
+                                                <option>每周</option>
+                                                <option selected>每月</option>
+                                                <option>每季度</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-muted mb-1">报告格式</label>
+                                            <select class="w-full border border-line rounded-lg px-3 py-2 text-sm">
+                                                <option selected>PDF</option>
+                                                <option>Excel</option>
+                                                <option>JSON</option>
+                                            </select>
+                                        </div>
+                                        <button class="w-full px-3 py-1 rounded-lg bg-primary text-white text-sm">生成报告</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <label class="block text-xs text-muted mb-2">历史报告</label>
+                                <div class="h-32 bg-mist rounded-lg p-3 overflow-y-auto text-xs">
+                                    <div class="flex items-center justify-between mb-2 p-1 rounded bg-white">
+                                        <span>2024-01安全审计报告.pdf</span>
+                                        <button class="text-xs text-primary">下载</button>
+                                    </div>
+                                    <div class="flex items-center justify-between mb-2 p-1 rounded bg-white">
+                                        <span>2023-12隐私合规报告.pdf</span>
+                                        <button class="text-xs text-primary">下载</button>
+                                    </div>
+                                    <div class="flex items-center justify-between mb-2 p-1 rounded bg-white">
+                                        <span>2023-11访问控制报告.pdf</span>
+                                        <button class="text-xs text-primary">下载</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-end">
+                        <button id="save-settings" class="px-4 py-2 rounded-full bg-secondary text-white text-sm">保存设置</button>
+                    </div>
+                </div>
+            </div>

@@ -1,0 +1,886 @@
+            <div id="page-capture" class="page flex flex-col gap-6 h-[calc(100vh-120px)] overflow-auto">
+                <div>
+                    <h2 class="text-2xl font-display font-semibold">轻量生产工具</h2>
+                    <p class="text-sm text-muted">无摩擦知识捕获系统，让知识生产随时随地、随手可得</p>
+                </div>
+                <div class="bg-surface rounded-2xl border border-line shadow-card p-4">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-primary text-white transition-all duration-300" data-tab="quick-note">
+                            <i class="fa fa-edit mr-2"></i>速记
+                        </button>
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-white border border-line hover:bg-primary/10 transition-all duration-300" data-tab="record">
+                            <i class="fa fa-microphone mr-2"></i>录音
+                        </button>
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-white border border-line hover:bg-primary/10 transition-all duration-300" data-tab="clip">
+                            <i class="fa fa-scissors mr-2"></i>剪藏
+                        </button>
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-white border border-line hover:bg-primary/10 transition-all duration-300" data-tab="queue">
+                            <i class="fa fa-tasks mr-2"></i>待处理队列
+                        </button>
+                        <button class="tab-btn px-3 py-2 rounded-full text-sm bg-white border border-line hover:bg-primary/10 transition-all duration-300" data-tab="desktop">
+                            <i class="fa fa-desktop mr-2"></i>桌面工具
+                        </button>
+                    </div>
+                    <div id="tab-quick-note" class="tab-panel active">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-xl border border-line shadow-card p-4 transition-all duration-300 hover:shadow-soft">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                                            <i class="fa fa-pencil text-primary"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-lg">极速速记</p>
+                                            <p class="text-xs text-muted">无摩擦知识捕获</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">AI增强</span>
+                                        <button id="quick-note-settings" class="p-1.5 rounded-full hover:bg-mist transition-colors">
+                                            <i class="fa fa-cog text-muted"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <input type="text" id="quick-note-title" class="w-full border border-line rounded-lg p-3 text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all shadow-sm" placeholder="添加标题（可选，AI自动生成）">
+                                    <textarea id="quick-note-input" class="w-full border border-line rounded-lg p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all min-h-[180px] shadow-sm" placeholder="记录灵感、会议要点或待办…"></textarea>
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                                        <button id="voice-input-btn" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary text-sm transition-all hover:shadow-sm">
+                                            <i class="fa fa-microphone"></i>
+                                            <span>语音输入</span>
+                                        </button>
+                                        <button id="photo-ocr-btn" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary text-sm transition-all hover:shadow-sm">
+                                            <i class="fa fa-camera"></i>
+                                            <span>拍照OCR</span>
+                                        </button>
+                                        <button id="scan-doc-btn" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary text-sm transition-all hover:shadow-sm">
+                                            <i class="fa fa-file-text-o"></i>
+                                            <span>扫描文档</span>
+                                        </button>
+                                        <button id="set-reminder-btn" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary text-sm transition-all hover:shadow-sm">
+                                            <i class="fa fa-bell-o"></i>
+                                            <span>设置提醒</span>
+                                        </button>
+                                    </div>
+                                    <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-line">
+                                        <div class="flex flex-wrap items-center gap-3 text-xs">
+                                            <label class="flex items-center gap-1.5">
+                                                <input type="checkbox" id="auto-title" class="rounded border-line text-primary focus:ring-primary">
+                                                <span>AI自动生成标题</span>
+                                            </label>
+                                            <label class="flex items-center gap-1.5">
+                                                <input type="checkbox" id="auto-tag" class="rounded border-line text-primary focus:ring-primary">
+                                                <span>智能标签</span>
+                                            </label>
+                                            <label class="flex items-center gap-1.5">
+                                                <input type="checkbox" id="auto-save" class="rounded border-line text-primary focus:ring-primary">
+                                                <span>自动保存</span>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <button id="share-quick-note" class="px-3 py-2 rounded-full bg-white border border-line text-sm hover:bg-primary/10 transition-all">
+                                                <i class="fa fa-share mr-1.5"></i>
+                                                <span>分享</span>
+                                            </button>
+                                            <button id="save-quick-note" class="px-4 py-2 rounded-full bg-primary text-white text-sm hover:bg-primary/90 transition-all shadow-sm hover:shadow">
+                                                <i class="fa fa-save mr-1.5"></i>
+                                                <span>保存至待处理</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-white rounded-xl border border-line shadow-card p-4 transition-all duration-300 hover:shadow-soft">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 bg-primary/10 rounded flex items-center justify-center">
+                                                <i class="fa fa-clock-o text-primary"></i>
+                                            </div>
+                                            <p class="font-medium text-sm">最新速记</p>
+                                        </div>
+                                        <button id="refresh-quick-notes" class="px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm flex items-center gap-1.5 hover:bg-primary/20 transition-all">
+                                            <i class="fa fa-refresh"></i>
+                                            <span>刷新</span>
+                                        </button>
+                                    </div>
+                                    <ul id="quick-note-list" class="space-y-3 max-h-[300px] overflow-y-auto scrollbar-hide">
+                                        <li class="p-3 rounded-lg bg-ocean/30 border border-primary/10 transition-all hover:shadow-sm cursor-pointer">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <span class="font-medium">跟进客户A合同审批</span>
+                                                <span class="text-xs text-muted">2分钟前</span>
+                                            </div>
+                                            <p class="text-sm text-muted line-clamp-2">明早提醒我处理客户A的合同审批，需要在本周内完成</p>
+                                            <div class="mt-2 flex items-center gap-2">
+                                                <span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs">待办</span>
+                                                <button class="text-xs text-secondary hover:text-primary">编辑</button>
+                                            </div>
+                                        </li>
+                                        <li class="p-3 rounded-lg bg-coral/30 border border-secondary/10 transition-all hover:shadow-sm cursor-pointer">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <span class="font-medium">Q3渠道预算调整</span>
+                                                <span class="text-xs text-muted">1小时前</span>
+                                            </div>
+                                            <p class="text-sm text-muted line-clamp-2">会议要点：Q3渠道预算需要上调15%，重点支持线上推广</p>
+                                            <div class="mt-2 flex items-center gap-2">
+                                                <span class="px-2 py-0.5 rounded-full bg-secondary/10 text-secondary text-xs">会议</span>
+                                                <button class="text-xs text-secondary hover:text-primary">编辑</button>
+                                            </div>
+                                        </li>
+                                        <li class="p-3 rounded-lg bg-purple-light/50 border border-accent/10 transition-all hover:shadow-sm cursor-pointer">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <span class="font-medium">新产品创意</span>
+                                                <span class="text-xs text-muted">2小时前</span>
+                                            </div>
+                                            <p class="text-sm text-muted line-clamp-2">考虑开发移动应用版本的轻量捕获工具，支持离线使用</p>
+                                            <div class="mt-2 flex items-center gap-2">
+                                                <span class="px-2 py-0.5 rounded-full bg-accent/10 text-accent text-xs">灵感</span>
+                                                <button class="text-xs text-secondary hover:text-primary">编辑</button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white rounded-xl border border-line shadow-card p-4 transition-all duration-300 hover:shadow-soft">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 bg-primary/10 rounded flex items-center justify-center">
+                                                <i class="fa fa-lightbulb-o text-primary"></i>
+                                            </div>
+                                            <p class="font-medium text-sm">智能建议</p>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <div class="p-3 rounded-lg bg-primary/5 border border-primary/10 cursor-pointer hover:bg-primary/10 transition-colors">
+                                            <div class="flex items-center gap-2">
+                                                <i class="fa fa-file-text-o text-primary mt-0.5"></i>
+                                                <div>
+                                                    <p class="text-sm font-medium">关联至知识图谱</p>
+                                                    <p class="text-xs text-muted">将此速记与企业知识网络连接</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-3 rounded-lg bg-secondary/5 border border-secondary/10 cursor-pointer hover:bg-secondary/10 transition-colors">
+                                            <div class="flex items-center gap-2">
+                                                <i class="fa fa-users text-secondary mt-0.5"></i>
+                                                <div>
+                                                    <p class="text-sm font-medium">分享给团队</p>
+                                                    <p class="text-xs text-muted">自动推送给相关团队成员</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-record" class="tab-panel">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-xl border border-line shadow-card p-4 transition-all duration-300 hover:shadow-soft">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 bg-danger/10 rounded-lg flex items-center justify-center">
+                                            <i class="fa fa-microphone text-danger"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-lg">会议录音与转写</p>
+                                            <p class="text-xs text-muted">实时转写与智能处理</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">AI增强</span>
+                                        <button id="record-settings" class="p-1.5 rounded-full hover:bg-mist transition-colors">
+                                            <i class="fa fa-cog text-muted"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-muted mb-4">支持最长2小时录音，实时转写与说话人分离</p>
+                                
+                                <div class="mb-4">
+                                    <div class="flex flex-col items-center justify-center gap-4 mb-3">
+                                        <div class="flex items-center justify-center gap-6">
+                                            <div class="w-16 h-16 rounded-full bg-danger text-white flex items-center justify-center text-2xl shadow-lg hover:bg-danger/90 transition-all duration-300">
+                                                <button id="record-toggle" class="w-full h-full rounded-full flex items-center justify-center">
+                                                    <i class="fa fa-microphone"></i>
+                                                </button>
+                                            </div>
+                                            <div class="text-center">
+                                                <span id="record-timer" class="text-2xl font-medium">00:00</span>
+                                                <p class="text-xs text-muted">录音时长</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-center gap-3 w-full">
+                                            <button id="record-pause" class="flex-1 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm flex items-center justify-center gap-1.5 opacity-50 cursor-not-allowed">
+                                                <i class="fa fa-pause"></i>
+                                                <span>暂停</span>
+                                            </button>
+                                            <button id="record-mark" class="flex-1 px-4 py-2 rounded-full bg-accent/10 text-accent text-sm flex items-center justify-center gap-1.5 opacity-50 cursor-not-allowed">
+                                                <i class="fa fa-flag"></i>
+                                                <span>标记关键</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-surface rounded-lg border border-line p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs">实时转写</span>
+                                            <span class="text-sm font-medium">会议内容</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-xs">
+                                            <span class="text-muted">说话人分离</span>
+                                            <i class="fa fa-check-circle text-success"></i>
+                                        </div>
+                                    </div>
+                                    <div id="transcript-display" class="text-sm min-h-[200px] space-y-3 overflow-y-auto scrollbar-hide">
+                                        <div class="flex items-start gap-2 p-2 rounded bg-white border border-line">
+                                            <span class="w-6 h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center mt-0.5">张</span>
+                                            <div class="flex-1">
+                                                <span class="font-medium">张三：</span>
+                                                <span>大家好，今天我们来讨论Q3的产品规划，主要关注用户增长和留存策略。</span>
+                                                <div class="text-xs text-muted mt-1">00:01:23</div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-2 p-2 rounded bg-white border border-line">
+                                            <span class="w-6 h-6 rounded-full bg-secondary text-white text-xs flex items-center justify-center mt-0.5">李</span>
+                                            <div class="flex-1">
+                                                <span class="font-medium">李四：</span>
+                                                <span>我认为我们需要重点优化注册流程，减少用户流失。</span>
+                                                <div class="text-xs text-muted mt-1">00:01:45</div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-2 p-2 rounded bg-white border border-line">
+                                            <span class="w-6 h-6 rounded-full bg-accent text-white text-xs flex items-center justify-center mt-0.5">王</span>
+                                            <div class="flex-1">
+                                                <span class="font-medium">王五：</span>
+                                                <span>同意，我们还应该增加用户引导和教育内容。</span>
+                                                <div class="text-xs text-muted mt-1">00:02:10</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 flex items-center justify-between text-xs">
+                                    <div class="flex items-center gap-2 text-muted">
+                                        <span>录音质量：<i class="fa fa-signal text-success"></i> 良好</span>
+                                        <span>说话人：已识别3人</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs">
+                                            <i class="fa fa-download mr-1"></i>下载
+                                        </button>
+                                        <button class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs">
+                                            <i class="fa fa-share mr-1"></i>分享
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="bg-white rounded-xl border border-line shadow-card p-4 transition-all duration-300 hover:shadow-soft">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 bg-secondary/10 rounded flex items-center justify-center">
+                                                <i class="fa fa-microphone text-secondary"></i>
+                                            </div>
+                                            <p class="font-medium text-sm">快速语音备忘</p>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2 max-h-[200px] overflow-y-auto scrollbar-hide">
+                                        <div class="p-3 rounded-lg bg-coral/30 border border-secondary/10 hover:shadow-sm cursor-pointer">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <span class="font-medium">下周一跟进供应商报价</span>
+                                                <span class="text-xs text-muted">30秒</span>
+                                            </div>
+                                            <p class="text-xs text-muted">今天 14:30 · 已转写</p>
+                                            <div class="mt-1 flex items-center gap-2 text-xs">
+                                                <span class="px-1.5 py-0.5 rounded-full bg-secondary/10 text-secondary">待办</span>
+                                                <span class="text-muted">已设置提醒</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3 rounded-lg bg-coral/30 border border-secondary/10 hover:shadow-sm cursor-pointer">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <span class="font-medium">提醒市场部整理竞品新闻</span>
+                                                <span class="text-xs text-muted">25秒</span>
+                                            </div>
+                                            <p class="text-xs text-muted">今天 13:15 · 已转写</p>
+                                            <div class="mt-1 flex items-center gap-2 text-xs">
+                                                <span class="px-1.5 py-0.5 rounded-full bg-secondary/10 text-secondary">任务</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button id="quick-voice-note" class="mt-3 w-full px-4 py-2 rounded-full bg-secondary text-white text-sm flex items-center justify-center gap-1.5">
+                                        <i class="fa fa-plus"></i>
+                                        <span>新建语音备忘</span>
+                                    </button>
+                                </div>
+                                
+                                <div class="bg-white rounded-xl border border-line shadow-card p-4 transition-all duration-300 hover:shadow-soft">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 bg-primary/10 rounded flex items-center justify-center">
+                                                <i class="fa fa-history text-primary"></i>
+                                            </div>
+                                            <p class="font-medium text-sm">录音历史</p>
+                                        </div>
+                                        <button class="text-xs text-secondary hover:text-primary">查看全部</button>
+                                    </div>
+                                    <div class="space-y-2 max-h-[150px] overflow-y-auto scrollbar-hide">
+                                        <div class="p-3 rounded-lg bg-ocean/30 border border-primary/10 hover:shadow-sm cursor-pointer">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <span class="text-sm font-medium">产品规划会议</span>
+                                                <span class="text-xs text-muted">45分钟</span>
+                                            </div>
+                                            <p class="text-xs text-muted">今天 10:30 · 已转写</p>
+                                            <div class="mt-1 flex items-center gap-2 text-xs">
+                                                <span class="px-1.5 py-0.5 rounded-full bg-primary/10 text-primary">已完成</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3 rounded-lg bg-ocean/30 border border-primary/10 hover:shadow-sm cursor-pointer">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <span class="text-sm font-medium">客户访谈 - 张总</span>
+                                                <span class="text-xs text-muted">32分钟</span>
+                                            </div>
+                                            <p class="text-xs text-muted">昨天 16:20 · 处理中</p>
+                                            <div class="mt-1 flex items-center gap-2 text-xs">
+                                                <span class="px-1.5 py-0.5 rounded-full bg-secondary/10 text-secondary">进行中</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-clip" class="tab-panel">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-xl border border-line shadow-card p-4 transition-all duration-300 hover:shadow-soft">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 bg-secondary/10 rounded-lg flex items-center justify-center">
+                                            <i class="fa fa-link text-secondary"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-lg">网页剪藏</p>
+                                            <p class="text-xs text-muted">智能内容解析与保存</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">AI增强</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-3">
+                                    <div class="relative">
+                                        <input id="clip-url" type="text" placeholder="粘贴链接或选择区域" class="w-full border border-line rounded-lg p-3 text-sm pl-10 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all shadow-sm">
+                                        <i class="fa fa-link absolute left-3 top-3 text-muted"></i>
+                                        <button id="paste-url" class="absolute right-3 top-2.5 text-xs text-primary hover:text-primary/80 transition-colors">
+                                            粘贴
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <button id="clip-full-page" class="p-3 rounded-lg bg-primary/10 text-primary text-sm flex flex-col items-center gap-1.5 hover:bg-primary/20 transition-all hover:shadow-sm">
+                                            <i class="fa fa-file-text-o text-lg"></i>
+                                            <span>保存整页</span>
+                                        </button>
+                                        <button id="clip-selection" class="p-3 rounded-lg bg-primary/10 text-primary text-sm flex flex-col items-center gap-1.5 hover:bg-primary/20 transition-all hover:shadow-sm">
+                                            <i class="fa fa-mouse-pointer text-lg"></i>
+                                            <span>选择区域</span>
+                                        </button>
+                                        <button id="clip-screenshot" class="p-3 rounded-lg bg-primary/10 text-primary text-sm flex flex-col items-center gap-1.5 hover:bg-primary/20 transition-all hover:shadow-sm">
+                                            <i class="fa fa-camera text-lg"></i>
+                                            <span>截图标注</span>
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="p-3 rounded-lg bg-surface border border-line">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <span class="text-sm font-medium">智能剪藏方式</span>
+                                            <span class="text-xs text-muted">AI推荐最佳方式</span>
+                                        </div>
+                                        <div class="flex flex-col gap-2">
+                                            <label class="flex items-center gap-2 text-sm cursor-pointer hover:bg-primary/5 p-2 rounded-lg transition-colors">
+                                                <input type="radio" name="clip-mode" value="read" checked class="rounded-full text-primary focus:ring-primary">
+                                                <div class="flex-1">
+                                                    <span class="font-medium">阅读模式</span>
+                                                    <p class="text-xs text-muted">去广告，专注阅读内容</p>
+                                                </div>
+                                            </label>
+                                            <label class="flex items-center gap-2 text-sm cursor-pointer hover:bg-primary/5 p-2 rounded-lg transition-colors">
+                                                <input type="radio" name="clip-mode" value="full" class="rounded-full text-primary focus:ring-primary">
+                                                <div class="flex-1">
+                                                    <span class="font-medium">完整页面</span>
+                                                    <p class="text-xs text-muted">保留完整格式和图片</p>
+                                                </div>
+                                            </label>
+                                            <label class="flex items-center gap-2 text-sm cursor-pointer hover:bg-primary/5 p-2 rounded-lg transition-colors">
+                                                <input type="radio" name="clip-mode" value="pdf" class="rounded-full text-primary focus:ring-primary">
+                                                <div class="flex-1">
+                                                    <span class="font-medium">PDF快照</span>
+                                                    <p class="text-xs text-muted">渲染为PDF，保留原始外观</p>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="p-3 rounded-lg bg-primary/5 border border-primary/10">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-lightbulb-o text-primary mt-0.5"></i>
+                                            <div>
+                                                <p class="text-sm font-medium">AI智能建议</p>
+                                                <p class="text-xs text-muted">已检测到页面类型：技术博客，推荐使用阅读模式</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between pt-2 border-t border-line">
+                                        <div class="flex items-center gap-2 text-xs">
+                                            <label class="flex items-center gap-1.5">
+                                                <input type="checkbox" id="clip-auto-tag" class="rounded border-line text-primary focus:ring-primary">
+                                                <span>自动分类与标签</span>
+                                            </label>
+                                            <label class="flex items-center gap-1.5">
+                                                <input type="checkbox" id="clip-extract-info" class="rounded border-line text-primary focus:ring-primary">
+                                                <span>智能提取关键信息</span>
+                                            </label>
+                                        </div>
+                                        <button id="save-clip" class="px-4 py-2 rounded-full bg-primary text-white text-sm hover:bg-primary/90 transition-all shadow-sm hover:shadow">
+                                            <i class="fa fa-save mr-1.5"></i>
+                                            <span>保存到队列</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="bg-white rounded-xl border border-line shadow-card p-4 transition-all duration-300 hover:shadow-soft">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 bg-primary/10 rounded flex items-center justify-center">
+                                                <i class="fa fa-book text-primary"></i>
+                                            </div>
+                                            <p class="font-medium text-sm">稍后阅读</p>
+                                        </div>
+                                        <button id="add-to-read-later" class="px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm flex items-center gap-1.5 hover:bg-primary/20 transition-all">
+                                            <i class="fa fa-plus"></i>
+                                            <span>添加</span>
+                                        </button>
+                                    </div>
+                                    <ul id="clip-list" class="space-y-3 max-h-[200px] overflow-y-auto scrollbar-hide">
+                                        <li class="p-3 rounded-lg bg-ocean/30 border border-primary/10 hover:shadow-sm cursor-pointer transition-all">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <span class="font-medium text-sm">竞品B发布会解读</span>
+                                                <span class="text-xs text-muted">10分钟前</span>
+                                            </div>
+                                            <p class="text-xs text-muted line-clamp-1">来源：technews.com</p>
+                                            <div class="mt-1 flex items-center gap-2 text-xs">
+                                                <span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary">阅读模式</span>
+                                                <button class="text-xs text-secondary hover:text-primary">编辑</button>
+                                            </div>
+                                        </li>
+                                        <li class="p-3 rounded-lg bg-ocean/30 border border-primary/10 hover:shadow-sm cursor-pointer transition-all">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <span class="font-medium text-sm">2024年市场趋势简报</span>
+                                                <span class="text-xs text-muted">25分钟前</span>
+                                            </div>
+                                            <p class="text-xs text-muted line-clamp-1">来源：marketreport.com</p>
+                                            <div class="mt-1 flex items-center gap-2 text-xs">
+                                                <span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary">PDF快照</span>
+                                                <button class="text-xs text-secondary hover:text-primary">编辑</button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-white rounded-xl border border-line shadow-card p-4 transition-all duration-300 hover:shadow-soft">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 bg-secondary/10 rounded flex items-center justify-center">
+                                                <i class="fa fa-pencil text-secondary"></i>
+                                            </div>
+                                            <p class="font-medium text-sm">划词速记</p>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2 max-h-[150px] overflow-y-auto scrollbar-hide">
+                                        <div class="p-3 rounded-lg bg-coral/30 border border-secondary/10 hover:shadow-sm cursor-pointer transition-all">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <span class="text-sm font-medium">AI驱动的知识管理</span>
+                                                <span class="text-xs text-muted">5分钟前</span>
+                                            </div>
+                                            <p class="text-xs text-muted line-clamp-1">来源：《智能企业白皮书》</p>
+                                            <div class="mt-1 flex items-center gap-2 text-xs">
+                                                <span class="px-2 py-0.5 rounded-full bg-secondary/10 text-secondary">已保存</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white rounded-xl border border-line shadow-card p-4 transition-all duration-300 hover:shadow-soft">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 bg-primary/10 rounded flex items-center justify-center">
+                                                <i class="fa fa-bar-chart text-primary"></i>
+                                            </div>
+                                            <p class="font-medium text-sm">剪藏统计</p>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div class="p-3 rounded-lg bg-primary/5 border border-primary/10">
+                                            <p class="text-2xl font-medium text-primary">24</p>
+                                            <p class="text-xs text-muted">本月剪藏</p>
+                                        </div>
+                                        <div class="p-3 rounded-lg bg-secondary/5 border border-secondary/10">
+                                            <p class="text-2xl font-medium text-secondary">86</p>
+                                            <p class="text-xs text-muted">待处理</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-queue" class="tab-panel">
+                        <div class="bg-white rounded-xl border border-line shadow-card p-4 transition-all duration-300 hover:shadow-soft">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                                        <i class="fa fa-tasks text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-lg">待处理队列</p>
+                                        <p class="text-xs text-muted">智能分类、批量处理</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="text-center">
+                                        <span class="text-2xl font-medium">12</span>
+                                        <p class="text-xs text-muted">总项数</p>
+                                    </div>
+                                    <div class="h-8 w-px bg-line"></div>
+                                    <button id="queue-refresh" class="p-2 rounded-full hover:bg-primary/5 transition-colors">
+                                        <i class="fa fa-refresh text-muted"></i>
+                                    </button>
+                                    <button id="queue-settings" class="p-2 rounded-full hover:bg-primary/5 transition-colors">
+                                        <i class="fa fa-cog text-muted"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                                <div class="flex items-center gap-2">
+                                    <select id="queue-filter" class="border border-line rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 shadow-sm">
+                                        <option>全部类型</option>
+                                        <option>速记</option>
+                                        <option>剪藏</option>
+                                        <option>录音</option>
+                                    </select>
+                                    <select id="queue-sort" class="border border-line rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 shadow-sm">
+                                        <option>按时间排序</option>
+                                        <option>按类型排序</option>
+                                        <option>按状态排序</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm text-muted">批量操作：</span>
+                                    <div class="space-x-1">
+                                        <button class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-sm hover:bg-primary/20 transition-colors shadow-sm">
+                                            <i class="fa fa-file-text-o mr-1"></i>
+                                            <span>合并</span>
+                                        </button>
+                                        <button class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-sm hover:bg-primary/20 transition-colors shadow-sm">
+                                            <i class="fa fa-share mr-1"></i>
+                                            <span>分享</span>
+                                        </button>
+                                        <button class="px-3 py-1.5 rounded-lg bg-danger/10 text-danger text-sm hover:bg-danger/20 transition-colors shadow-sm">
+                                            <i class="fa fa-trash mr-1"></i>
+                                            <span>删除</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-3 max-h-[500px] overflow-y-auto scrollbar-hide">
+                                <div class="p-4 rounded-lg border border-line bg-white shadow-sm hover:shadow-md transition-all">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" class="queue-item-checkbox rounded border-line text-primary focus:ring-primary mt-0.5">
+                                            <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                                                <i class="fa fa-file-audio-o text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium">产品规划会议录音</p>
+                                                <p class="text-xs text-muted">已录制45分钟，AI转写中</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="px-2 py-0.5 rounded-full bg-secondary/10 text-secondary text-xs">处理中</span>
+                                            <button class="p-2 rounded-full hover:bg-primary/5 transition-colors">
+                                                <i class="fa fa-ellipsis-h text-muted"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 grid grid-cols-2 gap-3 text-xs">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-clock-o text-muted"></i>
+                                            <span class="text-muted">45分钟前</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-user-o text-muted"></i>
+                                            <span class="text-muted">张三</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-tags text-muted"></i>
+                                            <span class="text-muted">会议、产品规划</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-check-circle text-success"></i>
+                                            <span class="text-success">已提取2个任务</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 pt-3 border-t border-line flex items-center justify-between">
+                                        <button class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-xs hover:bg-primary/20 transition-colors">
+                                            <i class="fa fa-file-text-o mr-1"></i>
+                                            <span>查看转写</span>
+                                        </button>
+                                        <button class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-xs hover:bg-primary/20 transition-colors">
+                                            <i class="fa fa-share mr-1"></i>
+                                            <span>分享</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-4 rounded-lg border border-line bg-white shadow-sm hover:shadow-md transition-all">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" class="queue-item-checkbox rounded border-line text-primary focus:ring-primary mt-0.5">
+                                            <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                                                <i class="fa fa-link text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium">竞品B发布会解读</p>
+                                                <p class="text-xs text-muted">网页剪藏，来源：technews.com</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="px-2 py-0.5 rounded-full bg-success/10 text-success text-xs">已入库</span>
+                                            <button class="p-2 rounded-full hover:bg-primary/5 transition-colors">
+                                                <i class="fa fa-ellipsis-h text-muted"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 grid grid-cols-2 gap-3 text-xs">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-clock-o text-muted"></i>
+                                            <span class="text-muted">1小时前</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-user-o text-muted"></i>
+                                            <span class="text-muted">张三</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-tags text-muted"></i>
+                                            <span class="text-muted">竞品分析、市场</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-check-circle text-success"></i>
+                                            <span class="text-success">已关联知识库</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 pt-3 border-t border-line flex items-center justify-between">
+                                        <button class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-xs hover:bg-primary/20 transition-colors">
+                                            <i class="fa fa-eye mr-1"></i>
+                                            <span>查看详情</span>
+                                        </button>
+                                        <button class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-xs hover:bg-primary/20 transition-colors">
+                                            <i class="fa fa-share mr-1"></i>
+                                            <span>分享</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-4 rounded-lg border border-line bg-white shadow-sm hover:shadow-md transition-all">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" class="queue-item-checkbox rounded border-line text-primary focus:ring-primary mt-0.5">
+                                            <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                                                <i class="fa fa-pencil text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium">客户访谈笔记</p>
+                                                <p class="text-xs text-muted">张总客户访谈要点</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="px-2 py-0.5 rounded-full bg-warning/10 text-warning text-xs">待确认</span>
+                                            <button class="p-2 rounded-full hover:bg-primary/5 transition-colors">
+                                                <i class="fa fa-ellipsis-h text-muted"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 grid grid-cols-2 gap-3 text-xs">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-clock-o text-muted"></i>
+                                            <span class="text-muted">2小时前</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-user-o text-muted"></i>
+                                            <span class="text-muted">张三</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-tags text-muted"></i>
+                                            <span class="text-muted">客户、访谈</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-check-circle text-success"></i>
+                                            <span class="text-success">AI已生成摘要</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 pt-3 border-t border-line flex items-center justify-between">
+                                        <button class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-xs hover:bg-primary/20 transition-colors">
+                                            <i class="fa fa-edit mr-1"></i>
+                                            <span>编辑</span>
+                                        </button>
+                                        <button class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-xs hover:bg-primary/20 transition-colors">
+                                            <i class="fa fa-share mr-1"></i>
+                                            <span>分享</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 pt-4 border-t border-line">
+                                <button id="load-more-queue" class="w-full py-2.5 rounded-lg bg-primary/5 border border-primary/20 text-primary text-sm hover:bg-primary/10 transition-colors">
+                                    <i class="fa fa-chevron-down mr-1"></i>
+                                    加载更多（12/24）
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-desktop" class="tab-panel">
+                        <div class="mb-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h2 class="text-xl font-medium">桌面工具</h2>
+                                    <p class="text-xs text-muted">提升桌面工作效率的实用工具</p>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="text-center">
+                                        <span class="text-2xl font-medium">3</span>
+                                        <p class="text-xs text-muted">可用工具</p>
+                                    </div>
+                                    <button class="p-2 rounded-full hover:bg-primary/5 transition-colors">
+                                        <i class="fa fa-refresh text-muted"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                            <div class="bg-white rounded-xl border border-line shadow-card p-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                                <div class="flex flex-col h-full">
+                                    <div class="flex items-start justify-between mb-4">
+                                        <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                                            <i class="fa fa-camera text-primary text-2xl"></i>
+                                        </div>
+                                        <span class="px-2 py-0.5 rounded-full bg-success/10 text-success text-xs">已安装</span>
+                                    </div>
+                                    <h3 class="font-medium mb-2">智能截图工具</h3>
+                                    <p class="text-sm text-muted mb-4">快速截取屏幕内容，支持AI识别、标注和一键分享</p>
+                                    
+                                    <div class="space-y-2 mb-4">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-check text-success"></i>
+                                            <span class="text-xs">屏幕区域自由截图</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-check text-success"></i>
+                                            <span class="text-xs">AI自动内容识别与标注</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-check text-success"></i>
+                                            <span class="text-xs">一键分享至知识库</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-auto">
+                                        <button id="start-screenshot" class="w-full px-4 py-2 rounded-lg bg-primary text-white text-sm hover:bg-primary-dark transition-colors shadow-sm">
+                                            <i class="fa fa-play mr-1"></i>
+                                            <span>启动截图</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl border border-line shadow-card p-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                                <div class="flex flex-col h-full">
+                                    <div class="flex items-start justify-between mb-4">
+                                        <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center">
+                                            <i class="fa fa-video-camera text-secondary text-2xl"></i>
+                                        </div>
+                                        <span class="px-2 py-0.5 rounded-full bg-success/10 text-success text-xs">已安装</span>
+                                    </div>
+                                    <h3 class="font-medium mb-2">录屏与标注工具</h3>
+                                    <p class="text-sm text-muted mb-4">支持实时标注与封面生成，提升视频内容创作效率</p>
+                                    
+                                    <div class="space-y-2 mb-4">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-check text-success"></i>
+                                            <span class="text-xs">实时标注功能</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-check text-success"></i>
+                                            <span class="text-xs">系统声音录制</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-check text-success"></i>
+                                            <span class="text-xs">AI视频摘要生成</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-auto">
+                                        <button id="start-screen-recording" class="w-full px-4 py-2 rounded-lg bg-secondary text-white text-sm hover:bg-secondary-dark transition-colors shadow-sm">
+                                            <i class="fa fa-play mr-1"></i>
+                                            <span>开始录屏</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl border border-line shadow-card p-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                                <div class="flex flex-col h-full">
+                                    <div class="flex items-start justify-between mb-4">
+                                        <div class="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
+                                            <i class="fa fa-clipboard text-accent text-2xl"></i>
+                                        </div>
+                                        <span class="px-2 py-0.5 rounded-full bg-success/10 text-success text-xs">已安装</span>
+                                    </div>
+                                    <h3 class="font-medium mb-2">剪贴板管理器</h3>
+                                    <p class="text-sm text-muted mb-4">统一管理历史剪贴内容，支持快速搜索和分类</p>
+                                    
+                                    <div class="space-y-2 mb-4">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-check text-success"></i>
+                                            <span class="text-xs">历史剪贴内容永久保存</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-check text-success"></i>
+                                            <span class="text-xs">按类型智能分类（文本、图片、链接）</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa fa-check text-success"></i>
+                                            <span class="text-xs">快速搜索和一键粘贴</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-auto">
+                                        <button id="view-clipboard-history" class="w-full px-4 py-2 rounded-lg bg-accent text-white text-sm hover:bg-accent-dark transition-colors shadow-sm">
+                                            <i class="fa fa-eye mr-1"></i>
+                                            <span>查看历史</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+

@@ -1,0 +1,1004 @@
+                <section id="knowledge" class="section-content hidden">
+                    <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 flex items-center font-display">
+                                <div class="w-8 h-8 mr-3">
+                                    <svg viewBox="0 0 24 24" class="text-secondary w-full h-full">
+                                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z" fill="currentColor"/>
+                                    </svg>
+                                </div>
+                                知识熔炉
+                            </h2>
+                            <p class="text-gray-500 mt-1">把复杂的数据接入、加工、质检与入图流程整合为可运营的生产线。</p>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-2">
+                            <button id="knowledgeNewPipeline" class="px-4 py-2 bg-secondary text-white rounded-lg text-sm font-medium hover:bg-secondary/90">
+                                <i class="fa fa-plus mr-1"></i> 新建流水线
+                            </button>
+                            <button id="knowledgeNewSource" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50">
+                                <i class="fa fa-plug mr-1"></i> 新增数据源
+                            </button>
+                            <button id="knowledgeRunSimulation" class="px-4 py-2 border border-secondary text-secondary rounded-lg text-sm font-medium hover:bg-secondary/10">
+                                <i class="fa fa-play mr-1"></i> 运行模拟
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg border border-gray-200 mb-6">
+                        <div class="flex flex-wrap gap-2 px-4 py-3 text-sm">
+                            <button class="knowledge-menu-item px-4 py-2 rounded-full bg-secondary text-white font-medium" data-target="knowledgeOverviewPanel">
+                                <i class="fa fa-th-large mr-2"></i>总览
+                            </button>
+                            <button class="knowledge-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="knowledgeAccessPanel">
+                                <i class="fa fa-plug mr-2"></i>接入管理
+                            </button>
+                            <button class="knowledge-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="knowledgeDataPanel">
+                                <i class="fa fa-table mr-2"></i>数据视图
+                            </button>
+                            <button class="knowledge-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="knowledgePipelinePanel">
+                                <i class="fa fa-random mr-2"></i>流水线设计
+                            </button>
+                            <button class="knowledge-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="knowledgeOutputPanel">
+                                <i class="fa fa-archive mr-2"></i>产物库
+                            </button>
+                            <button class="knowledge-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="knowledgeGraphPanel">
+                                <i class="fa fa-share-alt mr-2"></i>图谱联动
+                            </button>
+                            <button class="knowledge-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="knowledgeQualityPanel">
+                                <i class="fa fa-shield mr-2"></i>融合与质检
+                            </button>
+                            <button class="knowledge-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="knowledgeObservePanel">
+                                <i class="fa fa-eye mr-2"></i>可观测中心
+                            </button>
+                            <button class="knowledge-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="knowledgeScenarioPanel">
+                                <i class="fa fa-sitemap mr-2"></i>业务流程
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div id="knowledgeOverviewPanel" class="knowledge-page">
+                        <div class="knowledge-hero rounded-2xl p-5 mb-6 border border-amber-100">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                                <div>
+                                    <p class="text-xs font-semibold text-amber-700 uppercase tracking-wider">Pipeline-as-Code for Biz</p>
+                                    <h3 class="text-lg font-semibold text-gray-900 mt-2">可配置、可观测、可复用</h3>
+                                    <p class="text-sm text-gray-600 mt-1">原子化处理器自由组合，产出可直接注入图谱的知识原料。</p>
+                                </div>
+                                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-3">
+                                    <div class="bg-white/80 border border-amber-100 rounded-lg p-3">
+                                        <p class="text-xs text-gray-500">质量通过率</p>
+                                        <p class="text-2xl font-semibold text-gray-900 mt-2">96.8%</p>
+                                        <p class="text-xs text-gray-500">核心规则拦截 2.1%</p>
+                                    </div>
+                                    <div class="bg-white/80 border border-amber-100 rounded-lg p-3">
+                                        <p class="text-xs text-gray-500">平均处理耗时</p>
+                                        <p class="text-2xl font-semibold text-gray-900 mt-2">4.8s</p>
+                                        <p class="text-xs text-gray-500">P95 12.2s</p>
+                                    </div>
+                                    <div class="bg-white/80 border border-amber-100 rounded-lg p-3">
+                                        <p class="text-xs text-gray-500">可观测指标</p>
+                                        <p class="text-2xl font-semibold text-gray-900 mt-2">32</p>
+                                        <p class="text-xs text-gray-500">延迟 / 质量 / 采纳率</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                            <div class="card p-5 rounded-lg border-l-4 border-secondary bg-white">
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-500">活跃流水线</p>
+                                        <div class="flex items-baseline mt-1">
+                                            <span class="text-3xl font-bold text-gray-900 metric-value">18</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">模板复用 9 个</p>
+                                    </div>
+                                    <div class="w-10 h-10 bg-secondary-light rounded-lg flex items-center justify-center">
+                                        <i class="fa fa-random text-secondary text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card p-5 rounded-lg border-l-4 border-success bg-white">
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-500">连接器实例</p>
+                                        <div class="flex items-baseline mt-1">
+                                            <span class="text-3xl font-bold text-gray-900 metric-value">24</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">稳定率 99.2%</p>
+                                    </div>
+                                    <div class="w-10 h-10 bg-success-light rounded-lg flex items-center justify-center">
+                                        <i class="fa fa-plug text-success text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card p-5 rounded-lg border-l-4 border-warning bg-white">
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-500">今日处理量</p>
+                                        <div class="flex items-baseline mt-1">
+                                            <span class="text-3xl font-bold text-gray-900 metric-value">2.4M</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">流式占比 41%</p>
+                                    </div>
+                                    <div class="w-10 h-10 bg-warning-light rounded-lg flex items-center justify-center">
+                                        <i class="fa fa-line-chart text-warning text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card p-5 rounded-lg border-l-4 border-amber-500 bg-white">
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-500">质量待改进</p>
+                                        <div class="flex items-baseline mt-1">
+                                            <span class="text-3xl font-bold text-gray-900 metric-value">128</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">人工复审 12</p>
+                                    </div>
+                                    <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                                        <i class="fa fa-shield text-amber-500 text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                        <!-- 接入管理 -->
+                        <div id="knowledgeAccessPanel" class="knowledge-page hidden space-y-6">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-4">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900">接入管理</h3>
+                                    <p class="text-xs text-gray-500">配置连接器与数据源实例，定义同步策略与组织方式。</p>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">新增连接器</button>
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50">新增数据源</button>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">连接器仓库与市场</h3>
+                                        <button id="addCustomConnector" class="text-sm text-secondary hover:text-secondary/80 font-medium">添加自定义</button>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <div class="flex items-center justify-between">
+                                                <div>
+                                                    <p class="font-medium text-gray-900">Confluence 连接器</p>
+                                                    <p class="text-xs text-gray-500">版本 2.3.1</p>
+                                                </div>
+                                                <label class="inline-flex items-center">
+                                                    <input type="checkbox" class="connector-toggle w-4 h-4 text-secondary rounded border-gray-300" checked>
+                                                </label>
+                                            </div>
+                                            <div class="flex items-center justify-between mt-3 text-xs text-gray-500">
+                                                <span>支持页面 / 博客文章</span>
+                                                <button class="connector-action text-secondary">升级</button>
+                                            </div>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <div class="flex items-center justify-between">
+                                                <div>
+                                                    <p class="font-medium text-gray-900">会议系统连接器</p>
+                                                    <p class="text-xs text-gray-500">版本 1.9.4</p>
+                                                </div>
+                                                <label class="inline-flex items-center">
+                                                    <input type="checkbox" class="connector-toggle w-4 h-4 text-secondary rounded border-gray-300" checked>
+                                                </label>
+                                            </div>
+                                            <div class="flex items-center justify-between mt-3 text-xs text-gray-500">
+                                                <span>支持录音 / PPT</span>
+                                                <button class="connector-action text-secondary">回滚</button>
+                                            </div>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <div class="flex items-center justify-between">
+                                                <div>
+                                                    <p class="font-medium text-gray-900">Kafka 流式连接器</p>
+                                                    <p class="text-xs text-gray-500">版本 3.0.2</p>
+                                                </div>
+                                                <label class="inline-flex items-center">
+                                                    <input type="checkbox" class="connector-toggle w-4 h-4 text-secondary rounded border-gray-300">
+                                                </label>
+                                            </div>
+                                            <div class="flex items-center justify-between mt-3 text-xs text-gray-500">
+                                                <span>持续流式消费</span>
+                                                <button class="connector-action text-secondary">启用</button>
+                                            </div>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <div class="flex items-center justify-between">
+                                                <div>
+                                                    <p class="font-medium text-gray-900">GitLab 连接器</p>
+                                                    <p class="text-xs text-gray-500">版本 2.1.0</p>
+                                                </div>
+                                                <label class="inline-flex items-center">
+                                                    <input type="checkbox" class="connector-toggle w-4 h-4 text-secondary rounded border-gray-300" checked>
+                                                </label>
+                                            </div>
+                                            <div class="flex items-center justify-between mt-3 text-xs text-gray-500">
+                                                <span>支持 MR / Commit</span>
+                                                <button class="connector-action text-secondary">升级</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">数据源实例配置</h3>
+                                        <span class="text-xs text-gray-500">向导式配置</span>
+                                    </div>
+                                    <div class="space-y-3 text-sm">
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">选择连接器</label>
+                                            <select id="sourceConnectorSelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                <option>Confluence</option>
+                                                <option>会议系统</option>
+                                                <option>Kafka</option>
+                                                <option>GitLab</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">服务器地址</label>
+                                            <input id="sourceEndpointInput" type="text" class="w-full border border-gray-200 rounded px-2 py-2 text-xs" placeholder="https://api.company.com">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">API 密钥</label>
+                                            <input id="sourceTokenInput" type="password" class="w-full border border-gray-200 rounded px-2 py-2 text-xs" placeholder="••••••">
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-2">
+                                            <div>
+                                                <label class="block text-xs text-gray-500 mb-1">数据域</label>
+                                                <select id="sourceDomainSelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                    <option>产品研发</option>
+                                                    <option>客户服务</option>
+                                                    <option>供应链</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs text-gray-500 mb-1">安全等级</label>
+                                                <select id="sourceSecuritySelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                    <option>内部</option>
+                                                    <option>机密</option>
+                                                    <option>公开</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">处理粒度</label>
+                                            <select id="sourceGranularitySelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                <option>页面</option>
+                                                <option>博客文章</option>
+                                                <option>单场会议</option>
+                                                <option>合并请求</option>
+                                            </select>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <button id="testSourceConnection" class="px-3 py-2 text-xs bg-gray-100 rounded-lg hover:bg-gray-200">测试连接</button>
+                                            <button id="saveSourceConfig" class="px-3 py-2 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">保存实例</button>
+                                        </div>
+                                        <div id="sourceConfigStatus" class="text-xs text-gray-500">等待配置...</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">同步策略配置</h3>
+                                        <span class="text-xs text-gray-500">定时 / 事件 / 手动</span>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">触发模式</label>
+                                            <select id="syncTriggerSelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                <option>每日 02:00</option>
+                                                <option>事件驱动</option>
+                                                <option>手动触发</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">同步范围</label>
+                                            <select id="syncRangeSelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                <option>增量同步</option>
+                                                <option>全量同步</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">流式接入</label>
+                                            <label class="flex items-center gap-2 text-xs text-gray-600">
+                                                <input id="streamToggle" type="checkbox" class="w-4 h-4 text-secondary rounded border-gray-300">
+                                                持续消费
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between mt-4">
+                                        <div class="text-xs text-gray-500">同步日志：最近 24h 成功 128 次</div>
+                                        <button id="runSyncNow" class="px-3 py-2 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">立即同步</button>
+                                    </div>
+                                    <div id="syncLogList" class="mt-4 space-y-2 text-xs text-gray-600">
+                                        <div class="flex items-center justify-between bg-gray-50 rounded px-3 py-2">
+                                            <span>读取 3,421 条记录</span>
+                                            <span class="text-gray-400">成功 10:20</span>
+                                        </div>
+                                        <div class="flex items-center justify-between bg-gray-50 rounded px-3 py-2">
+                                            <span>读取 2,980 条记录</span>
+                                            <span class="text-gray-400">成功 08:20</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">知识组织维度</h3>
+                                        <span class="text-xs text-gray-500">入库结构</span>
+                                    </div>
+                                    <div class="space-y-3 text-xs text-gray-600">
+                                        <div class="flex flex-wrap gap-2">
+                                            <button class="knowledge-dimension px-2 py-1 rounded-full bg-amber-50 text-amber-700" data-dimension="业务域">业务域</button>
+                                            <button class="knowledge-dimension px-2 py-1 rounded-full bg-gray-100 text-gray-600" data-dimension="知识库">知识库</button>
+                                            <button class="knowledge-dimension px-2 py-1 rounded-full bg-gray-100 text-gray-600" data-dimension="项目">项目</button>
+                                            <button class="knowledge-dimension px-2 py-1 rounded-full bg-gray-100 text-gray-600" data-dimension="安全等级">安全等级</button>
+                                            <button class="knowledge-dimension px-2 py-1 rounded-full bg-gray-100 text-gray-600" data-dimension="生命周期">生命周期</button>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">默认组织树</label>
+                                            <select id="defaultKnowledgeTree" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                <option>产品研发 / 设计评审</option>
+                                                <option>客户服务 / FAQ库</option>
+                                                <option>供应链 / 风险管理</option>
+                                            </select>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span>继承组织上下文</span>
+                                            <input id="inheritKnowledgeContext" type="checkbox" class="w-4 h-4 text-secondary rounded border-gray-300" checked>
+                                        </div>
+                                        <button id="saveKnowledgeDimension" class="w-full px-3 py-2 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">保存组织方式</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 数据视图 -->
+                        <div id="knowledgeDataPanel" class="knowledge-page hidden space-y-6">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-4">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900">数据视图</h3>
+                                    <p class="text-xs text-gray-500">按类型、来源、状态快速浏览已接入的数据资产。</p>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">导出视图</button>
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50">刷新列表</button>
+                                </div>
+                            </div>
+                            <div class="card p-5 rounded-lg bg-white">
+                                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-4">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-900">数据分类视图</h3>
+                                        <p class="text-xs text-gray-500">按类型 / 来源 / 业务域 / 状态查看接入数据资产</p>
+                                    </div>
+                                    <div class="flex flex-wrap items-center gap-2 text-xs">
+                                        <select id="dataTypeFilter" class="border border-gray-200 rounded px-2 py-1">
+                                            <option value="全部">全部类型</option>
+                                            <option value="文档">文档</option>
+                                            <option value="FAQ">FAQ</option>
+                                            <option value="结构化">数据库</option>
+                                            <option value="多媒体">多媒体</option>
+                                        </select>
+                                        <select id="dataSourceFilter" class="border border-gray-200 rounded px-2 py-1">
+                                            <option value="全部">全部来源</option>
+                                            <option value="Confluence">Confluence</option>
+                                            <option value="会议系统">会议系统</option>
+                                            <option value="Kafka">Kafka</option>
+                                            <option value="GitLab">GitLab</option>
+                                        </select>
+                                        <select id="dataDomainFilter" class="border border-gray-200 rounded px-2 py-1">
+                                            <option value="全部">全部业务域</option>
+                                            <option value="产品研发">产品研发</option>
+                                            <option value="客户服务">客户服务</option>
+                                            <option value="供应链">供应链</option>
+                                        </select>
+                                        <select id="dataStatusFilter" class="border border-gray-200 rounded px-2 py-1">
+                                            <option value="全部">全部状态</option>
+                                            <option value="已接入">已接入</option>
+                                            <option value="处理中">处理中</option>
+                                            <option value="已质检">已质检</option>
+                                            <option value="已入库">已入库</option>
+                                        </select>
+                                        <input id="dataSearchInput" type="text" placeholder="搜索数据资产" class="border border-gray-200 rounded px-2 py-1">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                    <div class="lg:col-span-2">
+                                        <div class="overflow-x-auto">
+                                            <table class="min-w-full divide-y divide-gray-200 text-xs">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="px-4 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">资产名称</th>
+                                                        <th class="px-4 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">类型</th>
+                                                        <th class="px-4 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">来源</th>
+                                                        <th class="px-4 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="dataViewList" class="bg-white divide-y divide-gray-200"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="card p-4 rounded-lg bg-gray-50 border border-gray-200">
+                                        <h4 class="text-sm font-semibold text-gray-900">资产详情</h4>
+                                        <div id="dataDetailPanel" class="text-xs text-gray-600 mt-3 space-y-2">
+                                            <p>请选择左侧资产查看详细信息。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 流水线设计 -->
+                        <div id="knowledgePipelinePanel" class="knowledge-page hidden space-y-6">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-4">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900">流水线设计</h3>
+                                    <p class="text-xs text-gray-500">编排处理器与控制节点，形成可复用加工流水线。</p>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">新建模板</button>
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50">运行调试</button>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">处理器库</h3>
+                                        <span class="text-xs text-gray-500">原子化组件</span>
+                                    </div>
+                                    <div class="space-y-2 text-sm">
+                                        <button class="processor-item w-full px-3 py-2 text-left border border-gray-200 rounded-lg hover:bg-gray-50" data-processor="通用文本提取器">通用文本提取器</button>
+                                        <button class="processor-item w-full px-3 py-2 text-left border border-gray-200 rounded-lg hover:bg-gray-50" data-processor="音频转文本处理器">音频转文本处理器</button>
+                                        <button class="processor-item w-full px-3 py-2 text-left border border-gray-200 rounded-lg hover:bg-gray-50" data-processor="实体与关系抽取器">实体与关系抽取器</button>
+                                        <button class="processor-item w-full px-3 py-2 text-left border border-gray-200 rounded-lg hover:bg-gray-50" data-processor="自动摘要生成器">自动摘要生成器</button>
+                                        <button class="processor-item w-full px-3 py-2 text-left border border-gray-200 rounded-lg hover:bg-gray-50" data-processor="FAQ自动生成器">FAQ自动生成器</button>
+                                        <button class="processor-item w-full px-3 py-2 text-left border border-gray-200 rounded-lg hover:bg-gray-50" data-processor="多维度标签器">多维度标签器</button>
+                                        <button class="processor-item w-full px-3 py-2 text-left border border-gray-200 rounded-lg hover:bg-gray-50" data-processor="知识切片器">知识切片器</button>
+                                        <button class="processor-item w-full px-3 py-2 text-left border border-gray-200 rounded-lg hover:bg-gray-50" data-processor="向量化嵌入器">向量化嵌入器</button>
+                                        <div class="border-t border-gray-200 pt-3 text-xs text-gray-500">控制节点</div>
+                                        <button class="processor-item w-full px-3 py-2 text-left border border-gray-200 rounded-lg hover:bg-gray-50" data-processor="条件分支">条件分支</button>
+                                        <button class="processor-item w-full px-3 py-2 text-left border border-gray-200 rounded-lg hover:bg-gray-50" data-processor="并行处理">并行处理</button>
+                                    </div>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">流水线画布</h3>
+                                        <div class="flex items-center gap-2">
+                                            <button id="clearPipeline" class="px-3 py-2 text-xs bg-gray-100 rounded-lg hover:bg-gray-200">清空</button>
+                                            <button id="simulatePipeline" class="px-3 py-2 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">单步调试</button>
+                                            <button id="savePipelineTemplate" class="px-3 py-2 text-xs border border-secondary text-secondary rounded-lg hover:bg-secondary/10">保存模板</button>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex flex-wrap gap-2 text-xs text-gray-500">
+                                            <span class="px-2 py-1 bg-gray-100 rounded-full">上下文变量：docId</span>
+                                            <span class="px-2 py-1 bg-gray-100 rounded-full">上下文变量：speakerMap</span>
+                                            <span class="px-2 py-1 bg-gray-100 rounded-full">上下文变量：sourceType</span>
+                                        </div>
+                                        <div id="pipelineCanvas" class="border border-dashed border-gray-300 rounded-lg p-4 min-h-[160px] bg-gray-50 text-sm text-gray-600">
+                                            拖拽处理器到此处，构建流水线
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-gray-600">
+                                            <div class="bg-white border border-gray-200 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">处理器版本</p>
+                                                <select id="processorVersionSelect" class="mt-2 w-full border border-gray-200 rounded px-2 py-1 text-xs">
+                                                    <option>v1.2.0</option>
+                                                    <option>v1.3.0-beta</option>
+                                                </select>
+                                            </div>
+                                            <div class="bg-white border border-gray-200 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">A/B 测试</p>
+                                                <label class="mt-2 flex items-center gap-2">
+                                                    <input id="abTestToggle" type="checkbox" class="w-4 h-4 text-secondary rounded border-gray-300">
+                                                    启用实验组
+                                                </label>
+                                                <p class="text-xs text-gray-500 mt-2">对照组：默认模型</p>
+                                            </div>
+                                            <div class="bg-white border border-gray-200 rounded-lg p-3">
+                                                <p class="font-medium text-gray-900">流水线版本</p>
+                                                <button id="createPipelineVersion" class="mt-2 w-full px-3 py-2 text-xs bg-gray-100 rounded-lg hover:bg-gray-200">生成新版本</button>
+                                                <p id="pipelineVersionLabel" class="text-xs text-gray-500 mt-2">当前版本：v7.4</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">处理器配置与调试</h3>
+                                        <span class="text-xs text-gray-500">输入 / 输出可视</span>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">当前处理器</label>
+                                            <div id="activeProcessorLabel" class="text-sm font-medium text-gray-900">通用文本提取器</div>
+                                            <div class="mt-3 space-y-2 text-xs text-gray-600">
+                                                <label class="block">
+                                                    抽取格式
+                                                    <select id="textExtractorFormat" class="mt-1 w-full border border-gray-200 rounded px-2 py-1 text-xs">
+                                                        <option>PDF / Word / PPT</option>
+                                                        <option>HTML / 邮件</option>
+                                                    </select>
+                                                </label>
+                                                <label class="block">
+                                                    摘要长度
+                                                    <input id="summaryLengthInput" type="range" min="20" max="200" value="120" class="w-full">
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">样本数据输入</label>
+                                            <textarea id="sampleInput" rows="6" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">会议纪要：讨论方案C，决定由张工负责性能优化。PPT包含关键里程碑与风险项。</textarea>
+                                            <button id="runSampleDebug" class="mt-3 px-3 py-2 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">运行调试</button>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <label class="block text-xs text-gray-500 mb-1">结构化输出预览</label>
+                                        <pre id="pipelineOutput" class="text-xs bg-gray-50 border border-gray-200 rounded p-3 overflow-auto">{ "title": "设计评审会议", "entities": ["方案C", "张工"], "summary": "确定性能优化负责人" }</pre>
+                                    </div>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">加工维度矩阵</h3>
+                                        <span class="text-xs text-gray-500">按来源定制</span>
+                                    </div>
+                                    <div class="space-y-3 text-xs text-gray-600">
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <p class="font-medium text-gray-900">文档类</p>
+                                            <div class="flex flex-wrap gap-2 mt-2">
+                                                <button class="dimension-chip is-active" data-dimension="摘要">摘要</button>
+                                                <button class="dimension-chip is-active" data-dimension="FAQ">FAQ</button>
+                                                <button class="dimension-chip" data-dimension="标签">标签</button>
+                                                <button class="dimension-chip" data-dimension="知识点">知识点</button>
+                                                <button class="dimension-chip is-active" data-dimension="图谱抽取">图谱抽取</button>
+                                            </div>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <p class="font-medium text-gray-900">结构化数据</p>
+                                            <div class="flex flex-wrap gap-2 mt-2">
+                                                <button class="dimension-chip is-active" data-dimension="字段标准化">字段标准化</button>
+                                                <button class="dimension-chip" data-dimension="质量评分">质量评分</button>
+                                                <button class="dimension-chip" data-dimension="图谱映射">图谱映射</button>
+                                            </div>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <p class="font-medium text-gray-900">多媒体</p>
+                                            <div class="flex flex-wrap gap-2 mt-2">
+                                                <button class="dimension-chip is-active" data-dimension="转写">转写</button>
+                                                <button class="dimension-chip" data-dimension="摘要">摘要</button>
+                                                <button class="dimension-chip" data-dimension="情感">情感</button>
+                                            </div>
+                                        </div>
+                                        <button id="saveDimensionConfig" class="w-full px-3 py-2 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">保存维度配置</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 产物库 -->
+                        <div id="knowledgeOutputPanel" class="knowledge-page hidden space-y-6">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-4">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900">产物库</h3>
+                                    <p class="text-xs text-gray-500">查看加工结果与可复用的知识原料。</p>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">导出产物</button>
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50">批量回溯</button>
+                                </div>
+                            </div>
+                            <div class="card p-5 rounded-lg bg-white">
+                                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-4">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-900">加工产物库</h3>
+                                        <p class="text-xs text-gray-500">文档、FAQ、结构化记录与多媒体库统一查看</p>
+                                    </div>
+                                    <div class="flex flex-wrap items-center gap-2 text-xs">
+                                        <button class="output-tab px-3 py-1 rounded-full bg-secondary text-white" data-type="文档">文档</button>
+                                        <button class="output-tab px-3 py-1 rounded-full bg-gray-100 text-gray-700" data-type="FAQ">FAQ</button>
+                                        <button class="output-tab px-3 py-1 rounded-full bg-gray-100 text-gray-700" data-type="数据库">数据库</button>
+                                        <button class="output-tab px-3 py-1 rounded-full bg-gray-100 text-gray-700" data-type="多媒体">多媒体</button>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                    <div class="lg:col-span-2">
+                                        <div id="outputList" class="space-y-2 text-xs text-gray-600"></div>
+                                    </div>
+                                    <div class="card p-4 rounded-lg bg-gray-50 border border-gray-200">
+                                        <h4 class="text-sm font-semibold text-gray-900">产物详情</h4>
+                                        <div id="outputDetail" class="text-xs text-gray-600 mt-3 space-y-2">
+                                            <p>请选择左侧产物查看预览。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 图谱联动 -->
+                        <div id="knowledgeGraphPanel" class="knowledge-page hidden space-y-6">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-4">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900">图谱联动</h3>
+                                    <p class="text-xs text-gray-500">抽取实体关系并写入动态知识图谱。</p>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">入图预检</button>
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50">写入图谱</button>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">抽取结果与入图状态</h3>
+                                        <span class="text-xs text-gray-500">与动态知识图谱联动</span>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <p class="text-xs text-gray-500">实体抽取</p>
+                                            <div id="graphEntityList" class="mt-2 space-y-2 text-xs text-gray-600">
+                                                <div>实体：方案C · 置信度 0.89</div>
+                                                <div>实体：张工 · 置信度 0.86</div>
+                                                <div>实体：性能优化 · 置信度 0.83</div>
+                                            </div>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <p class="text-xs text-gray-500">关系抽取</p>
+                                            <div id="graphRelationList" class="mt-2 space-y-2 text-xs text-gray-600">
+                                                <div>张工 → 负责 → 性能优化</div>
+                                                <div>方案C → 依赖 → 性能优化</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 mt-4">
+                                        <button id="pushToGraph" class="px-3 py-2 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">写入图谱</button>
+                                        <button id="validateGraphContext" class="px-3 py-2 text-xs bg-gray-100 rounded-lg hover:bg-gray-200">上下文校验</button>
+                                    </div>
+                                    <div id="graphSyncStatus" class="mt-4 text-xs text-gray-600 bg-gray-50 rounded p-3">等待入图任务...</div>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">入图策略</h3>
+                                        <span class="text-xs text-gray-500">规则绑定</span>
+                                    </div>
+                                    <div class="space-y-3 text-xs text-gray-600">
+                                        <label class="flex items-center justify-between">
+                                            低置信度需复审
+                                            <input id="graphConfidenceGate" type="checkbox" class="w-4 h-4 text-secondary rounded border-gray-300" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between">
+                                            启用上下文继承
+                                            <input id="graphContextGate" type="checkbox" class="w-4 h-4 text-secondary rounded border-gray-300" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between">
+                                            关联版本快照
+                                            <input id="graphSnapshotGate" type="checkbox" class="w-4 h-4 text-secondary rounded border-gray-300">
+                                        </label>
+                                        <button id="saveGraphPolicy" class="w-full px-3 py-2 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">保存入图策略</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 融合与质检 -->
+                        <div id="knowledgeQualityPanel" class="knowledge-page hidden space-y-6">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-4">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900">融合与质检</h3>
+                                    <p class="text-xs text-gray-500">冲突解决、质量规则与结果分流。</p>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">执行质检</button>
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50">查看复审</button>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">实体融合与冲突解决</h3>
+                                        <span class="text-xs text-gray-500">可视化对比</span>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <p class="text-xs text-gray-500">融合规则</p>
+                                            <div class="mt-2 space-y-2 text-xs text-gray-600">
+                                                <label class="flex items-center gap-2"><input type="checkbox" class="fusion-rule" checked>官方文档优先</label>
+                                                <label class="flex items-center gap-2"><input type="checkbox" class="fusion-rule" checked>时间衰减策略</label>
+                                                <label class="flex items-center gap-2"><input type="checkbox" class="fusion-rule">投票策略</label>
+                                            </div>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <p class="text-xs text-gray-500">冲突对比</p>
+                                            <div class="mt-2 text-xs text-gray-600 space-y-2">
+                                                <div>来源A：方案C负责人=张工</div>
+                                                <div>来源B：方案C负责人=李工</div>
+                                            </div>
+                                            <div class="flex items-center gap-2 mt-3">
+                                                <button id="resolveByPriority" class="px-3 py-2 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">优先级融合</button>
+                                                <button id="sendToArbitration" class="px-3 py-2 text-xs bg-gray-100 rounded-lg hover:bg-gray-200">转人工</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="fusionResult" class="mt-4 text-xs text-emerald-700 bg-emerald-50 border border-emerald-100 rounded px-3 py-2">
+                                        融合结果：采用官方纪要描述，补充会议录音背景。
+                                    </div>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">质量规则库</h3>
+                                        <span class="text-xs text-gray-500">可复用</span>
+                                    </div>
+                                    <div class="space-y-3 text-xs text-gray-600">
+                                        <label class="flex items-center justify-between">
+                                            核心属性完整率
+                                            <input type="checkbox" class="quality-rule w-4 h-4 text-secondary rounded border-gray-300" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between">
+                                            规则一致性校验
+                                            <input type="checkbox" class="quality-rule w-4 h-4 text-secondary rounded border-gray-300" checked>
+                                        </label>
+                                        <label class="flex items-center justify-between">
+                                            格式规范正则
+                                            <input type="checkbox" class="quality-rule w-4 h-4 text-secondary rounded border-gray-300">
+                                        </label>
+                                        <div class="pt-2">
+                                            <label class="block text-xs text-gray-500 mb-1">拦截阈值</label>
+                                            <input id="qualityThreshold" type="range" min="60" max="100" value="85" class="w-full">
+                                        </div>
+                                        <button id="saveQualityRules" class="w-full px-3 py-2 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">保存规则</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">质检点与结果处理</h3>
+                                        <span class="text-xs text-gray-500">自动拦截 / 降级 / 复审</span>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <p class="text-xs text-gray-500">质检点</p>
+                                            <p class="text-sm font-medium text-gray-900 mt-2">流水线末端</p>
+                                            <p class="text-xs text-gray-500 mt-1">绑定规则：6 条</p>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <p class="text-xs text-gray-500">拦截</p>
+                                            <p class="text-sm font-medium text-gray-900 mt-2">2 条</p>
+                                            <p class="text-xs text-gray-500 mt-1">违反核心业务规则</p>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <p class="text-xs text-gray-500">降级</p>
+                                            <p class="text-sm font-medium text-gray-900 mt-2">7 条</p>
+                                            <p class="text-xs text-gray-500 mt-1">标记“质量待改进”</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 mt-4">
+                                        <button id="runQualityCheck" class="px-3 py-2 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">执行质检</button>
+                                        <button id="openReviewQueue" class="px-3 py-2 text-xs bg-gray-100 rounded-lg hover:bg-gray-200">查看复审队列</button>
+                                    </div>
+                                    <div id="qualityResultSummary" class="mt-4 text-xs text-gray-600 bg-gray-50 rounded p-3">
+                                        最近结果：通过率 96.8%，拦截 2，降级 7，复审 3。
+                                    </div>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">分流结果</h3>
+                                        <span class="text-xs text-gray-500">入库 / 降级 / 复审</span>
+                                    </div>
+                                    <div id="qualityDispatchList" class="space-y-2 text-xs text-gray-600">
+                                        <div class="flex items-center justify-between bg-gray-50 rounded px-3 py-2">
+                                            <span>入库：设计评审会议摘要</span>
+                                            <span class="text-emerald-600">入库</span>
+                                        </div>
+                                        <div class="flex items-center justify-between bg-gray-50 rounded px-3 py-2">
+                                            <span>降级：FAQ草稿 21</span>
+                                            <span class="text-amber-600">降级</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 border-t border-gray-200 pt-3">
+                                        <p class="text-xs text-gray-500 mb-2">复审队列</p>
+                                        <div id="reviewQueue" class="space-y-2 text-xs text-gray-600">
+                                            <div class="flex items-center justify-between bg-gray-50 rounded px-3 py-2">
+                                                <span>会议纪要缺少负责人</span>
+                                                <button class="text-secondary">复审</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button id="resolveReviewItem" class="mt-4 w-full px-3 py-2 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">完成复审</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 可观测中心 -->
+                        <div id="knowledgeObservePanel" class="knowledge-page hidden space-y-6">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-4">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900">可观测中心</h3>
+                                    <p class="text-xs text-gray-500">全链路指标与同步日志追踪。</p>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">导出日志</button>
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50">刷新监控</button>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">连接健康仪表盘</h3>
+                                        <span class="text-xs text-gray-500">全链路可观测</span>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <p class="text-xs text-gray-500">正常</p>
+                                            <p class="text-lg font-semibold text-gray-900 mt-2">21</p>
+                                            <p class="text-xs text-gray-500 mt-1">最近同步 3 分钟前</p>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <p class="text-xs text-gray-500">告警</p>
+                                            <p class="text-lg font-semibold text-gray-900 mt-2">2</p>
+                                            <p class="text-xs text-gray-500 mt-1">连续无新数据</p>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg p-3">
+                                            <p class="text-xs text-gray-500">失败</p>
+                                            <p class="text-lg font-semibold text-gray-900 mt-2">1</p>
+                                            <p class="text-xs text-gray-500 mt-1">连接超时</p>
+                                        </div>
+                                    </div>
+                                    <div class="chart-container h-48 mt-4">
+                                        <canvas id="dataProcessingChart"></canvas>
+                                    </div>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">质量监控报告</h3>
+                                        <span class="text-xs text-gray-500">趋势</span>
+                                    </div>
+                                    <div class="chart-container h-40">
+                                        <canvas id="knowledgeQualityChart"></canvas>
+                                    </div>
+                                    <div class="text-xs text-gray-500 mt-3">主要问题：缺失负责人、格式不规范。</div>
+                                    <button id="traceQualityIssue" class="mt-3 w-full px-3 py-2 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">质量溯源</button>
+                                </div>
+                            </div>
+
+                            <div class="card p-5 rounded-lg bg-white">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-gray-900">同步日志与审计</h3>
+                                    <button id="exportSyncLog" class="text-sm text-secondary hover:text-secondary/80 font-medium">导出日志</button>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full divide-y divide-gray-200">
+                                        <thead>
+                                            <tr>
+                                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">时间</th>
+                                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">数据源</th>
+                                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">读取量</th>
+                                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                                <th class="px-6 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">详情</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="bg-white divide-y divide-gray-200">
+                                            <tr>
+                                                <td class="px-6 py-4 text-sm text-gray-600">10:20</td>
+                                                <td class="px-6 py-4 text-sm text-gray-600">Confluence</td>
+                                                <td class="px-6 py-4 text-sm text-gray-600">3,421</td>
+                                                <td class="px-6 py-4 text-sm text-emerald-600">成功</td>
+                                                <td class="px-6 py-4 text-right text-sm">
+                                                    <button class="text-secondary">查看</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-6 py-4 text-sm text-gray-600">09:10</td>
+                                                <td class="px-6 py-4 text-sm text-gray-600">会议系统</td>
+                                                <td class="px-6 py-4 text-sm text-gray-600">28</td>
+                                                <td class="px-6 py-4 text-sm text-amber-600">告警</td>
+                                                <td class="px-6 py-4 text-right text-sm">
+                                                    <button class="text-secondary">查看</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 业务流程 -->
+                        <div id="knowledgeScenarioPanel" class="knowledge-page hidden space-y-6">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-4">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900">业务流程</h3>
+                                    <p class="text-xs text-gray-500">展示典型自动化加工流程示例。</p>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">运行流程</button>
+                                    <button class="knowledge-page-action px-3 py-1.5 text-xs border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50">生成报告</button>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">设计评审会议处理</h3>
+                                        <span class="text-xs text-gray-500">自动流程</span>
+                                    </div>
+                                    <div id="knowledgeScenarioSteps" class="space-y-3 text-sm">
+                                        <div class="knowledge-step border border-amber-200 rounded-lg p-3 bg-amber-50" data-step="1">
+                                            <p class="font-medium text-gray-900">1. 多源接入</p>
+                                            <p class="text-xs text-gray-500">会议元数据、录音、PPT、纪要</p>
+                                        </div>
+                                        <div class="knowledge-step border border-gray-200 rounded-lg p-3" data-step="2">
+                                            <p class="font-medium text-gray-900">2. 触发加工流水线</p>
+                                            <p class="text-xs text-gray-500">音频转文本、实体抽取、摘要</p>
+                                        </div>
+                                        <div class="knowledge-step border border-gray-200 rounded-lg p-3" data-step="3">
+                                            <p class="font-medium text-gray-900">3. 融合与质检</p>
+                                            <p class="text-xs text-gray-500">融合决策 + 负责人校验</p>
+                                        </div>
+                                        <div class="knowledge-step border border-gray-200 rounded-lg p-3" data-step="4">
+                                            <p class="font-medium text-gray-900">4. 产出知识原料</p>
+                                            <p class="text-xs text-gray-500">生成决策片段并注入图谱</p>
+                                        </div>
+                                    </div>
+                                    <button id="runKnowledgeScenario" class="mt-4 w-full px-3 py-2 text-xs bg-secondary text-white rounded-lg hover:bg-secondary/90">运行流程</button>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">步骤详情与产出</h3>
+                                        <span class="text-xs text-gray-500">可解释</span>
+                                    </div>
+                                    <div id="knowledgeScenarioDetail" class="text-sm text-gray-600 bg-gray-50 rounded-lg p-4">
+                                        当前选中：多源接入。自动抓取会议元数据、录音文件、PPT 与纪要文档。
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-xs text-gray-600">
+                                        <div class="bg-white border border-gray-200 rounded-lg p-3">
+                                            <p class="font-medium text-gray-900">抽取实体</p>
+                                            <p>功能模块 12 个</p>
+                                        </div>
+                                        <div class="bg-white border border-gray-200 rounded-lg p-3">
+                                            <p class="font-medium text-gray-900">决策片段</p>
+                                            <p>切片 8 条</p>
+                                        </div>
+                                        <div class="bg-white border border-gray-200 rounded-lg p-3">
+                                            <p class="font-medium text-gray-900">向量化</p>
+                                            <p>嵌入 8 组</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 border-t border-gray-200 pt-4">
+                                        <h4 class="text-sm font-medium text-gray-900 mb-2">产出列表</h4>
+                                        <div id="knowledgeScenarioOutput" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-gray-600">
+                                            <div class="bg-gray-50 rounded p-3">决策片段：采用方案C</div>
+                                            <div class="bg-gray-50 rounded p-3">决策片段：风险项与里程碑</div>
+                                            <div class="bg-gray-50 rounded p-3">实体关系：张工 → 负责 → 性能优化</div>
+                                            <div class="bg-gray-50 rounded p-3">摘要：会议关键结论</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </section>
+                <!-- 动态知识图谱 -->

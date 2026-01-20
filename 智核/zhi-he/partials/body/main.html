@@ -1,0 +1,63 @@
+    <main class="relative flex-1 flex overflow-auto">
+        <aside class="w-64 border-r border-line glass px-3 py-4 flex flex-col gap-4">
+
+            <nav class="flex-1 space-y-4 overflow-y-auto scrollbar-hide">
+                <div class="px-3">
+                    <p class="text-xs text-muted uppercase tracking-wider">核心功能</p>
+                </div>
+                <div class="space-y-2">
+                    <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium bg-primary/10 text-primary" data-page="workbench" onclick="showPage('workbench');">
+                        <i class="fa fa-dashboard w-5 h-5 mr-3 text-primary"></i>智能工作台
+                    </button>
+                    <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm text-muted hover:bg-white/70" data-page="knowledge" onclick="showPage('knowledge');">
+                        <i class="fa fa-database w-5 h-5 mr-3 text-gray-500"></i>智能知识库
+                    </button>
+                    <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm text-muted hover:bg-white/70" data-page="capture" onclick="showPage('capture');">
+                        <i class="fa fa-lightbulb-o w-5 h-5 mr-3 text-gray-500"></i>轻量生产工具
+                    </button>
+                    <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm text-muted hover:bg-white/70" data-page="context" onclick="showPage('context');">
+                        <i class="fa fa-sitemap w-5 h-5 mr-3 text-gray-500"></i>情境知识面板
+                    </button>
+                </div>
+                
+                <div class="px-3">
+                    <p class="text-xs text-muted uppercase tracking-wider">协作与市场</p>
+                </div>
+                <div class="space-y-2">
+                    <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm text-muted hover:bg-white/70" data-page="team" onclick="showPage('team');">
+                        <i class="fa fa-users w-5 h-5 mr-3 text-gray-500"></i>团队空间
+                    </button>
+                    <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm text-muted hover:bg-white/70" data-page="agent" onclick="showPage('agent');">
+                        <i class="fa fa-android w-5 h-5 mr-3 text-gray-500"></i>智能体市场
+                    </button>
+                    <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm text-muted hover:bg-white/70" data-page="collab" onclick="showPage('collab');">
+                        <i class="fa fa-gavel w-5 h-5 mr-3 text-gray-500"></i>协作与质量
+                    </button>
+                </div>
+                
+                <div class="px-3">
+                    <p class="text-xs text-muted uppercase tracking-wider">个人设置</p>
+                </div>
+                <div class="space-y-2">
+                    <button class="nav-btn w-full flex items-center px-4 py-3 rounded-xl text-sm text-muted hover:bg-white/70" data-page="settings" onclick="showPage('settings');">
+                        <i class="fa fa-cog w-5 h-5 mr-3 text-gray-500"></i>个人与设置
+                    </button>
+                </div>
+            </nav>
+            <div class="px-4 py-3 rounded-xl bg-ocean text-sm">
+                <p class="font-medium">智核提示</p>
+                <p class="text-xs text-muted mt-1">所有智能能力均来自「灵枢」。服务异常时自动降级为关键词检索。</p>
+            </div>
+        </aside>
+
+        <section class="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+            <!-- @include ../pages/page-workbench.html -->
+            <!-- @include ../pages/page-knowledge.html -->
+            <!-- @include ../pages/page-capture.html -->
+            <!-- @include ../pages/page-context.html -->
+            <!-- @include ../pages/page-team.html -->
+            <!-- @include ../pages/page-agent.html -->
+            <!-- @include ../pages/page-collab.html -->
+            <!-- @include ../pages/page-settings.html -->
+        </section>
+    </main>

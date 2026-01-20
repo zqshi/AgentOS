@@ -1,0 +1,192 @@
+                <section id="logs" class="section-content hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+                                <div class="w-8 h-8 mr-3">
+                                    <svg viewBox="0 0 24 24" class="text-neutral w-full h-full">
+                                        <path d="M14,17H7V15H14V17M17,13H7V11H17V13M17,9H7V7H17V9M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z" fill="currentColor"/>
+                                    </svg>
+                                </div>
+                                日志管理
+                            </h2>
+                            <p class="text-gray-500 mt-1">查看和分析系统日志</p>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3">
+                            <button class="px-4 py-2 bg-neutral text-white rounded-lg text-sm font-medium hover:bg-neutral/90">
+                                <i class="fa fa-download mr-1"></i> 导出日志
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 日志统计 -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                        <div class="card p-5 rounded-lg border-l-4 border-primary bg-white">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500">今日日志</p>
+                                    <div class="flex items-baseline mt-1">
+                                        <span class="text-3xl font-bold text-gray-900 metric-value">1,247</span>
+                                    </div>
+                                </div>
+                                <div class="w-10 h-10 bg-primary-light rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-file-text text-primary text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-5 rounded-lg border-l-4 border-success bg-white">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500">信息日志</p>
+                                    <div class="flex items-baseline mt-1">
+                                        <span class="text-3xl font-bold text-gray-900 metric-value">865</span>
+                                    </div>
+                                </div>
+                                <div class="w-10 h-10 bg-success-light rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-info-circle text-success text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-5 rounded-lg border-l-4 border-warning bg-white">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500">警告日志</p>
+                                    <div class="flex items-baseline mt-1">
+                                        <span class="text-3xl font-bold text-gray-900 metric-value">234</span>
+                                    </div>
+                                </div>
+                                <div class="w-10 h-10 bg-warning-light rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-exclamation-triangle text-warning text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-5 rounded-lg border-l-4 border-danger bg-white">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500">错误日志</p>
+                                    <div class="flex items-baseline mt-1">
+                                        <span class="text-3xl font-bold text-gray-900 metric-value">48</span>
+                                    </div>
+                                </div>
+                                <div class="w-10 h-10 bg-danger-light rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-exclamation-circle text-danger text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 日志搜索和筛选 -->
+                    <div class="card p-5 rounded-lg bg-white mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">日期范围</label>
+                                <input type="date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-neutral focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">日志级别</label>
+                                <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-neutral focus:border-transparent">
+                                    <option>全部</option>
+                                    <option>信息</option>
+                                    <option>警告</option>
+                                    <option>错误</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">模块</label>
+                                <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-neutral focus:border-transparent">
+                                    <option>全部</option>
+                                    <option>本体论工厂</option>
+                                    <option>知识熔炉</option>
+                                    <option>智能体工厂</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">搜索</label>
+                                <div class="relative">
+                                    <input type="text" placeholder="搜索日志..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-neutral focus:border-transparent">
+                                    <i class="fa fa-search absolute left-3 top-3 text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 日志列表 -->
+                    <div class="card p-5 rounded-lg bg-white">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-900">日志记录</h3>
+                            <div class="flex items-center space-x-2">
+                                <button class="px-3 py-1 text-xs font-medium bg-neutral text-white rounded-lg">最新</button>
+                                <button class="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"> oldest</button>
+                            </div>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead>
+                                    <tr>
+                                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">时间</th>
+                                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">级别</th>
+                                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">模块</th>
+                                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">消息</th>
+                                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">用户</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-07-15 14:32:15</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 text-xs font-medium bg-success-light text-success rounded-full">信息</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">CRM数据同步</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500">成功同步2,458条客户记录</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">系统</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-07-15 14:15:32</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 text-xs font-medium bg-warning-light text-warning rounded-full">警告</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">供应链优化师</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500">API调用超时，正在重试</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">李工程师</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-07-15 13:45:21</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 text-xs font-medium bg-danger-light text-danger rounded-full">错误</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">供应商数据导入</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500">文件格式错误，导入失败</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">王总监</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-07-15 13:30:10</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 text-xs font-medium bg-success-light text-success rounded-full">信息</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">用户管理</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500">张经理登录系统</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">系统</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="mt-4 flex items-center justify-between">
+                            <div class="text-sm text-gray-500">
+                                显示 1 - 4 条，共 1,247 条
+                            </div>
+                            <div class="flex space-x-1">
+                                <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm text-gray-500 hover:bg-gray-50 disabled:opacity-50" disabled>上一页</button>
+                                <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm bg-neutral text-white">1</button>
+                                <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">2</button>
+                                <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">3</button>
+                                <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">下一页</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>

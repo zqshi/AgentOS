@@ -1,0 +1,832 @@
+                <section id="graph" class="section-content hidden">
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 flex items-center font-display">
+                                <div class="w-8 h-8 mr-3">
+                                    <svg viewBox="0 0 24 24" class="text-success w-full h-full">
+                                        <path d="M16,11.78L20.24,4.45L21.97,5.45L16.74,14.5L10.23,10.75L5.46,19H22V21H2V3H4V17.54L9.5,8L16,11.78Z" fill="currentColor"/>
+                                    </svg>
+                                </div>
+                                动态知识图谱
+                            </h2>
+                            <p class="text-gray-500 mt-1">对象化知识、关系为一等公民、上下文感知与全程可追溯</p>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-2">
+                            <button id="graphExploreButton" class="px-4 py-2 bg-success text-white rounded-lg text-sm font-medium hover:bg-success/90">
+                                <i class="fa fa-search-plus mr-1"></i> 探索
+                            </button>
+                            <button id="graphCreateObjectButton" class="px-4 py-2 border border-success text-success rounded-lg text-sm font-medium hover:bg-success/10">
+                                <i class="fa fa-plus mr-1"></i> 新建对象
+                            </button>
+                            <button id="graphCreateSnapshotButton" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50">
+                                <i class="fa fa-camera mr-1"></i> 创建快照
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="graph-hero rounded-2xl p-5 mb-6 border border-emerald-100">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                            <div>
+                                <p class="text-xs font-semibold text-emerald-700 uppercase tracking-wider">生效上下文</p>
+                                <h3 class="text-lg font-semibold text-gray-900 mt-2">统一上下文化查询入口</h3>
+                                <p class="text-sm text-gray-600 mt-1">时间、组织与业务域共同决定知识生效范围。</p>
+                            </div>
+                            <div class="lg:col-span-2">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div class="graph-context-panel bg-white/90 border border-emerald-100 rounded-lg p-3">
+                                        <label class="block text-xs text-gray-500 mb-2">时间上下文</label>
+                                        <div class="flex flex-wrap items-center gap-2">
+                                            <input id="contextStartDate" type="date" class="graph-context-date w-full text-sm border border-gray-200 rounded px-2" value="2023-01-01">
+                                            <span class="text-xs text-gray-400">至</span>
+                                            <input id="contextEndDate" type="date" class="graph-context-date w-full text-sm border border-gray-200 rounded px-2" value="2023-12-31">
+                                        </div>
+                                    </div>
+                                    <div class="graph-context-panel bg-white/90 border border-emerald-100 rounded-lg p-3">
+                                        <label class="block text-xs text-gray-500 mb-2">组织与业务上下文</label>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                            <div>
+                                                <div class="text-[11px] text-gray-400 mb-1">组织</div>
+                                                <select id="contextOrgSelect" class="w-full text-sm border border-gray-200 rounded px-2 py-1">
+                                                    <option>欧洲分公司</option>
+                                                    <option>亚太事业群</option>
+                                                    <option>北美事业群</option>
+                                                    <option>集团总部</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <div class="text-[11px] text-gray-400 mb-1">业务</div>
+                                                <select id="contextBizSelect" class="w-full text-sm border border-gray-200 rounded px-2 py-1">
+                                                    <option>数据跨境合规</option>
+                                                    <option>客户风险管理</option>
+                                                    <option>供应链协同</option>
+                                                    <option>市场扩展</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap items-center justify-between gap-3 mt-3">
+                                    <div class="flex items-center gap-3 text-xs text-gray-600">
+                                        <label class="flex items-center gap-2">
+                                            <input id="contextInheritToggle" type="checkbox" class="w-4 h-4 text-emerald-600 rounded border-gray-300">
+                                            继承父对象上下文
+                                        </label>
+                                        <label class="flex items-center gap-2">
+                                            <input id="contextIntersectToggle" type="checkbox" class="w-4 h-4 text-emerald-600 rounded border-gray-300" checked>
+                                            使用交集逻辑
+                                        </label>
+                                    </div>
+                                    <button id="applyGraphContext" class="px-3 py-2 bg-emerald-600 text-white rounded-lg text-xs font-medium hover:bg-emerald-500">
+                                        应用上下文
+                                    </button>
+                                </div>
+                                <div id="contextSummary" class="text-xs text-emerald-700 mt-2">
+                                    当前上下文：欧洲分公司 · 2023-01-01 至 2023-12-31 · 数据跨境合规
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                        <div class="card p-5 rounded-lg border-l-4 border-success bg-white">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500">知识对象总量</p>
+                                    <div class="flex items-baseline mt-1">
+                                        <span class="text-3xl font-bold text-gray-900 metric-value">158K</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">可追溯版本 4.7M</p>
+                                </div>
+                                <div class="w-10 h-10 bg-success-light rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-dot-circle-o text-success text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-5 rounded-lg border-l-4 border-primary bg-white">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500">关系网络密度</p>
+                                    <div class="flex items-baseline mt-1">
+                                        <span class="text-3xl font-bold text-gray-900 metric-value">324K</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">平均 4.6 跳</p>
+                                </div>
+                                <div class="w-10 h-10 bg-primary-light rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-share-alt text-primary text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-5 rounded-lg border-l-4 border-warning bg-white">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500">活跃查询</p>
+                                    <div class="flex items-baseline mt-1">
+                                        <span class="text-3xl font-bold text-gray-900 metric-value">12.5K</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">融合检索 + 推理</p>
+                                </div>
+                                <div class="w-10 h-10 bg-warning-light rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-search text-warning text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card p-5 rounded-lg border-l-4 border-secondary bg-white">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500">有效知识覆盖</p>
+                                    <div class="flex items-baseline mt-1">
+                                        <span class="text-3xl font-bold text-gray-900 metric-value">91%</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">已生效对象占比</p>
+                                </div>
+                                <div class="w-10 h-10 bg-secondary-light rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-check-circle text-secondary text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                        <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                                <h3 class="text-lg font-semibold text-gray-900">知识图谱实时视图</h3>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <select id="graphFilterSelect" class="text-xs border border-gray-200 rounded px-2 py-1">
+                                        <option value="全部">全部节点</option>
+                                        <option value="客户">客户</option>
+                                        <option value="政策">政策</option>
+                                        <option value="流程">流程</option>
+                                        <option value="合同">合同</option>
+                                    </select>
+                                    <input id="graphSearchInput" type="text" placeholder="搜索节点..." class="text-xs border border-gray-200 rounded px-2 py-1">
+                                    <button id="graphReloadButton" class="p-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100">
+                                        <i class="fa fa-refresh"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="graph-surface border border-gray-200 rounded-lg h-80 relative overflow-hidden">
+                                <svg id="graphExplorerSvg" viewBox="0 0 600 300" class="w-full h-full">
+                                    <line class="graph-edge" x1="120" y1="60" x2="260" y2="120"></line>
+                                    <line class="graph-edge" x1="260" y1="120" x2="420" y2="90"></line>
+                                    <line class="graph-edge" x1="260" y1="120" x2="320" y2="220"></line>
+                                    <line class="graph-edge" x1="120" y1="60" x2="200" y2="220"></line>
+                                    <line class="graph-edge" x1="320" y1="220" x2="470" y2="220"></line>
+                                    <circle class="graph-node" data-node-id="CUST-0192" data-type="客户" cx="120" cy="60" r="18"></circle>
+                                    <circle class="graph-node" data-node-id="POL-2023-17" data-type="政策" cx="260" cy="120" r="20"></circle>
+                                    <circle class="graph-node" data-node-id="FLOW-88" data-type="流程" cx="420" cy="90" r="16"></circle>
+                                    <circle class="graph-node" data-node-id="CON-554" data-type="合同" cx="320" cy="220" r="18"></circle>
+                                    <circle class="graph-node" data-node-id="TRN-901" data-type="培训" cx="200" cy="220" r="14"></circle>
+                                    <circle class="graph-node" data-node-id="RISK-302" data-type="风险" cx="470" cy="220" r="16"></circle>
+                                    <text x="90" y="45" class="graph-label">客户</text>
+                                    <text x="235" y="105" class="graph-label">政策</text>
+                                    <text x="400" y="75" class="graph-label">流程</text>
+                                    <text x="300" y="255" class="graph-label">合同</text>
+                                    <text x="175" y="255" class="graph-label">培训</text>
+                                    <text x="450" y="255" class="graph-label">风险</text>
+                                </svg>
+                                <div class="absolute bottom-3 left-3 text-xs text-gray-500 bg-white/80 px-2 py-1 rounded">
+                                    点击节点查看完整谱系、状态与上下文
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600 mt-3">
+                                <span class="flex items-center gap-1"><span class="w-2 h-2 bg-emerald-500 rounded-full"></span>已生效</span>
+                                <span class="flex items-center gap-1"><span class="w-2 h-2 bg-amber-500 rounded-full"></span>审核中</span>
+                                <span class="flex items-center gap-1"><span class="w-2 h-2 bg-slate-400 rounded-full"></span>已归档</span>
+                                <span class="text-gray-400">置信度阈值 0.75</span>
+                            </div>
+                        </div>
+
+                        <div class="card p-5 rounded-lg bg-white">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-900">对象速览</h3>
+                                <button id="graphOpenDetailButton" class="text-sm text-success hover:text-success/80 font-medium">
+                                    详情
+                                </button>
+                            </div>
+                            <div id="graphNodeDetail" class="space-y-3 text-sm">
+                                <div>
+                                    <p class="text-xs text-gray-500">对象名称</p>
+                                    <p class="font-semibold text-gray-900" id="graphNodeName">欧洲分公司数据跨境政策</p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-gray-500">本体类型</span>
+                                    <span id="graphNodeType" class="text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-1 rounded-full">实体:政策</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-gray-500">生命周期状态</span>
+                                    <span id="graphNodeStatus" class="text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-1 rounded-full">已生效</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-gray-500">当前版本</span>
+                                    <span id="graphNodeVersion" class="text-xs font-medium text-gray-700">v12</span>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500">生效上下文</p>
+                                    <p id="graphNodeContext" class="text-xs text-gray-600">欧洲分公司 / 2023-01-01 ~ 2023-12-31</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500">关键关联</p>
+                                    <div id="graphNodeRelations" class="text-xs text-gray-600 space-y-1">
+                                        <div>关联流程：跨境审批流程</div>
+                                        <div>关联合同：EU-2023-554</div>
+                                        <div>关联培训：GDPR 培训计划</div>
+                                    </div>
+                                </div>
+                                <div class="pt-3 border-t border-gray-200">
+                                    <div class="flex items-center justify-between text-xs">
+                                        <span class="text-gray-500">置信度</span>
+                                        <span id="graphNodeConfidence" class="font-semibold text-gray-900">0.92</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
+                                        <div id="graphNodeConfidenceBar" class="bg-emerald-500 h-1.5 rounded-full" style="width: 92%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg border border-gray-200 mb-6">
+                        <div class="flex flex-wrap gap-2 px-4 py-3 text-sm">
+                            <button class="graph-tab graph-menu-item active px-4 py-2 rounded-full bg-success text-white font-medium" data-target="graphObjectPanel">
+                                <i class="fa fa-cube mr-2"></i>对象模型
+                            </button>
+                            <button class="graph-tab graph-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="graphQueryPanel">
+                                <i class="fa fa-search mr-2"></i>查询与计算
+                            </button>
+                            <button class="graph-tab graph-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="graphVersionPanel">
+                                <i class="fa fa-history mr-2"></i>版本与快照
+                            </button>
+                            <button class="graph-tab graph-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="graphScenarioPanel">
+                                <i class="fa fa-sitemap mr-2"></i>业务流程
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- 对象模型 -->
+                        <div id="graphObjectPanel" class="graph-panel space-y-6">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">核心属性定义与管理</h3>
+                                        <span class="text-xs text-gray-500">唯一身份、版本可追溯</span>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">唯一标识符</label>
+                                            <div class="flex items-center gap-2">
+                                                <input id="objectIdInput" type="text" class="w-full border border-gray-200 rounded px-3 py-2" value="POL-2023-17">
+                                                <button id="generateObjectId" class="px-3 py-2 text-xs bg-gray-100 rounded-lg hover:bg-gray-200">生成</button>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">本体类型</label>
+                                            <select id="ontologyTypeSelect" class="w-full border border-gray-200 rounded px-3 py-2">
+                                                <option>实体:政策</option>
+                                                <option>实体:流程</option>
+                                                <option>实体:合同</option>
+                                                <option>实体:客户</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">当前版本</label>
+                                            <div class="flex items-center gap-2">
+                                                <span id="objectVersionValue" class="text-sm font-semibold text-gray-900">v12</span>
+                                                <button id="bumpObjectVersion" class="px-3 py-2 text-xs bg-success-light text-success rounded-lg hover:bg-success/20">新版本</button>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">生命周期状态</label>
+                                            <div class="flex items-center gap-2">
+                                                <select id="objectStateSelect" class="w-full border border-gray-200 rounded px-3 py-2">
+                                                    <option>草稿</option>
+                                                    <option>审核中</option>
+                                                    <option selected>已生效</option>
+                                                    <option>已受限</option>
+                                                    <option>已归档</option>
+                                                    <option>已废止</option>
+                                                </select>
+                                                <span id="objectStateBadge" class="text-xs font-medium bg-emerald-50 text-emerald-700 px-2 py-1 rounded-full">已生效</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p id="stateImpactLabel" class="text-xs text-gray-500 mt-4">状态影响：已生效对象默认参与通用检索与推理。</p>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">生命周期状态引擎</h3>
+                                        <span class="text-xs text-gray-500">可配置流程</span>
+                                    </div>
+                                    <div class="space-y-3 text-sm">
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">允许转移</label>
+                                            <div id="stateTransitionList" class="space-y-2">
+                                                <label class="flex items-center gap-2">
+                                                    <input type="checkbox" class="state-transition" value="审核中" checked>
+                                                    <span class="text-xs text-gray-600">草稿 → 审核中</span>
+                                                </label>
+                                                <label class="flex items-center gap-2">
+                                                    <input type="checkbox" class="state-transition" value="已废止">
+                                                    <span class="text-xs text-gray-600">草稿 → 已废止</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">转移条件</label>
+                                            <select id="stateRoleSelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                <option>审核人</option>
+                                                <option>领域专家</option>
+                                                <option>数据治理员</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">自动转移规则</label>
+                                            <div class="flex items-center gap-2">
+                                                <input id="autoTransitionDays" type="number" min="30" value="730" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                <span class="text-xs text-gray-400">天后触发复审</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">执行转移</label>
+                                            <div class="flex items-center gap-2">
+                                                <select id="nextStateSelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                    <option>审核中</option>
+                                                    <option>已生效</option>
+                                                    <option>已受限</option>
+                                                    <option>已归档</option>
+                                                    <option>已废止</option>
+                                                </select>
+                                                <button id="applyStateTransition" class="px-3 py-2 text-xs bg-success text-white rounded-lg hover:bg-success/90">转移</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">生效上下文配置器</h3>
+                                        <span class="text-xs text-gray-500">多维上下文 + 冲突解决</span>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">时间上下文</label>
+                                            <div class="flex items-center gap-2">
+                                                <input id="objectContextStart" type="date" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                <span class="text-xs text-gray-400">至</span>
+                                                <input id="objectContextEnd" type="date" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">组织上下文</label>
+                                            <div class="space-y-2 text-xs text-gray-600">
+                                                <label class="flex items-center gap-2"><input type="checkbox" class="context-org" value="欧洲分公司" checked>欧洲分公司</label>
+                                                <label class="flex items-center gap-2"><input type="checkbox" class="context-org" value="亚太事业群">亚太事业群</label>
+                                                <label class="flex items-center gap-2"><input type="checkbox" class="context-org" value="集团总部">集团总部</label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">业务上下文</label>
+                                            <div class="flex flex-wrap gap-2">
+                                                <button class="context-tag px-2 py-1 text-xs bg-emerald-50 text-emerald-700 rounded-full" data-tag="数据跨境合规">数据跨境合规</button>
+                                                <button class="context-tag px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full" data-tag="合规审计">合规审计</button>
+                                                <button class="context-tag px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full" data-tag="风险评估">风险评估</button>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">冲突解决策略</label>
+                                            <select id="contextConflictSelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                <option>优先级覆盖</option>
+                                                <option>交集逻辑</option>
+                                                <option>合并且标注冲突</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between mt-4">
+                                        <div class="text-xs text-gray-500">可从父对象继承上下文，支持本体默认值。</div>
+                                        <button id="saveContextButton" class="px-3 py-2 text-xs bg-success text-white rounded-lg hover:bg-success/90">保存上下文</button>
+                                    </div>
+                                    <div id="contextConfigSummary" class="text-xs text-emerald-700 mt-3">上下文已同步：欧洲分公司 · 数据跨境合规 · 2023</div>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">关系管理</h3>
+                                        <span class="text-xs text-gray-500">关系属性与置信度</span>
+                                    </div>
+                                    <div class="space-y-3 text-sm">
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">关系类型</label>
+                                        <select id="graphRelationTypeSelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                <option>合规约束</option>
+                                                <option>关联流程</option>
+                                                <option>引用文档</option>
+                                                <option>合作关系</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">关系属性</label>
+                                            <textarea id="relationAttrInput" rows="2" class="w-full border border-gray-200 rounded px-2 py-2 text-xs" placeholder="起始日期、等级、备注"></textarea>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">置信度</label>
+                                            <input id="relationConfidence" type="range" min="0" max="1" step="0.05" value="0.85" class="w-full">
+                                            <div class="flex justify-between text-xs text-gray-500">
+                                                <span>0</span>
+                                                <span id="relationConfidenceValue">0.85</span>
+                                                <span>1</span>
+                                            </div>
+                                        </div>
+                                        <button id="addRelationButton" class="w-full px-3 py-2 text-xs bg-success text-white rounded-lg hover:bg-success/90">添加关系</button>
+                                    </div>
+                                    <div id="relationList" class="mt-4 space-y-2 text-xs text-gray-600">
+                                        <div class="flex items-center justify-between">
+                                            <span>合规约束 → GDPR 规范</span>
+                                            <span class="text-emerald-600">0.92</span>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span>关联流程 → 跨境审批流程</span>
+                                            <span class="text-emerald-600">0.88</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">来源与谱系追溯</h3>
+                                        <span class="text-xs text-gray-500">自动记录与审计</span>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-2">数据谱系图</label>
+                                            <div id="lineageList" class="space-y-2 text-xs text-gray-600">
+                                                <div>销售系统 → 加工流水线A(v2.1) → 知识对象 POL-2023-17</div>
+                                                <div>法规库 → 合规解析引擎 → 规则 R-88</div>
+                                            </div>
+                                            <div class="flex items-center gap-2 mt-3">
+                                                <input id="lineageInput" type="text" class="w-full border border-gray-200 rounded px-2 py-2 text-xs" placeholder="新增谱系节点描述">
+                                                <button id="addLineageButton" class="px-3 py-2 text-xs bg-gray-100 rounded-lg hover:bg-gray-200">追加</button>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-2">操作审计日志</label>
+                                            <div id="auditLogList" class="space-y-2 text-xs text-gray-600">
+                                                <div>09:20 张经理 更新状态：审核中 → 已生效</div>
+                                                <div>09:05 系统 写入属性：生效区域=欧洲分公司</div>
+                                                <div>08:50 法务 创建对象：POL-2023-17</div>
+                                            </div>
+                                            <div class="flex items-center gap-2 mt-3">
+                                                <select id="auditActionSelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                    <option>创建</option>
+                                                    <option>属性更新</option>
+                                                    <option>状态变更</option>
+                                                    <option>关联变动</option>
+                                                </select>
+                                                <button id="addAuditLogButton" class="px-3 py-2 text-xs bg-gray-100 rounded-lg hover:bg-gray-200">记录</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">关系置信度监控</h3>
+                                        <span class="text-xs text-gray-500">0.75 以上可推理</span>
+                                    </div>
+                                    <div class="chart-container h-40">
+                                        <canvas id="graphStatusChart"></canvas>
+                                    </div>
+                                    <div class="text-xs text-gray-500 mt-3">
+                                        低置信关系默认不进入通用检索，但可在专业查询中启用。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 查询与计算 -->
+                        <div id="graphQueryPanel" class="graph-panel hidden space-y-6">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">统一查询门户</h3>
+                                        <span class="text-xs text-gray-500">REST / 图查询 / 联邦路由</span>
+                                    </div>
+                                    <div class="space-y-3 text-sm">
+                                        <input id="graphQueryInput" type="text" class="w-full border border-gray-200 rounded px-3 py-2" placeholder="例如：高风险客户 AND 行业=医疗">
+                                        <div class="flex flex-wrap gap-2 text-xs text-gray-600">
+                                            <label class="flex items-center gap-2"><input type="checkbox" class="query-mode" value="关键词" checked>关键词检索</label>
+                                            <label class="flex items-center gap-2"><input type="checkbox" class="query-mode" value="语义">语义检索</label>
+                                            <label class="flex items-center gap-2"><input type="checkbox" class="query-mode" value="图遍历">图谱遍历</label>
+                                            <label class="flex items-center gap-2"><input type="checkbox" class="query-mode" value="规则推理">规则推理</label>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <button id="routeQueryButton" class="px-3 py-2 text-xs bg-success text-white rounded-lg hover:bg-success/90">路由查询</button>
+                                            <span class="text-xs text-gray-500">Endpoint: /api/graph/query</span>
+                                        </div>
+                                    </div>
+                                    <div id="queryRouteSummary" class="mt-4 text-xs text-emerald-700 bg-emerald-50 border border-emerald-100 rounded px-3 py-2">
+                                        路由结果：全文索引 + 图数据库，融合排序开启。
+                                    </div>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">融合排序权重</h3>
+                                        <span class="text-xs text-gray-500">动态调参</span>
+                                    </div>
+                                    <div class="space-y-3 text-xs text-gray-600">
+                                        <label>关键词匹配 <input id="weightKeyword" type="range" min="0" max="1" step="0.1" value="0.4" class="w-full"></label>
+                                        <label>语义相似 <input id="weightSemantic" type="range" min="0" max="1" step="0.1" value="0.35" class="w-full"></label>
+                                        <label>状态新鲜度 <input id="weightFreshness" type="range" min="0" max="1" step="0.1" value="0.25" class="w-full"></label>
+                                        <div class="flex items-center justify-between">
+                                            <span>筛选状态</span>
+                                            <select id="resultStatusFilter" class="border border-gray-200 rounded px-2 py-1 text-xs">
+                                                <option>全部</option>
+                                                <option selected>已生效</option>
+                                                <option>审核中</option>
+                                                <option>已归档</option>
+                                            </select>
+                                        </div>
+                                        <button id="runHybridSearch" class="w-full px-3 py-2 text-xs bg-success text-white rounded-lg hover:bg-success/90">执行融合检索</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">混合检索结果</h3>
+                                        <span class="text-xs text-gray-500">相关性综合评分</span>
+                                    </div>
+                                    <div id="hybridResults" class="space-y-3 text-sm">
+                                        <div class="border border-gray-100 rounded-lg p-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="font-medium text-gray-900">欧洲分公司数据跨境政策</span>
+                                                <span class="text-xs text-emerald-600">得分 0.91</span>
+                                            </div>
+                                            <p class="text-xs text-gray-500 mt-1">状态：已生效 · 置信度 0.92 · 新鲜度 0.88</p>
+                                        </div>
+                                        <div class="border border-gray-100 rounded-lg p-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="font-medium text-gray-900">高风险客户清单（2023Q4）</span>
+                                                <span class="text-xs text-emerald-600">得分 0.86</span>
+                                            </div>
+                                            <p class="text-xs text-gray-500 mt-1">状态：已生效 · 置信度 0.89 · 新鲜度 0.84</p>
+                                        </div>
+                                        <div class="border border-gray-100 rounded-lg p-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="font-medium text-gray-900">跨境审批流程图</span>
+                                                <span class="text-xs text-emerald-600">得分 0.82</span>
+                                            </div>
+                                            <p class="text-xs text-gray-500 mt-1">状态：审核中 · 置信度 0.8 · 新鲜度 0.79</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">推理引擎</h3>
+                                        <span class="text-xs text-gray-500">可解释</span>
+                                    </div>
+                                    <div class="space-y-3 text-sm">
+                                        <div class="text-xs text-gray-600 bg-gray-50 rounded p-2">
+                                            规则示例：IF 逾期次数&gt;3 AND 行业=高风险 THEN 标记高风险客户
+                                        </div>
+                                        <button id="runReasoningButton" class="w-full px-3 py-2 text-xs bg-success text-white rounded-lg hover:bg-success/90">运行推理</button>
+                                        <div id="reasoningOutput" class="text-xs text-gray-600 bg-gray-50 rounded p-2">
+                                            推理链：客户A → 逾期次数=4 → 行业=医疗 → 归类高风险
+                                        </div>
+                                        <div class="border-t border-gray-200 pt-3">
+                                            <label class="block text-xs text-gray-500 mb-1">写入校验</label>
+                                            <select id="writeValidationSelect" class="w-full border border-gray-200 rounded px-2 py-1 text-xs">
+                                                <option>关联对象状态：已生效</option>
+                                                <option>关联对象状态：已废止</option>
+                                            </select>
+                                            <button id="validateWriteButton" class="mt-2 w-full px-3 py-2 text-xs bg-gray-100 rounded-lg hover:bg-gray-200">校验关联</button>
+                                            <div id="writeValidationResult" class="text-xs text-gray-500 mt-2">等待校验...</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card p-5 rounded-lg bg-white">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-gray-900">高级图算法工作台</h3>
+                                    <span class="text-xs text-gray-500">子图分析与洞察</span>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-3 text-xs mb-3">
+                                    <select id="algorithmSelect" class="border border-gray-200 rounded px-2 py-1">
+                                        <option value="community">社区发现</option>
+                                        <option value="centrality">中心性分析</option>
+                                        <option value="path">路径查找</option>
+                                    </select>
+                                    <select id="subgraphSelect" class="border border-gray-200 rounded px-2 py-1">
+                                        <option>审计子图</option>
+                                        <option>供应链子图</option>
+                                        <option>客户子图</option>
+                                    </select>
+                                    <button id="runAlgorithmButton" class="px-3 py-2 text-xs bg-success text-white rounded-lg hover:bg-success/90">运行算法</button>
+                                </div>
+                                <div id="algorithmResult" class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs text-gray-600">
+                                    <div class="bg-gray-50 rounded p-3">
+                                        <p class="font-medium text-gray-900">社区 A</p>
+                                        <p>涉及政策/流程 23 个</p>
+                                    </div>
+                                    <div class="bg-gray-50 rounded p-3">
+                                        <p class="font-medium text-gray-900">关键节点</p>
+                                        <p>POL-2023-17, FLOW-88</p>
+                                    </div>
+                                    <div class="bg-gray-50 rounded p-3">
+                                        <p class="font-medium text-gray-900">路径洞察</p>
+                                        <p>故障 → 合同 → 客户 共 4 跳</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 版本与快照 -->
+                        <div id="graphVersionPanel" class="graph-panel hidden space-y-6">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">快照创建与管理</h3>
+                                        <span class="text-xs text-gray-500">计划快照 + 事件快照</span>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">快照策略</label>
+                                            <select id="snapshotScheduleSelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                                <option>每日</option>
+                                                <option>每周</option>
+                                                <option>每月</option>
+                                                <option>事件触发</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">增量快照</label>
+                                            <div class="flex items-center gap-2">
+                                                <input id="snapshotIncrementalToggle" type="checkbox" class="w-4 h-4 text-emerald-600 rounded border-gray-300" checked>
+                                                <span class="text-xs text-gray-500">节省存储</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 mb-1">触发原因</label>
+                                            <input id="snapshotReasonInput" type="text" class="w-full border border-gray-200 rounded px-2 py-2 text-xs" placeholder="例如：法规变更">
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between mt-4">
+                                        <div class="text-xs text-gray-500">最新快照：2024-08-01 10:30</div>
+                                        <button id="graphSnapshotCreateButton" class="px-3 py-2 text-xs bg-success text-white rounded-lg hover:bg-success/90">立即创建</button>
+                                    </div>
+                                    <div id="snapshotList" class="mt-4 space-y-2 text-xs text-gray-600">
+                                        <div class="flex items-center justify-between bg-gray-50 rounded px-3 py-2">
+                                            <span>2024-08-01 10:30 · 全量快照</span>
+                                            <span class="text-gray-400">系统计划</span>
+                                        </div>
+                                        <div class="flex items-center justify-between bg-gray-50 rounded px-3 py-2">
+                                            <span>2024-07-20 18:00 · 增量快照</span>
+                                            <span class="text-gray-400">法规变更</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">时间旅行查询</h3>
+                                        <span class="text-xs text-gray-500">历史视图</span>
+                                    </div>
+                                    <div class="space-y-3 text-sm">
+                                        <select id="timeTravelSelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                            <option>2024-08-01 10:30</option>
+                                            <option>2024-07-20 18:00</option>
+                                            <option>2024-06-30 09:00</option>
+                                        </select>
+                                        <select id="snapshotCompareSelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                            <option>对比 2024-07-20 18:00</option>
+                                            <option>对比 2024-06-30 09:00</option>
+                                        </select>
+                                        <button id="compareSnapshotButton" class="w-full px-3 py-2 text-xs bg-success text-white rounded-lg hover:bg-success/90">生成对比</button>
+                                        <div id="snapshotDiffSummary" class="text-xs text-gray-600 bg-gray-50 rounded p-2">
+                                            新增对象 128 · 删除对象 12 · 变更对象 54
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card p-5 rounded-lg bg-white">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-gray-900">对象版本差异查询</h3>
+                                    <span class="text-xs text-gray-500">任意版本对比</span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                    <div>
+                                        <label class="block text-xs text-gray-500 mb-1">对象</label>
+                                        <select id="diffObjectSelect" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                            <option>POL-2023-17</option>
+                                            <option>FLOW-88</option>
+                                            <option>CON-554</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs text-gray-500 mb-1">版本 A</label>
+                                        <select id="diffVersionA" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                            <option>v10</option>
+                                            <option>v11</option>
+                                            <option selected>v12</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs text-gray-500 mb-1">版本 B</label>
+                                        <select id="diffVersionB" class="w-full border border-gray-200 rounded px-2 py-2 text-xs">
+                                            <option>v8</option>
+                                            <option>v9</option>
+                                            <option selected>v10</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button id="runVersionDiff" class="mt-4 px-3 py-2 text-xs bg-success text-white rounded-lg hover:bg-success/90">查看差异</button>
+                                <div id="versionDiffResult" class="mt-4 text-xs text-gray-600 bg-gray-50 rounded p-3">
+                                    生效范围新增：欧洲分公司；策略条款更新：第 5 条优化。
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 业务流程 -->
+                        <div id="graphScenarioPanel" class="graph-panel hidden space-y-6">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">合规审计流程</h3>
+                                        <span class="text-xs text-gray-500">2023 跨境审计</span>
+                                    </div>
+                                    <div id="scenarioSteps" class="space-y-3 text-sm">
+                                        <div class="scenario-step border border-emerald-200 rounded-lg p-3 bg-emerald-50" data-step="1">
+                                            <p class="font-medium text-gray-900">1. 上下文化查询</p>
+                                            <p class="text-xs text-gray-500">组织=欧洲分公司 · 时间=2023</p>
+                                        </div>
+                                        <div class="scenario-step border border-gray-200 rounded-lg p-3" data-step="2">
+                                            <p class="font-medium text-gray-900">2. 图谱多跳遍历</p>
+                                            <p class="text-xs text-gray-500">政策/流程/合同 → 关联记录</p>
+                                        </div>
+                                        <div class="scenario-step border border-gray-200 rounded-lg p-3" data-step="3">
+                                            <p class="font-medium text-gray-900">3. 时间旅行对比</p>
+                                            <p class="text-xs text-gray-500">审计期内版本对比</p>
+                                        </div>
+                                        <div class="scenario-step border border-gray-200 rounded-lg p-3" data-step="4">
+                                            <p class="font-medium text-gray-900">4. 社区发现洞察</p>
+                                            <p class="text-xs text-gray-500">识别潜在合规盲区</p>
+                                        </div>
+                                        <div class="scenario-step border border-gray-200 rounded-lg p-3" data-step="5">
+                                            <p class="font-medium text-gray-900">5. 证据包输出</p>
+                                            <p class="text-xs text-gray-500">图谱+差异+算法洞察</p>
+                                        </div>
+                                    </div>
+                                    <button id="runScenarioButton" class="mt-4 w-full px-3 py-2 text-xs bg-success text-white rounded-lg hover:bg-success/90">自动执行流程</button>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">步骤详情</h3>
+                                        <span class="text-xs text-gray-500">可解释过程</span>
+                                    </div>
+                                    <div id="scenarioDetail" class="text-sm text-gray-600 bg-gray-50 rounded-lg p-4">
+                                        当前选中：上下文化查询。系统自动限定组织与时间范围，确保检索对象处于生效上下文。
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-xs text-gray-600">
+                                        <div class="bg-white border border-gray-200 rounded-lg p-3">
+                                            <p class="font-medium text-gray-900">证据网络</p>
+                                            <p>节点 156 · 关系 432</p>
+                                        </div>
+                                        <div class="bg-white border border-gray-200 rounded-lg p-3">
+                                            <p class="font-medium text-gray-900">版本差异</p>
+                                            <p>变更策略 4 条</p>
+                                        </div>
+                                        <div class="bg-white border border-gray-200 rounded-lg p-3">
+                                            <p class="font-medium text-gray-900">算法洞察</p>
+                                            <p>发现 1 个弱关联社区</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 border-t border-gray-200 pt-4">
+                                        <h4 class="text-sm font-medium text-gray-900 mb-2">合规证据包</h4>
+                                        <div id="evidencePack" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-gray-600">
+                                            <div class="bg-gray-50 rounded p-3">知识网络图（可导出 PNG）</div>
+                                            <div class="bg-gray-50 rounded p-3">版本对比报告（PDF）</div>
+                                            <div class="bg-gray-50 rounded p-3">社区发现洞察（JSON）</div>
+                                            <div class="bg-gray-50 rounded p-3">审计摘要（DOCX）</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 智能体工厂 -->

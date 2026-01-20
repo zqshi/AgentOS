@@ -1,0 +1,47 @@
+    <header class="relative z-20 flex items-center justify-between px-5 py-3 border-b border-line glass">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                <div style="width: 20px; height: 20px; background-color: white !important; border-radius: 4px;"></div>
+            </div>
+            <div>
+                <h1 class="text-lg font-display font-semibold tracking-wide">智核</h1>
+                <p class="text-xs text-muted">智能工作台 · 知识协作入口</p>
+            </div>
+        </div>
+        <div class="flex-1 mx-6 max-w-3xl">
+            <div class="relative">
+                <input id="global-search" type="text" placeholder="搜索知识、任务、智能体…" class="w-full px-10 py-2.5 rounded-full border border-line bg-paper focus:outline-none focus:ring-2 focus:ring-secondary/40">
+                <span class="absolute left-4 top-2.5 text-muted"><i class="fa fa-search"></i></span>
+                <span class="absolute right-4 top-2.5 text-xs text-muted">Ctrl/Cmd + K</span>
+            </div>
+            <div id="search-suggestions" class="hidden absolute mt-2 w-full bg-white rounded-2xl shadow-card border border-line p-4 text-sm z-30">
+                <div class="mb-3">
+                    <p class="text-xs text-muted uppercase tracking-wide">最近搜索</p>
+                    <ul class="mt-2 space-y-2">
+                        <li class="flex items-center gap-2 cursor-pointer hover:text-secondary"><i class="fa fa-history text-muted"></i>Q3销售报告</li>
+                        <li class="flex items-center gap-2 cursor-pointer hover:text-secondary"><i class="fa fa-history text-muted"></i>新员工入职流程</li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="text-xs text-muted uppercase tracking-wide">热门搜索</p>
+                    <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                        <span class="px-3 py-1 rounded-full bg-mist cursor-pointer">年度预算</span>
+                        <span class="px-3 py-1 rounded-full bg-mist cursor-pointer">产品roadmap</span>
+                        <span class="px-3 py-1 rounded-full bg-mist cursor-pointer">客户满意度</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button id="open-capture" class="px-3 py-2 rounded-full bg-primary text-white text-sm shadow-soft hover:bg-secondary transition">快速捕获</button>
+            <button class="p-2 rounded-full hover:bg-white/60"><i class="fa fa-bell-o text-muted"></i></button>
+            <button class="p-2 rounded-full hover:bg-white/60"><i class="fa fa-cog text-muted"></i></button>
+            <div class="flex items-center space-x-2 cursor-pointer">
+                <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/6323b43dac9b41db978bffd8c580ac63~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1783481830&x-signature=E%2BA4UNzvvjJgdRQb3RrhhengBCo%3D" alt="用户头像" class="w-9 h-9 rounded-full border border-white shadow">
+                <div class="hidden md:block">
+                    <p class="text-sm font-medium">张明</p>
+                    <p class="text-xs text-muted">产品经理</p>
+                </div>
+            </div>
+        </div>
+    </header>

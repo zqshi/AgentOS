@@ -1,0 +1,1151 @@
+            <div id="page-knowledge" class="page flex flex-col gap-6 h-[calc(100vh-120px)] overflow-auto">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-display font-semibold">智能知识库</h2>
+                        <p class="text-sm text-muted">AI驱动的知识生产、关联与治理中枢</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button id="open-version-compare" class="px-3 py-2 rounded-full bg-white border border-line text-sm">版本对比</button>
+                        <button class="px-3 py-2 rounded-full bg-primary text-white text-sm">新建文档</button>
+                    </div>
+                </div>
+                <div class="bg-surface rounded-2xl border border-line shadow-card p-4">
+                    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                        <div class="flex flex-wrap gap-2">
+                            <button class="section-btn px-3 py-2 rounded-full text-sm bg-primary text-white" data-section="browse">多视图浏览</button>
+                            <button class="section-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-section="ai">AI创作空间</button>
+                            <button class="section-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-section="review">版本与评审</button>
+                            <button class="section-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-section="quality">质量保障</button>
+                            <button class="section-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-section="lifecycle">生命周期</button>
+                            <button class="section-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-section="integration">集成接口</button>
+                            <button class="section-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-section="nonfunctional">非功能保障</button>
+                        </div>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="px-3 py-1 rounded-full bg-primary/10 text-primary">当前状态：评审中</span>
+                            <span class="px-3 py-1 rounded-full bg-mist">质量评分 82</span>
+                            <span class="px-3 py-1 rounded-full bg-mist">生效范围：技术部门</span>
+                        </div>
+                    </div>
+                    <div id="knowledge-browse" class="section-panel active">
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <button class="view-btn px-3 py-2 rounded-full text-sm bg-primary text-white" data-view="tree">文档树视图</button>
+                            <button class="view-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-view="graph">知识图谱视图</button>
+                            <button class="view-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-view="topic">主题视图</button>
+                            <button class="view-btn px-3 py-2 rounded-full text-sm bg-white border border-line" data-view="timeline">时间轴视图</button>
+                        </div>
+                        <div id="knowledge-tree" class="view-panel active">
+                            <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                                <div class="bg-white rounded-xl border border-line p-3">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <p class="text-sm font-medium">文档目录</p>
+                                        <button id="toggle-select-mode" class="text-xs px-2 py-1 rounded-full bg-mist hover:bg-primary hover:text-white transition">批量选择</button>
+                                    </div>
+                                    <div class="space-y-2 text-xs">
+                                        <div class="relative">
+                                            <input id="tree-search-input" type="text" class="w-full border border-line rounded-lg px-2 py-1 pl-6" placeholder="树内搜索...">
+                                            <i class="fa fa-search absolute left-2 top-2 text-muted"></i>
+                                        </div>
+                                        <div class="flex items-center gap-1 p-2 rounded-lg bg-mist">
+                                            <i class="fa fa-home text-muted"></i>
+                                            <span>首页</span>
+                                            <span class="text-muted">/</span>
+                                            <span class="text-primary">市场分析</span>
+                                            <button class="ml-auto text-warning"><i class="fa fa-star-o"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 space-y-1 text-xs">
+                                        <div class="p-2 rounded-lg bg-ocean flex items-center gap-2">
+                                            <i class="fa fa-star text-warning"></i>
+                                            <span class="font-medium">收藏的文件夹</span>
+                                        </div>
+                                        <div class="pl-4 space-y-1">
+                                            <div class="p-2 rounded-lg hover:bg-mist cursor-pointer flex items-center justify-between">
+                                                <div class="flex items-center gap-2">
+                                                    <i class="fa fa-folder text-primary"></i>
+                                                    <span>重点项目文档</span>
+                                                </div>
+                                                <i class="fa fa-angle-right text-muted"></i>
+                                            </div>
+                                            <div class="p-2 rounded-lg hover:bg-mist cursor-pointer flex items-center justify-between">
+                                                <div class="flex items-center gap-2">
+                                                    <i class="fa fa-folder text-primary"></i>
+                                                    <span>常用模板</span>
+                                                </div>
+                                                <i class="fa fa-angle-right text-muted"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul id="doc-tree-list" class="mt-3 space-y-1 text-xs">
+                                        <li class="folder-item p-2 rounded-lg hover:bg-mist cursor-pointer" draggable="true">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center gap-2">
+                                                    <input type="checkbox" class="doc-checkbox hidden">
+                                                    <i class="fa fa-angle-right folder-toggle"></i>
+                                                    <i class="fa fa-folder text-primary"></i>
+                                                    <span>📊 市场分析</span>
+                                                </div>
+                                                <div class="flex items-center gap-1">
+                                                    <button class="p-1 hover:bg-white rounded" title="收藏"><i class="fa fa-star-o text-muted"></i></button>
+                                                    <button class="folder-menu p-1 hover:bg-white rounded" title="更多"><i class="fa fa-ellipsis-h text-muted"></i></button>
+                                                </div>
+                                            </div>
+                                            <ul class="folder-children ml-6 mt-1 space-y-1 hidden">
+                                                <li class="p-1 hover:bg-mist rounded flex items-center justify-between">
+                                                    <div class="flex items-center gap-2">
+                                                        <input type="checkbox" class="doc-checkbox hidden">
+                                                        <i class="fa fa-file-text-o text-muted"></i>
+                                                        <span>华东区市场趋势分析.docx</span>
+                                                    </div>
+                                                    <span class="text-muted">2024/07/12</span>
+                                                </li>
+                                                <li class="p-1 hover:bg-mist rounded flex items-center justify-between">
+                                                    <div class="flex items-center gap-2">
+                                                        <input type="checkbox" class="doc-checkbox hidden">
+                                                        <i class="fa fa-file-text-o text-muted"></i>
+                                                        <span>竞品对比报告.pdf</span>
+                                                    </div>
+                                                    <span class="text-muted">2024/07/10</span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="folder-item p-2 rounded-lg hover:bg-mist cursor-pointer" draggable="true">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center gap-2">
+                                                    <input type="checkbox" class="doc-checkbox hidden">
+                                                    <i class="fa fa-angle-right folder-toggle"></i>
+                                                    <i class="fa fa-folder text-primary"></i>
+                                                    <span>🎯 产品规划</span>
+                                                </div>
+                                                <div class="flex items-center gap-1">
+                                                    <button class="p-1 hover:bg-white rounded" title="收藏"><i class="fa fa-star-o text-muted"></i></button>
+                                                    <button class="folder-menu p-1 hover:bg-white rounded" title="更多"><i class="fa fa-ellipsis-h text-muted"></i></button>
+                                                </div>
+                                            </div>
+                                            <ul class="folder-children ml-6 mt-1 space-y-1 hidden">
+                                                <li class="p-1 hover:bg-mist rounded flex items-center justify-between">
+                                                    <div class="flex items-center gap-2">
+                                                        <input type="checkbox" class="doc-checkbox hidden">
+                                                        <i class="fa fa-file-text-o text-muted"></i>
+                                                        <span>Q4产品路线图.xlsx</span>
+                                                    </div>
+                                                    <span class="text-muted">2024/07/08</span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="folder-item p-2 rounded-lg hover:bg-mist cursor-pointer" draggable="true">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center gap-2">
+                                                    <input type="checkbox" class="doc-checkbox hidden">
+                                                    <i class="fa fa-angle-right folder-toggle"></i>
+                                                    <i class="fa fa-folder text-primary"></i>
+                                                    <span>👥 团队协作</span>
+                                                </div>
+                                                <div class="flex items-center gap-1">
+                                                    <button class="p-1 hover:bg-white rounded" title="收藏"><i class="fa fa-star-o text-muted"></i></button>
+                                                    <button class="folder-menu p-1 hover:bg-white rounded" title="更多"><i class="fa fa-ellipsis-h text-muted"></i></button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="folder-item p-2 rounded-lg hover:bg-mist cursor-pointer" draggable="true">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center gap-2">
+                                                    <input type="checkbox" class="doc-checkbox hidden">
+                                                    <i class="fa fa-angle-right folder-toggle"></i>
+                                                    <i class="fa fa-folder text-primary"></i>
+                                                    <span>💼 客户案例</span>
+                                                </div>
+                                                <div class="flex items-center gap-1">
+                                                    <button class="p-1 hover:bg-white rounded" title="收藏"><i class="fa fa-star-o text-muted"></i></button>
+                                                    <button class="folder-menu p-1 hover:bg-white rounded" title="更多"><i class="fa fa-ellipsis-h text-muted"></i></button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div id="batch-actions" class="mt-3 p-2 rounded-lg bg-ocean hidden">
+                                        <p class="text-xs font-medium mb-2">已选择 <span id="selected-count">0</span> 项</p>
+                                        <div class="flex flex-wrap gap-2 text-xs">
+                                            <button class="action-btn px-2 py-1 rounded-full bg-white border border-line hover:bg-primary hover:text-white transition" data-action="批量移动操作已启动">移动</button>
+                                            <button class="action-btn px-2 py-1 rounded-full bg-white border border-line hover:bg-primary hover:text-white transition" data-action="权限设置面板已打开">设置权限</button>
+                                            <button class="action-btn px-2 py-1 rounded-full bg-white border border-line hover:bg-primary hover:text-white transition" data-action="批量导出任务已创建">导出</button>
+                                            <button class="action-btn px-2 py-1 rounded-full bg-danger text-white" data-action="批量删除已确认">删除</button>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 p-2 rounded-lg bg-mist text-xs">
+                                        <p class="font-medium mb-1">拖拽提示</p>
+                                        <p class="text-muted">拖拽文件或文件夹可快速调整组织结构</p>
+                                    </div>
+                                </div>
+                                <div class="xl:col-span-2 bg-white rounded-xl border border-line p-4">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <p class="font-medium">智能编辑器</p>
+                                        <div class="flex gap-2 text-xs">
+                                            <button class="action-btn px-2 py-1 rounded-full bg-mist hover:bg-secondary hover:text-white transition" data-action="正在生成文档大纲...">生成大纲</button>
+                                            <button class="action-btn px-2 py-1 rounded-full bg-mist hover:bg-secondary hover:text-white transition" data-action="术语规范检查已完成">术语检查</button>
+                                            <button class="action-btn px-2 py-1 rounded-full bg-mist hover:bg-secondary hover:text-white transition" data-action="智能摘要已生成">生成摘要</button>
+                                            <button id="toggle-ai-panel" class="px-2 py-1 rounded-full bg-primary text-white">AI助手</button>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs mb-3">
+                                        <span class="px-2 py-1 rounded-full bg-ocean"><i class="fa fa-check-circle text-success"></i> 所见即所得</span>
+                                        <span class="px-2 py-1 rounded-full bg-ocean"><i class="fa fa-markdown text-primary"></i> Markdown语法</span>
+                                        <span class="px-2 py-1 rounded-full bg-coral"><i class="fa fa-image text-warning"></i> 多媒体嵌入</span>
+                                        <span class="px-2 py-1 rounded-full bg-coral"><i class="fa fa-sitemap"></i> 思维导图</span>
+                                        <div class="ml-auto flex items-center gap-2 text-success">
+                                            <div class="flex -space-x-2">
+                                                <div class="w-6 h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center border-2 border-white">张</div>
+                                                <div class="w-6 h-6 rounded-full bg-secondary text-white text-xs flex items-center justify-center border-2 border-white">李</div>
+                                                <div class="w-6 h-6 rounded-full bg-accent text-white text-xs flex items-center justify-center border-2 border-white">王</div>
+                                            </div>
+                                            <span>3人在线</span>
+                                        </div>
+                                    </div>
+                                    <div class="p-3 border border-line rounded-lg text-sm bg-mist/50">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <p class="font-medium text-ink">《华东区市场趋势分析》</p>
+                                            <div class="flex items-center gap-2 text-xs">
+                                                <span class="px-2 py-1 rounded-full bg-white">草稿</span>
+                                                <span class="text-muted">自动保存于 2分钟前</span>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-2 text-sm">
+                                            <div class="p-2 bg-white rounded border-l-4 border-primary">
+                                                <p class="font-medium">一、背景与目标</p>
+                                                <p class="text-muted mt-1">本报告聚焦2024年华东区重点行业的增长趋势、渠道变化与竞品动向...</p>
+                                            </div>
+                                            <div class="p-2 bg-white rounded border-l-4 border-secondary relative">
+                                                <p class="font-medium">二、市场现状分析</p>
+                                                <p class="text-muted mt-1">华东区Q2销售额同比增长15.3%，其中上海地区...</p>
+                                                <div class="absolute right-2 top-2 flex gap-1">
+                                                    <button class="p-1 bg-primary text-white rounded text-xs" title="AI续写"><i class="fa fa-magic"></i></button>
+                                                    <button class="p-1 bg-secondary text-white rounded text-xs" title="AI改写"><i class="fa fa-refresh"></i></button>
+                                                    <button class="p-1 bg-mist text-ink rounded text-xs" title="添加评论"><i class="fa fa-comment"></i></button>
+                                                </div>
+                                                <div class="mt-2 p-2 bg-warning/10 border border-warning/30 rounded text-xs">
+                                                    <i class="fa fa-lightbulb-o text-warning"></i> AI建议：检测到术语"K8S"，建议替换为标准术语"Kubernetes"
+                                                    <button class="ml-2 text-primary">应用</button>
+                                                </div>
+                                            </div>
+                                            <div class="p-2 bg-white rounded border-l-4 border-accent">
+                                                <p class="font-medium text-accent">三、竞品对比</p>
+                                                <p class="text-muted mt-1 italic">[待补充] - AI提示：建议添加"竞品价格变动"分析</p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3 flex flex-wrap gap-2 text-xs">
+                                            <button class="px-2 py-1 bg-white border border-line rounded hover:bg-primary hover:text-white transition"><i class="fa fa-bold"></i></button>
+                                            <button class="px-2 py-1 bg-white border border-line rounded hover:bg-primary hover:text-white transition"><i class="fa fa-italic"></i></button>
+                                            <button class="px-2 py-1 bg-white border border-line rounded hover:bg-primary hover:text-white transition"><i class="fa fa-list-ul"></i></button>
+                                            <button class="px-2 py-1 bg-white border border-line rounded hover:bg-primary hover:text-white transition"><i class="fa fa-table"></i></button>
+                                            <button class="px-2 py-1 bg-white border border-line rounded hover:bg-primary hover:text-white transition"><i class="fa fa-code"></i></button>
+                                            <button class="px-2 py-1 bg-white border border-line rounded hover:bg-primary hover:text-white transition"><i class="fa fa-link"></i> [[链接]]</button>
+                                            <button class="px-2 py-1 bg-white border border-line rounded hover:bg-primary hover:text-white transition"><i class="fa fa-image"></i> 插入</button>
+                                        </div>
+                                        <div class="mt-2 p-2 bg-ocean/30 rounded text-xs">
+                                            <p><i class="fa fa-keyboard-o"></i> <strong>Markdown快捷键：</strong> # 标题 | - 列表 | ``` 代码块 | [[ 智能链接</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                                        <div class="p-3 rounded-xl bg-ocean">
+                                            <p class="font-medium">相关案例</p>
+                                            <p class="mt-1 text-muted">2023华北区渠道调整复盘</p>
+                                        </div>
+                                        <div class="p-3 rounded-xl bg-coral">
+                                            <p class="font-medium">引用推荐</p>
+                                            <p class="mt-1 text-muted">竞品B季度发布会纪要</p>
+                                        </div>
+                                        <div class="p-3 rounded-xl bg-mist">
+                                            <p class="font-medium">专家建议</p>
+                                            <p class="mt-1 text-muted">@王晓华参与审阅</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                                        <div class="p-3 rounded-xl border border-line">
+                                            <p class="font-medium">智能链接插入</p>
+                                            <p class="text-muted mt-1">输入 [[ 触发内部文档链接</p>
+                                        </div>
+                                        <div class="p-3 rounded-xl border border-line">
+                                            <p class="font-medium">术语规范提示</p>
+                                            <p class="text-muted mt-1">“K8S”建议替换为“Kubernetes”</p>
+                                        </div>
+                                        <div class="p-3 rounded-xl border border-line">
+                                            <p class="font-medium">实体识别</p>
+                                            <p class="text-muted mt-1">自动标注项目/技术术语</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="knowledge-graph" class="view-panel">
+                            <div class="grid grid-cols-1 xl:grid-cols-4 gap-4">
+                                <div class="xl:col-span-3 bg-white rounded-xl border border-line p-4">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <p class="text-sm font-medium">交互式知识图谱</p>
+                                        <div class="flex gap-2 text-xs">
+                                            <select id="graph-layout" class="border border-line rounded px-2 py-1">
+                                                <option value="force">力导向布局</option>
+                                                <option value="hierarchical">层次布局</option>
+                                                <option value="circular">环形布局</option>
+                                                <option value="radial">辐射布局</option>
+                                            </select>
+                                            <button id="graph-fullscreen" class="px-2 py-1 rounded-full bg-mist hover:bg-primary hover:text-white transition"><i class="fa fa-expand"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 mb-3 text-xs">
+                                        <span class="px-2 py-1 rounded-full bg-ocean">
+                                            <i class="fa fa-circle text-primary"></i> 文档 <span class="font-medium">12</span>
+                                        </span>
+                                        <span class="px-2 py-1 rounded-full bg-coral">
+                                            <i class="fa fa-circle text-secondary"></i> 项目 <span class="font-medium">5</span>
+                                        </span>
+                                        <span class="px-2 py-1 rounded-full bg-mist">
+                                            <i class="fa fa-circle text-accent"></i> 人员 <span class="font-medium">8</span>
+                                        </span>
+                                        <span class="px-2 py-1 rounded-full bg-mist">
+                                            <i class="fa fa-circle text-success"></i> 任务 <span class="font-medium">15</span>
+                                        </span>
+                                    </div>
+                                    <div class="relative bg-mist/30 rounded-lg border border-line" style="height: 480px;">
+                                        <svg id="knowledge-graph-svg" class="w-full h-full" viewBox="0 0 800 480">
+                                            <!-- 连接线 - 引用关系 -->
+                                            <g id="edges">
+                                                <line x1="150" y1="240" x2="300" y2="140" stroke="#3b82f6" stroke-opacity="0.4" stroke-width="2" class="graph-edge" data-type="引用"/>
+                                                <line x1="150" y1="240" x2="300" y2="340" stroke="#3b82f6" stroke-opacity="0.4" stroke-width="2" class="graph-edge" data-type="引用"/>
+                                                <line x1="300" y1="140" x2="500" y2="180" stroke="#8b5cf6" stroke-opacity="0.4" stroke-width="2" class="graph-edge" data-type="依赖"/>
+                                                <line x1="300" y1="340" x2="500" y2="300" stroke="#8b5cf6" stroke-opacity="0.4" stroke-width="2" class="graph-edge" data-type="依赖"/>
+                                                <line x1="500" y1="180" x2="650" y2="200" stroke="#10b981" stroke-opacity="0.4" stroke-width="2" class="graph-edge" data-type="作者"/>
+                                                <line x1="500" y1="300" x2="650" y2="280" stroke="#f59e0b" stroke-opacity="0.4" stroke-width="2" class="graph-edge" data-type="相关"/>
+                                                <line x1="300" y1="140" x2="450" y2="80" stroke="#3b82f6" stroke-opacity="0.4" stroke-width="2" class="graph-edge" data-type="引用"/>
+                                            </g>
+                                            <!-- 节点 -->
+                                            <g id="nodes">
+                                                <!-- 中心节点 -->
+                                                <g class="graph-node" data-id="1" data-type="项目">
+                                                    <circle cx="150" cy="240" r="35" fill="#1e40af" opacity="0.9" class="node-circle"/>
+                                                    <text x="150" y="245" fill="#fff" font-size="13" text-anchor="middle">项目A</text>
+                                                </g>
+                                                <!-- 一度关联 -->
+                                                <g class="graph-node" data-id="2" data-type="文档">
+                                                    <circle cx="300" cy="140" r="28" fill="#3b82f6" opacity="0.85" class="node-circle"/>
+                                                    <text x="300" y="145" fill="#fff" font-size="11" text-anchor="middle">市场报告</text>
+                                                </g>
+                                                <g class="graph-node" data-id="3" data-type="文档">
+                                                    <circle cx="300" cy="340" r="28" fill="#3b82f6" opacity="0.85" class="node-circle"/>
+                                                    <text x="300" y="345" fill="#fff" font-size="11" text-anchor="middle">竞品分析</text>
+                                                </g>
+                                                <!-- 二度关联 -->
+                                                <g class="graph-node" data-id="4" data-type="项目">
+                                                    <circle cx="500" cy="180" r="24" fill="#8b5cf6" opacity="0.8" class="node-circle"/>
+                                                    <text x="500" y="185" fill="#fff" font-size="10" text-anchor="middle">项目B</text>
+                                                </g>
+                                                <g class="graph-node" data-id="5" data-type="文档">
+                                                    <circle cx="500" cy="300" r="24" fill="#f59e0b" opacity="0.8" class="node-circle"/>
+                                                    <text x="500" y="305" fill="#fff" font-size="10" text-anchor="middle">技术方案</text>
+                                                </g>
+                                                <g class="graph-node" data-id="6" data-type="人员">
+                                                    <circle cx="650" cy="200" r="22" fill="#10b981" opacity="0.8" class="node-circle"/>
+                                                    <text x="650" y="205" fill="#fff" font-size="9" text-anchor="middle">李强</text>
+                                                </g>
+                                                <g class="graph-node" data-id="7" data-type="任务">
+                                                    <circle cx="650" cy="280" r="22" fill="#ef4444" opacity="0.75" class="node-circle"/>
+                                                    <text x="650" y="285" fill="#fff" font-size="9" text-anchor="middle">任务1</text>
+                                                </g>
+                                                <g class="graph-node" data-id="8" data-type="文档">
+                                                    <circle cx="450" cy="80" r="22" fill="#3b82f6" opacity="0.75" class="node-circle"/>
+                                                    <text x="450" y="85" fill="#fff" font-size="9" text-anchor="middle">需求文档</text>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <div id="graph-tooltip" class="absolute hidden bg-white border border-line rounded-lg p-3 shadow-float text-xs max-w-xs z-10">
+                                            <p class="font-medium text-sm">节点标题</p>
+                                            <p class="text-muted mt-1">摘要信息...</p>
+                                            <div class="mt-2 flex gap-2">
+                                                <span class="px-2 py-1 bg-mist rounded">类型: 文档</span>
+                                                <span class="px-2 py-1 bg-mist rounded">关联: 5</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 flex flex-wrap gap-2 text-xs">
+                                        <button class="action-btn px-2 py-1 rounded-full bg-white border border-line hover:bg-primary hover:text-white transition" data-action="图谱布局已切换为层次布局">切换布局</button>
+                                        <button id="expand-one-hop" class="action-btn px-2 py-1 rounded-full bg-white border border-line hover:bg-primary hover:text-white transition" data-action="已展开1度关联节点">展开1度</button>
+                                        <button id="expand-two-hop" class="action-btn px-2 py-1 rounded-full bg-white border border-line hover:bg-primary hover:text-white transition" data-action="已展开2度关联节点">展开2度</button>
+                                        <button id="show-path" class="action-btn px-2 py-1 rounded-full bg-white border border-line hover:bg-primary hover:text-white transition" data-action="已高亮最短路径">最短路径</button>
+                                        <button id="filter-relation" class="action-btn px-2 py-1 rounded-full bg-white border border-line hover:bg-primary hover:text-white transition" data-action="关系筛选器已打开">筛选关系</button>
+                                        <button class="action-btn px-2 py-1 rounded-full bg-secondary text-white" data-action="图谱已重置">重置</button>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded-xl border border-line p-4 space-y-3 text-xs">
+                                    <p class="font-medium text-sm">图谱控制</p>
+                                    <div class="space-y-2">
+                                        <div class="p-2 rounded-lg bg-mist">
+                                            <p class="font-medium">关系类型筛选</p>
+                                            <div class="mt-2 space-y-1">
+                                                <label class="flex items-center gap-2">
+                                                    <input type="checkbox" checked class="relation-filter" data-type="引用">
+                                                    <span class="text-primary">━</span> 引用
+                                                </label>
+                                                <label class="flex items-center gap-2">
+                                                    <input type="checkbox" checked class="relation-filter" data-type="依赖">
+                                                    <span class="text-secondary">━</span> 依赖
+                                                </label>
+                                                <label class="flex items-center gap-2">
+                                                    <input type="checkbox" checked class="relation-filter" data-type="作者">
+                                                    <span class="text-success">━</span> 作者
+                                                </label>
+                                                <label class="flex items-center gap-2">
+                                                    <input type="checkbox" checked class="relation-filter" data-type="相关">
+                                                    <span class="text-accent">━</span> 相关
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="p-2 rounded-lg bg-ocean">
+                                            <p class="font-medium">选中节点信息</p>
+                                            <div id="selected-node-info" class="mt-2 text-muted">点击节点查看详情</div>
+                                        </div>
+                                        <div class="p-2 rounded-lg bg-coral">
+                                            <p class="font-medium">路径分析</p>
+                                            <select class="w-full mt-2 border border-line rounded px-2 py-1">
+                                                <option>选择起点...</option>
+                                                <option>项目A</option>
+                                                <option>市场报告</option>
+                                            </select>
+                                            <select class="w-full mt-1 border border-line rounded px-2 py-1">
+                                                <option>选择终点...</option>
+                                                <option>李强</option>
+                                                <option>任务1</option>
+                                            </select>
+                                            <button class="w-full mt-2 px-2 py-1 rounded-full bg-primary text-white">分析路径</button>
+                                        </div>
+                                        <div class="p-2 rounded-lg border border-line">
+                                            <p class="font-medium">图例</p>
+                                            <div class="mt-2 space-y-1">
+                                                <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-primary"></div>文档</div>
+                                                <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-secondary"></div>项目</div>
+                                                <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-success"></div>人员</div>
+                                                <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-danger"></div>任务</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="knowledge-topic" class="view-panel">
+                            <div class="mb-4 flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <input type="text" class="border border-line rounded-full px-3 py-1 text-sm" placeholder="搜索主题...">
+                                    <select class="border border-line rounded-full px-3 py-1 text-xs">
+                                        <option>全部领域</option>
+                                        <option>产品</option>
+                                        <option>技术</option>
+                                        <option>市场</option>
+                                    </select>
+                                </div>
+                                <button class="px-3 py-1 rounded-full bg-primary text-white text-xs">创建主题空间</button>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-white rounded-xl border border-line p-4 hover:shadow-soft transition cursor-pointer">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <p class="font-medium">📈 产品增长</p>
+                                        <button class="px-2 py-1 rounded-full bg-primary text-white text-xs">已关注</button>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-xs text-muted mt-2">
+                                        <span><i class="fa fa-file-text-o"></i> 22篇</span>
+                                        <span><i class="fa fa-user"></i> 5位专家</span>
+                                        <span><i class="fa fa-clock-o"></i> 今日更新2</span>
+                                    </div>
+                                    <div class="mt-3 p-2 rounded-lg bg-ocean text-xs">
+                                        <p class="font-medium">核心文档</p>
+                                        <p class="text-muted mt-1">《增长策略2024》《用户增长实践》</p>
+                                    </div>
+                                    <div class="mt-2 flex items-center gap-1 text-xs">
+                                        <span class="px-2 py-1 bg-mist rounded">覆盖度 85%</span>
+                                        <span class="px-2 py-1 bg-coral rounded">活跃度 高</span>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded-xl border border-line p-4 hover:shadow-soft transition cursor-pointer">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <p class="font-medium">💼 客户运营</p>
+                                        <button class="px-2 py-1 rounded-full bg-white border border-line text-xs">关注</button>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-xs text-muted mt-2">
+                                        <span><i class="fa fa-file-text-o"></i> 18篇</span>
+                                        <span><i class="fa fa-user"></i> 4位专家</span>
+                                        <span><i class="fa fa-clock-o"></i> 3天前更新</span>
+                                    </div>
+                                    <div class="mt-3 p-2 rounded-lg bg-ocean text-xs">
+                                        <p class="font-medium">核心文档</p>
+                                        <p class="text-muted mt-1">《客户成功手册》《续约策略指南》</p>
+                                    </div>
+                                    <div class="mt-2 flex items-center gap-1 text-xs">
+                                        <span class="px-2 py-1 bg-mist rounded">覆盖度 78%</span>
+                                        <span class="px-2 py-1 bg-coral rounded">活跃度 中</span>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded-xl border border-line p-4 hover:shadow-soft transition cursor-pointer">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <p class="font-medium">🤖 智能体应用</p>
+                                        <button class="px-2 py-1 rounded-full bg-white border border-line text-xs">关注</button>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-xs text-muted mt-2">
+                                        <span><i class="fa fa-file-text-o"></i> 12篇</span>
+                                        <span><i class="fa fa-user"></i> 3位专家</span>
+                                        <span><i class="fa fa-clock-o"></i> 昨日更新</span>
+                                    </div>
+                                    <div class="mt-3 p-2 rounded-lg bg-ocean text-xs">
+                                        <p class="font-medium">核心文档</p>
+                                        <p class="text-muted mt-1">《智能体设计规范》《应用案例库》</p>
+                                    </div>
+                                    <div class="mt-2 flex items-center gap-1 text-xs">
+                                        <span class="px-2 py-1 bg-mist rounded">覆盖度 65%</span>
+                                        <span class="px-2 py-1 bg-mist rounded">新兴主题</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium mb-3">主题空间详情 - 产品增长</p>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                                    <div class="p-3 rounded-xl bg-ocean">
+                                        <p class="font-medium">知识地图</p>
+                                        <div class="mt-2 space-y-1">
+                                            <div class="flex justify-between"><span>获客策略</span><span class="text-success">✓ 完整</span></div>
+                                            <div class="flex justify-between"><span>留存优化</span><span class="text-success">✓ 完整</span></div>
+                                            <div class="flex justify-between"><span>变现模式</span><span class="text-warning">△ 待补充</span></div>
+                                            <div class="flex justify-between"><span>增长实验</span><span class="text-danger">✗ 缺失</span></div>
+                                        </div>
+                                        <p class="mt-2 text-muted">覆盖度 82% · 关键缺口 3</p>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-coral">
+                                        <p class="font-medium">核心文档(高频访问)</p>
+                                        <ul class="mt-2 space-y-1 text-muted">
+                                            <li><i class="fa fa-fire text-danger"></i> 《增长策略2024》 访问 328次</li>
+                                            <li><i class="fa fa-fire text-danger"></i> 《用户增长实践》 访问 256次</li>
+                                            <li><i class="fa fa-fire text-warning"></i> 《A/B测试指南》 访问 198次</li>
+                                            <li>《产品数据分析》 访问 145次</li>
+                                        </ul>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-mist">
+                                        <p class="font-medium">活跃动态(近7天)</p>
+                                        <ul class="mt-2 space-y-1 text-muted">
+                                            <li>📝 新增文档 5篇</li>
+                                            <li>✏️ 更新文档 8篇</li>
+                                            <li>💬 评论讨论 23条</li>
+                                            <li>⭐ 收藏推荐 15次</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-4 p-3 rounded-xl border border-line">
+                                    <p class="font-medium">关键人物</p>
+                                    <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                                        <div class="px-3 py-2 rounded-full bg-ocean flex items-center gap-2">
+                                            <div class="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center">李</div>
+                                            <span>李强 · 产品专家 · 贡献12篇</span>
+                                        </div>
+                                        <div class="px-3 py-2 rounded-full bg-coral flex items-center gap-2">
+                                            <div class="w-6 h-6 rounded-full bg-secondary text-white flex items-center justify-center">王</div>
+                                            <span>王晓华 · 数据专家 · 贡献8篇</span>
+                                        </div>
+                                        <div class="px-3 py-2 rounded-full bg-mist flex items-center gap-2">
+                                            <div class="w-6 h-6 rounded-full bg-accent text-white flex items-center justify-center">张</div>
+                                            <span>张三 · 增长负责人 · 贡献6篇</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="knowledge-timeline" class="view-panel">
+                            <div class="mb-4 flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <select class="border border-line rounded-full px-3 py-1 text-sm">
+                                        <option>产品增长主题</option>
+                                        <option>客户运营主题</option>
+                                        <option>项目A</option>
+                                        <option>全部知识</option>
+                                    </select>
+                                    <input type="date" class="border border-line rounded-full px-3 py-1 text-xs" value="2024-01-01">
+                                    <span class="text-xs text-muted">至</span>
+                                    <input type="date" class="border border-line rounded-full px-3 py-1 text-xs" value="2024-07-31">
+                                </div>
+                                <div class="flex gap-2">
+                                    <button class="action-btn px-3 py-1 rounded-full bg-white border border-line text-xs hover:bg-primary hover:text-white transition" data-action="里程碑标注已启用">标注里程碑</button>
+                                    <button id="timeline-compare" class="action-btn px-3 py-1 rounded-full bg-secondary text-white text-xs" data-action="时间点对比面板已打开">时间点对比</button>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium mb-4">知识演进时间轴 - 产品增长主题</p>
+                                <div class="relative">
+                                    <!-- 时间轴主线 -->
+                                    <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-line"></div>
+                                    <div class="space-y-6 text-xs">
+                                        <!-- 里程碑事件 -->
+                                        <div class="relative pl-16">
+                                            <div class="absolute left-6 top-1 w-5 h-5 rounded-full bg-primary flex items-center justify-center text-white">
+                                                <i class="fa fa-flag" style="font-size: 10px;"></i>
+                                            </div>
+                                            <div class="p-3 rounded-lg bg-primary/10 border border-primary/30">
+                                                <div class="flex items-center justify-between mb-1">
+                                                    <p class="font-medium text-sm">🎯 V2.0产品增长策略发布</p>
+                                                    <span class="text-muted">2024/07/15</span>
+                                                </div>
+                                                <p class="text-muted">里程碑：完成年度增长策略规划，新增4个核心增长模型，建立12个实验框架</p>
+                                                <div class="mt-2 flex items-center gap-2">
+                                                    <span class="px-2 py-1 bg-white rounded">新增文档 4篇</span>
+                                                    <span class="px-2 py-1 bg-white rounded">关联实体 8个</span>
+                                                    <span class="px-2 py-1 bg-white rounded">参与专家 3位</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 普通更新 -->
+                                        <div class="relative pl-16">
+                                            <div class="absolute left-7 top-2 w-3 h-3 rounded-full bg-secondary"></div>
+                                            <div class="p-3 rounded-lg bg-white border border-line">
+                                                <div class="flex items-center justify-between mb-1">
+                                                    <p class="font-medium">发布《华东区市场趋势分析》</p>
+                                                    <span class="text-muted">2024/07/12</span>
+                                                </div>
+                                                <p class="text-muted">补充华东区域数据，新增竞品对比章节，版本V2.0</p>
+                                                <div class="mt-2 flex items-center gap-2">
+                                                    <span class="px-2 py-1 bg-mist rounded">更新文档 1篇</span>
+                                                    <span class="px-2 py-1 bg-mist rounded">新增关联 4个</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="relative pl-16">
+                                            <div class="absolute left-7 top-2 w-3 h-3 rounded-full bg-accent"></div>
+                                            <div class="p-3 rounded-lg bg-white border border-line">
+                                                <div class="flex items-center justify-between mb-1">
+                                                    <p class="font-medium">更新《竞品B策略分析》</p>
+                                                    <span class="text-muted">2024/06/30</span>
+                                                </div>
+                                                <p class="text-muted">补充价格变动数据、渠道策略变化，修复术语不一致问题</p>
+                                                <div class="mt-2 flex items-center gap-2">
+                                                    <span class="px-2 py-1 bg-mist rounded">修订文档 1篇</span>
+                                                    <span class="px-2 py-1 bg-mist rounded">修复问题 3处</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 里程碑事件 -->
+                                        <div class="relative pl-16">
+                                            <div class="absolute left-6 top-1 w-5 h-5 rounded-full bg-success flex items-center justify-center text-white">
+                                                <i class="fa fa-check" style="font-size: 10px;"></i>
+                                            </div>
+                                            <div class="p-3 rounded-lg bg-success/10 border border-success/30">
+                                                <div class="flex items-center justify-between mb-1">
+                                                    <p class="font-medium text-sm">🎉 Q2季度总结完成</p>
+                                                    <span class="text-muted">2024/06/25</span>
+                                                </div>
+                                                <p class="text-muted">里程碑：完成Q2回顾，沉淀3个关键决策，识别5个核心任务，产出2份复盘文档</p>
+                                                <div class="mt-2 flex items-center gap-2">
+                                                    <span class="px-2 py-1 bg-white rounded">会议纪要 2份</span>
+                                                    <span class="px-2 py-1 bg-white rounded">决策记录 3项</span>
+                                                    <span class="px-2 py-1 bg-white rounded">任务派发 5个</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="relative pl-16">
+                                            <div class="absolute left-7 top-2 w-3 h-3 rounded-full bg-secondary"></div>
+                                            <div class="p-3 rounded-lg bg-white border border-line">
+                                                <div class="flex items-center justify-between mb-1">
+                                                    <p class="font-medium">沉淀会议纪要《增长策略讨论会》</p>
+                                                    <span class="text-muted">2024/06/05</span>
+                                                </div>
+                                                <p class="text-muted">自动识别3项决策、5个待办任务，关联项目A与产品增长主题</p>
+                                                <div class="mt-2 flex items-center gap-2">
+                                                    <span class="px-2 py-1 bg-mist rounded">会议纪要 1份</span>
+                                                    <span class="px-2 py-1 bg-mist rounded">决策提取 3项</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex items-center justify-center">
+                                    <button class="px-4 py-2 rounded-full bg-mist text-sm hover:bg-primary hover:text-white transition">加载更早记录</button>
+                                </div>
+                            </div>
+                            <div id="timeline-comparison" class="mt-4 bg-white rounded-xl border border-line p-4 hidden">
+                                <p class="font-medium mb-3">时间点对比分析</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                                    <div class="p-3 rounded-lg border border-line">
+                                        <p class="font-medium">时间点A: 2024/06/30</p>
+                                        <ul class="mt-2 space-y-1 text-muted">
+                                            <li>• 文档总数: 15篇</li>
+                                            <li>• 核心文档: 8篇</li>
+                                            <li>• 专家人数: 4位</li>
+                                            <li>• 知识覆盖度: 72%</li>
+                                        </ul>
+                                    </div>
+                                    <div class="p-3 rounded-lg border border-line">
+                                        <p class="font-medium">时间点B: 2024/07/15</p>
+                                        <ul class="mt-2 space-y-1 text-muted">
+                                            <li>• 文档总数: 22篇 <span class="text-success">(+7)</span></li>
+                                            <li>• 核心文档: 12篇 <span class="text-success">(+4)</span></li>
+                                            <li>• 专家人数: 5位 <span class="text-success">(+1)</span></li>
+                                            <li>• 知识覆盖度: 85% <span class="text-success">(+13%)</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-3 p-3 rounded-lg bg-ocean text-xs">
+                                    <p class="font-medium">变化分析</p>
+                                    <p class="text-muted mt-1">在此期间，知识体系显著扩充，新增增长实验框架和数据分析模型，覆盖度提升13个百分点，团队协作更活跃。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="knowledge-ai" class="section-panel">
+                        <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                            <div class="xl:col-span-2 bg-white rounded-xl border border-line p-4 space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <p class="font-medium">AI写作助手</p>
+                                    <div class="flex gap-2 text-xs">
+                                        <button class="action-btn px-2 py-1 rounded-full bg-mist hover:bg-primary hover:text-white transition" data-action="AI正在续写段落...">续写</button>
+                                        <button class="action-btn px-2 py-1 rounded-full bg-mist hover:bg-secondary hover:text-white transition" data-action="AI改写建议已生成">改写</button>
+                                        <button class="action-btn px-2 py-1 rounded-full bg-mist hover:bg-accent hover:text-white transition" data-action="多粒度摘要已生成">生成摘要</button>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-lg bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 text-sm">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="fa fa-magic text-primary"></i>
+                                        <p class="font-medium">智能大纲生成</p>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2 text-xs">
+                                        <input type="text" class="border border-line rounded px-2 py-1" placeholder="输入文档标题..." value="华东区增长策略2024">
+                                        <select class="border border-line rounded px-2 py-1">
+                                            <option>技术方案</option>
+                                            <option selected>市场分析</option>
+                                            <option>项目复盘</option>
+                                            <option>产品需求</option>
+                                            <option>会议纪要</option>
+                                        </select>
+                                    </div>
+                                    <button class="generate-outline-btn mt-2 px-3 py-1 rounded-full bg-primary text-white text-xs hover:bg-secondary transition">生成结构化大纲</button>
+                                </div>
+                                <div class="p-3 rounded-lg bg-white border border-line text-xs">
+                                    <p class="font-medium mb-2">AI生成的大纲预览</p>
+                                    <div class="outline-preview-container space-y-1 pl-3">
+                                        <div class="flex items-center justify-between p-2 hover:bg-mist rounded cursor-pointer">
+                                            <span><i class="fa fa-angle-right text-muted"></i> 一、背景与目标</span>
+                                            <button class="text-primary text-xs">编辑</button>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 hover:bg-mist rounded cursor-pointer">
+                                            <span><i class="fa fa-angle-right text-muted"></i> 二、市场现状分析</span>
+                                            <button class="text-primary text-xs">编辑</button>
+                                        </div>
+                                        <div class="pl-4 space-y-1">
+                                            <div class="flex items-center justify-between p-1 hover:bg-mist rounded text-muted">
+                                                <span>2.1 整体市场规模与增速</span>
+                                                <i class="fa fa-check-circle text-success"></i>
+                                            </div>
+                                            <div class="flex items-center justify-between p-1 hover:bg-mist rounded text-muted">
+                                                <span>2.2 区域分布与特征</span>
+                                                <i class="fa fa-check-circle text-success"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 hover:bg-mist rounded cursor-pointer">
+                                            <span><i class="fa fa-angle-right text-muted"></i> 三、竞品对比分析</span>
+                                            <button class="text-warning text-xs">待补充</button>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 hover:bg-mist rounded cursor-pointer">
+                                            <span><i class="fa fa-angle-right text-muted"></i> 四、增长策略建议</span>
+                                            <button class="text-primary text-xs">编辑</button>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 hover:bg-mist rounded cursor-pointer">
+                                            <span><i class="fa fa-angle-right text-muted"></i> 五、风险评估与应对</span>
+                                            <button class="text-primary text-xs">编辑</button>
+                                        </div>
+                                    </div>
+                                    <button class="apply-outline-btn mt-3 w-full px-3 py-2 rounded-full bg-secondary text-white text-xs">应用大纲到编辑器</button>
+                                </div>
+                                <div class="p-3 rounded-lg border border-line text-xs">
+                                    <p class="font-medium mb-2">段落AI改写建议</p>
+                                    <div class="space-y-2">
+                                        <div class="p-2 rounded bg-mist">
+                                            <p class="text-muted">原文：华东区市场增长快速，特别是上海地区表现突出。</p>
+                                        </div>
+                                        <div class="space-y-1">
+                                            <div class="p-2 rounded bg-ocean cursor-pointer hover:bg-primary/20">
+                                                <div class="flex items-center justify-between">
+                                                    <span class="text-xs text-muted">更专业</span>
+                                                    <button class="text-primary">应用</button>
+                                                </div>
+                                                <p class="mt-1">华东区市场呈现加速增长态势，其中上海地区销售额同比增长18.7%，贡献了区域60%的市场份额。</p>
+                                            </div>
+                                            <div class="p-2 rounded bg-coral cursor-pointer hover:bg-secondary/20">
+                                                <div class="flex items-center justify-between">
+                                                    <span class="text-xs text-muted">更简洁</span>
+                                                    <button class="text-secondary">应用</button>
+                                                </div>
+                                                <p class="mt-1">华东区高速增长，上海领跑。</p>
+                                            </div>
+                                            <div class="p-2 rounded bg-mist cursor-pointer hover:bg-accent/20">
+                                                <div class="flex items-center justify-between">
+                                                    <span class="text-xs text-muted">更通俗</span>
+                                                    <button class="text-accent">应用</button>
+                                                </div>
+                                                <p class="mt-1">华东区市场发展很快，上海的业绩特别好。</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-lg border border-line text-xs">
+                                    <p class="font-medium mb-2">自动生成摘要(多粒度)</p>
+                                    <div class="space-y-2">
+                                        <div class="p-2 rounded bg-primary/10 border border-primary/30">
+                                            <p class="font-medium">一句话摘要</p>
+                                            <p class="text-muted mt-1">华东区2024年销售额同比增长15.3%，上海地区表现突出，建议加大线上渠道投入。</p>
+                                        </div>
+                                        <div class="p-2 rounded bg-secondary/10 border border-secondary/30">
+                                            <p class="font-medium">三要点摘要</p>
+                                            <ul class="text-muted mt-1 space-y-1 list-disc list-inside">
+                                                <li>华东区Q2销售额同比增长15.3%，高于全国平均水平</li>
+                                                <li>上海地区贡献60%区域销售额，增长率达18.7%</li>
+                                                <li>线上渠道销售同比增长32.5%，建议加大投入</li>
+                                            </ul>
+                                        </div>
+                                        <div class="p-2 rounded bg-accent/10 border border-accent/30">
+                                            <p class="font-medium">200字摘要</p>
+                                            <p class="text-muted mt-1 text-xs leading-relaxed">本报告分析2024年华东区市场趋势。数据显示，华东区Q2销售额同比增长15.3%，高于全国平均水平。上海地区贡献了60%的区域销售额，增长率达18.7%。竞品A市场份额下降3.2个百分点，我们的产品填补了市场空缺。线上渠道销售同比增长32.5%，表现突出。客户对新产品功能满意度达87%。建议：1)加大线上渠道投入；2)加强上海地区市场覆盖；3)持续优化产品功能。</p>
+                                        </div>
+                                    </div>
+                                    <button class="mt-2 w-full px-3 py-2 rounded-full bg-accent text-white text-xs">保存摘要到文档</button>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                                    <div class="p-3 rounded-xl bg-ocean">
+                                        <p class="font-medium">相关案例</p>
+                                        <p class="mt-1 text-muted">“渠道整合”复盘报告</p>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-coral">
+                                        <p class="font-medium">引用推荐</p>
+                                        <p class="mt-1 text-muted">Q2行业趋势研究</p>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-mist">
+                                        <p class="font-medium">专家推荐</p>
+                                        <p class="mt-1 text-muted">@李强参与评审</p>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                                    <div class="p-3 rounded-xl border border-line">
+                                        <p class="font-medium">多粒度摘要</p>
+                                        <p class="text-muted mt-1">一句话 · 三要点 · 200字</p>
+                                    </div>
+                                    <div class="p-3 rounded-xl border border-line">
+                                        <p class="font-medium">段落改写</p>
+                                        <p class="text-muted mt-1">专业/简洁/通俗</p>
+                                    </div>
+                                    <div class="p-3 rounded-xl border border-line">
+                                        <p class="font-medium">协作建议</p>
+                                        <p class="text-muted mt-1">@专家审阅 · 相关文档引用</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4 space-y-3 text-xs">
+                                <p class="font-medium text-sm">模板与组件库</p>
+                                <div class="p-3 rounded-lg bg-mist">技术方案模板 · 可生成风险评估章节</div>
+                                <div class="p-3 rounded-lg bg-mist">项目复盘模板 · 自动生成时间线</div>
+                                <div class="p-3 rounded-lg bg-mist">审批流程组件 · 一键插入</div>
+                                <button class="w-full px-3 py-2 rounded-full bg-primary text-white text-xs">打开模板库</button>
+                            </div>
+                        </div>
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white rounded-xl border border-line p-4 text-xs">
+                                <p class="font-medium">智能关联与标注</p>
+                                <p class="text-muted mt-2">自动识别项目、术语、人员实体，统一术语并关联知识图谱。</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 rounded-full bg-mist">[[智能链接]]</span>
+                                    <span class="px-2 py-1 rounded-full bg-mist">术语规范检查</span>
+                                    <span class="px-2 py-1 rounded-full bg-mist">本体定义预览</span>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4 text-xs">
+                                <p class="font-medium">多模态编辑器</p>
+                                <p class="text-muted mt-2">支持图表、视频、流程图与思维导图一键插入并自动同步结构。</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 rounded-full bg-mist">流程图</span>
+                                    <span class="px-2 py-1 rounded-full bg-mist">泳道图</span>
+                                    <span class="px-2 py-1 rounded-full bg-mist">图表</span>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4 text-xs">
+                                <p class="font-medium">协作编辑</p>
+                                <p class="text-muted mt-2">多人实时协作，标注光标与选区，支持评论与@提及。</p>
+                                <div class="mt-3 flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-success"></span>
+                                    <span>3人在线协作中</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">术语规范检查</p>
+                                <p class="text-muted mt-2">检测同义词与未定义术语并给出替换建议。</p>
+                                <div class="mt-2 p-2 rounded-lg bg-mist">“K8S” → “Kubernetes”</div>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">实体卡片预览</p>
+                                <p class="text-muted mt-2">悬停实体查看定义、关系与来源。</p>
+                                <div class="mt-2 p-2 rounded-lg bg-mist">实体：微服务架构 · 关系 12</div>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">图谱直接编辑</p>
+                                <p class="text-muted mt-2">拖拽添加关联关系，自动同步到图谱。</p>
+                                <div class="mt-2 p-2 rounded-lg bg-mist">关系：此文档依赖项目A</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="knowledge-review" class="section-panel">
+                        <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                            <div class="xl:col-span-2 bg-white rounded-xl border border-line p-4 space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <p class="font-medium">版本管理</p>
+                                    <button class="action-btn px-3 py-1 rounded-full bg-mist text-xs" data-action="版本里程碑已创建">创建里程碑</button>
+                                </div>
+                                <div class="space-y-3 text-xs">
+                                    <div class="p-3 rounded-lg border border-line flex items-center justify-between">
+                                        <div>
+                                            <p class="font-medium">V2.0 · 评审中</p>
+                                            <p class="text-muted mt-1">补充“竞品价格变动”章节</p>
+                                        </div>
+                                        <button class="text-secondary">对比</button>
+                                    </div>
+                                    <div class="p-3 rounded-lg border border-line flex items-center justify-between">
+                                        <div>
+                                            <p class="font-medium">V1.2 · 已发布</p>
+                                            <p class="text-muted mt-1">新增案例与引用</p>
+                                        </div>
+                                        <button class="text-secondary">预览</button>
+                                    </div>
+                                    <div class="p-3 rounded-lg border border-line flex items-center justify-between">
+                                        <div>
+                                            <p class="font-medium">V1.0 · 初版</p>
+                                            <p class="text-muted mt-1">结构化大纲生成</p>
+                                        </div>
+                                        <button class="text-secondary">回滚</button>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-lg border border-line text-xs text-muted">
+                                    差异摘要：新增“竞品对比”章节，更新12处数据，修复术语不一致问题。
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4 text-xs space-y-3">
+                                <p class="font-medium text-sm">评审工作流</p>
+                                <div class="p-3 rounded-lg bg-mist">提交评审 → 指定专家 → 评论处理 → 通过发布</div>
+                                <div class="space-y-2">
+                                    <div class="p-3 rounded-lg border border-line">
+                                        <p class="font-medium">待处理评论</p>
+                                        <p class="text-muted mt-1">缓存策略需补充详细说明</p>
+                                    </div>
+                                    <div class="p-3 rounded-lg border border-line">
+                                        <p class="font-medium">已解决评论</p>
+                                        <p class="text-muted mt-1">术语统一为“购买方”</p>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-lg border border-line">
+                                    <p class="font-medium">讨论沉淀</p>
+                                    <p class="text-muted mt-1">将评审结论一键提取为FAQ或正文段落</p>
+                                </div>
+                                <div class="p-3 rounded-lg border border-line">
+                                    <p class="font-medium">评审人建议</p>
+                                    <p class="text-muted mt-1">@李强 · @王晓华</p>
+                                </div>
+                                <button class="action-btn w-full px-3 py-2 rounded-full bg-primary text-white text-xs" data-action="已进入评审模式">进入评审模式</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="knowledge-quality" class="section-panel">
+                        <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                            <div class="xl:col-span-2 bg-white rounded-xl border border-line p-4 space-y-4 text-xs">
+                                <div class="flex items-center justify-between">
+                                    <p class="font-medium text-sm">质量自动检测</p>
+                                    <button class="action-btn px-3 py-1 rounded-full bg-secondary text-white" data-action="质量检测已完成">运行检测</button>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div class="p-3 rounded-lg border border-line">
+                                        <p class="font-medium">完整性检查</p>
+                                        <p class="text-muted mt-1">缺少“风险评估”章节</p>
+                                    </div>
+                                    <div class="p-3 rounded-lg border border-line">
+                                        <p class="font-medium">一致性检查</p>
+                                        <p class="text-muted mt-1">术语“K8S”建议替换为“Kubernetes”</p>
+                                    </div>
+                                    <div class="p-3 rounded-lg border border-line">
+                                        <p class="font-medium">时效性检查</p>
+                                        <p class="text-muted mt-1">外部链接1条失效</p>
+                                    </div>
+                                    <div class="p-3 rounded-lg border border-line">
+                                        <p class="font-medium">可读性评估</p>
+                                        <p class="text-muted mt-1">复杂段落 2 处</p>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div class="p-3 rounded-lg border border-line">
+                                        <p class="font-medium">重复与相似</p>
+                                        <p class="text-muted mt-1">相似文档 2 篇</p>
+                                    </div>
+                                    <div class="p-3 rounded-lg border border-line">
+                                        <p class="font-medium">冲突提示</p>
+                                        <p class="text-muted mt-1">竞品B价格描述冲突</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4 space-y-3 text-xs">
+                                <p class="font-medium text-sm">相似与冲突提示</p>
+                                <div class="p-3 rounded-lg bg-mist">发现相似文档：《华北区市场趋势分析》</div>
+                                <div class="p-3 rounded-lg bg-mist">冲突提示：竞品B价格策略描述不一致</div>
+                                <p class="font-medium text-sm mt-2">质量评分</p>
+                                <div class="p-3 rounded-lg border border-line">
+                                    <p class="text-muted">内容质量 86 · 受欢迎度 78 · 权威性 90</p>
+                                </div>
+                                <div class="p-3 rounded-lg border border-line">
+                                    <p class="font-medium">评分影响</p>
+                                    <p class="text-muted mt-1">影响搜索排序与推荐曝光</p>
+                                </div>
+                                <button class="w-full px-3 py-2 rounded-full bg-primary text-white text-xs">查看质量报告</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="knowledge-lifecycle" class="section-panel">
+                        <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                            <div class="xl:col-span-2 bg-white rounded-xl border border-line p-4 space-y-4 text-xs">
+                                <p class="font-medium text-sm">状态流转</p>
+                                <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
+                                    <div class="p-2 rounded-lg bg-mist text-center">草稿</div>
+                                    <div class="p-2 rounded-lg bg-mist text-center">评审中</div>
+                                    <div class="p-2 rounded-lg bg-primary text-white text-center">已发布</div>
+                                    <div class="p-2 rounded-lg bg-mist text-center">已归档</div>
+                                    <div class="p-2 rounded-lg bg-mist text-center">已废止</div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div class="p-3 rounded-lg border border-line">
+                                        <p class="font-medium">生效范围</p>
+                                        <p class="text-muted mt-1">技术部门 · 项目A · 2025 Q1</p>
+                                    </div>
+                                    <div class="p-3 rounded-lg border border-line">
+                                        <p class="font-medium">权限控制</p>
+                                        <p class="text-muted mt-1">查看/评论/编辑/管理可继承目录权限</p>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div class="p-3 rounded-lg border border-line">
+                                        <p class="font-medium">有效期设置</p>
+                                        <p class="text-muted mt-1">到期自动提醒复审</p>
+                                    </div>
+                                    <div class="p-3 rounded-lg border border-line">
+                                        <p class="font-medium">归档与废止</p>
+                                        <p class="text-muted mt-1">状态记录可追溯</p>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-lg border border-line">
+                                    <p class="font-medium">权限矩阵</p>
+                                    <p class="text-muted mt-1">查看/评论/编辑/管理按角色配置</p>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4 text-xs space-y-3">
+                                <p class="font-medium text-sm">发布与归档策略</p>
+                                <div class="p-3 rounded-lg bg-mist">到期提醒：2025/03/31</div>
+                                <div class="p-3 rounded-lg bg-mist">归档条件：连续180天无更新</div>
+                                <button class="action-btn w-full px-3 py-2 rounded-full bg-secondary text-white text-xs" data-action="生效策略设置已保存">设置生效策略</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="knowledge-integration" class="section-panel">
+                        <div class="bg-white rounded-xl border border-line p-4">
+                            <div class="flex items-center justify-between">
+                                <p class="font-medium">与“灵枢”集成接口</p>
+                                <button class="action-btn px-3 py-1 rounded-full bg-mist text-xs" data-action="API状态已刷新">查看API状态</button>
+                            </div>
+                            <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                                <div class="p-3 rounded-lg border border-line">
+                                    <p class="font-medium">服务健康</p>
+                                    <p class="text-muted mt-1">正常 · P95 280ms</p>
+                                </div>
+                                <div class="p-3 rounded-lg border border-line">
+                                    <p class="font-medium">降级策略</p>
+                                    <p class="text-muted mt-1">自动切换关键词检索</p>
+                                </div>
+                                <div class="p-3 rounded-lg border border-line">
+                                    <p class="font-medium">权限审计</p>
+                                    <p class="text-muted mt-1">调用记录可追溯</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 overflow-hidden rounded-xl border border-line">
+                                <table class="w-full text-xs">
+                                    <thead class="bg-mist text-left">
+                                        <tr>
+                                            <th class="py-2 px-3">集成点</th>
+                                            <th class="py-2 px-3">调用能力</th>
+                                            <th class="py-2 px-3">数据流向</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-t border-line">
+                                            <td class="py-2 px-3">知识图谱视图</td>
+                                            <td class="py-2 px-3">动态知识图谱查询与可视化</td>
+                                            <td class="py-2 px-3">智能知识库 → 灵枢</td>
+                                        </tr>
+                                        <tr class="border-t border-line">
+                                            <td class="py-2 px-3">实体识别与术语检查</td>
+                                            <td class="py-2 px-3">本体论工厂模型</td>
+                                            <td class="py-2 px-3">智能知识库 → 灵枢</td>
+                                        </tr>
+                                        <tr class="border-t border-line">
+                                            <td class="py-2 px-3">AI写作助手</td>
+                                            <td class="py-2 px-3">智能体工厂生成技能</td>
+                                            <td class="py-2 px-3">智能知识库 → 灵枢</td>
+                                        </tr>
+                                        <tr class="border-t border-line">
+                                            <td class="py-2 px-3">知识关联推荐</td>
+                                            <td class="py-2 px-3">语义检索</td>
+                                            <td class="py-2 px-3">智能知识库 → 灵枢</td>
+                                        </tr>
+                                        <tr class="border-t border-line">
+                                            <td class="py-2 px-3">文档内容入库</td>
+                                            <td class="py-2 px-3">知识熔炉流水线</td>
+                                            <td class="py-2 px-3">智能知识库 → 灵枢</td>
+                                        </tr>
+                                        <tr class="border-t border-line">
+                                            <td class="py-2 px-3">质量评分计算</td>
+                                            <td class="py-2 px-3">度量服务</td>
+                                            <td class="py-2 px-3">智能知识库 ↔ 灵枢</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="knowledge-nonfunctional" class="section-panel">
+                        <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 text-xs">
+                            <div class="bg-white rounded-xl border border-line p-4 space-y-2">
+                                <p class="font-medium text-sm">性能指标</p>
+                                <div class="p-2 rounded-lg bg-mist">文档打开 < 1s（10万字内）</div>
+                                <div class="p-2 rounded-lg bg-mist">编辑响应 < 100ms</div>
+                                <div class="p-2 rounded-lg bg-mist">图谱交互 ≥ 30fps</div>
+                                <div class="p-2 rounded-lg bg-mist">AI响应 < 3s</div>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4 space-y-2">
+                                <p class="font-medium text-sm">可靠性</p>
+                                <div class="p-2 rounded-lg bg-mist">自动保存 · 每30秒/关键操作</div>
+                                <div class="p-2 rounded-lg bg-mist">断网暂存 · 恢复自动同步</div>
+                                <div class="p-2 rounded-lg bg-mist">版本数据异地备份</div>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4 space-y-2">
+                                <p class="font-medium text-sm">体验与兼容</p>
+                                <div class="p-2 rounded-lg bg-mist">骨架屏 + 即时反馈</div>
+                                <div class="p-2 rounded-lg bg-mist">导入Word/Markdown/PDF</div>
+                                <div class="p-2 rounded-lg bg-mist">导出Word/PDF/Markdown/HTML</div>
+                                <div class="p-2 rounded-lg bg-mist">适配主流浏览器与屏幕</div>
+                            </div>
+                        </div>
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">可用性监控</p>
+                                <p class="text-muted mt-1">异常自动提示与降级</p>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">数据安全</p>
+                                <p class="text-muted mt-1">权限校验 · 审计日志</p>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-4">
+                                <p class="font-medium">体验反馈</p>
+                                <p class="text-muted mt-1">质量评分影响推荐</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+

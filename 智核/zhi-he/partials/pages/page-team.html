@@ -1,0 +1,105 @@
+            <div id="page-team" class="page flex flex-col gap-6 h-[calc(100vh-120px)] overflow-auto">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-display font-semibold">团队空间</h2>
+                        <p class="text-sm text-muted">项目协作与知识沉淀一体化</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button id="create-space" class="px-4 py-2 rounded-full bg-primary text-white text-sm">创建空间</button>
+                        <button id="open-discussion" class="px-4 py-2 rounded-full bg-white border border-line text-sm">发起讨论</button>
+                    </div>
+                </div>
+                
+                <!-- 空间切换与选择 -->
+                <div class="bg-surface rounded-2xl border border-line shadow-card p-4">
+                    <div class="flex items-center justify-between">
+                        <p class="font-medium">我的空间</p>
+                        <select id="space-selector" class="px-3 py-2 rounded-lg border border-line text-sm">
+                            <option value="project-space">Q1新产品开发 (项目空间)</option>
+                            <option value="team-space">研发中心 (团队空间)</option>
+                            <option value="theme-space">技术创新小组 (主题空间)</option>
+                        </select>
+                    </div>
+                    <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div class="p-3 rounded-xl bg-ocean">
+                            <p class="font-medium">项目空间</p>
+                            <p class="text-muted mt-1">3个活跃项目</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-coral">
+                            <p class="font-medium">团队空间</p>
+                            <p class="text-muted mt-1">2个部门团队</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-mist">
+                            <p class="font-medium">主题空间</p>
+                            <p class="text-muted mt-1">5个跨部门主题</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                    <div class="xl:col-span-2 bg-surface rounded-2xl border border-line shadow-card p-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-medium">空间概览 · Q1新产品开发</p>
+                            <button id="space-settings" class="text-xs text-secondary">空间设置</button>
+                        </div>
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                            <div class="p-3 rounded-xl bg-ocean">
+                                <p class="font-medium">OKR进度</p>
+                                <p class="text-muted mt-1">完成度 68%</p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-coral">
+                                <p class="font-medium">最新动态</p>
+                                <p class="text-muted mt-1">3条文档更新 · 2个决策</p>
+                            </div>
+                            <div class="p-3 rounded-xl bg-mist">
+                                <p class="font-medium">待办事项</p>
+                                <p class="text-muted mt-1">4项分配给你</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-xl border border-line p-3">
+                                <p class="font-medium text-sm">讨论区</p>
+                                <ul class="mt-2 text-xs space-y-2">
+                                    <li class="p-2 rounded-lg bg-mist">需求优先级讨论 · 12条回复</li>
+                                    <li class="p-2 rounded-lg bg-mist">技术方案评审 · 8条回复</li>
+                                    <li class="p-2 rounded-lg bg-mist">上线风险与预案 · 4条回复</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white rounded-xl border border-line p-3">
+                                <p class="font-medium text-sm">会议纪要</p>
+                                <ul class="mt-2 text-xs space-y-2">
+                                    <li class="p-2 rounded-lg bg-mist">技术方案评审会 · 决策3项</li>
+                                    <li class="p-2 rounded-lg bg-mist">周例会 · 任务5项</li>
+                                    <li class="p-2 rounded-lg bg-mist">设计评审 · 风险2项</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-surface rounded-2xl border border-line shadow-card p-4 space-y-3">
+                        <div>
+                            <p class="font-medium">团队成员</p>
+                            <p class="text-xs text-muted">自动识别隐性专家</p>
+                        </div>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-line">
+                                <span>张三 · 架构专家</span>
+                                <span class="text-secondary">贡献指数 92</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-line">
+                                <span>李四 · 需求分析</span>
+                                <span class="text-secondary">贡献指数 88</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 rounded-lg bg-white border border-line">
+                                <span>王晓华 · 市场分析</span>
+                                <span class="text-secondary">贡献指数 85</span>
+                            </div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-mist text-xs">
+                            <p class="font-medium">空间健康度</p>
+                            <p class="mt-1 text-muted">评分 82 · 建议补充测试文档</p>
+                        </div>
+                        <button class="px-3 py-2 rounded-full bg-secondary text-white text-sm">查看任务看板</button>
+                    </div>
+                </div>
+            </div>
+

@@ -1,0 +1,1443 @@
+                <section id="ontology" class="section-content hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+                                <div class="w-8 h-8 mr-3">
+                                    <svg viewBox="0 0 24 24" class="text-primary w-full h-full">
+                                        <path d="M18,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V4A2,2 0 0,0 18,2M18,20H6V4H18V20M12,6H8V10H12V6M16,14H8V18H16V14M12,10H8V14H12V10M16,6H12V10H16V6Z" fill="currentColor"/>
+                                    </svg>
+                                </div>
+                                本体论工厂
+                            </h2>
+                            <p class="text-gray-500 mt-1">企业统一语义模型（企业"数字宪法"）的可视化设计、映射、治理与演进中心</p>
+                        </div>
+
+                        <div class="flex items-center space-x-3">
+                            <button id="newOntologyButton" data-role-allow="业务架构师,领域专家" class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90">
+                                <i class="fa fa-plus mr-1"></i> 新建本体
+                            </button>
+                            <button data-role-allow="业务架构师,数据治理员" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50">
+                                <i class="fa fa-upload mr-1"></i> 导入
+                            </button>
+                            <button data-role-allow="业务架构师,数据治理员" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50">
+                                <i class="fa fa-download mr-1"></i> 导出
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg border border-gray-200 mb-6">
+                        <div class="flex flex-wrap gap-2 px-4 py-3 text-sm">
+                            <button class="ontology-menu-item px-4 py-2 rounded-full bg-primary text-white font-medium" data-target="overviewContent">
+                                <i class="fa fa-th-large mr-2"></i>概览
+                            </button>
+                            <button class="ontology-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="modelerContent">
+                                <i class="fa fa-pencil-square-o mr-2"></i>建模器
+                            </button>
+                            <button class="ontology-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="mappingContent">
+                                <i class="fa fa-exchange mr-2"></i>语义映射
+                            </button>
+                            <button class="ontology-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="resourceContent">
+                                <i class="fa fa-archive mr-2"></i>资源管理
+                            </button>
+                            <button class="ontology-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="conflictContent">
+                                <i class="fa fa-gavel mr-2"></i>冲突仲裁
+                            </button>
+                            <button class="ontology-menu-item px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium" data-target="governanceContent">
+                                <i class="fa fa-code-fork mr-2"></i>版本治理
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- 概览 -->
+                        <div id="overviewContent" class="ontology-content space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="card p-5 rounded-lg border-l-4 border-primary bg-white">
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-500">活跃本体</p>
+                                        <div class="flex items-baseline mt-1">
+                                            <span id="activeOntologyCount" class="text-3xl font-bold text-gray-900 metric-value">24</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-10 h-10 bg-primary-light rounded-lg flex items-center justify-center">
+                                        <i class="fa fa-sitemap text-primary text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card p-5 rounded-lg border-l-4 border-secondary bg-white">
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-500">概念总数</p>
+                                        <div class="flex items-baseline mt-1">
+                                            <span id="conceptTotalCount" class="text-3xl font-bold text-gray-900 metric-value">1,247</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-10 h-10 bg-secondary-light rounded-lg flex items-center justify-center">
+                                        <i class="fa fa-tag text-secondary text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card p-5 rounded-lg border-l-4 border-success bg-white">
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-500">映射覆盖率</p>
+                                        <div class="flex items-baseline mt-1">
+                                            <span class="text-3xl font-bold text-gray-900 metric-value">86%</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-10 h-10 bg-success-light rounded-lg flex items-center justify-center">
+                                        <i class="fa fa-random text-success text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card p-5 rounded-lg border-l-4 border-warning bg-white">
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-500">待仲裁冲突</p>
+                                        <div class="flex items-baseline mt-1">
+                                            <span class="text-3xl font-bold text-gray-900 metric-value">7</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-10 h-10 bg-warning-light rounded-lg flex items-center justify-center">
+                                        <i class="fa fa-exclamation-triangle text-warning text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="card p-5 rounded-lg bg-white lg:col-span-2">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-gray-900">本体模型列表</h3>
+                                    <div class="relative">
+                                        <input type="text" placeholder="搜索本体..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <i class="fa fa-search absolute left-3 top-3 text-gray-400"></i>
+                                    </div>
+                                </div>
+
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full divide-y divide-gray-200">
+                                        <thead>
+                                            <tr>
+                                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">本体名称</th>
+                                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">概念数</th>
+                                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">关系数</th>
+                                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">版本</th>
+                                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                                <th class="px-6 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ontologyTableBody" class="bg-white divide-y divide-gray-200"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="space-y-6">
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">本周治理任务</h3>
+                                        <button class="text-sm text-primary hover:text-primary/80 font-medium">
+                                            查看全部
+                                        </button>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center justify-between text-sm">
+                                            <span class="text-gray-600">冲突仲裁会议</span>
+                                            <span class="text-xs text-gray-500">2场</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-sm">
+                                            <span class="text-gray-600">待合并分支</span>
+                                            <span class="text-xs text-gray-500">3个</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-sm">
+                                            <span class="text-gray-600">规则审阅</span>
+                                            <span class="text-xs text-gray-500">8条</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card p-5 rounded-lg bg-white">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">最近更新的概念</h3>
+                                        <button class="text-sm text-primary hover:text-primary/80 font-medium">
+                                            查看全部
+                                        </button>
+                                    </div>
+
+                                    <div class="space-y-3">
+                                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white mr-3">
+                                                <i class="fa fa-tag"></i>
+                                            </div>
+                                            <div class="flex-1">
+                                                <div class="flex items-center justify-between">
+                                                    <h4 class="text-sm font-medium text-gray-900">VIP客户</h4>
+                                                    <span class="text-xs text-gray-500">2小时前</span>
+                                                </div>
+                                                <p class="text-xs text-gray-600 mt-1">客户360视图 - 添加了新的属性和规则</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                            <div class="w-8 h-8 bg-secondary rounded-lg flex items-center justify-center text-white mr-3">
+                                                <i class="fa fa-tag"></i>
+                                            </div>
+                                            <div class="flex-1">
+                                                <div class="flex items-center justify-between">
+                                                    <h4 class="text-sm font-medium text-gray-900">智能产品</h4>
+                                                    <span class="text-xs text-gray-500">5小时前</span>
+                                                </div>
+                                                <p class="text-xs text-gray-600 mt-1">产品数据模型 - 更新了继承关系</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                            <div class="w-8 h-8 bg-success rounded-lg flex items-center justify-center text-white mr-3">
+                                                <i class="fa fa-link"></i>
+                                            </div>
+                                            <div class="flex-1">
+                                                <div class="flex items-center justify-between">
+                                                    <h4 class="text-sm font-medium text-gray-900">供应商评级</h4>
+                                                    <span class="text-xs text-gray-500">1天前</span>
+                                                </div>
+                                                <p class="text-xs text-gray-600 mt-1">供应链网络 - 新增关系类型</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 可视化本体建模器 -->
+                    <div id="modelerContent" class="ontology-content hidden space-y-6">
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <button class="section-jump px-3 py-1 rounded-full border border-gray-200 text-gray-600" data-anchor="modelerWorkspacePanel">画布工作区</button>
+                            <button class="section-jump px-3 py-1 rounded-full border border-gray-200 text-gray-600" data-anchor="ruleEditorPanel">属性与规则</button>
+                            <button class="section-jump px-3 py-1 rounded-full border border-gray-200 text-gray-600" data-anchor="modelerDomainPath">域视图路径</button>
+                        </div>
+                        <div class="bg-white rounded-lg p-4 border border-gray-200">
+                            <div class="flex flex-wrap items-center justify-between gap-3">
+                                <div class="flex items-center space-x-2">
+                                    <button id="saveModelerButton" data-role-allow="业务架构师,领域专家" class="px-3 py-2 bg-primary text-white rounded text-sm font-medium" title="保存">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+                                    <button id="undoModelerButton" class="px-3 py-2 border border-gray-300 text-gray-700 rounded text-sm font-medium hover:bg-gray-50" title="撤销">
+                                        <i class="fa fa-undo"></i>
+                                    </button>
+                                    <button id="redoModelerButton" class="px-3 py-2 border border-gray-300 text-gray-700 rounded text-sm font-medium hover:bg-gray-50" title="重做">
+                                        <i class="fa fa-repeat"></i>
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center space-x-2">
+                                    <button id="toolMoveButton" class="px-3 py-2 border border-gray-300 text-gray-700 rounded text-sm font-medium hover:bg-gray-50" title="移动">
+                                        <i class="fa fa-arrows"></i>
+                                    </button>
+                                    <button id="zoomOutButton" class="px-3 py-2 border border-gray-300 text-gray-700 rounded text-sm font-medium hover:bg-gray-50" title="缩小">
+                                        <i class="fa fa-search-minus"></i>
+                                    </button>
+                                    <button id="zoomInButton" class="px-3 py-2 border border-gray-300 text-gray-700 rounded text-sm font-medium hover:bg-gray-50" title="放大">
+                                        <i class="fa fa-search-plus"></i>
+                                    </button>
+                                    <button id="fitViewButton" class="px-3 py-2 border border-gray-300 text-gray-700 rounded text-sm font-medium hover:bg-gray-50" title="适应屏幕">
+                                        <i class="fa fa-arrows-alt"></i>
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center space-x-2">
+                                    <select id="relationTypeSelect" class="px-3 py-2 border border-gray-300 text-gray-700 rounded text-sm">
+                                        <option value="relation">关系: 关联</option>
+                                        <option value="inherit">关系: 继承</option>
+                                        <option value="part">关系: 组成</option>
+                                        <option value="belong">关系: 隶属</option>
+                                    </select>
+                                    <div class="relative">
+                                        <button id="modelerMoreButton" class="px-3 py-2 border border-gray-300 text-gray-700 rounded text-sm font-medium hover:bg-gray-50">
+                                            <i class="fa fa-ellipsis-h mr-1"></i> 更多
+                                        </button>
+                                        <div id="modelerMoreMenu" class="hidden absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg text-sm z-10">
+                                            <button id="autoLayoutButton" class="w-full text-left px-3 py-2 hover:bg-gray-50">
+                                                <i class="fa fa-magic mr-2"></i>自动排版
+                                            </button>
+                                            <button id="versionCompareButton" class="w-full text-left px-3 py-2 hover:bg-gray-50">
+                                                <i class="fa fa-columns mr-2"></i>版本对比
+                                            </button>
+                                            <button class="w-full text-left px-3 py-2 hover:bg-gray-50">
+                                                <i class="fa fa-code-fork mr-2"></i>分支管理
+                                            </button>
+                                            <button class="w-full text-left px-3 py-2 hover:bg-gray-50">
+                                                <i class="fa fa-history mr-2"></i>版本历史
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex space-x-6">
+                            <div class="w-64 bg-white rounded-lg border border-gray-200">
+                                <div class="p-4 border-b border-gray-200">
+                                    <h3 class="font-semibold text-gray-900">工具箱</h3>
+                                </div>
+                                    <div class="p-4 space-y-4">
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-700 mb-2">基础元素</h4>
+                                            <div class="space-y-2">
+                                            <div class="flex items-center p-2 border border-gray-200 rounded cursor-pointer hover:bg-gray-50 draggable-element" data-type="entity" data-tool="entity">
+                                                <div class="w-6 h-6 bg-primary rounded flex items-center justify-center text-white mr-2">
+                                                    <i class="fa fa-cube"></i>
+                                                </div>
+                                                <span class="text-sm">实体</span>
+                                            </div>
+                                            <div class="flex items-center p-2 border border-gray-200 rounded cursor-pointer hover:bg-gray-50 draggable-element" data-type="relationship" data-tool="relationship">
+                                                <div class="w-6 h-6 bg-secondary rounded flex items-center justify-center text-white mr-2">
+                                                    <i class="fa fa-link"></i>
+                                                </div>
+                                                <span class="text-sm">关系</span>
+                                            </div>
+                                            <div class="flex items-center p-2 border border-gray-200 rounded cursor-pointer hover:bg-gray-50 draggable-element" data-type="package" data-tool="package">
+                                                <div class="w-6 h-6 bg-neutral rounded flex items-center justify-center text-white mr-2">
+                                                    <i class="fa fa-folder"></i>
+                                                </div>
+                                                <span class="text-sm">包/子域</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-700 mb-2">常用模板</h4>
+                                        <div class="space-y-2">
+                                            <div class="flex items-center p-2 border border-gray-200 rounded cursor-pointer hover:bg-gray-50 draggable-template" data-template="customer">
+                                                <div class="w-6 h-6 bg-primary rounded flex items-center justify-center text-white mr-2">
+                                                    <i class="fa fa-users"></i>
+                                                </div>
+                                                <span class="text-sm">客户模型</span>
+                                            </div>
+                                            <div class="flex items-center p-2 border border-gray-200 rounded cursor-pointer hover:bg-gray-50 draggable-template" data-template="product">
+                                                <div class="w-6 h-6 bg-secondary rounded flex items-center justify-center text-white mr-2">
+                                                    <i class="fa fa-cube"></i>
+                                                </div>
+                                                <span class="text-sm">产品模型</span>
+                                            </div>
+                                            <div class="flex items-center p-2 border border-gray-200 rounded cursor-pointer hover:bg-gray-50 draggable-template" data-template="contract">
+                                                <div class="w-6 h-6 bg-success rounded flex items-center justify-center text-white mr-2">
+                                                    <i class="fa fa-file-text"></i>
+                                                </div>
+                                                <span class="text-sm">合同模型</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-700 mb-2">子域视图</h4>
+                                        <div class="space-y-2 text-sm text-gray-600">
+                                            <button class="domain-item w-full flex items-center justify-between p-2 rounded hover:bg-gray-50 text-left" data-domain="全部">
+                                                <span>全部视图</span>
+                                                <span class="text-xs text-gray-400">默认</span>
+                                            </button>
+                                            <div class="space-y-1">
+                                                <button class="domain-toggle w-full flex items-center justify-between p-2 rounded hover:bg-gray-50 text-left" data-target="customerDomainChildren">
+                                                    <span>客户域</span>
+                                                    <span class="text-xs text-gray-400">展开</span>
+                                                </button>
+                                                <div id="customerDomainChildren" class="ml-4 space-y-1">
+                                                    <button class="domain-item w-full flex items-center justify-between p-2 rounded hover:bg-gray-50 text-left" data-domain="客户域">
+                                                        <span>客户域</span>
+                                                        <span class="text-xs text-gray-400">主域</span>
+                                                    </button>
+                                                    <button class="domain-item w-full flex items-center justify-between p-2 rounded hover:bg-gray-50 text-left" data-domain="合同子域">
+                                                        <span>合同子域</span>
+                                                        <span class="text-xs text-gray-400">子域</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <button class="domain-item w-full flex items-center justify-between p-2 rounded hover:bg-gray-50 text-left" data-domain="供应链域">
+                                                <span>供应链域</span>
+                                                <span class="text-xs text-gray-400">折叠</span>
+                                            </button>
+                                            <button class="domain-item w-full flex items-center justify-between p-2 rounded hover:bg-gray-50 text-left" data-domain="财务域">
+                                                <span>财务域</span>
+                                                <span class="text-xs text-gray-400">展开</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-700 mb-2">已创建实体</h4>
+                                        <div id="entityList" class="space-y-1 max-h-48 overflow-y-auto">
+                                            <div class="flex items-center p-2 text-sm hover:bg-gray-50 cursor-pointer entity-item" data-id="customer" data-domain="客户域">
+                                                <i class="fa fa-cube text-primary mr-2"></i>
+                                                <span>客户</span>
+                                            </div>
+                                            <div class="flex items-center p-2 text-sm hover:bg-gray-50 cursor-pointer entity-item" data-id="order" data-domain="客户域">
+                                                <i class="fa fa-cube text-primary mr-2"></i>
+                                                <span>订单</span>
+                                            </div>
+                                            <div class="flex items-center p-2 text-sm hover:bg-gray-50 cursor-pointer entity-item" data-id="contract" data-domain="合同子域">
+                                                <i class="fa fa-cube text-primary mr-2"></i>
+                                                <span>合同</span>
+                                            </div>
+                                            <div class="flex items-center p-2 text-sm hover:bg-gray-50 cursor-pointer entity-item" data-id="supplier" data-domain="供应链域">
+                                                <i class="fa fa-cube text-primary mr-2"></i>
+                                                <span>供应商</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex-1 bg-white rounded-lg border border-gray-200 overflow-hidden" id="modelerWorkspacePanel">
+                                <div class="p-4 border-b border-gray-200 flex items-center justify-between">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">客户360视图本体</h3>
+                                        <p class="text-xs text-gray-500 mt-1">主干分支 · 本体包层级: <span id="modelerDomainPath">客户域 / 合同子域</span></p>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <button id="toggleModelerInsights" class="px-2 py-1 text-xs border border-gray-300 text-gray-600 rounded hover:bg-gray-50">
+                                            辅助信息
+                                        </button>
+                                        <span class="px-2 py-1 text-xs font-medium bg-success-light text-success rounded-full">版本 2.1</span>
+                                        <button class="text-gray-500 hover:text-gray-700">
+                                            <i class="fa fa-ellipsis-v"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="modelerInsightsPanel" class="hidden border-b border-gray-200 bg-gray-50">
+                                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 p-4">
+                                        <div class="bg-white rounded-lg border border-gray-200 p-3">
+                                            <h4 class="font-semibold text-gray-900 mb-3 text-sm">继承与基数标注</h4>
+                                            <div class="space-y-2 text-xs text-gray-600">
+                                                <div class="flex items-center justify-between bg-gray-50 p-2 rounded">
+                                                    <span>拖拽实体到实体</span>
+                                                    <span class="text-primary">建立继承</span>
+                                                </div>
+                                                <div class="flex items-center justify-between bg-gray-50 p-2 rounded">
+                                                    <span>拖拽关系端点</span>
+                                                    <span class="text-primary">标注基数</span>
+                                                </div>
+                                                <div class="flex items-center justify-between bg-gray-50 p-2 rounded">
+                                                    <span>双击连线</span>
+                                                    <span class="text-primary">编辑语义</span>
+                                                </div>
+                                            </div>
+                                            <button id="annotationModeButton" data-role-allow="业务架构师,领域专家" class="w-full mt-3 px-3 py-2 border border-gray-300 text-gray-700 rounded text-xs">
+                                                进入标注模式
+                                            </button>
+                                        </div>
+                                        <div class="bg-white rounded-lg border border-gray-200 p-3 lg:col-span-2">
+                                            <div class="flex items-center justify-between mb-3">
+                                                <h4 class="font-semibold text-gray-900 text-sm">版本对比预览</h4>
+                                                <div class="flex items-center space-x-2 text-xs">
+                                                    <span class="px-2 py-1 bg-success-light text-success rounded-full">新增 6</span>
+                                                    <span class="px-2 py-1 bg-warning-light text-warning rounded-full">修改 4</span>
+                                                    <span class="px-2 py-1 bg-danger-light text-danger rounded-full">删除 2</span>
+                                                </div>
+                                            </div>
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm" id="versionDiffPanel">
+                                                <div class="bg-success-light/60 rounded-lg p-3 version-diff-item">
+                                                    <p class="font-medium text-success mb-1">新增实体</p>
+                                                    <div class="space-y-1 text-gray-700">
+                                                        <div>合同</div>
+                                                        <div>服务联系人</div>
+                                                        <div>客户分级</div>
+                                                    </div>
+                                                </div>
+                                                <div class="bg-warning-light/60 rounded-lg p-3 version-diff-item">
+                                                    <p class="font-medium text-warning mb-1">修改属性</p>
+                                                    <div class="space-y-1 text-gray-700">
+                                                        <div>客户.类型枚举</div>
+                                                        <div>合同.金额约束</div>
+                                                        <div>联系人.角色</div>
+                                                    </div>
+                                                </div>
+                                                <div class="bg-danger-light/60 rounded-lg p-3 version-diff-item">
+                                                    <p class="font-medium text-danger mb-1">删除关系</p>
+                                                    <div class="space-y-1 text-gray-700">
+                                                        <div>客户-订单</div>
+                                                        <div>订单-产品</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3 text-xs text-gray-500">
+                                                影响范围：客户360视图、合同审批流、财务报表接口
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="relative h-[600px] bg-grid overflow-auto" id="modelerCanvas">
+                                    <div class="absolute inset-0">
+                                        <div id="modelerWorkspace" class="absolute inset-0">
+                                            <div class="absolute left-[180px] top-[130px] w-52 bg-white border-2 border-primary rounded-lg shadow-sm cursor-move entity-node relative" data-id="customer" data-domain="客户域" data-diff="updated">
+                                                <span class="relation-handle" data-handle="out"></span>
+                                                <div class="p-3 border-b border-gray-200 bg-primary-light">
+                                                    <div class="flex items-center justify-between">
+                                                        <h4 class="font-medium text-gray-900">客户</h4>
+                                                        <div class="flex items-center space-x-1 text-xs text-gray-500">
+                                                            <span>ID: customer</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="p-3">
+                                                    <div class="space-y-1 text-sm">
+                                                        <div class="flex items-center">
+                                                            <span class="text-primary mr-2">•</span>
+                                                            <span class="text-gray-600">客户ID (String · 唯一)</span>
+                                                        </div>
+                                                        <div class="flex items-center">
+                                                            <span class="text-primary mr-2">•</span>
+                                                            <span class="text-gray-600">客户名称 (String · 必填)</span>
+                                                        </div>
+                                                        <div class="flex items-center">
+                                                            <span class="text-primary mr-2">•</span>
+                                                            <span class="text-gray-600">客户类型 (Enum)</span>
+                                                        </div>
+                                                        <div class="flex items-center">
+                                                            <span class="text-primary mr-2">•</span>
+                                                            <span class="text-gray-600">创建时间 (Date)</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="absolute left-[520px] top-[130px] w-52 bg-white border-2 border-primary rounded-lg shadow-sm cursor-move entity-node relative" data-id="contract" data-domain="合同子域" data-diff="added">
+                                                <span class="relation-handle" data-handle="out"></span>
+                                                <div class="p-3 border-b border-gray-200 bg-primary-light">
+                                                    <div class="flex items-center justify-between">
+                                                        <h4 class="font-medium text-gray-900">合同</h4>
+                                                        <div class="flex items-center space-x-1 text-xs text-gray-500">
+                                                            <span>ID: contract</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="p-3">
+                                                    <div class="space-y-1 text-sm">
+                                                        <div class="flex items-center">
+                                                            <span class="text-primary mr-2">•</span>
+                                                            <span class="text-gray-600">合同编号 (String · 唯一)</span>
+                                                        </div>
+                                                        <div class="flex items-center">
+                                                            <span class="text-primary mr-2">•</span>
+                                                            <span class="text-gray-600">合同金额 (Number · 必填)</span>
+                                                        </div>
+                                                        <div class="flex items-center">
+                                                            <span class="text-primary mr-2">•</span>
+                                                            <span class="text-gray-600">签署日期 (Date)</span>
+                                                        </div>
+                                                        <div class="flex items-center">
+                                                            <span class="text-primary mr-2">•</span>
+                                                            <span class="text-gray-600">状态 (Enum)</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="absolute left-[360px] top-[360px] w-52 bg-white border-2 border-primary rounded-lg shadow-sm cursor-move entity-node relative" data-id="contact" data-domain="客户域" data-diff="added">
+                                                <span class="relation-handle" data-handle="out"></span>
+                                                <div class="p-3 border-b border-gray-200 bg-primary-light">
+                                                    <div class="flex items-center justify-between">
+                                                        <h4 class="font-medium text-gray-900">服务联系人</h4>
+                                                        <div class="flex items-center space-x-1 text-xs text-gray-500">
+                                                            <span>子类</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="p-3">
+                                                    <div class="space-y-1 text-sm">
+                                                        <div class="flex items-center">
+                                                            <span class="text-primary mr-2">•</span>
+                                                            <span class="text-gray-600">联系人ID (String)</span>
+                                                        </div>
+                                                        <div class="flex items-center">
+                                                            <span class="text-primary mr-2">•</span>
+                                                            <span class="text-gray-600">姓名 (String)</span>
+                                                        </div>
+                                                        <div class="flex items-center">
+                                                            <span class="text-primary mr-2">•</span>
+                                                            <span class="text-gray-600">角色 (Enum)</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <svg class="absolute inset-0 pointer-events-none">
+                                                <path class="diff-target" data-diff="added" d="M232 168 C320 168, 440 168, 520 168" stroke="#8b5cf6" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                                                <text class="diff-target" data-diff="added" x="376" y="152" text-anchor="middle" fill="#6b7280" font-size="12">签署 (1:N)</text>
+
+                                                <path class="diff-target" data-diff="updated" d="M254 226 C320 260, 330 320, 360 360" stroke="#8b5cf6" stroke-width="2" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+                                                <text class="diff-target" data-diff="updated" x="318" y="300" text-anchor="middle" fill="#6b7280" font-size="12">服务 (1:N)</text>
+
+                                                <path class="diff-target diff-removed" data-diff="removed" d="M572 226 C560 270, 520 320, 412 360" stroke="#8b5cf6" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                                                <text class="diff-target diff-removed" data-diff="removed" x="530" y="300" text-anchor="middle" fill="#6b7280" font-size="12">关联 (N:M)</text>
+
+                                                <defs>
+                                                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                                        <polygon points="0 0, 10 3.5, 0 7" fill="#8b5cf6"/>
+                                                    </marker>
+                                                </defs>
+                                            </svg>
+                                            <svg id="modelerDynamicRelations" class="absolute inset-0">
+                                                <defs>
+                                                    <marker id="dynamicArrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                                        <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/>
+                                                    </marker>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-80 bg-white rounded-lg border border-gray-200" id="ruleEditorPanel">
+                                <div class="p-4 border-b border-gray-200">
+                                    <h3 class="font-semibold text-gray-900">属性面板</h3>
+                                    <div class="flex space-x-2 mt-3 text-xs" id="propertiesTabs">
+                                        <button class="px-2 py-1 bg-primary-light text-primary rounded" data-tab="base">基础信息</button>
+                                        <button class="px-2 py-1 bg-gray-100 text-gray-600 rounded" data-tab="attributes">属性</button>
+                                        <button class="px-2 py-1 bg-gray-100 text-gray-600 rounded" data-tab="rules">规则</button>
+                                        <button class="px-2 py-1 bg-gray-100 text-gray-600 rounded" data-tab="inheritance">继承</button>
+                                    </div>
+                                </div>
+                                <div class="p-4 space-y-4" id="propertiesPanel">
+                                    <div class="text-center text-gray-500 py-10">
+                                        <i class="fa fa-hand-pointer-o text-4xl mb-2"></i>
+                                        <p>请选择一个实体或关系来编辑属性</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 语义映射中心 -->
+                    <div id="mappingContent" class="ontology-content hidden space-y-6">
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <button class="section-jump px-3 py-1 rounded-full border border-gray-200 text-gray-600" data-anchor="mappingConfigPanel">映射配置</button>
+                            <button class="section-jump px-3 py-1 rounded-full border border-gray-200 text-gray-600" data-anchor="mappingTestPanel">映射仿真</button>
+                            <button class="section-jump px-3 py-1 rounded-full border border-gray-200 text-gray-600" data-anchor="mappingLinkCanvas">连线视图</button>
+                        </div>
+                        <div class="bg-white rounded-lg p-6" id="mappingConfigPanel">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-900">语义映射配置</h3>
+                                <div class="flex items-center space-x-2 text-sm">
+                                    <span id="mappingDomainLabel" class="text-xs text-gray-500">当前域：客户域</span>
+                                    <span class="px-2 py-1 rounded-full bg-primary-light text-primary">CRM系统</span>
+                                    <span class="px-2 py-1 rounded-full bg-gray-100 text-gray-600">财务系统</span>
+                                    <span class="px-2 py-1 rounded-full bg-gray-100 text-gray-600">客服系统</span>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <h4 class="font-medium text-gray-700 mb-2">规则库复用</h4>
+                                    <div class="space-y-2 text-sm text-gray-600">
+                                        <div class="flex items-center justify-between">
+                                            <span>日期格式化模板</span>
+                                            <span class="text-xs text-primary">12次复用</span>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span>币种转换模板</span>
+                                            <span class="text-xs text-primary">8次复用</span>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span>客户类型映射</span>
+                                            <span class="text-xs text-primary">6次复用</span>
+                                        </div>
+                                    </div>
+                                        <button id="ruleTemplateButton" data-role-allow="业务架构师,领域专家,数据治理员" class="w-full mt-3 px-3 py-2 border border-gray-300 text-gray-700 rounded text-sm">
+                                            选择规则模板
+                                        </button>
+                                    </div>
+                                <div class="bg-gray-50 rounded-lg p-4 lg:col-span-2">
+                                    <h4 class="font-medium text-gray-700 mb-2">映射覆盖率热力图</h4>
+                                    <div class="grid grid-cols-4 gap-2 text-xs text-gray-600" id="mappingHeatmap">
+                                        <button class="bg-success-light rounded p-2 text-center hover:opacity-80" data-domain="客户域">客户域 92%</button>
+                                        <button class="bg-success-light rounded p-2 text-center hover:opacity-80" data-domain="合同域">合同域 88%</button>
+                                        <button class="bg-warning-light rounded p-2 text-center hover:opacity-80" data-domain="财务域">财务域 64%</button>
+                                        <button class="bg-danger-light rounded p-2 text-center hover:opacity-80" data-domain="供应链域">供应链域 41%</button>
+                                        <button class="bg-success-light rounded p-2 text-center hover:opacity-80" data-domain="产品域">产品域 95%</button>
+                                        <button class="bg-warning-light rounded p-2 text-center hover:opacity-80" data-domain="客服域">客服域 70%</button>
+                                        <button class="bg-warning-light rounded p-2 text-center hover:opacity-80" data-domain="项目域">项目域 58%</button>
+                                        <button class="bg-success-light rounded p-2 text-center hover:opacity-80" data-domain="组织域">组织域 83%</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="relative">
+                                <svg id="mappingLinkCanvas" class="absolute inset-0 w-full h-full pointer-events-none">
+                                    <defs>
+                                        <marker id="mappingArrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                            <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/>
+                                        </marker>
+                                    </defs>
+                                </svg>
+                                <div class="flex space-x-6 relative z-10">
+                                    <div class="w-1/2">
+                                        <div id="sourceStructurePanel" class="bg-gray-50 rounded-lg p-4 h-[500px] overflow-auto">
+                                            <div class="flex items-center justify-between mb-3">
+                                                <h4 class="font-medium text-gray-700">源系统结构</h4>
+                                                <input id="sourceSearchInput" type="text" class="border border-gray-200 rounded px-2 py-1 text-xs" placeholder="搜索字段">
+                                            </div>
+                                            <div class="space-y-4">
+                                                <div class="border border-gray-200 rounded-lg">
+                                                    <div class="bg-gray-100 p-3 rounded-t-lg flex items-center justify-between cursor-pointer">
+                                                        <div class="flex items-center">
+                                                            <i class="fa fa-database text-primary mr-2"></i>
+                                                            <span class="font-medium">CRM系统</span>
+                                                        </div>
+                                                        <i class="fa fa-chevron-down text-gray-500"></i>
+                                                    </div>
+                                                    <div class="p-3 space-y-2">
+                                                        <div class="border border-gray-200 rounded p-2 bg-white cursor-pointer hover:bg-gray-50 source-table" data-table="customers">
+                                                            <div class="flex items-center justify-between">
+                                                                <span class="font-medium">customers表</span>
+                                                                <i class="fa fa-table text-gray-500"></i>
+                                                            </div>
+                                                            <div class="mt-2 space-y-1 hidden source-fields" data-table="customers">
+                                                                <div class="text-xs text-gray-500">字段列表</div>
+                                                                <div class="flex flex-wrap gap-2">
+                                                                    <span class="source-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-move" draggable="true" data-field-id="src-customers-customer_id">customer_id</span>
+                                                                    <span class="source-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-move" draggable="true" data-field-id="src-customers-customer_name">customer_name</span>
+                                                                    <span class="source-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-move" draggable="true" data-field-id="src-customers-customer_type">customer_type</span>
+                                                                    <span class="source-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-move" draggable="true" data-field-id="src-customers-create_date">create_date</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="border border-gray-200 rounded p-2 bg-white cursor-pointer hover:bg-gray-50 source-table" data-table="contracts">
+                                                            <div class="flex items-center justify-between">
+                                                                <span class="font-medium">contracts表</span>
+                                                                <i class="fa fa-table text-gray-500"></i>
+                                                            </div>
+                                                            <div class="mt-2 space-y-1 hidden source-fields" data-table="contracts">
+                                                                <div class="text-xs text-gray-500">字段列表</div>
+                                                                <div class="flex flex-wrap gap-2">
+                                                                    <span class="source-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-move" draggable="true" data-field-id="src-contracts-contract_id">contract_id</span>
+                                                                    <span class="source-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-move" draggable="true" data-field-id="src-contracts-contract_amount">contract_amount</span>
+                                                                    <span class="source-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-move" draggable="true" data-field-id="src-contracts-contract_date">contract_date</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="border border-gray-200 rounded p-2 bg-white cursor-pointer hover:bg-gray-50 source-table" data-table="contacts">
+                                                            <div class="flex items-center justify-between">
+                                                                <span class="font-medium">contacts表</span>
+                                                                <i class="fa fa-table text-gray-500"></i>
+                                                            </div>
+                                                            <div class="mt-2 space-y-1 hidden source-fields" data-table="contacts">
+                                                                <div class="text-xs text-gray-500">字段列表</div>
+                                                                <div class="flex flex-wrap gap-2">
+                                                                    <span class="source-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-move" draggable="true" data-field-id="src-contacts-contact_id">contact_id</span>
+                                                                    <span class="source-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-move" draggable="true" data-field-id="src-contacts-contact_name">contact_name</span>
+                                                                    <span class="source-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-move" draggable="true" data-field-id="src-contacts-contact_role">contact_role</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="border border-gray-200 rounded-lg">
+                                                    <div class="bg-gray-100 p-3 rounded-t-lg flex items-center justify-between cursor-pointer">
+                                                        <div class="flex items-center">
+                                                            <i class="fa fa-database text-secondary mr-2"></i>
+                                                            <span class="font-medium">财务系统</span>
+                                                        </div>
+                                                        <i class="fa fa-chevron-right text-gray-500"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-1/2">
+                                        <div id="targetStructurePanel" class="bg-gray-50 rounded-lg p-4 h-[500px] overflow-auto">
+                                            <div class="flex items-center justify-between mb-3">
+                                                <h4 class="font-medium text-gray-700">目标本体结构</h4>
+                                                <input id="targetSearchInput" type="text" class="border border-gray-200 rounded px-2 py-1 text-xs" placeholder="搜索属性">
+                                            </div>
+                                            <div class="space-y-4">
+                                                <div class="border border-gray-200 rounded-lg">
+                                                    <div class="bg-gray-100 p-3 rounded-t-lg flex items-center justify-between cursor-pointer">
+                                                        <div class="flex items-center">
+                                                            <i class="fa fa-folder text-primary mr-2"></i>
+                                                            <span class="font-medium">客户域</span>
+                                                        </div>
+                                                        <i class="fa fa-chevron-down text-gray-500"></i>
+                                                    </div>
+                                                    <div class="p-3 space-y-2">
+                                                        <div class="border border-gray-200 rounded p-2 bg-white cursor-pointer hover:bg-gray-50 target-entity" data-entity="customer">
+                                                            <div class="flex items-center justify-between">
+                                                                <span class="font-medium">客户</span>
+                                                                <i class="fa fa-cube text-primary"></i>
+                                                            </div>
+                                                            <div class="mt-2 space-y-1 hidden target-fields" data-entity="customer">
+                                                                <div class="text-xs text-gray-500">属性列表</div>
+                                                                <div class="flex flex-wrap gap-2">
+                                                                    <span class="target-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-copy" data-field-id="tgt-customer-id">客户ID</span>
+                                                                    <span class="target-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-copy" data-field-id="tgt-customer-name">客户名称</span>
+                                                                    <span class="target-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-copy" data-field-id="tgt-customer-type">客户类型</span>
+                                                                    <span class="target-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-copy" data-field-id="tgt-customer-created">创建时间</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="border border-gray-200 rounded p-2 bg-white cursor-pointer hover:bg-gray-50 target-entity" data-entity="contract">
+                                                            <div class="flex items-center justify-between">
+                                                                <span class="font-medium">合同</span>
+                                                                <i class="fa fa-cube text-primary"></i>
+                                                            </div>
+                                                            <div class="mt-2 space-y-1 hidden target-fields" data-entity="contract">
+                                                                <div class="text-xs text-gray-500">属性列表</div>
+                                                                <div class="flex flex-wrap gap-2">
+                                                                    <span class="target-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-copy" data-field-id="tgt-contract-id">合同编号</span>
+                                                                    <span class="target-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-copy" data-field-id="tgt-contract-amount">合同金额</span>
+                                                                    <span class="target-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-copy" data-field-id="tgt-contract-date">签署日期</span>
+                                                                    <span class="target-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-copy" data-field-id="tgt-contract-status">状态</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="border border-gray-200 rounded p-2 bg-white cursor-pointer hover:bg-gray-50 target-entity" data-entity="contact">
+                                                            <div class="flex items-center justify-between">
+                                                                <span class="font-medium">服务联系人</span>
+                                                                <i class="fa fa-cube text-primary"></i>
+                                                            </div>
+                                                            <div class="mt-2 space-y-1 hidden target-fields" data-entity="contact">
+                                                                <div class="text-xs text-gray-500">属性列表</div>
+                                                                <div class="flex flex-wrap gap-2">
+                                                                    <span class="target-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-copy" data-field-id="tgt-contact-id">联系人ID</span>
+                                                                    <span class="target-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-copy" data-field-id="tgt-contact-name">姓名</span>
+                                                                    <span class="target-field px-2 py-1 bg-white border border-gray-200 rounded text-xs cursor-copy" data-field-id="tgt-contact-role">角色</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="border border-gray-200 rounded-lg">
+                                                    <div class="bg-gray-100 p-3 rounded-t-lg flex items-center justify-between cursor-pointer">
+                                                        <div class="flex items-center">
+                                                            <i class="fa fa-folder text-secondary mr-2"></i>
+                                                            <span class="font-medium">财务域</span>
+                                                        </div>
+                                                        <i class="fa fa-chevron-right text-gray-500"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 border border-gray-200 rounded-lg">
+                                <div class="bg-gray-50 p-4 rounded-t-lg">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-gray-900">映射规则配置</h4>
+                                            <p class="text-sm text-gray-500">CRM.customers → 客户域.客户</p>
+                                        </div>
+                                        <span class="text-xs text-gray-500" id="mappingRuleCount">已配置 0 条规则</span>
+                                    </div>
+                                </div>
+                                <div class="p-4 space-y-4">
+                                    <div class="grid grid-cols-3 gap-4">
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">源字段</label>
+                                            <select id="mappingSourceSelect" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                                                <option>customer_id</option>
+                                                <option>customer_name</option>
+                                                <option>customer_type</option>
+                                                <option>create_date</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">目标属性</label>
+                                            <select id="mappingTargetSelect" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                                                <option>客户ID</option>
+                                                <option>客户名称</option>
+                                                <option>客户类型</option>
+                                                <option>创建时间</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">转换函数</label>
+                                            <select id="mappingTransformSelect" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                                                <option>直接映射</option>
+                                                <option>字符串截取/拼接</option>
+                                                <option>数值计算</option>
+                                                <option>日期格式化</option>
+                                                <option>条件映射 IF/ELSE</option>
+                                                <option>多字段聚合</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="mappingTransformDetails" class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                                        <div class="bg-gray-50 rounded-lg p-3">
+                                            <label class="block text-xs font-medium text-gray-600 mb-2">条件表达式</label>
+                                            <input id="mappingConditionInput" type="text" class="w-full border border-gray-200 rounded px-2 py-1 text-sm" placeholder="例如：customer_type == '法人'">
+                                            <p class="text-xs text-gray-400 mt-1">仅在条件映射时启用</p>
+                                        </div>
+                                        <div class="bg-gray-50 rounded-lg p-3">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <label class="block text-xs font-medium text-gray-600">聚合字段</label>
+                                                <button id="addAggregateField" class="text-xs text-primary hover:text-primary/80">添加字段</button>
+                                            </div>
+                                            <div id="mappingAggregateFields" class="space-y-2">
+                                                <input type="text" class="w-full border border-gray-200 rounded px-2 py-1 text-sm mapping-aggregate-input" placeholder="字段名">
+                                            </div>
+                                            <p class="text-xs text-gray-400 mt-1">仅在多字段聚合时启用</p>
+                                        </div>
+                                        <div class="bg-gray-50 rounded-lg p-3">
+                                            <label class="block text-xs font-medium text-gray-600 mb-2">公式/脚本</label>
+                                            <textarea id="mappingScriptInput" rows="3" class="w-full border border-gray-200 rounded px-2 py-1 text-sm" placeholder="例如：toNumber(amount) * 7.21"></textarea>
+                                            <p class="text-xs text-gray-400 mt-1">用于自定义转换逻辑</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-end space-x-3">
+                                        <button id="addMappingRuleButton" data-role-allow="数据治理员,业务架构师" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50">
+                                            <i class="fa fa-plus mr-1"></i> 添加映射
+                                        </button>
+                                        <button id="saveMappingButton" data-role-allow="数据治理员,业务架构师" class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90">
+                                            <i class="fa fa-save mr-1"></i> 保存映射
+                                        </button>
+                                    </div>
+                                    <div class="border-t border-gray-200 pt-4">
+                                        <h5 class="text-sm font-medium text-gray-700 mb-3">已配置规则</h5>
+                                        <div id="mappingRuleList" class="space-y-2 text-sm text-gray-600"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 border border-gray-200 rounded-lg" id="mappingTestPanel">
+                                <div class="bg-gray-50 p-4 rounded-t-lg">
+                                    <div class="flex items-center justify-between">
+                                        <h4 class="font-medium text-gray-900">映射测试与仿真</h4>
+                                        <span class="text-xs text-gray-500">运行环境: 沙箱</span>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex items-center justify-end space-x-3 mb-4">
+                                        <button id="loadSampleButton" data-role-allow="数据治理员,业务架构师" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50">
+                                            <i class="fa fa-upload mr-1"></i> 加载样本数据
+                                        </button>
+                                        <button id="testMappingButton" data-role-allow="数据治理员,业务架构师" class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90">
+                                            <i class="fa fa-play mr-1"></i> 测试映射
+                                        </button>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-4 mb-4">
+                                        <div>
+                                            <h5 class="text-sm font-medium text-gray-700 mb-2">源数据样本</h5>
+                                            <div id="mappingSampleData" class="bg-gray-50 rounded p-3 font-mono text-sm h-36 overflow-auto">
+                                                {<br>
+                                                &nbsp;&nbsp;"customer_id": "C001",<br>
+                                                &nbsp;&nbsp;"customer_name": "张三",<br>
+                                                &nbsp;&nbsp;"contract_amount_usd": "1000000",<br>
+                                                &nbsp;&nbsp;"create_date": "2024-07-10"<br>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h5 class="text-sm font-medium text-gray-700 mb-2">映射结果</h5>
+                                            <div id="mappingResultData" class="bg-gray-50 rounded p-3 font-mono text-sm h-36 overflow-auto">
+                                                {<br>
+                                                &nbsp;&nbsp;"客户ID": "C001",<br>
+                                                &nbsp;&nbsp;"客户名称": "张三",<br>
+                                                &nbsp;&nbsp;"合同金额": "7210000",<br>
+                                                &nbsp;&nbsp;"创建时间": "2024-07-10"<br>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white border border-gray-200 rounded-lg p-4">
+                                        <h5 class="text-sm font-medium text-gray-700 mb-2">影响预览</h5>
+                                        <div class="flex flex-wrap gap-2 text-xs">
+                                            <span class="px-2 py-1 bg-success-light text-success rounded-full">生成实体: 客户</span>
+                                            <span class="px-2 py-1 bg-primary-light text-primary rounded-full">生成实体: 合同</span>
+                                            <span class="px-2 py-1 bg-warning-light text-warning rounded-full">关联关系: 客户-合同</span>
+                                            <span class="px-2 py-1 bg-neutral-light text-neutral rounded-full">影响应用: 客户360视图</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 本体资源管理 -->
+                    <div id="resourceContent" class="ontology-content hidden space-y-6">
+                        <div class="bg-white rounded-lg p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900">本体资源管理</h3>
+                                    <p class="text-sm text-gray-500">统一维护对象类型、共享属性、连接类型、动作类型与函数资源</p>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <input id="resourceSearchInput" type="text" class="border border-gray-300 rounded px-3 py-2 text-sm" placeholder="搜索资源名称">
+                                    <button id="addResourceItem" class="px-3 py-2 bg-primary text-white rounded text-sm">
+                                        <i class="fa fa-plus mr-1"></i>新增资源
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2 text-xs mb-4" id="resourceTabs">
+                                <button class="resource-tab px-3 py-1 rounded-full bg-primary text-white" data-resource="objectTypes">对象类型</button>
+                                <button class="resource-tab px-3 py-1 rounded-full bg-gray-100 text-gray-700" data-resource="sharedAttributes">共享属性</button>
+                                <button class="resource-tab px-3 py-1 rounded-full bg-gray-100 text-gray-700" data-resource="linkTypes">连接类型</button>
+                                <button class="resource-tab px-3 py-1 rounded-full bg-gray-100 text-gray-700" data-resource="relationNames">关系名称</button>
+                                <button class="resource-tab px-3 py-1 rounded-full bg-gray-100 text-gray-700" data-resource="actionTypes">动作类型</button>
+                                <button class="resource-tab px-3 py-1 rounded-full bg-gray-100 text-gray-700" data-resource="groups">分组</button>
+                                <button class="resource-tab px-3 py-1 rounded-full bg-gray-100 text-gray-700" data-resource="functions">函数</button>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="lg:col-span-2">
+                                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                                        <div class="bg-gray-50 px-4 py-3 text-sm text-gray-600 flex items-center justify-between">
+                                            <span id="resourceTableTitle">对象类型清单</span>
+                                            <span class="text-xs text-gray-400" id="resourceCount">0 项</span>
+                                        </div>
+                                        <div class="divide-y divide-gray-200 text-sm" id="resourceTableBody"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <h4 class="text-sm font-semibold text-gray-900 mb-2">资源详情</h4>
+                                    <div id="resourceDetailPanel" class="space-y-3 text-sm text-gray-600">
+                                        <div class="text-gray-400">请选择资源查看详情</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 冲突检测与仲裁台 -->
+                    <div id="conflictContent" class="ontology-content hidden space-y-6">
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <button class="section-jump px-3 py-1 rounded-full border border-gray-200 text-gray-600" data-anchor="conflictBoardPanel">冲突看板</button>
+                            <button class="section-jump px-3 py-1 rounded-full border border-gray-200 text-gray-600" data-anchor="conflictWorkspacePanel">仲裁工作区</button>
+                            <button class="section-jump px-3 py-1 rounded-full border border-gray-200 text-gray-600" data-anchor="conflictAuditPanel">审计追踪</button>
+                        </div>
+                        <div class="bg-white rounded-lg p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-900">冲突检测与仲裁</h3>
+                                <div class="flex items-center space-x-2 text-sm">
+                                    <span class="px-2 py-1 rounded-full bg-gray-100 text-gray-600">定时扫描: 每日 02:00</span>
+                                    <button id="scanConflictButton" data-role-allow="业务架构师,数据治理员" class="px-3 py-1 bg-primary text-white rounded text-sm">
+                                        <i class="fa fa-refresh mr-1"></i> 立即扫描
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <h4 class="font-medium text-gray-700 mb-2">冲突类型检测</h4>
+                                    <div class="space-y-2 text-sm text-gray-600">
+                                        <div class="flex items-center justify-between">
+                                            <span>同名异物</span>
+                                            <span class="text-danger">12</span>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span>同物异名</span>
+                                            <span class="text-warning">5</span>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span>结构失配</span>
+                                            <span class="text-neutral">9</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <h4 class="font-medium text-gray-700 mb-2">触发器配置</h4>
+                                    <div class="space-y-2 text-sm text-gray-600">
+                                        <div class="flex items-center justify-between">
+                                            <span>新数据源接入</span>
+                                            <span class="text-xs text-success">已启用</span>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span>分支合并</span>
+                                            <span class="text-xs text-success">已启用</span>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span>重大变更发布</span>
+                                            <span class="text-xs text-success">已启用</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <h4 class="font-medium text-gray-700 mb-2">任务分发规则</h4>
+                                    <div class="space-y-2 text-sm text-gray-600">
+                                        <div>默认@数据治理员 + 业务负责人</div>
+                                        <div>高优先级冲突自动拉群会议</div>
+                                        <div>48小时未处理自动升级</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex space-x-6" id="conflictBoardPanel">
+                                <div class="w-1/3">
+                                    <div class="bg-gray-50 rounded-lg p-4 h-[620px] overflow-auto">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <h4 class="font-medium text-gray-700">冲突列表</h4>
+                                            <button class="px-3 py-1 bg-primary text-white rounded text-sm">
+                                                <i class="fa fa-filter mr-1"></i> 筛选
+                                            </button>
+                                        </div>
+
+                                        <div class="space-y-3" id="conflictList">
+                                            <div class="border border-danger rounded-lg p-3 bg-danger-light cursor-pointer hover:bg-danger-light/50 conflict-item active" data-conflict-type="同名异物冲突" data-conflict-desc="CRM系统中的&quot;客户&quot;字段映射到本体的&quot;联系人&quot;实体，财务系统中的&quot;客户&quot;字段映射到本体的&quot;法人实体&quot;，造成语义混淆。" data-conflict-impact="影响5个下游应用，包括客户360视图、销售分析报表、财务报表、客户画像、智能客服。" data-left-system="CRM系统" data-left-owner="销售部门" data-left-field="customer" data-left-mapping="联系人实体" data-left-meaning="与公司有业务往来的个人联系人" data-right-system="财务系统" data-right-owner="财务部门" data-right-field="customer" data-right-mapping="法人实体" data-right-meaning="与公司签订合同的法律实体">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <span class="font-medium text-danger">同名异物冲突</span>
+                                                    <span class="px-2 py-1 text-xs font-medium bg-danger text-white rounded-full">高优先级</span>
+                                                </div>
+                                                <p class="text-sm text-gray-700 mb-2">CRM系统与财务系统对"客户"概念定义不一致</p>
+                                                <div class="flex items-center justify-between text-xs text-gray-500">
+                                                    <span>影响: 5个下游应用</span>
+                                                    <span>2024-07-15</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="border border-warning rounded-lg p-3 bg-warning-light cursor-pointer hover:bg-warning-light/50 conflict-item" data-conflict-type="同物异名冲突" data-conflict-desc="销售系统的&quot;商机&quot;与市场系统的&quot;潜在客户&quot;指向同一概念，需统一语义。" data-conflict-impact="影响2个下游应用，包括线索评分与转化分析。" data-left-system="销售系统" data-left-owner="销售部门" data-left-field="opportunity" data-left-mapping="商机实体" data-left-meaning="销售过程中可转化机会" data-right-system="市场系统" data-right-owner="市场部门" data-right-field="lead" data-right-mapping="潜在客户实体" data-right-meaning="市场活动产生的潜在机会">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <span class="font-medium text-warning">同物异名冲突</span>
+                                                    <span class="px-2 py-1 text-xs font-medium bg-warning text-white rounded-full">中优先级</span>
+                                                </div>
+                                                <p class="text-sm text-gray-700 mb-2">销售系统的"商机"与市场系统的"潜在客户"指向同一概念</p>
+                                                <div class="flex items-center justify-between text-xs text-gray-500">
+                                                    <span>影响: 2个下游应用</span>
+                                                    <span>2024-07-14</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="border border-neutral rounded-lg p-3 bg-neutral-light cursor-pointer hover:bg-neutral-light/50 conflict-item" data-conflict-type="结构失配冲突" data-conflict-desc="产品系统的&quot;价格&quot;字段类型与本体定义不匹配，导致落库失败。" data-conflict-impact="影响1个下游应用，包括产品定价分析。" data-left-system="产品系统" data-left-owner="产品部门" data-left-field="price" data-left-mapping="产品.价格" data-left-meaning="带币种的字符串" data-right-system="本体标准" data-right-owner="数据治理" data-right-field="price" data-right-mapping="产品.价格" data-right-meaning="数值类型">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <span class="font-medium text-neutral">结构失配冲突</span>
+                                                    <span class="px-2 py-1 text-xs font-medium bg-neutral text-white rounded-full">低优先级</span>
+                                                </div>
+                                                <p class="text-sm text-gray-700 mb-2">产品系统的"价格"字段类型与本体定义不匹配</p>
+                                                <div class="flex items-center justify-between text-xs text-gray-500">
+                                                    <span>影响: 1个下游应用</span>
+                                                    <span>2024-07-13</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="w-2/3">
+                                    <div class="bg-gray-50 rounded-lg h-[620px] flex flex-col" id="conflictWorkspacePanel">
+                                        <div class="p-4 border-b border-gray-200">
+                                            <div class="flex items-center justify-between">
+                                                <div>
+                                                    <h4 class="font-medium text-gray-900">冲突仲裁工作区</h4>
+                                                    <p class="text-xs text-gray-500 mt-1">任务ID: ARB-2024-0715-001</p>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <span id="decisionStatusBadge" class="px-2 py-1 text-xs font-medium bg-danger text-white rounded-full">高优先级</span>
+                                                    <button class="text-gray-500 hover:text-gray-700">
+                                                        <i class="fa fa-ellipsis-v"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex-1 p-4 overflow-auto space-y-6">
+                                            <div>
+                                                <h5 class="text-sm font-medium text-gray-700 mb-2">冲突详情</h5>
+                                                <div class="bg-white rounded-lg p-4 border border-gray-200 space-y-3 text-sm text-gray-600">
+                                                    <div><span class="font-medium text-gray-700">冲突类型：</span><span id="conflictDetailType">同名异物冲突</span></div>
+                                                    <div><span class="font-medium text-gray-700">冲突描述：</span><span id="conflictDetailDesc">CRM系统中的"客户"字段映射到"联系人"实体，财务系统中的"客户"字段映射到"法人实体"。</span></div>
+                                                    <div><span class="font-medium text-gray-700">影响分析：</span><span id="conflictDetailImpact">影响客户360视图、销售分析报表、财务报表、客户画像、智能客服。</span></div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <h5 class="text-sm font-medium text-gray-700 mb-2">上下文对照</h5>
+                                                <div class="grid grid-cols-2 gap-4">
+                                                    <div class="bg-white rounded-lg p-4 border border-gray-200">
+                                                        <div class="flex items-center justify-between mb-3">
+                                                            <div class="flex items-center">
+                                                                <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white mr-2">
+                                                                    <i class="fa fa-users"></i>
+                                                                </div>
+                                                                <span class="font-medium" id="conflictLeftSystem">CRM系统</span>
+                                                            </div>
+                                                            <span class="text-xs text-gray-500" id="conflictLeftOwner">销售部门</span>
+                                                        </div>
+                                                        <div class="space-y-2 text-sm text-gray-600">
+                                                            <p><strong>字段:</strong> <span id="conflictLeftField">customer</span></p>
+                                                            <p><strong>当前映射:</strong> <span id="conflictLeftMapping">联系人实体</span></p>
+                                                            <p><strong>业务含义:</strong> <span id="conflictLeftMeaning">与公司有业务往来的个人联系人</span></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bg-white rounded-lg p-4 border border-gray-200">
+                                                        <div class="flex items-center justify-between mb-3">
+                                                            <div class="flex items-center">
+                                                                <div class="w-8 h-8 bg-secondary rounded-lg flex items-center justify-center text-white mr-2">
+                                                                    <i class="fa fa-money"></i>
+                                                                </div>
+                                                                <span class="font-medium" id="conflictRightSystem">财务系统</span>
+                                                            </div>
+                                                            <span class="text-xs text-gray-500" id="conflictRightOwner">财务部门</span>
+                                                        </div>
+                                                        <div class="space-y-2 text-sm text-gray-600">
+                                                            <p><strong>字段:</strong> <span id="conflictRightField">customer</span></p>
+                                                            <p><strong>当前映射:</strong> <span id="conflictRightMapping">法人实体</span></p>
+                                                            <p><strong>业务含义:</strong> <span id="conflictRightMeaning">与公司签订合同的法律实体</span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <h5 class="text-sm font-medium text-gray-700 mb-2">裁决选项与投票</h5>
+                                                <div class="space-y-3">
+                                                    <div class="bg-white rounded-lg p-4 border border-gray-200">
+                                                        <div class="flex items-center justify-between">
+                                                            <label class="font-medium text-gray-700">
+                                                                <input type="radio" name="decision" class="text-primary focus:ring-primary mr-2">
+                                                                方案1: 创建新的父概念
+                                                            </label>
+                                                            <span class="text-xs text-gray-500">支持率 62%</span>
+                                                        </div>
+                                                        <p class="text-sm text-gray-600 mt-2">创建“客户”父概念，下设“签约客户（法人实体）”与“服务联系人”。</p>
+                                                    </div>
+                                                    <div class="bg-white rounded-lg p-4 border border-gray-200">
+                                                        <div class="flex items-center justify-between">
+                                                            <label class="font-medium text-gray-700">
+                                                                <input type="radio" name="decision" class="text-primary focus:ring-primary mr-2">
+                                                                方案2: 统一采用法人实体概念
+                                                            </label>
+                                                            <span class="text-xs text-gray-500">支持率 28%</span>
+                                                        </div>
+                                                        <p class="text-sm text-gray-600 mt-2">将CRM系统重新映射到“法人实体”，新增“主要联系人”属性。</p>
+                                                    </div>
+                                                    <div class="bg-white rounded-lg p-4 border border-gray-200">
+                                                        <div class="flex items-center justify-between">
+                                                            <label class="font-medium text-gray-700">
+                                                                <input type="radio" name="decision" class="text-primary focus:ring-primary mr-2">
+                                                                方案3: 保持现状，补充语义说明
+                                                            </label>
+                                                            <span class="text-xs text-gray-500">支持率 10%</span>
+                                                        </div>
+                                                        <p class="text-sm text-gray-600 mt-2">保持现有映射不变，在元数据中补充约束。</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <h5 class="text-sm font-medium text-gray-700 mb-2">投票记录与裁决理由</h5>
+                                                <div class="bg-white rounded-lg p-4 border border-gray-200 space-y-3 text-sm text-gray-600">
+                                                    <div class="flex items-center justify-between">
+                                                        <span>张经理 · 方案1</span>
+                                                        <span class="text-xs text-gray-400">11:02</span>
+                                                    </div>
+                                                    <div class="flex items-center justify-between">
+                                                        <span>李会计 · 方案1</span>
+                                                        <span class="text-xs text-gray-400">11:08</span>
+                                                    </div>
+                                                    <div class="flex items-center justify-between">
+                                                        <span>王总监 · 方案2</span>
+                                                        <span class="text-xs text-gray-400">11:12</span>
+                                                    </div>
+                                                    <div class="pt-2 border-t border-gray-200">
+                                                        <label class="block text-xs text-gray-500 mb-1">裁决理由模板</label>
+                                                        <textarea class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-primary focus:border-transparent" rows="3">选择方案1，兼顾财务与销售语义，减少下游改造成本，并确保本体概念可扩展。</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <h5 class="text-sm font-medium text-gray-700 mb-2">裁决执行与闭环</h5>
+                                                <div class="bg-white rounded-lg p-4 border border-gray-200 text-sm text-gray-600 space-y-2">
+                                                    <div>一键同步变更至本体与映射配置</div>
+                                                    <div>自动通知下游流程负责人并更新影响清单</div>
+                                                    <div>审计追踪记录冲突处理全过程</div>
+                                                    <button id="executeDecisionButton" data-role-allow="业务架构师,冲突仲裁委员" class="mt-2 px-3 py-1.5 bg-primary text-white rounded text-xs">执行裁决并同步</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="p-4 border-t border-gray-200">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center space-x-2">
+                                                    <button class="px-3 py-2 border border-gray-300 text-gray-700 rounded text-sm font-medium hover:bg-gray-50">
+                                                        <i class="fa fa-users mr-1"></i> @相关人员
+                                                    </button>
+                                                    <button class="px-3 py-2 border border-gray-300 text-gray-700 rounded text-sm font-medium hover:bg-gray-50">
+                                                        <i class="fa fa-calendar mr-1"></i> 安排会议
+                                                    </button>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50">
+                                                        暂存
+                                                    </button>
+                                                    <button id="submitDecisionButton" data-role-allow="业务架构师,冲突仲裁委员" class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90">
+                                                        提交裁决
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-6" id="conflictAuditPanel">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-4">审计追踪</h4>
+                            <div class="space-y-3 text-sm text-gray-600" id="auditTrailList">
+                                <div class="flex items-center justify-between">
+                                    <span>2024-07-15 10:40 · 冲突ARB-2024-0715-001创建</span>
+                                    <span class="text-xs text-gray-400">系统</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span>2024-07-15 11:10 · 业务架构师提交裁决方案1</span>
+                                    <span class="text-xs text-gray-400">张经理</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span>2024-07-15 11:35 · 自动生成变更清单</span>
+                                    <span class="text-xs text-gray-400">系统</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 版本与治理 -->
+                    <div id="governanceContent" class="ontology-content hidden space-y-6">
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <button class="section-jump px-3 py-1 rounded-full border border-gray-200 text-gray-600" data-anchor="versionSnapshotPanel">版本快照</button>
+                            <button class="section-jump px-3 py-1 rounded-full border border-gray-200 text-gray-600" data-anchor="impactListPanel">影响清单</button>
+                            <button class="section-jump px-3 py-1 rounded-full border border-gray-200 text-gray-600" data-anchor="branchMergePanel">合并工作台</button>
+                            <button class="section-jump px-3 py-1 rounded-full border border-gray-200 text-gray-600" data-anchor="ruleGovernancePanel">规则治理</button>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="bg-white rounded-lg p-6 lg:col-span-2" id="versionSnapshotPanel">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-gray-900">版本快照与对比</h3>
+                                    <button id="createSnapshotButton" data-role-allow="业务架构师" class="px-3 py-1 bg-primary text-white rounded text-sm">
+                                        <i class="fa fa-camera mr-1"></i> 创建快照
+                                    </button>
+                                </div>
+                                <div id="versionSnapshotList" class="space-y-4">
+                                    <div class="flex items-center justify-between bg-gray-50 rounded-lg p-4">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-900">V2.1 主干</p>
+                                            <p class="text-xs text-gray-500">包含 12 项变更 · 2024-07-15 发布</p>
+                                        </div>
+                                        <span class="text-xs text-success bg-success-light px-2 py-1 rounded-full">当前版本</span>
+                                    </div>
+                                    <div class="flex items-center justify-between bg-gray-50 rounded-lg p-4">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-900">V2.0</p>
+                                            <p class="text-xs text-gray-500">新增合同实体 · 2024-06-30</p>
+                                        </div>
+                                        <button class="text-xs text-primary version-compare-button" data-version="V2.0">对比</button>
+                                    </div>
+                                    <div class="flex items-center justify-between bg-gray-50 rounded-lg p-4">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-900">V1.9</p>
+                                            <p class="text-xs text-gray-500">规则更新 8 条 · 2024-06-12</p>
+                                        </div>
+                                        <button class="text-xs text-primary version-compare-button" data-version="V1.9">对比</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">分支状态</h3>
+                                <div class="space-y-3 text-sm text-gray-600">
+                                    <div class="flex items-center justify-between">
+                                        <span>欧洲区分支</span>
+                                        <span class="text-xs text-warning">待合并</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span>政企行业分支</span>
+                                        <span class="text-xs text-success">同步中</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span>客服业务分支</span>
+                                        <span class="text-xs text-danger">冲突 3 项</span>
+                                    </div>
+                                </div>
+                                <button id="openMergeQueueButton" data-role-allow="业务架构师" class="w-full mt-4 px-3 py-2 border border-gray-300 text-gray-700 rounded text-sm">
+                                    查看合并队列
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-6" id="impactListPanel">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-900">变更影响清单</h3>
+                                <button id="impactListButton" class="px-3 py-1 border border-gray-300 text-gray-700 rounded text-sm">
+                                    生成影响清单
+                                </button>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 text-sm text-gray-600">
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <p class="font-medium text-gray-700 mb-2">影响应用</p>
+                                    <div class="space-y-1" id="impactAppsList">
+                                        <div>客户360视图</div>
+                                        <div>合同审批流</div>
+                                        <div>财务报表接口</div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <p class="font-medium text-gray-700 mb-2">影响指标</p>
+                                    <div class="space-y-1" id="impactMetricsList">
+                                        <div>客户转化率</div>
+                                        <div>合同金额核算</div>
+                                        <div>活跃客户数</div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <p class="font-medium text-gray-700 mb-2">影响系统</p>
+                                    <div class="space-y-1" id="impactSystemsList">
+                                        <div>CRM系统</div>
+                                        <div>财务系统</div>
+                                        <div>客服系统</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-white rounded-lg p-6" id="branchMergePanel">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">分支合并工作台</h3>
+                                <div class="space-y-3 text-sm text-gray-600">
+                                    <div class="flex items-center justify-between bg-gray-50 p-3 rounded">
+                                        <span>欧洲区分支 → 主干</span>
+                                        <span class="text-xs text-warning">冲突 2</span>
+                                    </div>
+                                    <div class="flex items-center justify-between bg-gray-50 p-3 rounded">
+                                        <span>客服业务分支 → 主干</span>
+                                        <span class="text-xs text-danger">冲突 3</span>
+                                    </div>
+                                    <div class="flex items-center justify-between bg-gray-50 p-3 rounded">
+                                        <span>供应链优化分支 → 主干</span>
+                                        <span class="text-xs text-success">无冲突</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-lg p-6" id="ruleGovernancePanel">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">规则与权限治理</h3>
+                                <div class="space-y-3 text-sm text-gray-600">
+                                    <div class="flex items-center justify-between">
+                                        <span>规则版本控制</span>
+                                        <span class="text-xs text-success">启用</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span>审批角色</span>
+                                        <span class="text-xs text-gray-500">业务架构师 / 法务总监</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span>访问控制</span>
+                                        <span class="text-xs text-gray-500">角色 + 域级权限</span>
+                                    </div>
+                                </div>
+                                <button class="mt-4 px-3 py-2 border border-gray-300 text-gray-700 rounded text-sm">
+                                    配置治理策略
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </section>
+                
+                <!-- 知识熔炉 -->

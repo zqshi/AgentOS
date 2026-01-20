@@ -1,0 +1,217 @@
+    
+    <!-- 背景动画层 -->
+    <div id="animationBackground" class="fixed inset-0 pointer-events-none opacity-20 z-0"></div>
+    
+    <!-- 通知提示 -->
+    <div id="notification" class="fixed top-4 right-4 z-50 max-w-xs hidden">
+        <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
+            <div class="p-4">
+                <div class="flex items-start">
+                    <div id="notificationIcon" class="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full mr-3"></div>
+                    <div class="flex-1">
+                        <h4 id="notificationTitle" class="text-sm font-medium text-gray-900"></h4>
+                        <p id="notificationMessage" class="text-sm text-gray-500 mt-1"></p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600 ml-4">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新建本体弹窗 -->
+    <div id="newOntologyModal" class="fixed inset-0 z-50 hidden">
+        <div id="newOntologyOverlay" class="absolute inset-0 bg-black/30"></div>
+        <div class="relative flex items-center justify-center h-full px-4">
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-lg">
+                <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">新建本体</h3>
+                    <button id="closeNewOntologyModal" class="text-gray-400 hover:text-gray-600">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="p-5 space-y-4 text-sm">
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">本体名称</label>
+                        <input id="ontologyNameInput" type="text" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="例如：合同风控模型">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">业务域</label>
+                        <input id="ontologyDomainInput" type="text" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="例如：合同域">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">概念数</label>
+                            <input id="ontologyConceptInput" type="number" min="1" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" value="12">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">关系数</label>
+                            <input id="ontologyRelationInput" type="number" min="0" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" value="4">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">版本</label>
+                            <input id="ontologyVersionInput" type="text" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" value="V1.0">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">状态</label>
+                            <select id="ontologyStatusInput" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <option>活跃</option>
+                                <option>开发中</option>
+                                <option>已归档</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">备注</label>
+                        <textarea id="ontologyNoteInput" rows="3" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="可选，描述本体用途"></textarea>
+                    </div>
+                </div>
+                <div class="flex items-center justify-end px-5 py-4 border-t border-gray-200 space-x-2">
+                    <button id="cancelNewOntology" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm">取消</button>
+                    <button id="confirmNewOntology" data-role-allow="业务架构师,领域专家" class="px-4 py-2 bg-primary text-white rounded-lg text-sm">创建本体</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新建节点弹窗 -->
+    <div id="nodeCreateModal" class="fixed inset-0 z-50 hidden">
+        <div id="nodeCreateOverlay" class="absolute inset-0 bg-black/30"></div>
+        <div class="relative flex items-center justify-center h-full px-4">
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-lg">
+                <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">新建节点</h3>
+                    <button id="closeNodeCreateModal" class="text-gray-400 hover:text-gray-600">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="p-5 space-y-4 text-sm">
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">节点类型</label>
+                        <select id="nodeTypeSelect" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="entity">实体</option>
+                            <option value="package">子域</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">名称</label>
+                        <input id="nodeNameInput" type="text" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="例如：客户">
+                    </div>
+                    <div id="nodeDomainField">
+                        <label class="block text-xs text-gray-500 mb-1">业务域</label>
+                        <input id="nodeDomainInput" type="text" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="例如：客户域">
+                    </div>
+                    <div id="nodeAttributesField">
+                        <label class="block text-xs text-gray-500 mb-1">属性（逗号分隔）</label>
+                        <input id="nodeAttributesInput" type="text" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="例如：客户ID,客户名称,客户类型">
+                    </div>
+                </div>
+                <div class="flex items-center justify-end px-5 py-4 border-t border-gray-200 space-x-2">
+                    <button id="cancelNodeCreate" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm">取消</button>
+                    <button id="confirmNodeCreate" data-role-allow="业务架构师,领域专家" class="px-4 py-2 bg-primary text-white rounded-lg text-sm">创建</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 分支合并队列弹窗 -->
+    <div id="mergeQueueModal" class="fixed inset-0 z-50 hidden">
+        <div id="mergeQueueOverlay" class="absolute inset-0 bg-black/30"></div>
+        <div class="relative flex items-center justify-center h-full px-4">
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl">
+                <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">分支合并队列</h3>
+                    <button id="closeMergeQueueModal" class="text-gray-400 hover:text-gray-600">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="p-5 space-y-4 text-sm text-gray-600">
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-medium text-gray-900">欧洲区分支 → 主干</span>
+                            <span class="text-xs text-warning">冲突 2</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span>实体「合同」属性冲突</span>
+                                <select class="border border-gray-300 rounded px-2 py-1 text-xs">
+                                    <option>保留主干</option>
+                                    <option>采用分支</option>
+                                    <option>手动合并</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span>关系「客户-合同」基数冲突</span>
+                                <select class="border border-gray-300 rounded px-2 py-1 text-xs">
+                                    <option>保留主干</option>
+                                    <option>采用分支</option>
+                                    <option>手动合并</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-medium text-gray-900">客服业务分支 → 主干</span>
+                            <span class="text-xs text-danger">冲突 3</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span>实体「服务联系人」命名冲突</span>
+                                <select class="border border-gray-300 rounded px-2 py-1 text-xs">
+                                    <option>保留主干</option>
+                                    <option>采用分支</option>
+                                    <option>手动合并</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span>规则「合同金额审批」冲突</span>
+                                <select class="border border-gray-300 rounded px-2 py-1 text-xs">
+                                    <option>保留主干</option>
+                                    <option>采用分支</option>
+                                    <option>手动合并</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-end px-5 py-4 border-t border-gray-200 space-x-2">
+                    <button id="cancelMergeQueue" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm">取消</button>
+                    <button id="executeMergeButton" data-role-allow="业务架构师" class="px-4 py-2 bg-primary text-white rounded-lg text-sm">执行合并</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 资源管理抽屉 -->
+    <div id="resourceDrawer" class="fixed inset-0 z-50 hidden">
+        <div id="resourceDrawerOverlay" class="absolute inset-0 bg-black/30"></div>
+        <div id="resourceDrawerPanel" class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-xl transform translate-x-full transition-transform duration-200">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900" id="resourceDrawerTitle">新增资源</h3>
+                <button id="closeResourceDrawer" class="text-gray-400 hover:text-gray-600">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+                <div class="p-5 space-y-4 text-sm">
+                    <div id="resourceFormAlert" class="hidden text-xs text-danger bg-danger-light border border-danger-light rounded px-3 py-2"></div>
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1">名称</label>
+                        <input id="resourceNameInput" type="text" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-500 mb-1">描述</label>
+                    <textarea id="resourceDescInput" rows="3" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                </div>
+                <div id="resourceExtraFields" class="space-y-3"></div>
+            </div>
+            <div class="flex items-center justify-end px-5 py-4 border-t border-gray-200 space-x-2">
+                <button id="cancelResourceDrawer" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm">取消</button>
+                <button id="confirmResourceDrawer" class="px-4 py-2 bg-primary text-white rounded-lg text-sm">保存</button>
+            </div>
+        </div>
+    </div>
+    
